@@ -44,6 +44,7 @@
             display: flex;
             justify-content: space-between;
             margin: 20px 0;
+            align-items: flex-start;
         }
 
         .left, .center, .right {
@@ -139,6 +140,19 @@
             text-decoration: none;
             font-size: 14px;
         }
+
+        .aligned-section {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 1200px;
+            margin: 20px 0;
+            align-items: flex-start;
+        }
+
+        .aligned-section p {
+            margin-top: 0;
+        }
     </style>
 </head>
 <body>
@@ -149,19 +163,32 @@
         <button>Pełny ekran</button>
     </div>
 
-    <div class="center">
-        <p>Wpisz nazwy drużyn:</p>
-        <input type="text" placeholder="Wpisz nazwę drużyny nr 1">
-        <input type="text" placeholder="Wpisz nazwę drużyny nr 2">
-    </div>
-
-    <div class="section">
+    <div class="aligned-section">
         <div class="left">
             <p>Wybierz wersję gry:</p>
             <div class="vertical-buttons">
                 <button>Własne pytania</button>
                 <button>Gotowe pytania</button>
             </div>
+        </div>
+
+        <div class="center">
+            <p>Wpisz nazwy drużyn:</p>
+            <input type="text" placeholder="Wpisz nazwę drużyny nr 1">
+            <input type="text" placeholder="Wpisz nazwę drużyny nr 2">
+        </div>
+
+        <div class="right">
+            <p>Wybierz drużynę rozpoczynającą grę:</p>
+            <div class="vertical-buttons">
+                <button>Drużyna 1</button>
+                <button>Drużyna 2</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="aligned-section">
+        <div class="left">
             <p>Wybierz ilość rund:</p>
             <div class="rounds-container">
                 <button>3</button>
@@ -182,11 +209,6 @@
         </div>
 
         <div class="right">
-            <p>Wybierz drużynę rozpoczynającą grę:</p>
-            <div class="vertical-buttons">
-                <button>Drużyna 1</button>
-                <button>Drużyna 2</button>
-            </div>
             <p>Czy po rozegranych rundach ma nastąpić finał?</p>
             <div class="vertical-buttons">
                 <button>Tak</button>
