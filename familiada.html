@@ -19,7 +19,7 @@
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      align-items: center;
+      align-items: stretch;
       transition: padding-top 0.3s ease;
       position: relative;
     }
@@ -46,7 +46,6 @@
       gap: 40px;
       margin-bottom: 20px;
       width: 100%;
-      max-width: 100%;
       padding: 0 20px;
     }
 
@@ -146,7 +145,6 @@
       justify-content: center;
       align-items: center;
       width: 100%;
-      max-width: 100%;
       padding: 0 20px;
     }
 
@@ -155,12 +153,11 @@
       gap: 20px;
       justify-content: center;
       width: 100%;
-      max-width: 620px;
     }
 
     .button-row button {
       flex: 1 1 45%;
-      max-width: 300px;
+      max-width: none;
     }
 
     #nextBtn-container {
@@ -168,7 +165,6 @@
       display: flex;
       justify-content: center;
       width: 100%;
-      max-width: 100%;
     }
 
     #instructions-screen {
@@ -176,7 +172,6 @@
       flex-direction: column;
       align-items: center;
       width: 100%;
-      max-width: 100%;
       gap: 20px;
       padding: 0 20px;
     }
@@ -195,7 +190,6 @@
       align-items: center;
       gap: 20px;
       width: 100%;
-      max-width: 100%;
       padding: 0 20px;
     }
 
@@ -221,12 +215,14 @@
 
     .container {
       position: relative;
-      width: 800px;
+      width: 100%;
+      max-width: 800px;
       height: 500px;
       background: radial-gradient(circle, #fff 10%, transparent 70%);
       border-radius: 50px 50px 100px 100px;
       overflow: hidden;
       box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+      margin: 0 auto;
     }
 
     .top-bar {
