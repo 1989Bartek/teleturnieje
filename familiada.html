@@ -22,8 +22,8 @@
 
         h1 {
             font-family: 'Playfair Display', serif;
-            font-size: 72px;
-            margin: 20px 0;
+            font-size: 64px;
+            margin: 15px 0;
             background: linear-gradient(to right, #FFD700, #FFEA00, #FFD700);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -35,16 +35,16 @@
         .button-container {
             display: flex;
             justify-content: center;
-            gap: 20px;
-            margin: 10px 0;
+            gap: 15px;
+            margin: 8px 0;
         }
 
         .section {
             width: 100%;
-            max-width: 1200px;
+            max-width: 1080px;
             display: flex;
             justify-content: space-between;
-            margin: 20px 0;
+            margin: 15px 0;
             align-items: flex-start;
         }
 
@@ -62,27 +62,28 @@
 
         input[type="text"] {
             width: 80%;
-            max-width: 300px;
-            padding: 10px;
-            margin: 10px 0;
-            border: 4px solid #fff;
+            max-width: 270px;
+            padding: 8px;
+            margin: 8px 0;
+            border: 4px solid #FFEA00;
             border-radius: 5px;
             background-color: #fff;
             color: #000;
-            font-size: 16px;
+            font-size: 14px;
+            box-shadow: 0 0 20px #FFEA00;
         }
 
         .vertical-buttons {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 8px;
         }
 
         .rounds-container, .times-container {
             display: grid;
             grid-template-columns: repeat(2, auto);
-            gap: 10px;
-            margin: 10px 0;
+            gap: 8px;
+            margin: 8px 0;
         }
 
         .rounds-container {
@@ -98,23 +99,19 @@
             border: 4px solid #fff;
             color: #FFFF33;
             font-family: 'Courier New', monospace;
-            font-size: 24px;
-            padding: 12px 36px;
-            border-radius: 8px;
+            font-size: 22px;
+            padding: 10px 30px;
+            border-radius: 7px;
             box-shadow: 0 0 10px #FFD700;
             cursor: pointer;
             transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
-            min-width: 300px;
+            min-width: 270px;
             text-align: center;
             text-transform: capitalize;
         }
 
         .rounds-container button, .times-container button {
-            min-width: 150px;
-        }
-
-        button.infinity span {
-            font-size: 72px;
+            min-width: 135px;
         }
 
         button.active {
@@ -131,38 +128,37 @@
         }
 
         .bottom-logo {
-            position: fixed;
-            bottom: 10px;
+            position: absolute;
+            bottom: 20px;
             right: 10px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            z-index: 10;
         }
 
         .bottom-logo img {
-            width: 200px;
+            width: 180px;
             margin-bottom: 5px;
         }
 
         .bottom-logo a {
             color: white;
             text-decoration: none;
-            font-size: 14px;
+            font-size: 13px;
         }
 
         .aligned-section {
             display: flex;
             justify-content: space-between;
             width: 100%;
-            max-width: 1200px;
-            margin: 20px 0;
+            max-width: 1080px;
+            margin: 15px 0;
             align-items: flex-start;
         }
 
         .aligned-section p {
             margin-top: 0;
-            font-size: 24px;
+            font-size: 22px;
         }
 
         .right .vertical-buttons {
@@ -171,14 +167,14 @@
 
         @media screen and (max-width: 1200px) {
             h1 {
-                font-size: 48px;
+                font-size: 44px;
             }
 
             .section, .aligned-section {
                 max-width: 90%;
                 flex-direction: column;
                 align-items: center;
-                gap: 20px;
+                gap: 15px;
             }
 
             .left, .center, .right {
@@ -188,63 +184,63 @@
 
             input[type="text"] {
                 width: 90%;
-                max-width: 400px;
+                max-width: 360px;
             }
 
             button {
-                min-width: 250px;
-                font-size: 20px;
-                padding: 10px 20px;
+                min-width: 225px;
+                font-size: 18px;
+                padding: 8px 18px;
             }
 
             .rounds-container button, .times-container button {
-                min-width: 120px;
+                min-width: 108px;
             }
 
             .bottom-logo img {
-                width: 150px;
+                width: 135px;
             }
 
             .bottom-logo a {
-                font-size: 12px;
+                font-size: 11px;
             }
 
             .aligned-section p {
-                font-size: 20px;
+                font-size: 18px;
             }
         }
 
         @media screen and (max-width: 600px) {
             h1 {
-                font-size: 36px;
+                font-size: 32px;
             }
 
             button {
-                min-width: 200px;
-                font-size: 18px;
-                padding: 8px 16px;
+                min-width: 180px;
+                font-size: 16px;
+                padding: 7px 14px;
             }
 
             .rounds-container button, .times-container button {
-                min-width: 100px;
+                min-width: 90px;
             }
 
             input[type="text"] {
                 width: 90%;
-                max-width: 300px;
-                font-size: 14px;
+                max-width: 270px;
+                font-size: 13px;
             }
 
             .aligned-section p {
-                font-size: 18px;
+                font-size: 16px;
             }
 
             .bottom-logo img {
-                width: 120px;
+                width: 108px;
             }
 
             .bottom-logo a {
-                font-size: 10px;
+                font-size: 9px;
             }
         }
     </style>
@@ -268,15 +264,15 @@
 
         <div class="center">
             <p>Drużyny:</p>
-            <input type="text" placeholder="Wpisz nazwę drużyny nr 1">
-            <input type="text" placeholder="Wpisz nazwę drużyny nr 2">
+            <input type="text" id="team1-input" placeholder="Wpisz nazwę drużyny nr 1" maxlength="18">
+            <input type="text" id="team2-input" placeholder="Wpisz nazwę drużyny nr 2" maxlength="18">
         </div>
 
         <div class="right">
             <p>Grę rozpocznie:</p>
             <div class="vertical-buttons">
-                <button>Drużyna 1</button>
-                <button>Drużyna 2</button>
+                <button id="team1-btn">Drużyna 1</button>
+                <button id="team2-btn">Drużyna 2</button>
             </div>
         </div>
     </div>
@@ -298,7 +294,7 @@
                 <button>15s</button>
                 <button>30s</button>
                 <button>60s</button>
-                <button class="infinity"><span>∞</span></button>
+                <button>Brak</button>
             </div>
         </div>
 
@@ -311,7 +307,7 @@
         </div>
     </div>
 
-    <button style="margin: 20px 0; min-width: 300px;">Dalej</button>
+    <button style="margin: 15px 0; min-width: 270px;">Dalej</button>
 
     <div class="bottom-logo">
         <img src="familiada/logo.png" alt="Logo">
@@ -320,6 +316,10 @@
 
     <script>
         const fullscreenBtn = document.getElementById('fullscreen-btn');
+        const team1Input = document.getElementById('team1-input');
+        const team2Input = document.getElementById('team2-input');
+        const team1Btn = document.getElementById('team1-btn');
+        const team2Btn = document.getElementById('team2-btn');
 
         fullscreenBtn.addEventListener('click', () => {
             if (!document.fullscreenElement) {
@@ -335,6 +335,14 @@
                     console.error(`Error attempting to exit fullscreen: ${err.message}`);
                 });
             }
+        });
+
+        team1Input.addEventListener('input', () => {
+            team1Btn.textContent = team1Input.value || 'Drużyna 1';
+        });
+
+        team2Input.addEventListener('input', () => {
+            team2Btn.textContent = team2Input.value || 'Drużyna 2';
         });
     </script>
 </body>
