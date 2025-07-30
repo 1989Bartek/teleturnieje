@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Familiada</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <style>
         body {
             background: linear-gradient(to right, #d40000, #000033, #0033cc);
@@ -19,9 +20,14 @@
         }
 
         h1 {
-            color: #FFD700;
+            font-family: 'Playfair Display', serif;
             font-size: 48px;
             margin: 20px 0;
+            background: linear-gradient(to right, #FFD700, #FFEA00, #FFD700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 10px #FFD700;
+            text-transform: uppercase;
         }
 
         .button-container {
@@ -76,6 +82,21 @@
             margin: 10px 0;
         }
 
+        .rounds-container, .times-container {
+            display: grid;
+            grid-template-columns: repeat(2, auto);
+            gap: 10px;
+            margin: 10px 0;
+        }
+
+        .rounds-container {
+            justify-content: flex-start;
+        }
+
+        .times-container {
+            justify-content: center;
+        }
+
         button {
             background-color: #000;
             border: 4px solid #fff;
@@ -87,7 +108,7 @@
             box-shadow: 0 0 10px #FFD700;
             cursor: pointer;
             transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
-            min-width: 280px;
+            min-width: 140px;
             text-align: center;
             text-transform: capitalize;
         }
@@ -115,7 +136,7 @@
         }
 
         .bottom-logo img {
-            width: 100px; /* Dostosuj rozmiar logo */
+            width: 200px;
             margin-bottom: 5px;
         }
 
@@ -134,27 +155,27 @@
         <button>Pełny ekran</button>
     </div>
 
-    <div class="button-container">
-        <button>Własne pytania</button>
-        <button>Gotowe pytania</button>
-    </div>
-
     <div class="section">
         <div class="left">
+            <p>Wybierz wersję gry:</p>
+            <div class="vertical-buttons">
+                <button>Własne pytania</button>
+                <button>Gotowe pytania</button>
+            </div>
+        </div>
+
+        <div class="center">
             <p>Jakie drużyny biorą udział w grze?</p>
             <input type="text" placeholder="Wpisz nazwę drużyny nr 1">
             <input type="text" placeholder="Wpisz nazwę drużyny nr 2">
         </div>
 
-        <div class="center">
+        <div class="right">
             <p>Która drużyna ma rozpocząć grę?</p>
             <div class="vertical-buttons">
                 <button>Drużyna 1</button>
                 <button>Drużyna 2</button>
             </div>
-        </div>
-
-        <div class="right">
             <p>Czy po rozegranych rundach ma nastąpić finał?</p>
             <div class="vertical-buttons">
                 <button>Tak</button>
@@ -164,7 +185,7 @@
     </div>
 
     <p>Ile rund ma trwać rozgrywka?</p>
-    <div class="horizontal-buttons">
+    <div class="rounds-container">
         <button>3</button>
         <button>5</button>
         <button>7</button>
@@ -172,7 +193,7 @@
     </div>
 
     <p>Jaki ma być czas na podanie odpowiedzi?</p>
-    <div class="horizontal-buttons">
+    <div class="times-container">
         <button>15 sek.</button>
         <button>30 sek.</button>
         <button>60 sek.</button>
