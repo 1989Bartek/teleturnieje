@@ -21,13 +21,14 @@
 
         h1 {
             font-family: 'Playfair Display', serif;
-            font-size: 56px;
+            font-size: 64px;
             margin: 20px 0;
             background: linear-gradient(to right, #FFD700, #FFEA00, #FFD700);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             text-shadow: 0 0 10px #FFD700;
             text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
         .button-container {
@@ -101,7 +102,7 @@
             box-shadow: 0 0 10px #FFD700;
             cursor: pointer;
             transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
-            min-width: 210px;
+            min-width: 105px;
             text-align: center;
             text-transform: capitalize;
         }
@@ -148,6 +149,12 @@
         <button>Pełny ekran</button>
     </div>
 
+    <div class="center">
+        <p>Wpisz nazwy drużyn:</p>
+        <input type="text" placeholder="Wpisz nazwę drużyny nr 1">
+        <input type="text" placeholder="Wpisz nazwę drużyny nr 2">
+    </div>
+
     <div class="section">
         <div class="left">
             <p>Wybierz wersję gry:</p>
@@ -155,7 +162,7 @@
                 <button>Własne pytania</button>
                 <button>Gotowe pytania</button>
             </div>
-            <p>Ile rund ma trwać rozgrywka?</p>
+            <p>Wybierz ilość rund:</p>
             <div class="rounds-container">
                 <button>3</button>
                 <button>5</button>
@@ -165,28 +172,25 @@
         </div>
 
         <div class="center">
-            <p>Jakie drużyny biorą udział w grze?</p>
-            <input type="text" placeholder="Wpisz nazwę drużyny nr 1">
-            <input type="text" placeholder="Wpisz nazwę drużyny nr 2">
-            <p>Jaki ma być czas na podanie odpowiedzi?</p>
+            <p>Wybierz czas na odpowiedź:</p>
             <div class="times-container">
-                <button>15 sek.</button>
-                <button>30 sek.</button>
-                <button>60 sek.</button>
-                <button>Bez czasu</button>
+                <button>15s</button>
+                <button>30s</button>
+                <button>60s</button>
+                <button>∞</button>
             </div>
         </div>
 
         <div class="right">
+            <p>Wybierz drużynę rozpoczynającą grę:</p>
+            <div class="vertical-buttons">
+                <button>Drużyna 1</button>
+                <button>Drużyna 2</button>
+            </div>
             <p>Czy po rozegranych rundach ma nastąpić finał?</p>
             <div class="vertical-buttons">
                 <button>Tak</button>
                 <button>Nie</button>
-            </div>
-            <p>Która drużyna ma rozpocząć grę?</p>
-            <div class="vertical-buttons">
-                <button>Drużyna 1</button>
-                <button>Drużyna 2</button>
             </div>
         </div>
     </div>
