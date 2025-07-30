@@ -1,113 +1,198 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-  <meta charset="UTF-8">
-  <title>Tablica Familiada</title>
-  <style>
-    body {
-      margin: 0;
-      background: linear-gradient(to right, #d40000, #000033, #0033cc);
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Courier New', monospace;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Familiada Tablica</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(to right, #d40000, #000033, #0033cc); /* Wyciągnięty kolor tła z podanego kodu */
+            font-family: 'Courier New', Courier, monospace; /* Czcionka monospaced dla efektu LED */
+            color: #FFFF00; /* Żółty dla tekstu */
+        }
 
-    .container {
-      background: #000;
-      padding: 20px;
-      border: 12px solid #ccc;
-      border-radius: 40px;
-      width: 800px;
-      box-shadow: 0 0 30px rgba(0,0,0,0.8);
-      position: relative;
-    }
+        .container {
+            position: relative;
+            width: 800px;
+            height: 500px;
+            background: radial-gradient(circle, #FFFFFF 10%, transparent 70%); /* Lekki gradient dla zaokrąglonego panelu */
+            border-radius: 50px 50px 100px 100px; /* Zaokrąglone krawędzie jak na screenie */
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+        }
 
-    .score-top {
-      font-size: 60px;
-      color: #ccff00;
-      text-align: center;
-      margin-bottom: 20px;
-      letter-spacing: 10px;
-    }
+        .top-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 80px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0 20px;
+            z-index: 2;
+        }
 
-    .row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: #111;
-      margin: 5px 0;
-      padding: 8px 16px;
-      border: 2px solid #444;
-      border-radius: 6px;
-      color: #ffff33;
-      font-size: 32px;
-      letter-spacing: 2px;
-    }
+        .score {
+            font-size: 60px;
+            font-weight: bold;
+            text-shadow: 0 0 10px #FFFF00; /* Efekt świecenia */
+            letter-spacing: 5px; /* Dla efektu LED */
+        }
 
-    .dots {
-      color: #ffff33;
-      font-size: 30px;
-    }
+        .board {
+            position: absolute;
+            top: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: 300px;
+            background: #000000; /* Tablica czarna */
+            border: 2px solid #000000;
+            padding: 20px;
+            display: grid;
+            grid-template-rows: repeat(6, 1fr); /* 5 linii + suma */
+            gap: 10px;
+            font-size: 24px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            background-image: 
+                repeating-linear-gradient(0deg, transparent, transparent 4px, #222222 4px, #222222 5px), /* Pionowe linie */
+                repeating-linear-gradient(90deg, transparent, transparent 4px, #222222 4px, #222222 5px); /* Poziome linie */
+            background-size: 5px 5px; /* Siatka kropek */
+        }
 
-    .x-column {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-around;
-      position: absolute;
-      top: 120px;
-      bottom: 60px;
-      font-size: 26px;
-      color: #99ff33;
-    }
+        .row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
 
-    .x-left {
-      left: -50px;
-    }
+        .number {
+            width: 50px;
+            text-align: right;
+        }
 
-    .x-right {
-      right: -50px;
-    }
+        .answer {
+            flex: 1;
+            text-align: left;
+            padding-left: 20px;
+            white-space: nowrap;
+            overflow: hidden;
+        }
 
-    .sum-row {
-      display: flex;
-      justify-content: flex-end;
-      margin-top: 20px;
-      color: #ffff33;
-      font-size: 28px;
-      padding-right: 10px;
-      letter-spacing: 2px;
-    }
+        .points {
+            width: 50px;
+            text-align: right;
+        }
 
-    .sum-row span {
-      margin-left: 20px;
-    }
-  </style>
+        .x-mark {
+            position: absolute;
+            right: -50px; /* Dostosowana pozycja dla większego rozmiaru */
+            font-size: 90px; /* 3 razy większe (było 30px) */
+            color: #FFFF00;
+            text-shadow: 0 0 5px #FFFF00;
+        }
+
+        .x-mark-left {
+            position: absolute;
+            left: -50px; /* Dostosowana pozycja dla większego rozmiaru */
+            font-size: 90px; /* 3 razy większe (było 30px) */
+            color: #FFFF00;
+            text-shadow: 0 0 5px #FFFF00;
+        }
+
+        .dotted {
+            color: transparent;
+            text-shadow: 0 0 0 #FFFF00; /* Symulacja kropek */
+            letter-spacing: 1px;
+        }
+
+        .sum-row {
+            border-top: 2px dotted #FFFF00;
+            padding-top: 10px;
+            justify-content: flex-end;
+        }
+
+        .sum-label {
+            flex: 1;
+            text-align: right;
+            padding-right: 20px;
+        }
+
+        .sum-points {
+            width: 50px;
+            text-align: right;
+        }
+
+        /* Specyficzne X-y po prawej przy odpowiedziach */
+        .row:nth-child(1) .x-mark { top: -20px; } /* Dostosowane pozycje dla większego rozmiaru */
+        .row:nth-child(2) .x-mark { top: 20px; }
+        .row:nth-child(3) .x-mark { top: 60px; }
+        .row:nth-child(4) .x-mark { top: 100px; }
+        .row:nth-child(5) .x-mark { top: 140px; }
+
+        /* X-y po lewej */
+        .x-mark-left:nth-child(1) { top: 0px; }
+        .x-mark-left:nth-child(2) { top: 80px; }
+        .x-mark-left:nth-child(3) { top: 160px; }
+
+    </style>
 </head>
 <body>
-  <div class="container">
-    <div class="score-top">160</div>
-
-    <div class="x-column x-left">
-      <div>( )</div>
-      <div>(X)</div>
-      <div>( )</div>
+    <div class="container">
+        <div class="top-bar">
+            <div class="score">160</div>
+        </div>
+        <div class="board">
+            <div class="row">
+                <span class="number">1</span>
+                <span class="answer">ŚLĄSK</span>
+                <span class="points">36</span>
+                <span class="x-mark">&#x2716;</span> <!-- X jako unicode -->
+            </div>
+            <div class="row">
+                <span class="number">2</span>
+                <span class="answer">KASZUBY</span>
+                <span class="points">27</span>
+                <span class="x-mark">&#x2716;</span>
+            </div>
+            <div class="row">
+                <span class="number">3</span>
+                <span class="answer">PODHALE</span>
+                <span class="points">17</span>
+                <span class="x-mark">&#x2716;</span>
+            </div>
+            <div class="row">
+                <span class="number">4</span>
+                <span class="answer dotted">....................</span>
+                <span class="points dotted">..</span>
+                <span class="x-mark">&#x2716;</span>
+            </div>
+            <div class="row">
+                <span class="number">5</span>
+                <span class="answer dotted">....................</span>
+                <span class="points dotted">..</span>
+                <span class="x-mark">&#x2716;</span>
+            </div>
+            <div class="sum-row row">
+                <span class="sum-label">SUMA</span>
+                <span class="sum-points">80</span>
+                <span class="x-mark">&#x2716;</span>
+            </div>
+        </div>
+        <!-- X-y po lewej stronie tablicy -->
+        <span class="x-mark-left">&#x2716;</span>
+        <span class="x-mark-left">&#x2716;</span>
+        <span class="x-mark-left">&#x2716;</span>
     </div>
-
-    <div class="x-column x-right">
-      <div>(X)</div>
-      <div>( )</div>
-      <div>(X)</div>
-    </div>
-
-    <div class="row"><span>1 ŚLĄSK</span><span>36</span></div>
-    <div class="row"><span>2 KASZUBY</span><span>27</span></div>
-    <div class="row"><span>3 PODHALE</span><span>17</span></div>
-    <div class="row"><span class="dots">4 ..............................</span></div>
-    <div class="row"><span class="dots">5 ..............................</span></div>
-
-    <div class="sum-row">SUMA <span>80</span></div>
-  </div>
 </body>
 </html>
