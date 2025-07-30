@@ -21,7 +21,7 @@
 
         h1 {
             font-family: 'Playfair Display', serif;
-            font-size: 48px;
+            font-size: 56px;
             margin: 20px 0;
             background: linear-gradient(to right, #FFD700, #FFEA00, #FFD700);
             -webkit-background-clip: text;
@@ -75,13 +75,6 @@
             gap: 10px;
         }
 
-        .horizontal-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin: 10px 0;
-        }
-
         .rounds-container, .times-container {
             display: grid;
             grid-template-columns: repeat(2, auto);
@@ -108,7 +101,7 @@
             box-shadow: 0 0 10px #FFD700;
             cursor: pointer;
             transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
-            min-width: 140px;
+            min-width: 210px;
             text-align: center;
             text-transform: capitalize;
         }
@@ -162,42 +155,40 @@
                 <button>Własne pytania</button>
                 <button>Gotowe pytania</button>
             </div>
+            <p>Ile rund ma trwać rozgrywka?</p>
+            <div class="rounds-container">
+                <button>3</button>
+                <button>5</button>
+                <button>7</button>
+                <button>9</button>
+            </div>
         </div>
 
         <div class="center">
             <p>Jakie drużyny biorą udział w grze?</p>
             <input type="text" placeholder="Wpisz nazwę drużyny nr 1">
             <input type="text" placeholder="Wpisz nazwę drużyny nr 2">
+            <p>Jaki ma być czas na podanie odpowiedzi?</p>
+            <div class="times-container">
+                <button>15 sek.</button>
+                <button>30 sek.</button>
+                <button>60 sek.</button>
+                <button>Bez czasu</button>
+            </div>
         </div>
 
         <div class="right">
-            <p>Która drużyna ma rozpocząć grę?</p>
-            <div class="vertical-buttons">
-                <button>Drużyna 1</button>
-                <button>Drużyna 2</button>
-            </div>
             <p>Czy po rozegranych rundach ma nastąpić finał?</p>
             <div class="vertical-buttons">
                 <button>Tak</button>
                 <button>Nie</button>
             </div>
+            <p>Która drużyna ma rozpocząć grę?</p>
+            <div class="vertical-buttons">
+                <button>Drużyna 1</button>
+                <button>Drużyna 2</button>
+            </div>
         </div>
-    </div>
-
-    <p>Ile rund ma trwać rozgrywka?</p>
-    <div class="rounds-container">
-        <button>3</button>
-        <button>5</button>
-        <button>7</button>
-        <button>9</button>
-    </div>
-
-    <p>Jaki ma być czas na podanie odpowiedzi?</p>
-    <div class="times-container">
-        <button>15 sek.</button>
-        <button>30 sek.</button>
-        <button>60 sek.</button>
-        <button>Bez czasu</button>
     </div>
 
     <button style="margin: 20px 0;">Dalej</button>
