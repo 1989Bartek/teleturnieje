@@ -21,6 +21,11 @@
             position: relative;
             box-sizing: border-box;
             min-height: 100vh;
+            justify-content: space-between;
+        }
+
+        .content {
+            margin-top: 20px;
         }
 
         h1 {
@@ -130,23 +135,23 @@
         }
 
         .bottom-logo {
-            position: absolute;
-            bottom: 24px;
-            right: 12px;
             display: flex;
             flex-direction: column;
             align-items: center;
+            align-self: flex-end;
+            margin-right: 12px;
+            margin-bottom: 24px;
         }
 
         .bottom-logo img {
-            width: 200px;
+            width: 180px;
             margin-bottom: 6px;
         }
 
         .bottom-logo a {
             color: white;
             text-decoration: none;
-            font-size: 14px;
+            font-size: 13px;
         }
 
         .aligned-section {
@@ -165,6 +170,17 @@
 
         .right .vertical-buttons {
             margin-top: 12px;
+        }
+
+        body.fullscreen .content {
+            margin-top: 50px;
+            transform: scale(1.1);
+            transform-origin: top;
+        }
+
+        body.fullscreen .bottom-logo {
+            transform: scale(1.1);
+            transform-origin: bottom right;
         }
 
         @media screen and (max-width: 1200px) {
@@ -200,11 +216,11 @@
             }
 
             .bottom-logo img {
-                width: 150px;
+                width: 140px;
             }
 
             .bottom-logo a {
-                font-size: 12px;
+                font-size: 11px;
             }
 
             .aligned-section p {
@@ -238,78 +254,80 @@
             }
 
             .bottom-logo img {
-                width: 120px;
+                width: 100px;
             }
 
             .bottom-logo a {
-                font-size: 10px;
+                font-size: 9px;
             }
         }
     </style>
 </head>
 <body>
-    <h1>Familiada</h1>
+    <div class="content">
+        <h1>Familiada</h1>
 
-    <div class="button-container">
-        <button>Instrukcja</button>
-        <button id="fullscreen-btn">Pełny ekran</button>
+        <div class="button-container">
+            <button>Instrukcja</button>
+            <button id="fullscreen-btn">Pełny ekran</button>
+        </div>
+
+        <div class="aligned-section">
+            <div class="left">
+                <p>Wariant gry:</p>
+                <div class="vertical-buttons">
+                    <button>Własne pytania</button>
+                    <button>Gotowe pytania</button>
+                </div>
+            </div>
+
+            <div class="center">
+                <p>Drużyny:</p>
+                <input type="text" id="team1-input" placeholder="Wpisz nazwę drużyny nr 1" maxlength="15">
+                <input type="text" id="team2-input" placeholder="Wpisz nazwę drużyny nr 2" maxlength="15">
+            </div>
+
+            <div class="right">
+                <p>Grę rozpocznie:</p>
+                <div class="vertical-buttons">
+                    <button id="team1-btn">Drużyna 1</button>
+                    <button id="team2-btn">Drużyna 2</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="aligned-section">
+            <div class="left">
+                <p>Ilość rund:</p>
+                <div class="rounds-container">
+                    <button>3</button>
+                    <button>5</button>
+                    <button>7</button>
+                    <button>9</button>
+                </div>
+            </div>
+
+            <div class="center">
+                <p>Czas na odpowiedź:</p>
+                <div class="times-container">
+                    <button>15s</button>
+                    <button>30s</button>
+                    <button>60s</button>
+                    <button>Brak</button>
+                </div>
+            </div>
+
+            <div class="right">
+                <p>Zakończenie gry:</p>
+                <div class="vertical-buttons">
+                    <button>Finał</button>
+                    <button>Ostatnia runda</button>
+                </div>
+            </div>
+        </div>
+
+        <button style="margin: 18px 0; min-width: 320px;">Dalej</button>
     </div>
-
-    <div class="aligned-section">
-        <div class="left">
-            <p>Wariant gry:</p>
-            <div class="vertical-buttons">
-                <button>Własne pytania</button>
-                <button>Gotowe pytania</button>
-            </div>
-        </div>
-
-        <div class="center">
-            <p>Drużyny:</p>
-            <input type="text" id="team1-input" placeholder="Wpisz nazwę drużyny nr 1" maxlength="15">
-            <input type="text" id="team2-input" placeholder="Wpisz nazwę drużyny nr 2" maxlength="15">
-        </div>
-
-        <div class="right">
-            <p>Grę rozpocznie:</p>
-            <div class="vertical-buttons">
-                <button id="team1-btn">Drużyna 1</button>
-                <button id="team2-btn">Drużyna 2</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="aligned-section">
-        <div class="left">
-            <p>Ilość rund:</p>
-            <div class="rounds-container">
-                <button>3</button>
-                <button>5</button>
-                <button>7</button>
-                <button>9</button>
-            </div>
-        </div>
-
-        <div class="center">
-            <p>Czas na odpowiedź:</p>
-            <div class="times-container">
-                <button>15s</button>
-                <button>30s</button>
-                <button>60s</button>
-                <button>Brak</button>
-            </div>
-        </div>
-
-        <div class="right">
-            <p>Zakończenie gry:</p>
-            <div class="vertical-buttons">
-                <button>Finał</button>
-                <button>Ostatnia runda</button>
-            </div>
-        </div>
-    </div>
-
-    <button style="margin: 18px 0; min-width: 320px;">Dalej</button>
 
     <div class="bottom-logo">
         <img src="familiada/logo.png" alt="Logo">
@@ -327,12 +345,14 @@
             if (!document.fullscreenElement) {
                 document.documentElement.requestFullscreen().then(() => {
                     fullscreenBtn.textContent = 'Podstawowy ekran';
+                    document.body.classList.add('fullscreen');
                 }).catch(err => {
                     console.error(`Error attempting to enable fullscreen: ${err.message}`);
                 });
             } else {
                 document.exitFullscreen().then(() => {
                     fullscreenBtn.textContent = 'Pełny ekran';
+                    document.body.classList.remove('fullscreen');
                 }).catch(err => {
                     console.error(`Error attempting to exit fullscreen: ${err.message}`);
                 });
