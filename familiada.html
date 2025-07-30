@@ -134,8 +134,9 @@
     }
 
     #btnTeam1, #btnTeam2, [data-final="tak"], [data-final="nie"] {
-      width: 200px;
+      width: 250px;
       min-width: unset;
+      white-space: nowrap; /* Prevent text wrap */
     }
 
     #nextBtn:hover, #configFullscreenBtn:hover, #instructionsBtn:hover, #instructionsReturnBtn:hover, 
@@ -332,8 +333,9 @@
       }
 
       #btnTeam1, #btnTeam2, [data-final="tak"], [data-final="nie"] {
-        width: clamp(100px, 40vw, 140px);
+        width: clamp(120px, 45vw, 160px);
         max-width: unset;
+        white-space: nowrap; /* Prevent text wrap */
       }
 
       #nextBtn, #instructionsBtn, #instructionsReturnBtn, #ownQuestionsBtn, #readyQuestionsBtn, #returnBtn {
