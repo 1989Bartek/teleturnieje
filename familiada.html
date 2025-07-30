@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Familiada</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
     * {
       box-sizing: border-box;
@@ -22,6 +22,7 @@
       align-items: stretch;
       transition: padding-top 0.3s ease;
       position: relative;
+      margin: 0;
     }
 
     body.fullscreen-active {
@@ -35,9 +36,19 @@
       background: #FFEA00;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      margin-bottom: 20px;
-      text-align: center;
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
       width: 100%;
+      text-align: center;
+      z-index: 1000;
+    }
+
+    .content-wrapper {
+      flex: 1;
+      width: 100%;
+      padding-top: 100px; /* Zapewnia miejsce na stały tytuł */
     }
 
     .config-container {
@@ -270,71 +281,73 @@
 </head>
 <body>
   <h1 id="game-title">FAMILIADA</h1>
-  <div id="config-buttons">
-    <div class="button-row">
-      <button id="instructionsBtn">Instrukcja</button>
-      <button id="configFullscreenBtn">Pełny ekran</button>
-    </div>
-    <div class="button-row">
-      <button id="ownQuestionsBtn">Własne pytania</button>
-      <button id="readyQuestionsBtn">Gotowe pytania</button>
-    </div>
-  </div>
-
-  <div id="config-screen">
-    <div class="config-container">
-      <div class="team-inputs">
-        <div class="team-input">
-          <label for="team1">Nazwy drużyn</label>
-          <input type="text" id="team1" maxlength="18" placeholder="Wpisz nazwę drużyny nr 1">
-          <input type="text" id="team2" maxlength="18" placeholder="Wpisz nazwę drużyny nr 2">
-        </div>
+  <div class="content-wrapper">
+    <div id="config-buttons">
+      <div class="button-row">
+        <button id="instructionsBtn">Instrukcja</button>
+        <button id="configFullscreenBtn">Pełny ekran</button>
       </div>
-      <div>
-        <div class="section-title">Która drużyna ma rozpocząć grę?</div>
-        <div class="button-group" id="starterGroup">
-          <button id="btnTeam1">Drużyna 1</button>
-          <button id="btnTeam2">Drużyna 2</button>
-        </div>
-        <div class="section-title">Czy po rozegranych rundach ma nastąpić finał?</div>
-        <div class="button-group" id="finalGroup">
-          <button data-final="tak">Tak</button>
-          <button data-final="nie">Nie</button>
-        </div>
-        <div class="section-title">Ile rund ma trwać rozgrywka?</div>
-        <div class="button-group" id="roundsGroup">
-          <button data-rounds="3">3 rundy</button>
-          <button data-rounds="5">5 rund</button>
-          <button data-rounds="7">7 rund</button>
-          <button data-rounds="9">9 rund</button>
-        </div>
-        <div class="section-title">Jaki ma być czas na podanie odpowiedzi?</div>
-        <div class="button-group" id="timeGroup">
-          <button data-time="15">15 sek.</button>
-          <button data-time="30">30 sek.</button>
-          <button data-time="60">60 sek.</button>
-          <button data-time="0">Bez czasu</button>
-        </div>
+      <div class="button-row">
+        <button id="ownQuestionsBtn">Własne pytania</button>
+        <button id="readyQuestionsBtn">Gotowe pytania</button>
       </div>
     </div>
-    <div id="nextBtn-container">
-      <button id="nextBtn">Dalej</button>
-    </div>
-  </div>
 
-  <div id="instructions-screen">
-    <div id="instructions-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
-    <button id="instructionsReturnBtn">Powrót</button>
-  </div>
-
-  <div id="game-container">
-    <div class="container">
-      <div class="top-bar">
-        <div class="score">160</div>
+    <div id="config-screen">
+      <div class="config-container">
+        <div class="team-inputs">
+          <div class="team-input">
+            <label for="team1">Nazwy drużyn</label>
+            <input type="text" id="team1" maxlength="18" placeholder="Wpisz nazwę drużyny nr 1">
+            <input type="text" id="team2" maxlength="18" placeholder="Wpisz nazwę drużyny nr 2">
+          </div>
+        </div>
+        <div>
+          <div class="section-title">Która drużyna ma rozpocząć grę?</div>
+          <div class="button-group" id="starterGroup">
+            <button id="btnTeam1">Drużyna 1</button>
+            <button id="btnTeam2">Drużyna 2</button>
+          </div>
+          <div class="section-title">Czy po rozegranych rundach ma nastąpić finał?</div>
+          <div class="button-group" id="finalGroup">
+            <button data-final="tak">Tak</button>
+            <button data-final="nie">Nie</button>
+          </div>
+          <div class="section-title">Ile rund ma trwać rozgrywka?</div>
+          <div class="button-group" id="roundsGroup">
+            <button data-rounds="3">3 rundy</button>
+            <button data-rounds="5">5 rund</button>
+            <button data-rounds="7">7 rund</button>
+            <button data-rounds="9">9 rund</button>
+          </div>
+          <div class="section-title">Jaki ma być czas na podanie odpowiedzi?</div>
+          <div class="button-group" id="timeGroup">
+            <button data-time="15">15 sek.</button>
+            <button data-time="30">30 sek.</button>
+            <button data-time="60">60 sek.</button>
+            <button data-time="0">Bez czasu</button>
+          </div>
+        </div>
       </div>
-      <div class="board"></div>
+      <div id="nextBtn-container">
+        <button id="nextBtn">Dalej</button>
+      </div>
     </div>
-    <button id="returnBtn">Powrót</button>
+
+    <div id="instructions-screen">
+      <div id="instructions-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
+      <button id="instructionsReturnBtn">Powrót</button>
+    </div>
+
+    <div id="game-container">
+      <div class="container">
+        <div class="top-bar">
+          <div class="score">160</div>
+        </div>
+        <div class="board"></div>
+      </div>
+      <button id="returnBtn">Powrót</button>
+    </div>
   </div>
 
   <div id="logo-container">
