@@ -1,198 +1,730 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Familiada Tablica</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background: linear-gradient(to right, #d40000, #000033, #0033cc); /* Wyciągnięty kolor tła z podanego kodu */
-            font-family: 'Courier New', Courier, monospace; /* Czcionka monospaced dla efektu LED */
-            color: #FFFF00; /* Żółty dla tekstu */
-        }
+  <meta charset="UTF-8" />
+  <title>Familiada</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-        .container {
-            position: relative;
-            width: 800px;
-            height: 500px;
-            background: radial-gradient(circle, #FFFFFF 10%, transparent 70%); /* Lekki gradient dla zaokrąglonego panelu */
-            border-radius: 50px 50px 100px 100px; /* Zaokrąglone krawędzie jak na screenie */
-            overflow: hidden;
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-        }
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #d40000, #000033, #0033cc);
+      color: #ffffff;
+      padding: 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: padding-top 0.3s ease;
+    }
 
-        .top-bar {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 80px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 0 20px;
-            z-index: 2;
-        }
+    body.fullscreen-active {
+      padding-top: 120px;
+      overflow: visible;
+    }
 
-        .score {
-            font-size: 60px;
-            font-weight: bold;
-            text-shadow: 0 0 10px #FFFF00; /* Efekt świecenia */
-            letter-spacing: 5px; /* Dla efektu LED */
-        }
+    #game-title {
+      text-align: center;
+      font-size: 64px;
+      margin-bottom: 20px;
+      font-weight: bold;
+      letter-spacing: 4px;
+      text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+      width: 100%;
+      max-width: 100%;
+      background: linear-gradient(to right, #FFD700, #FFFF00);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
 
-        .board {
-            position: absolute;
-            top: 100px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 600px;
-            height: 300px;
-            background: #000000; /* Tablica czarna */
-            border: 2px solid #000000;
-            padding: 20px;
-            display: grid;
-            grid-template-rows: repeat(6, 1fr); /* 5 linii + suma */
-            gap: 10px;
-            font-size: 24px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            background-image: 
-                repeating-linear-gradient(0deg, transparent, transparent 4px, #222222 4px, #222222 5px), /* Pionowe linie */
-                repeating-linear-gradient(90deg, transparent, transparent 4px, #222222 4px, #222222 5px); /* Poziome linie */
-            background-size: 5px 5px; /* Siatka kropek */
-        }
+    .config-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 40px;
+      margin-bottom: 20px;
+      font-size: 0.9rem;
+      transform: scale(0.94);
+      margin-left: auto;
+      margin-right: auto;
+    }
 
-        .row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: relative;
-        }
+    .left-block, .right-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
 
-        .number {
-            width: 50px;
-            text-align: right;
-        }
+    .team-input {
+      width: 240px;
+      text-align: center;
+    }
 
-        .answer {
-            flex: 1;
-            text-align: left;
-            padding-left: 20px;
-            white-space: nowrap;
-            overflow: hidden;
-        }
+    .team-input label {
+      font-size: 20px;
+      display: block;
+      margin-bottom: 4px;
+    }
 
-        .points {
-            width: 50px;
-            text-align: right;
-        }
+    .team-input input {
+      width: 100%;
+      padding: 8px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: none;
+      outline: none;
+    }
 
-        .x-mark {
-            position: absolute;
-            right: -50px; /* Dostosowana pozycja dla większego rozmiaru */
-            font-size: 90px; /* 3 razy większe (było 30px) */
-            color: #FFFF00;
-            text-shadow: 0 0 5px #FFFF00;
-        }
+    .section-title {
+      font-size: 20px;
+      margin: 24px 0 10px;
+      text-align: center;
+      margin-left: auto;
+      margin-right: auto;
+    }
 
-        .x-mark-left {
-            position: absolute;
-            left: -50px; /* Dostosowana pozycja dla większego rozmiaru */
-            font-size: 90px; /* 3 razy większe (było 30px) */
-            color: #FFFF00;
-            text-shadow: 0 0 5px #FFFF00;
-        }
+    .button-group {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-left: auto;
+      margin-right: auto;
+    }
 
-        .dotted {
-            color: transparent;
-            text-shadow: 0 0 0 #FFFF00; /* Symulacja kropek */
-            letter-spacing: 1px;
-        }
+    .button-group button {
+      width: 150px;
+      height: 44px;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+      background-color: #104f9c;
+      color: white;
+      border: 4px solid white;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      text-transform: none;
+      transition: background-color 0.3s ease;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
 
-        .sum-row {
-            border-top: 2px dotted #FFFF00;
-            padding-top: 10px;
-            justify-content: flex-end;
-        }
+    .button-group button.active {
+      background-color: #2e7d32 !important;
+    }
 
-        .sum-label {
-            flex: 1;
-            text-align: right;
-            padding-right: 20px;
-        }
+    #nextBtn, #configFullscreenBtn, #instructionsBtn, #instructionsReturnBtn, #congratsReturnBtn, #ownQuestionsBtn, #readyQuestionsBtn {
+      width: 240px;
+      height: 52px;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      background-color: #104f9c;
+      color: white;
+      border: 4px solid white;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      text-transform: capitalize;
+    }
 
-        .sum-points {
-            width: 50px;
-            text-align: right;
-        }
+    #nextBtn {
+      background-color: #2e7d32;
+    }
 
-        /* Specyficzne X-y po prawej przy odpowiedziach */
-        .row:nth-child(1) .x-mark { top: -20px; } /* Dostosowane pozycje dla większego rozmiaru */
-        .row:nth-child(2) .x-mark { top: 20px; }
-        .row:nth-child(3) .x-mark { top: 60px; }
-        .row:nth-child(4) .x-mark { top: 100px; }
-        .row:nth-child(5) .x-mark { top: 140px; }
+    #config-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      margin-top: 10px;
+      margin-bottom: 30px;
+      margin-left: auto;
+      margin-right: auto;
+      justify-content: center;
+      align-items: center;
+    }
 
-        /* X-y po lewej */
-        .x-mark-left:nth-child(1) { top: 0px; }
-        .x-mark-left:nth-child(2) { top: 80px; }
-        .x-mark-left:nth-child(3) { top: 160px; }
+    #nextBtn-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
 
-    </style>
+    #instructions-screen, #congratulations-screen {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    #instructions-text, #winner-text, #score-text {
+      font-size: clamp(16px, 2.5vw, 17px);
+      line-height: 1.5;
+      text-align: justify;
+      margin-bottom: 20px;
+      white-space: pre-wrap;
+      width: 100%;
+      max-width: 100%;
+      padding: 0 20px;
+      box-sizing: border-box;
+    }
+
+    #congratulations-screen #winner-text, #congratulations-screen #score-text {
+      text-align: center;
+    }
+
+    #congrats-title {
+      font-size: 80px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+      color: #104f9c;
+      -webkit-text-stroke: 2px white;
+      text-stroke: 2px white;
+    }
+
+    #game-container {
+      display: none;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    #logo {
+      width: 150px;
+      height: auto;
+      margin-left: auto;
+      margin-right: auto;
+      display: block;
+    }
+
+    #website-link {
+      color: white;
+      font-size: 14px;
+      margin-top: 10px;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      width: 100%;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 10px;
+      }
+
+      #game-title {
+        font-size: clamp(32px, 8vw, 40px);
+        margin-bottom: 15px;
+        letter-spacing: 2px;
+      }
+
+      #config-buttons {
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+        max-width: 100%;
+        margin-bottom: 20px;
+        align-items: center;
+      }
+
+      .config-container {
+        flex-direction: column;
+        align-items: center;
+        transform: scale(1);
+        width: 100%;
+        max-width: 100%;
+        gap: 20px;
+        margin-bottom: 15px;
+      }
+
+      .left-block, .right-block {
+        width: 100%;
+        max-width: 100%;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .team-input {
+        width: 100%;
+        max-width: 100%;
+      }
+
+      .team-input label {
+        font-size: clamp(16px, 4vw, 18px);
+      }
+
+      .team-input input {
+        font-size: clamp(14px, 3.5vw, 16px);
+        padding: 6px;
+      }
+
+      .section-title {
+        font-size: clamp(16px, 4vw, 18px);
+        margin: 16px 0 8px;
+        width: 100%;
+        max-width: 100%;
+      }
+
+      .button-group {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+        width: 100%;
+        max-width: 100%;
+        justify-items: center;
+      }
+
+      .button-group button {
+        width: 100%;
+        max-width: clamp(120px, 45vw, 160px);
+        height: 40px;
+        font-size: clamp(12px, 3.5vw, 14px);
+        border: 3px solid white;
+        border-radius: 10px;
+      }
+
+      #nextBtn, #instructionsBtn, #instructionsReturnBtn, #congratsReturnBtn, #ownQuestionsBtn, #readyQuestionsBtn {
+        width: 100%;
+        max-width: clamp(200px, 80vw, 280px);
+        height: 48px;
+        font-size: clamp(14px, 4vw, 16px);
+        border: 3px solid white;
+        border-radius: 10px;
+      }
+
+      #nextBtn-container {
+        width: 100%;
+        max-width: 100%;
+        margin-top: 15px;
+        margin-bottom: 15px;
+      }
+
+      #instructions-screen, #congratulations-screen {
+        width: 100%;
+        max-width: 100%;
+        padding: 0 10px;
+      }
+
+      #instructions-text, #winner-text, #score-text {
+        font-size: clamp(14px, 3.5vw, 16px);
+        padding: 0 10px;
+        margin-bottom: 15px;
+      }
+
+      #congrats-title {
+        font-size: clamp(36px, 10vw, 48px);
+        -webkit-text-stroke: 1.5px white;
+        text-stroke: 1.5px white;
+        margin-bottom: 15px;
+      }
+
+      #game-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+      }
+
+      #logo {
+        width: clamp(100px, 30vw, 120px);
+      }
+
+      #website-link {
+        font-size: clamp(12px, 3.5vw, 14px);
+        display: flex;
+        justify-content: center;
+        width: 100%;
+      }
+
+      #configFullscreenBtn {
+        display: none;
+      }
+
+      body.fullscreen-active {
+        padding-top: 80px;
+      }
+    }
+
+    /* Style dla widoku gry - tablica */
+    .container {
+      position: relative;
+      width: 800px;
+      height: 500px;
+      background: radial-gradient(circle, #FFFFFF 10%, transparent 70%);
+      border-radius: 50px 50px 100px 100px;
+      overflow: hidden;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+    }
+
+    .top-bar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 80px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0 20px;
+      z-index: 2;
+    }
+
+    .score {
+      font-size: 60px;
+      font-weight: bold;
+      text-shadow: 0 0 10px #FFFF00;
+      letter-spacing: 5px;
+    }
+
+    .board {
+      position: absolute;
+      top: 100px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 300px;
+      background: #000000;
+      border: 2px solid #000000;
+      padding: 20px;
+      display: grid;
+      grid-template-rows: repeat(6, 1fr);
+      gap: 10px;
+      font-size: 24px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      background-image: 
+        repeating-linear-gradient(0deg, transparent, transparent 4px, #222222 4px, #222222 5px),
+        repeating-linear-gradient(90deg, transparent, transparent 4px, #222222 4px, #222222 5px);
+      background-size: 5px 5px;
+    }
+
+    .row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+    }
+
+    .number {
+      width: 50px;
+      text-align: right;
+    }
+
+    .answer {
+      flex: 1;
+      text-align: left;
+      padding-left: 20px;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    .points {
+      width: 50px;
+      text-align: right;
+    }
+
+    .x-mark {
+      position: absolute;
+      right: -50px;
+      font-size: 90px;
+      color: #FFFF00;
+      text-shadow: 0 0 5px #FFFF00;
+    }
+
+    .x-mark-left {
+      position: absolute;
+      left: -50px;
+      font-size: 90px;
+      color: #FFFF00;
+      text-shadow: 0 0 5px #FFFF00;
+    }
+
+    .dotted {
+      color: transparent;
+      text-shadow: 0 0 0 #FFFF00;
+      letter-spacing: 1px;
+    }
+
+    .sum-row {
+      border-top: 2px dotted #FFFF00;
+      padding-top: 10px;
+      justify-content: flex-end;
+    }
+
+    .sum-label {
+      flex: 1;
+      text-align: right;
+      padding-right: 20px;
+    }
+
+    .sum-points {
+      width: 50px;
+      text-align: right;
+    }
+
+    .row:nth-child(1) .x-mark { top: -20px; }
+    .row:nth-child(2) .x-mark { top: 20px; }
+    .row:nth-child(3) .x-mark { top: 60px; }
+    .row:nth-child(4) .x-mark { top: 100px; }
+    .row:nth-child(5) .x-mark { top: 140px; }
+
+    .x-mark-left:nth-child(1) { top: 0px; }
+    .x-mark-left:nth-child(2) { top: 80px; }
+    .x-mark-left:nth-child(3) { top: 160px; }
+
+  </style>
 </head>
 <body>
-    <div class="container">
-        <div class="top-bar">
-            <div class="score">160</div>
+  <h1 id="game-title">Familiada</h1>
+  <div id="config-buttons">
+    <button id="instructionsBtn">Instrukcja</button>
+    <button id="configFullscreenBtn">Pełny ekran</button>
+    <button id="ownQuestionsBtn">Własne pytania</button>
+    <button id="readyQuestionsBtn">Gotowe pytania</button>
+  </div>
+
+  <div id="config-screen">
+    <div class="config-container">
+      <div class="left-block">
+        <div class="team-input">
+          <label for="team1">Nazwa drużyny nr 1</label>
+          <input type="text" id="team1" maxlength="13" placeholder="Wpisz nazwę" />
         </div>
-        <div class="board">
-            <div class="row">
-                <span class="number">1</span>
-                <span class="answer">ŚLĄSK</span>
-                <span class="points">36</span>
-                <span class="x-mark">&#x2716;</span> <!-- X jako unicode -->
-            </div>
-            <div class="row">
-                <span class="number">2</span>
-                <span class="answer">KASZUBY</span>
-                <span class="points">27</span>
-                <span class="x-mark">&#x2716;</span>
-            </div>
-            <div class="row">
-                <span class="number">3</span>
-                <span class="answer">PODHALE</span>
-                <span class="points">17</span>
-                <span class="x-mark">&#x2716;</span>
-            </div>
-            <div class="row">
-                <span class="number">4</span>
-                <span class="answer dotted">....................</span>
-                <span class="points dotted">..</span>
-                <span class="x-mark">&#x2716;</span>
-            </div>
-            <div class="row">
-                <span class="number">5</span>
-                <span class="answer dotted">....................</span>
-                <span class="points dotted">..</span>
-                <span class="x-mark">&#x2716;</span>
-            </div>
-            <div class="sum-row row">
-                <span class="sum-label">SUMA</span>
-                <span class="sum-points">80</span>
-                <span class="x-mark">&#x2716;</span>
-            </div>
+        <div class="team-input" style="margin-top: 24px;">
+          <label for="team2">Nazwa drużyny nr 2</label>
+          <input type="text" id="team2" maxlength="13" placeholder="Wpisz nazwę" />
         </div>
-        <!-- X-y po lewej stronie tablicy -->
-        <span class="x-mark-left">&#x2716;</span>
-        <span class="x-mark-left">&#x2716;</span>
-        <span class="x-mark-left">&#x2716;</span>
+      </div>
+
+      <div class="right-block" style="margin-top: -24px;">
+        <div class="section-title">Która drużyna ma rozpocząć grę?</div>
+        <div class="button-group" id="starterGroup">
+          <button id="btnTeam1">Drużyna 1</button>
+          <button id="btnTeam2">Drużyna 2</button>
+        </div>
+      </div>
     </div>
+
+    <div id="nextBtn-container">
+      <button id="nextBtn">Dalej</button>
+    </div>
+
+    <img id="logo" src="familiada/logo.png" alt="Logo" />
+    <div id="website-link">WWW.MUZYKAMIKROFONACKJA.PL</div>
+  </div>
+
+  <div id="instructions-screen">
+    <div id="instructions-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
+    <button id="instructionsReturnBtn">Powrót</button>
+    <img id="logo" src="familiada/logo.png" alt="Logo" />
+    <div id="website-link">WWW.MUZYKAMIKROFONACKJA.PL</div>
+  </div>
+
+  <div id="congratulations-screen">
+    <h2 id="congrats-title">GRATULACJE!!!</h2>
+    <div id="winner-text"></div>
+    <div id="score-text"></div>
+    <button id="congratsReturnBtn">Powrót</button>
+    <img id="logo" src="familiada/logo.png" alt="Logo" />
+    <div id="website-link">WWW.MUZYKAMIKROFONACKJA.PL</div>
+  </div>
+
+  <div id="game-container">
+    <div class="container">
+      <div class="top-bar">
+          <div class="score">160</div>
+      </div>
+      <div class="board">
+          <div class="row">
+              <span class="number">1</span>
+              <span class="answer">ŚLĄSK</span>
+              <span class="points">36</span>
+              <span class="x-mark">&#x2716;</span>
+          </div>
+          <div class="row">
+              <span class="number">2</span>
+              <span class="answer">KASZUBY</span>
+              <span class="points">27</span>
+              <span class="x-mark">&#x2716;</span>
+          </div>
+          <div class="row">
+              <span class="number">3</span>
+              <span class="answer">PODHALE</span>
+              <span class="points">17</span>
+              <span class="x-mark">&#x2716;</span>
+          </div>
+          <div class="row">
+              <span class="number">4</span>
+              <span class="answer dotted">....................</span>
+              <span class="points dotted">..</span>
+              <span class="x-mark">&#x2716;</span>
+          </div>
+          <div class="row">
+              <span class="number">5</span>
+              <span class="answer dotted">....................</span>
+              <span class="points dotted">..</span>
+              <span class="x-mark">&#x2716;</span>
+          </div>
+          <div class="sum-row row">
+              <span class="sum-label">SUMA</span>
+              <span class="sum-points">80</span>
+              <span class="x-mark">&#x2716;</span>
+          </div>
+      </div>
+      <span class="x-mark-left">&#x2716;</span>
+      <span class="x-mark-left">&#x2716;</span>
+      <span class="x-mark-left">&#x2716;</span>
+    </div>
+  </div>
+
+  <script>
+    // Elementy ekranu konfiguracyjnego
+    const configScreen = document.getElementById("config-screen");
+    const team1Input = document.getElementById("team1");
+    const team2Input = document.getElementById("team2");
+    const btnTeam1 = document.getElementById("btnTeam1");
+    const btnTeam2 = document.getElementById("btnTeam2");
+    const nextBtn = document.getElementById("nextBtn");
+    const configFullscreenBtn = document.getElementById("configFullscreenBtn");
+    const instructionsBtn = document.getElementById("instructionsBtn");
+
+    // Elementy ekranu instrukcji
+    const instructionsScreen = document.getElementById("instructions-screen");
+    const instructionsReturnBtn = document.getElementById("instructionsReturnBtn");
+
+    // Elementy ekranu gratulacji
+    const congratulationsScreen = document.getElementById("congratulations-screen");
+    const congratsReturnBtn = document.getElementById("congratsReturnBtn");
+
+    // Elementy ekranu gry
+    const gameContainer = document.getElementById("game-container");
+
+    // Zmienne konfiguracyjne
+    let team1Name = "Drużyna 1";
+    let team2Name = "Drużyna 2";
+    let startingTeam = null;
+
+    // Funkcje konfiguracyjne
+    const updateButtonLabels = () => {
+      btnTeam1.textContent = (team1Input.value.trim() || "Drużyna 1");
+      btnTeam2.textContent = (team2Input.value.trim() || "Drużyna 2");
+    };
+
+    team1Input.addEventListener("input", updateButtonLabels);
+    team2Input.addEventListener("input", updateButtonLabels);
+
+    btnTeam1.addEventListener("click", () => {
+      startingTeam = 1;
+      btnTeam1.classList.add("active");
+      btnTeam2.classList.remove("active");
+    });
+
+    btnTeam2.addEventListener("click", () => {
+      startingTeam = 2;
+      btnTeam2.classList.add("active");
+      btnTeam1.classList.remove("active");
+    });
+
+    // Przełączanie ekranów
+    const showConfigScreen = () => {
+      configScreen.style.display = "block";
+      instructionsScreen.style.display = "none";
+      congratulationsScreen.style.display = "none";
+      gameContainer.style.display = "none";
+      document.getElementById("config-buttons").style.display = "flex";
+      // Resetowanie wartości konfiguracyjnych
+      team1Input.value = "";
+      team2Input.value = "";
+      btnTeam1.classList.remove("active");
+      btnTeam2.classList.remove("active");
+      startingTeam = null;
+      updateButtonLabels();
+    };
+
+    const showInstructionsScreen = () => {
+      configScreen.style.display = "none";
+      instructionsScreen.style.display = "flex";
+      congratulationsScreen.style.display = "none";
+      gameContainer.style.display = "none";
+      document.getElementById("config-buttons").style.display = "none";
+    };
+
+    const showCongratulationsScreen = () => {
+      configScreen.style.display = "none";
+      instructionsScreen.style.display = "none";
+      congratulationsScreen.style.display = "flex";
+      gameContainer.style.display = "none";
+      document.getElementById("config-buttons").style.display = "none";
+    };
+
+    const showGameScreen = () => {
+      configScreen.style.display = "none";
+      instructionsScreen.style.display = "none";
+      congratulationsScreen.style.display = "none";
+      gameContainer.style.display = "flex";
+      document.getElementById("config-buttons").style.display = "none";
+
+      // Inicjalizacja wartości gry
+      team1Name = team1Input.value.trim() || "Drużyna 1";
+      team2Name = team2Input.value.trim() || "Drużyna 2";
+    };
+
+    // Obsługa przycisków
+    nextBtn.addEventListener("click", () => {
+      showGameScreen();
+    });
+
+    instructionsBtn.addEventListener("click", () => {
+      showInstructionsScreen();
+    });
+
+    instructionsReturnBtn.addEventListener("click", () => {
+      showConfigScreen();
+    });
+
+    congratsReturnBtn.addEventListener("click", () => {
+      showGameScreen();
+    });
+
+    const toggleFullscreen = () => {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen();
+      } else {
+        document.exitFullscreen();
+      }
+    };
+
+    configFullscreenBtn.addEventListener("click", toggleFullscreen);
+
+    document.addEventListener("fullscreenchange", () => {
+      if (document.fullscreenElement) {
+        configFullscreenBtn.textContent = "Podstawowy ekran";
+        document.body.classList.add("fullscreen-active");
+      } else {
+        configFullscreenBtn.textContent = "Pełny ekran";
+        document.body.classList.remove("fullscreen-active");
+      }
+    });
+
+    // Inicjalizacja
+    updateButtonLabels();
+    configScreen.style.display = "block";
+    instructionsScreen.style.display = "none";
+    congratulationsScreen.style.display = "none";
+    gameContainer.style.display = "none";
+    document.getElementById("config-buttons").style.display = "flex";
+  </script>
 </body>
 </html>
