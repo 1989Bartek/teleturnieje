@@ -99,32 +99,40 @@
       margin-right: auto;
     }
 
-    #nextBtn, #configFullscreenBtn, #instructionsBtn, #instructionsReturnBtn, #ownQuestionsBtn, #readyQuestionsBtn {
+    #nextBtn, #configFullscreenBtn, #instructionsBtn, #instructionsReturnBtn, #ownQuestionsBtn, #readyQuestionsBtn, #returnBtn,
+    .button-group button {
       background-color: #000000;
       border: 4px solid #FFD700;
       color: #FFFF33;
       font-family: 'Courier New', monospace;
-      font-size: 28px;
+      font-size: 24px;
       padding: 10px 30px;
       border-radius: 8px;
       box-shadow: 0 0 10px #FFFF33;
       cursor: pointer;
       text-transform: capitalize;
       transition: background-color 0.3s, border-color 0.3s;
+      min-width: 250px;
+      text-align: center;
     }
 
-    #nextBtn:hover, #configFullscreenBtn:hover, #instructionsBtn:hover, #instructionsReturnBtn:hover, #ownQuestionsBtn:hover, #readyQuestionsBtn:hover {
+    #nextBtn:hover, #configFullscreenBtn:hover, #instructionsBtn:hover, #instructionsReturnBtn:hover, #ownQuestionsBtn:hover, #readyQuestionsBtn:hover, #returnBtn:hover,
+    .button-group button:hover {
       background-color: #111111;
       border-color: #FFEA00;
     }
 
     #nextBtn {
-      background-color: #000000;
+      background-color: #006400;
+    }
+
+    .button-group button.active {
+      background-color: #006400 !important;
     }
 
     #config-buttons {
       display: flex;
-      flex-wrap: wrap;
+      flex-direction: column;
       gap: 20px;
       margin-top: 10px;
       margin-bottom: 30px;
@@ -132,6 +140,12 @@
       margin-right: auto;
       justify-content: center;
       align-items: center;
+    }
+
+    .button-row {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
     }
 
     #nextBtn-container {
@@ -164,10 +178,10 @@
 
     #game-container {
       display: none;
+      flex-direction: column;
       justify-content: center;
-      align-items: flex-start;
-      gap: 40px;
-      flex-wrap: wrap;
+      align-items: center;
+      gap: 20px;
     }
 
     #logo {
@@ -264,7 +278,7 @@
         border-radius: 10px;
       }
 
-      #nextBtn, #instructionsBtn, #instructionsReturnBtn, #ownQuestionsBtn, #readyQuestionsBtn {
+      #nextBtn, #instructionsBtn, #instructionsReturnBtn, #ownQuestionsBtn, #readyQuestionsBtn, #returnBtn {
         width: 100%;
         max-width: clamp(200px, 80vw, 280px);
         height: 48px;
@@ -371,89 +385,19 @@
       background-size: 5px 5px;
     }
 
-    .row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: relative;
-    }
-
-    .number {
-      width: 50px;
-      text-align: right;
-    }
-
-    .answer {
-      flex: 1;
-      text-align: left;
-      padding-left: 20px;
-      white-space: nowrap;
-      overflow: hidden;
-    }
-
-    .points {
-      width: 50px;
-      text-align: right;
-    }
-
-    .x-mark {
-      position: absolute;
-      right: -50px;
-      font-size: 90px;
-      color: #FFFF00;
-      text-shadow: 0 0 5px #FFFF00;
-    }
-
-    .x-mark-left {
-      position: absolute;
-      left: -50px;
-      font-size: 90px;
-      color: #FFFF00;
-      text-shadow: 0 0 5px #FFFF00;
-    }
-
-    .dotted {
-      color: transparent;
-      text-shadow: 0 0 0 #FFFF00;
-      letter-spacing: 1px;
-    }
-
-    .sum-row {
-      border-top: 2px dotted #FFFF00;
-      padding-top: 10px;
-      justify-content: flex-end;
-    }
-
-    .sum-label {
-      flex: 1;
-      text-align: right;
-      padding-right: 20px;
-    }
-
-    .sum-points {
-      width: 50px;
-      text-align: right;
-    }
-
-    .row:nth-child(1) .x-mark { top: -20px; }
-    .row:nth-child(2) .x-mark { top: 20px; }
-    .row:nth-child(3) .x-mark { top: 60px; }
-    .row:nth-child(4) .x-mark { top: 100px; }
-    .row:nth-child(5) .x-mark { top: 140px; }
-
-    .x-mark-left:nth-child(1) { top: 0px; }
-    .x-mark-left:nth-child(2) { top: 80px; }
-    .x-mark-left:nth-child(3) { top: 160px; }
-
   </style>
 </head>
 <body>
   <h1 id="game-title">FAMILIADA</h1>
   <div id="config-buttons">
-    <button id="instructionsBtn">Instrukcja</button>
-    <button id="configFullscreenBtn">Pełny ekran</button>
-    <button id="ownQuestionsBtn">Własne pytania</button>
-    <button id="readyQuestionsBtn">Gotowe pytania</button>
+    <div class="button-row">
+      <button id="instructionsBtn">Instrukcja</button>
+      <button id="configFullscreenBtn">Pełny ekran</button>
+    </div>
+    <div class="button-row">
+      <button id="ownQuestionsBtn">Własne pytania</button>
+      <button id="readyQuestionsBtn">Gotowe pytania</button>
+    </div>
   </div>
 
   <div id="config-screen">
@@ -467,6 +411,13 @@
           <label for="team2">Nazwa drużyny nr 2</label>
           <input type="text" id="team2" maxlength="13" placeholder="Wpisz nazwę" />
         </div>
+        <div class="section-title">Ile rund ma trwać rozgrywka?</div>
+        <div class="button-group" id="roundsGroup">
+          <button data-rounds="3">3</button>
+          <button data-rounds="5">5</button>
+          <button data-rounds="7">7</button>
+          <button data-rounds="9">9</button>
+        </div>
       </div>
 
       <div class="right-block" style="margin-top: -24px;">
@@ -474,6 +425,11 @@
         <div class="button-group" id="starterGroup">
           <button id="btnTeam1">Drużyna 1</button>
           <button id="btnTeam2">Drużyna 2</button>
+        </div>
+        <div class="section-title">Czy uwzględnić finał?</div>
+        <div class="button-group" id="finalGroup">
+          <button data-final="tak">Tak</button>
+          <button data-final="nie">Nie</button>
         </div>
       </div>
     </div>
@@ -499,46 +455,9 @@
           <div class="score">160</div>
       </div>
       <div class="board">
-          <div class="row">
-              <span class="number">1</span>
-              <span class="answer">ŚLĄSK</span>
-              <span class="points">36</span>
-              <span class="x-mark">&#x2716;</span>
-          </div>
-          <div class="row">
-              <span class="number">2</span>
-              <span class="answer">KASZUBY</span>
-              <span class="points">27</span>
-              <span class="x-mark">&#x2716;</span>
-          </div>
-          <div class="row">
-              <span class="number">3</span>
-              <span class="answer">PODHALE</span>
-              <span class="points">17</span>
-              <span class="x-mark">&#x2716;</span>
-          </div>
-          <div class="row">
-              <span class="number">4</span>
-              <span class="answer dotted">....................</span>
-              <span class="points dotted">..</span>
-              <span class="x-mark">&#x2716;</span>
-          </div>
-          <div class="row">
-              <span class="number">5</span>
-              <span class="answer dotted">....................</span>
-              <span class="points dotted">..</span>
-              <span class="x-mark">&#x2716;</span>
-          </div>
-          <div class="sum-row row">
-              <span class="sum-label">SUMA</span>
-              <span class="sum-points">80</span>
-              <span class="x-mark">&#x2716;</span>
-          </div>
       </div>
-      <span class="x-mark-left">&#x2716;</span>
-      <span class="x-mark-left">&#x2716;</span>
-      <span class="x-mark-left">&#x2716;</span>
     </div>
+    <button id="returnBtn">Powrót</button>
   </div>
 
   <script>
@@ -546,8 +465,9 @@
     const configScreen = document.getElementById("config-screen");
     const team1Input = document.getElementById("team1");
     const team2Input = document.getElementById("team2");
-    const btnTeam1 = document.getElementById("btnTeam1");
-    const btnTeam2 = document.getElementById("btnTeam2");
+    const starterGroup = document.getElementById("starterGroup");
+    const roundsGroup = document.getElementById("roundsGroup");
+    const finalGroup = document.getElementById("finalGroup");
     const nextBtn = document.getElementById("nextBtn");
     const configFullscreenBtn = document.getElementById("configFullscreenBtn");
     const instructionsBtn = document.getElementById("instructionsBtn");
@@ -558,14 +478,25 @@
 
     // Elementy ekranu gry
     const gameContainer = document.getElementById("game-container");
+    const returnBtn = document.getElementById("returnBtn");
 
     // Zmienne konfiguracyjne
     let team1Name = "Drużyna 1";
     let team2Name = "Drużyna 2";
     let startingTeam = null;
+    let rounds = null;
+    let finalIncluded = null;
+
+    // Funkcja do aktywacji pojedynczego przycisku w grupie
+    const activateSingleButton = (group, btn) => {
+      group.querySelectorAll("button").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+    };
 
     // Funkcje konfiguracyjne
     const updateButtonLabels = () => {
+      const btnTeam1 = document.getElementById("btnTeam1");
+      const btnTeam2 = document.getElementById("btnTeam2");
       btnTeam1.textContent = (team1Input.value.trim() || "Drużyna 1");
       btnTeam2.textContent = (team2Input.value.trim() || "Drużyna 2");
     };
@@ -573,16 +504,25 @@
     team1Input.addEventListener("input", updateButtonLabels);
     team2Input.addEventListener("input", updateButtonLabels);
 
-    btnTeam1.addEventListener("click", () => {
-      startingTeam = 1;
-      btnTeam1.classList.add("active");
-      btnTeam2.classList.remove("active");
+    starterGroup.addEventListener("click", e => {
+      if (e.target.tagName === "BUTTON") {
+        activateSingleButton(starterGroup, e.target);
+        startingTeam = e.target.id === "btnTeam1" ? 1 : 2;
+      }
     });
 
-    btnTeam2.addEventListener("click", () => {
-      startingTeam = 2;
-      btnTeam2.classList.add("active");
-      btnTeam1.classList.remove("active");
+    roundsGroup.addEventListener("click", e => {
+      if (e.target.tagName === "BUTTON") {
+        activateSingleButton(roundsGroup, e.target);
+        rounds = parseInt(e.target.dataset.rounds);
+      }
+    });
+
+    finalGroup.addEventListener("click", e => {
+      if (e.target.tagName === "BUTTON") {
+        activateSingleButton(finalGroup, e.target);
+        finalIncluded = e.target.dataset.final === "tak";
+      }
     });
 
     // Przełączanie ekranów
@@ -594,9 +534,12 @@
       // Resetowanie wartości konfiguracyjnych
       team1Input.value = "";
       team2Input.value = "";
-      btnTeam1.classList.remove("active");
-      btnTeam2.classList.remove("active");
+      starterGroup.querySelectorAll("button").forEach(btn => btn.classList.remove("active"));
+      roundsGroup.querySelectorAll("button").forEach(btn => btn.classList.remove("active"));
+      finalGroup.querySelectorAll("button").forEach(btn => btn.classList.remove("active"));
       startingTeam = null;
+      rounds = null;
+      finalIncluded = null;
       updateButtonLabels();
     };
 
@@ -628,6 +571,10 @@
     });
 
     instructionsReturnBtn.addEventListener("click", () => {
+      showConfigScreen();
+    });
+
+    returnBtn.addEventListener("click", () => {
       showConfigScreen();
     });
 
