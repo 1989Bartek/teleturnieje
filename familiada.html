@@ -41,9 +41,9 @@
       left: 0;
       right: 0;
       margin: 0 auto;
-      width: 600px;
       text-align: center;
       z-index: 1000;
+      width: 600px;
     }
 
     .content-wrapper {
@@ -125,6 +125,11 @@
       min-width: 120px;
       font-size: 16px;
       padding: 8px 20px;
+    }
+
+    #starterGroup button,
+    #finalGroup button {
+      min-width: 280px;
     }
 
     #starterGroup, #finalGroup {
@@ -331,7 +336,7 @@
     </div>
 
     <div id="instructions-screen">
-      <div id="instructions-text">Lorem ipsum dolor sit amet...</div>
+      <div id="instructions-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit...</div>
       <button id="instructionsReturnBtn">Powrót</button>
     </div>
 
@@ -352,7 +357,133 @@
   </div>
 
   <script>
-    // ... (skrypt bez zmian – jak w Twoim kodzie)
+    const configScreen = document.getElementById("config-screen");
+    const team1Input = document.getElementById("team1");
+    const team2Input = document.getElementById("team2");
+    const starterGroup = document.getElementById("starterGroup");
+    const roundsGroup = document.getElementById("roundsGroup");
+    const finalGroup = document.getElementById("finalGroup");
+    const timeGroup = document.getElementById("timeGroup");
+    const nextBtn = document.getElementById("nextBtn");
+    const configFullscreenBtn = document.getElementById("configFullscreenBtn");
+    const instructionsBtn = document.getElementById("instructionsBtn");
+    const instructionsScreen = document.getElementById("instructions-screen");
+    const instructionsReturnBtn = document.getElementById("instructionsReturnBtn");
+    const gameContainer = document.getElementById("game-container");
+    const returnBtn = document.getElementById("returnBtn");
+
+    let team1Name = "Drużyna 1";
+    let team2Name = "Drużyna 2";
+    let startingTeam = null;
+    let rounds = null;
+    let finalIncluded = null;
+    let answerTime = null;
+
+    const activateSingleButton = (group, btn) => {
+      group.querySelectorAll("button").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+    };
+
+    const updateButtonLabels = () => {
+      document.getElementById("btnTeam1").textContent = team1Input.value.trim() || "Drużyna 1";
+      document.getElementById("btnTeam2").textContent = team2Input.value.trim() || "Drużyna 2";
+    };
+
+    team1Input.addEventListener("input", updateButtonLabels);
+    team2Input.addEventListener("input", updateButtonLabels);
+
+    starterGroup.addEventListener("click", e => {
+      if (e.target.tagName === "BUTTON") {
+        activateSingleButton(starterGroup, e.target);
+        startingTeam = e.target.id === "btnTeam1" ? 1 : 2;
+      }
+    });
+
+    roundsGroup.addEventListener("click", e => {
+      if (e.target.tagName === "BUTTON") {
+        activateSingleButton(roundsGroup, e.target);
+        rounds = parseInt(e.target.dataset.rounds);
+      }
+    });
+
+    finalGroup.addEventListener("click", e => {
+      if (e.target.tagName === "BUTTON") {
+        activateSingleButton(finalGroup, e.target);
+        finalIncluded = e.target.dataset.final === "tak";
+      }
+    });
+
+    timeGroup.addEventListener("click", e => {
+      if (e.target.tagName === "BUTTON") {
+        activateSingleButton(timeGroup, e.target);
+        answerTime = parseInt(e.target.dataset.time) || 0;
+      }
+    });
+
+    const showConfigScreen = () => {
+      configScreen.style.display = "block";
+      instructionsScreen.style.display = "none";
+      gameContainer.style.display = "none";
+      document.getElementById("config-buttons").style.display = "flex";
+      team1Input.value = "";
+      team2Input.value = "";
+      starterGroup.querySelectorAll("button").forEach(btn => btn.classList.remove("active"));
+      roundsGroup.querySelectorAll("button").forEach(btn => btn.classList.remove("active"));
+      finalGroup.querySelectorAll("button").forEach(btn => btn.classList.remove("active"));
+      timeGroup.querySelectorAll("button").forEach(btn => btn.classList.remove("active"));
+      startingTeam = null;
+      rounds = null;
+      finalIncluded = null;
+      answerTime = null;
+      updateButtonLabels();
+    };
+
+    const showInstructionsScreen = () => {
+      configScreen.style.display = "none";
+      instructionsScreen.style.display = "flex";
+      gameContainer.style.display = "none";
+      document.getElementById("config-buttons").style.display = "none";
+    };
+
+    const showGameScreen = () => {
+      configScreen.style.display = "none";
+      instructionsScreen.style.display = "none";
+      gameContainer.style.display = "flex";
+      document.getElementById("config-buttons").style.display = "none";
+      team1Name = team1Input.value.trim() || "Drużyna 1";
+      team2Name = team2Input.value.trim() || "Drużyna 2";
+    };
+
+    nextBtn.addEventListener("click", showGameScreen);
+    instructionsBtn.addEventListener("click", showInstructionsScreen);
+    instructionsReturnBtn.addEventListener("click", showConfigScreen);
+    returnBtn.addEventListener("click", showConfigScreen);
+
+    const toggleFullscreen = () => {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen();
+      } else {
+        document.exitFullscreen();
+      }
+    };
+
+    configFullscreenBtn.addEventListener("click", toggleFullscreen);
+
+    document.addEventListener("fullscreenchange", () => {
+      if (document.fullscreenElement) {
+        configFullscreenBtn.textContent = "Podstawowy ekran";
+        document.body.classList.add("fullscreen-active");
+      } else {
+        configFullscreenBtn.textContent = "Pełny ekran";
+        document.body.classList.remove("fullscreen-active");
+      }
+    });
+
+    updateButtonLabels();
+    configScreen.style.display = "block";
+    instructionsScreen.style.display = "none";
+    gameContainer.style.display = "none";
+    document.getElementById("config-buttons").style.display = "flex";
   </script>
 </body>
 </html>
