@@ -61,7 +61,7 @@
 
     .team-input label {
       font-size: 20px;
-      margin-bottom: 8px;
+      margin-bottom: 20px;
       display: block;
     }
 
@@ -108,6 +108,10 @@
       min-width: 70px;
     }
 
+    #timeGroup button {
+      min-width: 100px;
+    }
+
     button:hover {
       background-color: #111;
       border-color: #FFEA00;
@@ -138,6 +142,10 @@
 
     #nextBtn-container {
       margin: 20px 0;
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      max-width: 800px;
     }
 
     #instructions-screen {
@@ -274,6 +282,13 @@
           <button data-final="tak">Tak</button>
           <button data-final="nie">Nie</button>
         </div>
+        <div class="section-title">Czas na podanie odpowiedzi</div>
+        <div class="button-group" id="timeGroup">
+          <button data-time="15">15 sek.</button>
+          <button data-time="30">30 sek.</button>
+          <button data-time="60">60 sek.</button>
+          <button data-time="0">Bez czasu</button>
+        </div>
       </div>
     </div>
     <div id="nextBtn-container">
@@ -307,6 +322,7 @@
     const starterGroup = document.getElementById("starterGroup");
     const roundsGroup = document.getElementById("roundsGroup");
     const finalGroup = document.getElementById("finalGroup");
+    const timeGroup = document.getElementById("timeGroup");
     const nextBtn = document.getElementById("nextBtn");
     const configFullscreenBtn = document.getElementById("configFullscreenBtn");
     const instructionsBtn = document.getElementById("instructionsBtn");
@@ -320,6 +336,7 @@
     let startingTeam = null;
     let rounds = null;
     let finalIncluded = null;
+    let answerTime = null;
 
     const activateSingleButton = (group, btn) => {
       group.querySelectorAll("button").forEach(b => b.classList.remove("active"));
@@ -355,6 +372,13 @@
       }
     });
 
+    timeGroup.addEventListener("click", e => {
+      if (e.target.tagName === "BUTTON") {
+        activateSingleButton(timeGroup, e.target);
+        answerTime = parseInt(e.target.dataset.time) || 0;
+      }
+    });
+
     const showConfigScreen = () => {
       configScreen.style.display = "block";
       instructionsScreen.style.display = "none";
@@ -365,9 +389,11 @@
       starterGroup.querySelectorAll("button").forEach(btn => btn.classList.remove("active"));
       roundsGroup.querySelectorAll("button").forEach(btn => btn.classList.remove("active"));
       finalGroup.querySelectorAll("button").forEach(btn => btn.classList.remove("active"));
+      timeGroup.querySelectorAll("button").forEach(btn => btn.classList.remove("active"));
       startingTeam = null;
       rounds = null;
       finalIncluded = null;
+      answerTime = null;
       updateButtonLabels();
     };
 
