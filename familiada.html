@@ -75,7 +75,7 @@
     .team-input input {
       width: 100%;
       padding: 10px 30px;
-      height: 44px; /* Same height as buttons */
+      height: 44px;
       font-size: 16px;
       border-radius: 8px;
       border: 4px solid #FFEA00;
@@ -96,11 +96,15 @@
     }
 
     .right-block .section-title:nth-child(3) {
-      margin-top: 68px; /* Align with "Nazwa drużyny nr 2" */
+      margin-top: 68px;
     }
 
     .left-block .section-title:nth-child(3) {
-      margin-top: 68px; /* Align with "Czy uwzględnić finał?" */
+      margin-top: 68px;
+    }
+
+    .left-block .team-input:nth-child(2) label {
+      margin-top: 68px;
     }
 
     .button-group {
@@ -130,7 +134,8 @@
     }
 
     #btnTeam1, #btnTeam2, [data-final="tak"], [data-final="nie"] {
-      min-width: 200px;
+      width: 200px;
+      min-width: unset;
     }
 
     #nextBtn:hover, #configFullscreenBtn:hover, #instructionsBtn:hover, #instructionsReturnBtn:hover, 
@@ -303,6 +308,10 @@
         margin-top: 48px;
       }
 
+      .left-block .team-input:nth-child(2) label {
+        margin-top: 48px;
+      }
+
       .button-group {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
@@ -323,7 +332,8 @@
       }
 
       #btnTeam1, #btnTeam2, [data-final="tak"], [data-final="nie"] {
-        max-width: clamp(100px, 40vw, 140px);
+        width: clamp(100px, 40vw, 140px);
+        max-width: unset;
       }
 
       #nextBtn, #instructionsBtn, #instructionsReturnBtn, #ownQuestionsBtn, #readyQuestionsBtn, #returnBtn {
