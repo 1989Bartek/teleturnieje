@@ -90,6 +90,10 @@
       margin-right: auto;
     }
 
+    .right-block .section-title:nth-child(3) {
+      margin-top: 48px;
+    }
+
     .button-group {
       display: flex;
       flex-wrap: wrap;
@@ -111,18 +115,23 @@
       box-shadow: 0 0 10px #FFFF33;
       cursor: pointer;
       text-transform: capitalize;
-      transition: background-color 0.3s, border-color 0.3s;
+      transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
       min-width: 280px; /* Dostosowane do najdłuższego tekstu "Podstawowy ekran" */
       text-align: center;
     }
 
-    #nextBtn:hover, #configFullscreenBtn:hover, #instructionsBtn:hover, #instructionsReturnBtn:hover, #ownQuestionsBtn:hover, #readyQuestionsBtn:hover, #returnBtn:hover,
+    #nextBtn, #configFullscreenBtn, #instructionsBtn, #instructionsReturnBtn, #ownQuestionsBtn, #readyQuestionsBtn, #returnBtn,
     .button-group button:hover {
       background-color: #111111;
       border-color: #FFEA00;
+      box-shadow: 0 0 20px #FFEA00;
     }
 
     #nextBtn {
+      background-color: #000000;
+    }
+
+    #nextBtn:hover {
       background-color: #006400;
     }
 
