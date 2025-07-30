@@ -34,7 +34,6 @@
       margin-bottom: 20px;
       font-weight: bold;
       letter-spacing: 4px;
-      text-shadow: 0 1px 0 #ffecb3, 0 2px 0 #ffd700, 0 3px 0 #daa520, 0 4px 0 #cd853f, 0 5px 0 #b8860b, 0 6px 1px rgba(0,0,0,.1), 0 0 5px rgba(0,0,0,.1), 0 1px 3px rgba(0,0,0,.3), 0 3px 5px rgba(0,0,0,.2), 0 5px 10px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.2), 0 20px 20px rgba(0,0,0,.15);
       width: 100%;
       max-width: 100%;
       background: #FFEA00;
@@ -75,10 +74,12 @@
 
     .team-input input {
       width: 100%;
-      padding: 8px;
+      padding: 10px 30px;
+      height: 44px; /* Same height as buttons */
       font-size: 16px;
       border-radius: 8px;
-      border: none;
+      border: 4px solid #FFEA00;
+      box-shadow: 0 0 20px #FFEA00;
       outline: none;
     }
 
@@ -90,8 +91,16 @@
       margin-right: auto;
     }
 
-    .right-block .section-title {
-      margin-top: 24px;
+    .right-block .section-title:nth-child(1) {
+      margin-top: 0;
+    }
+
+    .right-block .section-title:nth-child(3) {
+      margin-top: 68px; /* Align with "Nazwa drużyny nr 2" */
+    }
+
+    .left-block .section-title:nth-child(3) {
+      margin-top: 68px; /* Align with "Czy uwzględnić finał?" */
     }
 
     .button-group {
@@ -143,7 +152,7 @@
     }
 
     .button-group button.active {
-      background-color: #FFEA00 !important;
+      background-color: #FFFFFF !important;
       color: #000000;
       border-color: #FFEA00;
       box-shadow: 0 0 20px #FFEA00;
@@ -270,6 +279,9 @@
       .team-input input {
         font-size: clamp(14px, 3.5vw, 16px);
         padding: 6px;
+        height: 40px;
+        border: 3px solid #FFEA00;
+        box-shadow: 0 0 10px #FFD700;
       }
 
       .section-title {
@@ -279,8 +291,16 @@
         max-width: 100%;
       }
 
-      .right-block .section-title {
-        margin-top: 16px;
+      .right-block .section-title:nth-child(1) {
+        margin-top: 0;
+      }
+
+      .right-block .section-title:nth-child(3) {
+        margin-top: 48px;
+      }
+
+      .left-block .section-title:nth-child(3) {
+        margin-top: 48px;
       }
 
       .button-group {
@@ -446,7 +466,7 @@
           <label for="team1">Nazwa drużyny nr 1</label>
           <input type="text" id="team1" maxlength="13" placeholder="Wpisz nazwę" />
         </div>
-        <div class="team-input" style="margin-top: 24px;">
+        <div class="team-input">
           <label for="team2">Nazwa drużyny nr 2</label>
           <input type="text" id="team2" maxlength="13" placeholder="Wpisz nazwę" />
         </div>
