@@ -7,7 +7,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <style>
         html, body {
-            height: 100%;
             margin: 0;
             padding: 0;
         }
@@ -19,20 +18,9 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: flex-start;
             position: relative;
             box-sizing: border-box;
             min-height: 100vh;
-            overflow-y: visible;
-        }
-
-        #scaler {
-            position: relative;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            transform-origin: top center;
         }
 
         h1 {
@@ -260,74 +248,72 @@
     </style>
 </head>
 <body>
-    <div id="scaler">
-        <h1>Familiada</h1>
+    <h1>Familiada</h1>
 
-        <div class="button-container">
-            <button>Instrukcja</button>
-            <button id="fullscreen-btn">Pełny ekran</button>
-        </div>
+    <div class="button-container">
+        <button>Instrukcja</button>
+        <button id="fullscreen-btn">Pełny ekran</button>
+    </div>
 
-        <div class="aligned-section">
-            <div class="left">
-                <p>Wariant gry:</p>
-                <div class="vertical-buttons">
-                    <button>Własne pytania</button>
-                    <button>Gotowe pytania</button>
-                </div>
-            </div>
-
-            <div class="center">
-                <p>Drużyny:</p>
-                <input type="text" id="team1-input" placeholder="Wpisz nazwę drużyny nr 1" maxlength="15">
-                <input type="text" id="team2-input" placeholder="Wpisz nazwę drużyny nr 2" maxlength="15">
-            </div>
-
-            <div class="right">
-                <p>Grę rozpocznie:</p>
-                <div class="vertical-buttons">
-                    <button id="team1-btn">Drużyna 1</button>
-                    <button id="team2-btn">Drużyna 2</button>
-                </div>
+    <div class="aligned-section">
+        <div class="left">
+            <p>Wariant gry:</p>
+            <div class="vertical-buttons">
+                <button>Własne pytania</button>
+                <button>Gotowe pytania</button>
             </div>
         </div>
 
-        <div class="aligned-section">
-            <div class="left">
-                <p>Ilość rund:</p>
-                <div class="rounds-container">
-                    <button>3</button>
-                    <button>5</button>
-                    <button>7</button>
-                    <button>9</button>
-                </div>
-            </div>
+        <div class="center">
+            <p>Drużyny:</p>
+            <input type="text" id="team1-input" placeholder="Wpisz nazwę drużyny nr 1" maxlength="15">
+            <input type="text" id="team2-input" placeholder="Wpisz nazwę drużyny nr 2" maxlength="15">
+        </div>
 
-            <div class="center">
-                <p>Czas na odpowiedź:</p>
-                <div class="times-container">
-                    <button>15s</button>
-                    <button>30s</button>
-                    <button>60s</button>
-                    <button>Brak</button>
-                </div>
+        <div class="right">
+            <p>Grę rozpocznie:</p>
+            <div class="vertical-buttons">
+                <button id="team1-btn">Drużyna 1</button>
+                <button id="team2-btn">Drużyna 2</button>
             </div>
+        </div>
+    </div>
 
-            <div class="right">
-                <p>Zakończenie gry:</p>
-                <div class="vertical-buttons">
-                    <button>Finał</button>
-                    <button>Ostatnia runda</button>
-                </div>
+    <div class="aligned-section">
+        <div class="left">
+            <p>Ilość rund:</p>
+            <div class="rounds-container">
+                <button>3</button>
+                <button>5</button>
+                <button>7</button>
+                <button>9</button>
             </div>
         </div>
 
-        <button style="margin: 18px 0; min-width: 320px;">Dalej</button>
-
-        <div class="bottom-logo">
-            <img src="familiada/logo.png" alt="Logo">
-            <a href="https://www.muzykamikrofonakcja.pl">WWW.MUZYKAMIKROFONAKCJA.PL</a>
+        <div class="center">
+            <p>Czas na odpowiedź:</p>
+            <div class="times-container">
+                <button>15s</button>
+                <button>30s</button>
+                <button>60s</button>
+                <button>Brak</button>
+            </div>
         </div>
+
+        <div class="right">
+            <p>Zakończenie gry:</p>
+            <div class="vertical-buttons">
+                <button>Finał</button>
+                <button>Ostatnia runda</button>
+            </div>
+        </div>
+    </div>
+
+    <button style="margin: 18px 0; min-width: 320px;">Dalej</button>
+
+    <div class="bottom-logo">
+        <img src="familiada/logo.png" alt="Logo">
+        <a href="https://www.muzykamikrofonakcja.pl">WWW.MUZYKAMIKROFONAKCJA.PL</a>
     </div>
 
     <script>
@@ -360,20 +346,6 @@
         team2Input.addEventListener('input', () => {
             team2Btn.textContent = team2Input.value || 'Drużyna 2';
         });
-
-        const scaler = document.getElementById('scaler');
-        function adjustScale() {
-            scaler.style.transform = 'none';
-            scaler.style.height = 'auto';
-            const rect = scaler.getBoundingClientRect();
-            const naturalHeight = rect.height;
-            const naturalWidth = rect.width;
-            const scale = Math.min(1, Math.min(window.innerWidth / naturalWidth, window.innerHeight / naturalHeight));
-            scaler.style.transform = `scale(${scale})`;
-            scaler.style.height = `${naturalHeight * scale}px`;
-        }
-        window.addEventListener('load', adjustScale);
-        window.addEventListener('resize', adjustScale);
     </script>
 </body>
 </html>
