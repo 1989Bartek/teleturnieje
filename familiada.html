@@ -1,266 +1,379 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Familiada</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      overflow: hidden;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Familiada</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
 
-    #scalable-wrapper {
-      width: 1920px;
-      height: 1080px;
-      transform-origin: top left;
-    }
+        body {
+            background: linear-gradient(to right, #d40000, #000033, #0033cc);
+            font-family: Arial, sans-serif;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            position: relative;
+            box-sizing: border-box;
+            min-height: 100vh;
+            overflow-y: visible;
+        }
 
-    body {
-      background: linear-gradient(to right, #d40000, #000033, #0033cc);
-      font-family: Arial, sans-serif;
-      color: white;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+        #scaler {
+            position: relative;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transform-origin: top center;
+        }
 
-    h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: 72px;
-      margin: 18px 0;
-      background: linear-gradient(to right, #FFD700, #FFEA00, #FFD700);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      text-shadow: 0 0 10px #FFD700;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      text-align: center;
-    }
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 72px;
+            margin: 18px 0;
+            background: linear-gradient(to right, #FFD700, #FFEA00, #FFD700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 10px #FFD700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
 
-    .button-container {
-      display: flex;
-      justify-content: center;
-      gap: 18px;
-      margin: 10px 0;
-    }
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 18px;
+            margin: 10px 0;
+        }
 
-    .section {
-      width: 100%;
-      max-width: 1200px;
-      display: flex;
-      justify-content: space-between;
-      margin: 18px 0;
-      align-items: flex-start;
-    }
+        .section {
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            justify-content: space-between;
+            margin: 18px 0;
+            align-items: flex-start;
+        }
 
-    .left, .center, .right {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-    }
+        .left, .center, .right {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
 
-    input[type="text"] {
-      width: 80%;
-      max-width: 300px;
-      padding: 10px;
-      margin: 10px 0;
-      border: 4px solid #fff;
-      border-radius: 5px;
-      background-color: #fff;
-      color: #000;
-      font-size: 16px;
-    }
+        .left {
+            align-items: center;
+        }
 
-    .vertical-buttons {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
+        input[type="text"] {
+            width: 80%;
+            max-width: 300px;
+            padding: 10px;
+            margin: 10px 0;
+            border: 4px solid #fff;
+            border-radius: 5px;
+            background-color: #fff;
+            color: #000;
+            font-size: 16px;
+        }
 
-    .rounds-container, .times-container {
-      display: grid;
-      grid-template-columns: repeat(2, auto);
-      gap: 10px;
-      margin: 10px 0;
-    }
+        .vertical-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
 
-    button {
-      background-color: #000;
-      border: 4px solid #fff;
-      color: #FFFF33;
-      font-family: 'Courier New', monospace;
-      font-size: 24px;
-      padding: 12px 36px;
-      border-radius: 8px;
-      box-shadow: 0 0 10px #FFD700;
-      cursor: pointer;
-      transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
-      min-width: 320px;
-      text-align: center;
-      text-transform: capitalize;
-    }
+        .rounds-container, .times-container {
+            display: grid;
+            grid-template-columns: repeat(2, auto);
+            gap: 10px;
+            margin: 10px 0;
+        }
 
-    .rounds-container button, .times-container button {
-      min-width: 150px;
-    }
+        .rounds-container {
+            justify-content: center;
+        }
 
-    .bottom-logo {
-      position: absolute;
-      bottom: 24px;
-      right: 12px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
+        .times-container {
+            justify-content: center;
+        }
 
-    .bottom-logo img {
-      width: 200px;
-      margin-bottom: 6px;
-    }
+        button {
+            background-color: #000;
+            border: 4px solid #fff;
+            color: #FFFF33;
+            font-family: 'Courier New', monospace;
+            font-size: 24px;
+            padding: 12px 36px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px #FFD700;
+            cursor: pointer;
+            transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
+            min-width: 320px;
+            text-align: center;
+            text-transform: capitalize;
+        }
 
-    .bottom-logo a {
-      color: white;
-      text-decoration: none;
-      font-size: 14px;
-    }
+        .rounds-container button, .times-container button {
+            min-width: 150px;
+        }
 
-    .aligned-section {
-      display: flex;
-      justify-content: space-between;
-      width: 100%;
-      max-width: 1200px;
-      margin: 18px 0;
-      align-items: flex-start;
-    }
+        button.active {
+            background-color: #fff;
+            color: #000;
+            border-color: #FFEA00;
+            box-shadow: 0 0 20px #FFEA00;
+        }
 
-    .aligned-section p {
-      margin-top: 0;
-      font-size: 24px;
-    }
+        button:hover {
+            background-color: #111;
+            border-color: #FFEA00;
+            box-shadow: 0 0 20px #FFEA00;
+        }
 
-    .right .vertical-buttons {
-      margin-top: 12px;
-    }
-  </style>
+        .bottom-logo {
+            position: absolute;
+            bottom: 24px;
+            right: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .bottom-logo img {
+            width: 200px;
+            margin-bottom: 6px;
+        }
+
+        .bottom-logo a {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .aligned-section {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 1200px;
+            margin: 18px 0;
+            align-items: flex-start;
+        }
+
+        .aligned-section p {
+            margin-top: 0;
+            font-size: 24px;
+        }
+
+        .right .vertical-buttons {
+            margin-top: 12px;
+        }
+
+        @media screen and (max-width: 1200px) {
+            h1 {
+                font-size: 48px;
+            }
+
+            .section, .aligned-section {
+                max-width: 90%;
+                flex-direction: column;
+                align-items: center;
+                gap: 18px;
+            }
+
+            .left, .center, .right {
+                width: 100%;
+                align-items: center;
+            }
+
+            input[type="text"] {
+                width: 90%;
+                max-width: 400px;
+            }
+
+            button {
+                min-width: 250px;
+                font-size: 20px;
+                padding: 10px 20px;
+            }
+
+            .rounds-container button, .times-container button {
+                min-width: 120px;
+            }
+
+            .bottom-logo img {
+                width: 150px;
+            }
+
+            .bottom-logo a {
+                font-size: 12px;
+            }
+
+            .aligned-section p {
+                font-size: 20px;
+            }
+        }
+
+        @media screen and (max-width: 600px) {
+            h1 {
+                font-size: 36px;
+            }
+
+            button {
+                min-width: 200px;
+                font-size: 18px;
+                padding: 8px 16px;
+            }
+
+            .rounds-container button, .times-container button {
+                min-width: 100px;
+            }
+
+            input[type="text"] {
+                width: 90%;
+                max-width: 300px;
+                font-size: 14px;
+            }
+
+            .aligned-section p {
+                font-size: 18px;
+            }
+
+            .bottom-logo img {
+                width: 120px;
+            }
+
+            .bottom-logo a {
+                font-size: 10px;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div id="scalable-wrapper">
-    <h1>Familiada</h1>
+    <div id="scaler">
+        <h1>Familiada</h1>
 
-    <div class="button-container">
-      <button>Instrukcja</button>
-      <button id="fullscreen-btn">Pełny ekran</button>
+        <div class="button-container">
+            <button>Instrukcja</button>
+            <button id="fullscreen-btn">Pełny ekran</button>
+        </div>
+
+        <div class="aligned-section">
+            <div class="left">
+                <p>Wariant gry:</p>
+                <div class="vertical-buttons">
+                    <button>Własne pytania</button>
+                    <button>Gotowe pytania</button>
+                </div>
+            </div>
+
+            <div class="center">
+                <p>Drużyny:</p>
+                <input type="text" id="team1-input" placeholder="Wpisz nazwę drużyny nr 1" maxlength="15">
+                <input type="text" id="team2-input" placeholder="Wpisz nazwę drużyny nr 2" maxlength="15">
+            </div>
+
+            <div class="right">
+                <p>Grę rozpocznie:</p>
+                <div class="vertical-buttons">
+                    <button id="team1-btn">Drużyna 1</button>
+                    <button id="team2-btn">Drużyna 2</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="aligned-section">
+            <div class="left">
+                <p>Ilość rund:</p>
+                <div class="rounds-container">
+                    <button>3</button>
+                    <button>5</button>
+                    <button>7</button>
+                    <button>9</button>
+                </div>
+            </div>
+
+            <div class="center">
+                <p>Czas na odpowiedź:</p>
+                <div class="times-container">
+                    <button>15s</button>
+                    <button>30s</button>
+                    <button>60s</button>
+                    <button>Brak</button>
+                </div>
+            </div>
+
+            <div class="right">
+                <p>Zakończenie gry:</p>
+                <div class="vertical-buttons">
+                    <button>Finał</button>
+                    <button>Ostatnia runda</button>
+                </div>
+            </div>
+        </div>
+
+        <button style="margin: 18px 0; min-width: 320px;">Dalej</button>
+
+        <div class="bottom-logo">
+            <img src="familiada/logo.png" alt="Logo">
+            <a href="https://www.muzykamikrofonakcja.pl">WWW.MUZYKAMIKROFONAKCJA.PL</a>
+        </div>
     </div>
 
-    <div class="aligned-section">
-      <div class="left">
-        <p>Wariant gry:</p>
-        <div class="vertical-buttons">
-          <button>Własne pytania</button>
-          <button>Gotowe pytania</button>
-        </div>
-      </div>
+    <script>
+        const fullscreenBtn = document.getElementById('fullscreen-btn');
+        const team1Input = document.getElementById('team1-input');
+        const team2Input = document.getElementById('team2-input');
+        const team1Btn = document.getElementById('team1-btn');
+        const team2Btn = document.getElementById('team2-btn');
 
-      <div class="center">
-        <p>Drużyny:</p>
-        <input type="text" id="team1-input" placeholder="Wpisz nazwę drużyny nr 1" maxlength="15" />
-        <input type="text" id="team2-input" placeholder="Wpisz nazwę drużyny nr 2" maxlength="15" />
-      </div>
-
-      <div class="right">
-        <p>Grę rozpocznie:</p>
-        <div class="vertical-buttons">
-          <button id="team1-btn">Drużyna 1</button>
-          <button id="team2-btn">Drużyna 2</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="aligned-section">
-      <div class="left">
-        <p>Ilość rund:</p>
-        <div class="rounds-container">
-          <button>3</button>
-          <button>5</button>
-          <button>7</button>
-          <button>9</button>
-        </div>
-      </div>
-
-      <div class="center">
-        <p>Czas na odpowiedź:</p>
-        <div class="times-container">
-          <button>15s</button>
-          <button>30s</button>
-          <button>60s</button>
-          <button>Brak</button>
-        </div>
-      </div>
-
-      <div class="right">
-        <p>Zakończenie gry:</p>
-        <div class="vertical-buttons">
-          <button>Finał</button>
-          <button>Ostatnia runda</button>
-        </div>
-      </div>
-    </div>
-
-    <button style="margin: 18px 0; min-width: 320px;">Dalej</button>
-
-    <div class="bottom-logo">
-      <img src="familiada/logo.png" alt="Logo" />
-      <a href="https://www.muzykamikrofonakcja.pl">WWW.MUZYKAMIKROFONAKCJA.PL</a>
-    </div>
-  </div>
-
-  <script>
-    const fullscreenBtn = document.getElementById('fullscreen-btn');
-    const team1Input = document.getElementById('team1-input');
-    const team2Input = document.getElementById('team2-input');
-    const team1Btn = document.getElementById('team1-btn');
-    const team2Btn = document.getElementById('team2-btn');
-
-    fullscreenBtn.addEventListener('click', () => {
-      if (!document.fullscreenElement) {
-        document.documentElement.requestFullscreen().then(() => {
-          fullscreenBtn.textContent = 'Podstawowy ekran';
-        }).catch(err => {
-          console.error(`Error attempting to enable fullscreen: ${err.message}`);
+        fullscreenBtn.addEventListener('click', () => {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().then(() => {
+                    fullscreenBtn.textContent = 'Podstawowy ekran';
+                }).catch(err => {
+                    console.error(`Error attempting to enable fullscreen: ${err.message}`);
+                });
+            } else {
+                document.exitFullscreen().then(() => {
+                    fullscreenBtn.textContent = 'Pełny ekran';
+                }).catch(err => {
+                    console.error(`Error attempting to exit fullscreen: ${err.message}`);
+                });
+            }
         });
-      } else {
-        document.exitFullscreen().then(() => {
-          fullscreenBtn.textContent = 'Pełny ekran';
-        }).catch(err => {
-          console.error(`Error attempting to exit fullscreen: ${err.message}`);
+
+        team1Input.addEventListener('input', () => {
+            team1Btn.textContent = team1Input.value || 'Drużyna 1';
         });
-      }
-    });
 
-    team1Input.addEventListener('input', () => {
-      team1Btn.textContent = team1Input.value || 'Drużyna 1';
-    });
+        team2Input.addEventListener('input', () => {
+            team2Btn.textContent = team2Input.value || 'Drużyna 2';
+        });
 
-    team2Input.addEventListener('input', () => {
-      team2Btn.textContent = team2Input.value || 'Drużyna 2';
-    });
-
-    function scaleToFit() {
-      const wrapper = document.getElementById('scalable-wrapper');
-      const scaleX = window.innerWidth / 1920;
-      const scaleY = window.innerHeight / 1080;
-      const scale = Math.min(scaleX, scaleY);
-      wrapper.style.transform = `scale(${scale})`;
-    }
-
-    window.addEventListener('resize', scaleToFit);
-    window.addEventListener('load', scaleToFit);
-  </script>
+        const scaler = document.getElementById('scaler');
+        function adjustScale() {
+            scaler.style.transform = 'none';
+            scaler.style.height = 'auto';
+            const rect = scaler.getBoundingClientRect();
+            const naturalHeight = rect.height;
+            const naturalWidth = rect.width;
+            const scale = Math.min(1, Math.min(window.innerWidth / naturalWidth, window.innerHeight / naturalHeight));
+            scaler.style.transform = `scale(${scale})`;
+            scaler.style.height = `${naturalHeight * scale}px`;
+        }
+        window.addEventListener('load', adjustScale);
+        window.addEventListener('resize', adjustScale);
+    </script>
 </body>
 </html>
