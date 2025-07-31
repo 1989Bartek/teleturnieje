@@ -345,7 +345,7 @@
             box-shadow: 0 0 10px #FFD700;
             cursor: pointer;
             text-align: center;
-            min-width: 80px;
+            min-width: 93.33px;
             line-height: 1;
         }
 
@@ -379,6 +379,10 @@
 
         .game-controls button, .game-controls input[type="text"] {
             min-width: 280px;
+        }
+
+        .game-controls .round-nav {
+            min-width: 93.33px;
         }
 
         .timer-box, .question-box {
@@ -540,6 +544,10 @@
                 min-width: 280px;
             }
 
+            .game-controls .round-nav {
+                min-width: 93.33px;
+            }
+
             .timer-box, .question-box {
                 min-width: 140px;
                 font-size: 18px;
@@ -662,7 +670,7 @@
                 padding: 4px 8px;
                 min-width: 0;
                 flex: 1;
-                max-width: 45%;
+                max-width: 25%;
             }
 
             .question-number {
@@ -683,9 +691,15 @@
                 min-width: 280px;
             }
 
+            .game-controls .round-nav {
+                min-width: 70px;
+                max-width: 25%;
+            }
+
             .game-controls:first-of-type {
-                flex-direction: column;
-                justify-content: center;
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: space-between;
                 gap: 10px;
             }
 
@@ -694,7 +708,7 @@
                 padding: 8px 16px;
                 min-width: 120px;
                 flex: 1;
-                max-width: 45%;
+                max-width: 25%;
             }
 
             .game-controls:last-of-type {
@@ -712,6 +726,7 @@
 
             #game-fullscreen-btn {
                 order: 3;
+                display: none;
             }
         }
     </style>
@@ -857,14 +872,16 @@
         </div>
         <div class="game-controls">
             <div class="question-box">Pytanie nr 1</div>
-            <div class="timer-box">Bez czasu</div>
             <input type="text" id="answer-input" placeholder="Wpisz odpowiedź">
             <button id="submit-answer-btn">Zatwierdź</button>
+            <div class="timer-box">Bez czasu</div>
         </div>
         <div class="game-controls">
+            <button id="prev-round-btn" class="round-nav">&larr;</button>
             <button id="back-to-settings-btn">Powrót</button>
             <button id="start-btn">Rozpocznij</button>
             <button id="game-fullscreen-btn">Pełny ekran</button>
+            <button id="next-round-btn" class="round-nav">&rarr;</button>
         </div>
         <div class="bottom-logo">
             <img src="familiada/logo.png" alt="Logo">
