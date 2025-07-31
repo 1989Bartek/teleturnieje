@@ -51,7 +51,7 @@
             align-items: flex-start;
         }
 
-        .left, .center, .right {
+        .left, .center, .right, .new-col, .new-left {
             flex: 1;
             display: flex;
             flex-direction: column;
@@ -79,13 +79,14 @@
             display: flex;
             flex-direction: column;
             gap: 10px;
+            margin-top: 12px;
         }
 
         .rounds-container, .times-container {
             display: grid;
             grid-template-columns: repeat(2, auto);
             gap: 10px;
-            margin: 10px 0;
+            margin-top: 12px;
         }
 
         .rounds-container {
@@ -107,23 +108,23 @@
             box-shadow: 0 0 10px #FFD700;
             cursor: pointer;
             transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
-            min-width: 320px;
+            min-width: 280px;
             text-align: center;
             text-transform: capitalize;
         }
 
         .rounds-container button, .times-container button {
-            min-width: 150px;
+            min-width: 130px;
         }
 
         button.active {
-            background-color: #fff;
-            color: #000;
+            background-color: #002266;
+            color: #FFFF33;
             border-color: #FFEA00;
             box-shadow: 0 0 20px #FFEA00;
         }
 
-        button:hover {
+        button:hover:not(.active) {
             background-color: #111;
             border-color: #FFEA00;
             box-shadow: 0 0 20px #FFEA00;
@@ -139,7 +140,7 @@
         }
 
         .bottom-logo img {
-            width: 180px;
+            width: 160px;
             margin-bottom: 6px;
         }
 
@@ -163,10 +164,6 @@
             font-size: 24px;
         }
 
-        .right .vertical-buttons {
-            margin-top: 12px;
-        }
-
         @media screen and (max-width: 1200px) {
             h1 {
                 font-size: 48px;
@@ -181,19 +178,19 @@
                 margin: 28px 0;
             }
 
-            .left, .center, .right {
+            .left, .center, .right, .new-col, .new-left {
                 width: 100%;
                 align-items: center;
             }
 
             input[type="text"] {
-                width: 320px;
-                max-width: 320px;
+                width: 280px;
+                max-width: 280px;
                 border: 4px solid #000;
             }
 
             button {
-                min-width: 320px;
+                min-width: 280px;
                 font-size: 20px;
                 padding: 10px 20px;
             }
@@ -203,7 +200,7 @@
             }
 
             .bottom-logo img {
-                width: 135px;
+                width: 120px;
             }
 
             .bottom-logo a {
@@ -232,7 +229,7 @@
             }
 
             button {
-                min-width: 320px;
+                min-width: 280px;
                 font-size: 18px;
                 padding: 8px 16px;
             }
@@ -242,8 +239,8 @@
             }
 
             input[type="text"] {
-                width: 320px;
-                max-width: 320px;
+                width: 280px;
+                max-width: 280px;
                 font-size: 14px;
                 border: 4px solid #000;
             }
@@ -253,7 +250,7 @@
             }
 
             .bottom-logo img {
-                width: 108px;
+                width: 90px;
             }
 
             .bottom-logo a {
@@ -262,7 +259,8 @@
 
             .bottom-logo {
                 position: static;
-                margin-top: 20px;
+                margin-top: 40px;
+                margin-bottom: 40px;
             }
         }
     </style>
@@ -273,14 +271,22 @@
     <div class="button-container">
         <button>Instrukcja</button>
         <button id="fullscreen-btn">Pełny ekran</button>
+        <button>Karta pytań PDF</button>
     </div>
 
     <div class="aligned-section">
         <div class="left">
             <p>Wariant gry:</p>
             <div class="vertical-buttons">
-                <button>Własne pytania</button>
-                <button>Gotowe pytania</button>
+                <button class="game-variant">Własne pytania</button>
+                <button class="game-variant">Gotowe pytania</button>
+            </div>
+        </div>
+        <div class="new-col">
+            <p>Kolejność pytań:</p>
+            <div class="vertical-buttons">
+                <button class="question-order">Chronologicznie</button>
+                <button class="question-order">Losowo</button>
             </div>
         </div>
 
@@ -293,43 +299,50 @@
         <div class="right">
             <p>Grę rozpocznie:</p>
             <div class="vertical-buttons">
-                <button id="team1-btn">Drużyna 1</button>
-                <button id="team2-btn">Drużyna 2</button>
+                <button id="team1-btn" class="team-start">Drużyna 1</button>
+                <button id="team2-btn" class="team-start">Drużyna 2</button>
             </div>
         </div>
     </div>
 
     <div class="aligned-section">
+        <div class="new-left">
+            <p>Pytania na ekranie:</p>
+            <div class="vertical-buttons">
+                <button class="display-questions">Wyświetlaj</button>
+                <button class="display-questions">Nie wyświetlaj</button>
+            </div>
+        </div>
         <div class="left">
             <p>Ilość rund:</p>
             <div class="rounds-container">
-                <button>3</button>
-                <button>5</button>
-                <button>7</button>
-                <button>9</button>
+                <button class="rounds">3</button>
+                <button class="rounds">5</button>
+                <button class="rounds">7</button>
+                <button class="rounds">9</button>
             </div>
         </div>
 
         <div class="center">
             <p>Czas na odpowiedź:</p>
             <div class="times-container">
-                <button>15s</button>
-                <button>30s</button>
-                <button>60s</button>
-                <button>Brak</button>
+                <button class="times">15s</button>
+                <button class="times">30s</button>
+                <button class="times">60s</button>
+                <button class="times">Brak</button>
             </div>
         </div>
 
         <div class="right">
             <p>Zakończenie gry:</p>
             <div class="vertical-buttons">
-                <button>Z Finałem</button>
-                <button>Bez Finału</button>
+                <button class="game-end">Z Finałem</button>
+                <button class="game-end">Bez Finału</button>
             </div>
         </div>
     </div>
 
-    <button style="margin: 28px 0; min-width: 320px;">Dalej</button>
+    <button style="margin: 28px 0; min-width: 280px;">Dalej</button>
 
     <div class="bottom-logo">
         <img src="familiada/logo.png" alt="Logo">
@@ -366,6 +379,29 @@
         team2Input.addEventListener('input', () => {
             team2Btn.textContent = team2Input.value || 'Drużyna 2';
         });
+
+        // Toggle active state for button groups
+        const toggleActive = (groupClass) => {
+            const buttons = document.querySelectorAll(`.${groupClass}`);
+            buttons.forEach(button => {
+                button.addEventListener('click', () => {
+                    if (button.classList.contains('active')) {
+                        button.classList.remove('active');
+                    } else {
+                        buttons.forEach(btn => btn.classList.remove('active'));
+                        button.classList.add('active');
+                    }
+                });
+            });
+        };
+
+        toggleActive('game-variant');
+        toggleActive('team-start');
+        toggleActive('game-end');
+        toggleActive('rounds');
+        toggleActive('times');
+        toggleActive('question-order');
+        toggleActive('display-questions');
     </script>
 </body>
 </html>
