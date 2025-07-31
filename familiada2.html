@@ -334,22 +334,13 @@
             color: #FFFF33;
             font-family: 'Courier New', monospace;
             font-size: 20px;
-            padding: 12px 36px;
+            padding: 12px 24px;
             border-radius: 8px;
             box-shadow: 0 0 10px #FFD700;
             cursor: pointer;
             text-align: center;
             min-width: 70px;
             line-height: 1;
-        }
-
-        .round-nav::before {
-            content: '';
-            display: inline-block;
-            vertical-align: middle;
-            font-family: Arial, sans-serif;
-            font-size: 24px;
-            font-weight: bold;
         }
 
         .round-nav:hover {
@@ -359,11 +350,15 @@
         }
 
         #prev-round-btn::before {
-            content: '\2039';
+            content: '◄';
+            font-size: 24px;
+            font-weight: bold;
         }
 
         #next-round-btn::before {
-            content: '\203A';
+            content: '►';
+            font-size: 24px;
+            font-weight: bold;
         }
 
         .question-number {
@@ -380,7 +375,7 @@
             gap: 10px;
             margin: 10px 0;
             width: 100%;
-            max-width: 1000px;
+            max-width: 1200px;
             justify-content: center;
         }
 
@@ -542,7 +537,6 @@
                 flex-direction: column;
                 gap: 10px;
                 margin: 10px 0;
-                max-width: 95%;
             }
 
             .game-controls input[type="text"] {
@@ -682,7 +676,6 @@
                 flex-direction: column;
                 gap: 10px;
                 margin: 10px 0;
-                max-width: 90%;
             }
 
             .game-controls input[type="text"] {
