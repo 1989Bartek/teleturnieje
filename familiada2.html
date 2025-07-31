@@ -647,14 +647,17 @@
                 display: flex;
                 justify-content: space-between;
                 margin-bottom: 0;
-                position: absolute;
-                top: 80px;
+                position: relative;
+                top: auto;
+                margin-top: -5px;
             }
 
             .round-nav {
                 font-size: 12px;
                 padding: 4px 8px;
-                min-width: 80px;
+                min-width: 0;
+                flex: 1;
+                max-width: 45%;
             }
 
             .question-number {
@@ -675,10 +678,36 @@
                 min-width: 280px;
             }
 
+            .game-controls:first-of-type {
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px;
+            }
+
             .timer-box, .question-box {
                 font-size: 16px;
                 padding: 8px 16px;
-                min-width: 140px;
+                min-width: 120px;
+                flex: 1;
+                max-width: 45%;
+            }
+
+            .game-controls:last-of-type {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            #back-to-settings-btn {
+                order: 2;
+            }
+
+            #start-btn {
+                order: 1;
+            }
+
+            #game-fullscreen-btn {
+                order: 3;
             }
         }
     </style>
@@ -862,6 +891,7 @@
         const gameBoardAnswers = document.querySelector('.game-board-answers');
         const timesButtons = document.querySelectorAll('.times');
         const timerBox = document.querySelector('.timer-box');
+        let timerInterval = null;
 
         fullscreenBtn.addEventListener('click', toggleFullscreen);
         gameFullscreenBtn.addEventListener('click', toggleFullscreen);
@@ -899,7 +929,15 @@
         timesButtons.forEach(button => {
             button.addEventListener('click', () => {
                 const timeText = button.textContent;
-                timerBox.textContent = timeText === 'Brak' ? 'Bez czasu' : `00:${timeText.replace('s', '').padStart(2, '0')}`;
+                if (timeText === '60s') {
+                    timerBox.textContent = '01:00';
+                } else if (timeText === '120s') {
+                    timerBox.textContent = '02:00';
+                } else if (timeText === 'Brak') {
+                    timerBox.textContent = 'Bez czasu';
+                } else {
+                    timerBox.textContent = `00:${timeText.replace('s', '').padStart(2, '0')}`;
+                }
             });
         });
 
@@ -923,11 +961,13 @@
             settingsView.style.display = 'flex';
             gameBoardQuestion.style.display = 'none';
             gameBoardAnswers.style.display = 'none';
+            clearInterval(timerInterval);
         });
 
         startBtn.addEventListener('click', () => {
             gameBoardQuestion.style.display = 'block';
             gameBoardAnswers.style.display = 'flex';
+            startTimer();
         });
 
         submitAnswerBtn.addEventListener('click', submitAnswer);
@@ -944,6 +984,33 @@
                 console.log('Submitted answer:', answer);
                 answerInput.value = '';
             }
+        }
+
+        function startTimer() {
+            clearInterval(timerInterval);
+            const timerText = timerBox.textContent;
+            if (timerText === 'Bez czasu') return;
+
+            let timeInSeconds;
+            if (timerText === '01:00') {
+                timeInSeconds = 60;
+            } else if (timerText === '02:00') {
+                timeInSeconds = 120;
+            } else {
+                timeInSeconds = parseInt(timerText.split(':')[1]);
+            }
+
+            timerInterval = setInterval(() => {
+                if (timeInSeconds <= 0) {
+                    clearInterval(timerInterval);
+                    timerBox.textContent = '00:00';
+                    return;
+                }
+                timeInSeconds--;
+                const minutes = Math.floor(timeInSeconds / 60);
+                const seconds = timeInSeconds % 60;
+                timerBox.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            }, 1000);
         }
 
         // Toggle active state for button groups
