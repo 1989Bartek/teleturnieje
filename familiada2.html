@@ -140,7 +140,7 @@
         }
 
         .bottom-logo img {
-            width: 160px;
+            width: 140px;
             margin-bottom: 6px;
         }
 
@@ -164,14 +164,14 @@
             font-size: 24px;
         }
 
-        #settings-view, #instructions-view {
+        #settings-view, #instructions-view, #game-view {
             width: 100%;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
 
-        #instructions-view {
+        #instructions-view, #game-view {
             display: none;
         }
 
@@ -295,7 +295,7 @@
             }
 
             .instructions-text {
-                width: 95%;
+                width: 90%;
                 font-size: 14px;
             }
         }
@@ -379,7 +379,7 @@
             </div>
         </div>
 
-        <button style="margin: 28px 0; min-width: 280px;">Dalej</button>
+        <button id="next-btn" style="margin: 28px 0; min-width: 280px;">Dalej</button>
 
         <div class="bottom-logo">
             <img src="familiada/logo.png" alt="Logo">
@@ -399,6 +399,18 @@
         </div>
     </div>
 
+    <div id="game-view">
+        <h1>Familiada</h1>
+        <div class="game-content">
+            <!-- Placeholder for game content -->
+        </div>
+        <button id="back-to-settings-btn" style="margin: 28px 0; min-width: 280px;">Powrót</button>
+        <div class="bottom-logo">
+            <img src="familiada/logo.png" alt="Logo">
+            <a href="https://www.muzykamikrofonakcja.pl">WWW.MUZYKAMIKROFONAKCJA.PL</a>
+        </div>
+    </div>
+
     <script>
         const fullscreenBtn = document.getElementById('fullscreen-btn');
         const team1Input = document.getElementById('team1-input');
@@ -407,8 +419,11 @@
         const team2Btn = document.getElementById('team2-btn');
         const instructionsBtn = document.getElementById('instructions-btn');
         const backBtn = document.getElementById('back-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const backToSettingsBtn = document.getElementById('back-to-settings-btn');
         const settingsView = document.getElementById('settings-view');
         const instructionsView = document.getElementById('instructions-view');
+        const gameView = document.getElementById('game-view');
 
         fullscreenBtn.addEventListener('click', () => {
             if (!document.fullscreenElement) {
@@ -441,6 +456,16 @@
 
         backBtn.addEventListener('click', () => {
             instructionsView.style.display = 'none';
+            settingsView.style.display = 'flex';
+        });
+
+        nextBtn.addEventListener('click', () => {
+            settingsView.style.display = 'none';
+            gameView.style.display = 'flex';
+        });
+
+        backToSettingsBtn.addEventListener('click', () => {
+            gameView.style.display = 'none';
             settingsView.style.display = 'flex';
         });
 
