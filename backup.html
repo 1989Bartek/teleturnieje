@@ -7,10 +7,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <style>
         html, body {
-            height: 100%;
             margin: 0;
             padding: 0;
-            overflow: hidden;
         }
 
         body {
@@ -22,12 +20,13 @@
             align-items: center;
             position: relative;
             box-sizing: border-box;
+            min-height: 100vh;
         }
 
         h1 {
             font-family: 'Playfair Display', serif;
             font-size: 72px;
-            margin: 18px 0;
+            margin: 28px 0 18px 0;
             background: linear-gradient(to right, #FFD700, #FFEA00, #FFD700);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -40,7 +39,7 @@
             display: flex;
             justify-content: center;
             gap: 18px;
-            margin: 10px 0;
+            margin: 20px 0;
         }
 
         .section {
@@ -48,7 +47,7 @@
             max-width: 1200px;
             display: flex;
             justify-content: space-between;
-            margin: 18px 0;
+            margin: 28px 0;
             align-items: flex-start;
         }
 
@@ -140,14 +139,14 @@
         }
 
         .bottom-logo img {
-            width: 200px;
+            width: 180px;
             margin-bottom: 6px;
         }
 
         .bottom-logo a {
             color: white;
             text-decoration: none;
-            font-size: 14px;
+            font-size: 13px;
         }
 
         .aligned-section {
@@ -155,7 +154,7 @@
             justify-content: space-between;
             width: 100%;
             max-width: 1200px;
-            margin: 18px 0;
+            margin: 28px 0;
             align-items: flex-start;
         }
 
@@ -171,6 +170,7 @@
         @media screen and (max-width: 1200px) {
             h1 {
                 font-size: 48px;
+                margin: 28px 0 18px 0;
             }
 
             .section, .aligned-section {
@@ -178,6 +178,7 @@
                 flex-direction: column;
                 align-items: center;
                 gap: 18px;
+                margin: 28px 0;
             }
 
             .left, .center, .right {
@@ -201,11 +202,11 @@
             }
 
             .bottom-logo img {
-                width: 150px;
+                width: 135px;
             }
 
             .bottom-logo a {
-                font-size: 12px;
+                font-size: 11px;
             }
 
             .aligned-section p {
@@ -216,6 +217,7 @@
         @media screen and (max-width: 600px) {
             h1 {
                 font-size: 36px;
+                margin: 28px 0 18px 0;
             }
 
             button {
@@ -239,11 +241,11 @@
             }
 
             .bottom-logo img {
-                width: 120px;
+                width: 108px;
             }
 
             .bottom-logo a {
-                font-size: 10px;
+                font-size: 9px;
             }
         }
     </style>
@@ -310,7 +312,7 @@
         </div>
     </div>
 
-    <button style="margin: 18px 0; min-width: 320px;">Dalej</button>
+    <button style="margin: 28px 0; min-width: 320px;">Dalej</button>
 
     <div class="bottom-logo">
         <img src="familiada/logo.png" alt="Logo">
