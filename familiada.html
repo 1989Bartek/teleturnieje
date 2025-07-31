@@ -140,7 +140,7 @@
         }
 
         .bottom-logo img {
-            width: 160px;
+            width: 140px;
             margin-bottom: 6px;
         }
 
@@ -162,6 +162,31 @@
         .aligned-section p {
             margin-top: 0;
             font-size: 24px;
+        }
+
+        #settings-view, #instructions-view, #game-view {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #instructions-view, #game-view {
+            display: none;
+        }
+
+        .instructions-text {
+            width: 90%;
+            max-width: 1000px;
+            margin: 20px 0;
+            padding: 20px;
+            background-color: #fff;
+            border: 4px solid #000;
+            border-radius: 8px;
+            font-size: 18px;
+            line-height: 1.6;
+            text-align: justify;
+            color: #000;
         }
 
         @media screen and (max-width: 1200px) {
@@ -220,6 +245,12 @@
             #fullscreen-btn {
                 display: none;
             }
+
+            .instructions-text {
+                width: 95%;
+                max-width: 95%;
+                font-size: 16px;
+            }
         }
 
         @media screen and (max-width: 600px) {
@@ -262,91 +293,122 @@
                 margin-top: 40px;
                 margin-bottom: 40px;
             }
+
+            .instructions-text {
+                width: 90%;
+                font-size: 14px;
+            }
         }
     </style>
 </head>
 <body>
-    <h1>Familiada</h1>
+    <div id="settings-view">
+        <h1>Familiada</h1>
 
-    <div class="button-container">
-        <button>Instrukcja</button>
-        <button id="fullscreen-btn">Pełny ekran</button>
-        <button>Karta pytań PDF</button>
+        <div class="button-container">
+            <button id="instructions-btn">Instrukcja</button>
+            <button id="fullscreen-btn">Pełny ekran</button>
+            <button>Karta pytań PDF</button>
+        </div>
+
+        <div class="aligned-section">
+            <div class="left">
+                <p>Wariant gry:</p>
+                <div class="vertical-buttons">
+                    <button class="game-variant">Własne pytania</button>
+                    <button class="game-variant">Gotowe pytania</button>
+                </div>
+            </div>
+            <div class="new-col">
+                <p>Kolejność pytań:</p>
+                <div class="vertical-buttons">
+                    <button class="question-order">Chronologicznie</button>
+                    <button class="question-order">Losowo</button>
+                </div>
+            </div>
+
+            <div class="center">
+                <p>Drużyny:</p>
+                <input type="text" id="team1-input" placeholder="Wpisz nazwę drużyny nr 1" maxlength="15">
+                <input type="text" id="team2-input" placeholder="Wpisz nazwę drużyny nr 2" maxlength="15">
+            </div>
+
+            <div class="right">
+                <p>Grę rozpocznie:</p>
+                <div class="vertical-buttons">
+                    <button id="team1-btn" class="team-start">Drużyna 1</button>
+                    <button id="team2-btn" class="team-start">Drużyna 2</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="aligned-section">
+            <div class="new-left">
+                <p>Pytania na ekranie:</p>
+                <div class="vertical-buttons">
+                    <button class="display-questions">Wyświetlaj</button>
+                    <button class="display-questions">Nie wyświetlaj</button>
+                </div>
+            </div>
+            <div class="left">
+                <p>Ilość rund:</p>
+                <div class="rounds-container">
+                    <button class="rounds">3</button>
+                    <button class="rounds">5</button>
+                    <button class="rounds">7</button>
+                    <button class="rounds">9</button>
+                </div>
+            </div>
+
+            <div class="center">
+                <p>Czas na odpowiedź:</p>
+                <div class="times-container">
+                    <button class="times">15s</button>
+                    <button class="times">30s</button>
+                    <button class="times">60s</button>
+                    <button class="times">Brak</button>
+                </div>
+            </div>
+
+            <div class="right">
+                <p>Zakończenie gry:</p>
+                <div class="vertical-buttons">
+                    <button class="game-end">Z Finałem</button>
+                    <button class="game-end">Bez Finału</button>
+                </div>
+            </div>
+        </div>
+
+        <button id="next-btn" style="margin: 28px 0; min-width: 280px;">Dalej</button>
+
+        <div class="bottom-logo">
+            <img src="familiada/logo.png" alt="Logo">
+            <a href="https://www.muzykamikrofonakcja.pl">WWW.MUZYKAMIKROFONAKCJA.PL</a>
+        </div>
     </div>
 
-    <div class="aligned-section">
-        <div class="left">
-            <p>Wariant gry:</p>
-            <div class="vertical-buttons">
-                <button class="game-variant">Własne pytania</button>
-                <button class="game-variant">Gotowe pytania</button>
-            </div>
+    <div id="instructions-view">
+        <h1>Familiada</h1>
+        <div class="instructions-text">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
         </div>
-        <div class="new-col">
-            <p>Kolejność pytań:</p>
-            <div class="vertical-buttons">
-                <button class="question-order">Chronologicznie</button>
-                <button class="question-order">Losowo</button>
-            </div>
-        </div>
-
-        <div class="center">
-            <p>Drużyny:</p>
-            <input type="text" id="team1-input" placeholder="Wpisz nazwę drużyny nr 1" maxlength="15">
-            <input type="text" id="team2-input" placeholder="Wpisz nazwę drużyny nr 2" maxlength="15">
-        </div>
-
-        <div class="right">
-            <p>Grę rozpocznie:</p>
-            <div class="vertical-buttons">
-                <button id="team1-btn" class="team-start">Drużyna 1</button>
-                <button id="team2-btn" class="team-start">Drużyna 2</button>
-            </div>
+        <button id="back-btn" style="margin: 28px 0; min-width: 280px;">Powrót</button>
+        <div class="bottom-logo">
+            <img src="familiada/logo.png" alt="Logo">
+            <a href="https://www.muzykamikrofonakcja.pl">WWW.MUZYKAMIKROFONAKCJA.PL</a>
         </div>
     </div>
 
-    <div class="aligned-section">
-        <div class="new-left">
-            <p>Pytania na ekranie:</p>
-            <div class="vertical-buttons">
-                <button class="display-questions">Wyświetlaj</button>
-                <button class="display-questions">Nie wyświetlaj</button>
-            </div>
+    <div id="game-view">
+        <h1>Familiada</h1>
+        <div class="game-content">
+            <!-- Placeholder for game content -->
         </div>
-        <div class="left">
-            <p>Ilość rund:</p>
-            <div class="rounds-container">
-                <button class="rounds">3</button>
-                <button class="rounds">5</button>
-                <button class="rounds">7</button>
-                <button class="rounds">9</button>
-            </div>
+        <button id="back-to-settings-btn" style="margin: 28px 0; min-width: 280px;">Powrót</button>
+        <div class="bottom-logo">
+            <img src="familiada/logo.png" alt="Logo">
+            <a href="https://www.muzykamikrofonakcja.pl">WWW.MUZYKAMIKROFONAKCJA.PL</a>
         </div>
-
-        <div class="center">
-            <p>Czas na odpowiedź:</p>
-            <div class="times-container">
-                <button class="times">15s</button>
-                <button class="times">30s</button>
-                <button class="times">60s</button>
-                <button class="times">Brak</button>
-            </div>
-        </div>
-
-        <div class="right">
-            <p>Zakończenie gry:</p>
-            <div class="vertical-buttons">
-                <button class="game-end">Z Finałem</button>
-                <button class="game-end">Bez Finału</button>
-            </div>
-        </div>
-    </div>
-
-    <button style="margin: 28px 0; min-width: 280px;">Dalej</button>
-
-    <div class="bottom-logo">
-        <img src="familiada/logo.png" alt="Logo">
-        <a href="https://www.muzykamikrofonakcja.pl">WWW.MUZYKAMIKROFONAKCJA.PL</a>
     </div>
 
     <script>
@@ -355,6 +417,13 @@
         const team2Input = document.getElementById('team2-input');
         const team1Btn = document.getElementById('team1-btn');
         const team2Btn = document.getElementById('team2-btn');
+        const instructionsBtn = document.getElementById('instructions-btn');
+        const backBtn = document.getElementById('back-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const backToSettingsBtn = document.getElementById('back-to-settings-btn');
+        const settingsView = document.getElementById('settings-view');
+        const instructionsView = document.getElementById('instructions-view');
+        const gameView = document.getElementById('game-view');
 
         fullscreenBtn.addEventListener('click', () => {
             if (!document.fullscreenElement) {
@@ -378,6 +447,26 @@
 
         team2Input.addEventListener('input', () => {
             team2Btn.textContent = team2Input.value || 'Drużyna 2';
+        });
+
+        instructionsBtn.addEventListener('click', () => {
+            settingsView.style.display = 'none';
+            instructionsView.style.display = 'flex';
+        });
+
+        backBtn.addEventListener('click', () => {
+            instructionsView.style.display = 'none';
+            settingsView.style.display = 'flex';
+        });
+
+        nextBtn.addEventListener('click', () => {
+            settingsView.style.display = 'none';
+            gameView.style.display = 'flex';
+        });
+
+        backToSettingsBtn.addEventListener('click', () => {
+            gameView.style.display = 'none';
+            settingsView.style.display = 'flex';
         });
 
         // Toggle active state for button groups
