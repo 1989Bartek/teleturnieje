@@ -339,7 +339,7 @@
             box-shadow: 0 0 10px #FFD700;
             cursor: pointer;
             text-align: center;
-            min-width: 93.33px;
+            min-width: 70px;
             line-height: 1;
         }
 
@@ -347,6 +347,8 @@
             content: '';
             display: inline-block;
             vertical-align: middle;
+            font-family: Arial, sans-serif;
+            font-size: 24px;
             font-weight: bold;
         }
 
@@ -357,13 +359,11 @@
         }
 
         #prev-round-btn::before {
-            content: '\2190';
-            font-weight: 900;
+            content: '\2039';
         }
 
         #next-round-btn::before {
-            content: '\2192';
-            font-weight: 900;
+            content: '\203A';
         }
 
         .question-number {
@@ -380,7 +380,7 @@
             gap: 10px;
             margin: 10px 0;
             width: 100%;
-            max-width: 1200px;
+            max-width: 1000px;
             justify-content: center;
         }
 
@@ -393,7 +393,7 @@
         }
 
         .game-controls .round-nav {
-            min-width: 93.33px;
+            min-width: 70px;
         }
 
         .timer-box, .question-box {
@@ -531,7 +531,7 @@
             .round-nav {
                 font-size: 18px;
                 padding: 10px 20px;
-                min-width: 93.33px;
+                min-width: 70px;
             }
 
             .question-number {
@@ -542,6 +542,7 @@
                 flex-direction: column;
                 gap: 10px;
                 margin: 10px 0;
+                max-width: 95%;
             }
 
             .game-controls input[type="text"] {
@@ -553,7 +554,7 @@
             }
 
             .game-controls .round-nav {
-                min-width: 93.33px;
+                min-width: 70px;
             }
 
             .timer-box, .question-box {
@@ -681,6 +682,7 @@
                 flex-direction: column;
                 gap: 10px;
                 margin: 10px 0;
+                max-width: 90%;
             }
 
             .game-controls input[type="text"] {
@@ -853,11 +855,11 @@
             <div class="timer-box">Bez czasu</div>
         </div>
         <div class="game-controls">
-            <button id="prev-round-btn" class="round-nav">&larr;</button>
+            <button id="prev-round-btn" class="round-nav"></button>
             <button id="back-to-settings-btn">Powrót</button>
             <button id="start-btn">Rozpocznij</button>
             <button id="game-fullscreen-btn">Pełny ekran</button>
-            <button id="next-round-btn" class="round-nav">&rarr;</button>
+            <button id="next-round-btn" class="round-nav"></button>
         </div>
         <div class="bottom-logo">
             <img src="familiada/logo.png" alt="Logo">
