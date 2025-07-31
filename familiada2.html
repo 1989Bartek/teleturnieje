@@ -197,10 +197,10 @@
             width: 90%;
             max-width: 1000px;
             padding: 20px;
-            margin: 20px 0;
+            margin: 10px 0;
             display: flex;
             flex-direction: column;
-            align-items: center;
+            align-items: flex-start;
             position: relative;
         }
 
@@ -209,7 +209,10 @@
             color: #FFFF33;
             font-size: 28px;
             margin-bottom: 20px;
-            text-align: center;
+            text-align: left;
+            width: 100%;
+            max-width: 600px;
+            align-self: center;
         }
 
         .game-board-answers {
@@ -218,6 +221,7 @@
             display: flex;
             flex-direction: column;
             gap: 10px;
+            align-self: center;
         }
 
         .answer-row {
@@ -239,7 +243,7 @@
         }
 
         .answer-text {
-            width: 350px;
+            width: 400px;
             text-align: left;
             overflow: hidden;
             white-space: nowrap;
@@ -257,16 +261,16 @@
             text-align: right;
             margin-top: 10px;
             width: 100%;
-            max-width: 600px;
+            max-width: 650px;
         }
 
         .marks-container {
             position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
+            top: 20px;
+            bottom: 20px;
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            justify-content: space-between;
         }
 
         .marks-left {
@@ -286,8 +290,9 @@
             display: flex;
             justify-content: space-between;
             width: 100%;
-            max-width: 1200px;
-            margin: 20px 0;
+            max-width: 1400px;
+            position: absolute;
+            top: 150px;
         }
 
         .team-score {
@@ -322,6 +327,9 @@
             align-items: center;
             gap: 20px;
             margin: 20px 0;
+            width: 100%;
+            max-width: 1200px;
+            justify-content: center;
         }
 
         .timer-box {
@@ -333,8 +341,22 @@
             padding: 12px 36px;
             border-radius: 8px;
             box-shadow: 0 0 10px #FFD700;
-            min-width: 120px;
+            min-width: 280px;
             text-align: center;
+        }
+
+        .game-controls input[type="text"] {
+            min-width: 280px;
+        }
+
+        .additional-controls {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin: 20px 0;
+            width: 100%;
+            max-width: 1200px;
+            justify-content: center;
         }
 
         @media screen and (max-width: 1200px) {
@@ -390,16 +412,6 @@
                 gap: 10px;
             }
 
-            #fullscreen-btn {
-                display: none;
-            }
-
-            .instructions-text {
-                width: 95%;
-                max-width: 95%;
-                font-size: 16px;
-            }
-
             .game-board {
                 width: 95%;
                 padding: 15px;
@@ -418,7 +430,7 @@
             }
 
             .answer-text {
-                width: 280px;
+                width: 320px;
             }
 
             .answer-points {
@@ -427,11 +439,19 @@
 
             .sum-row {
                 font-size: 20px;
+                max-width: 570px;
             }
 
             .marks-container img {
                 width: 40px;
                 height: 40px;
+            }
+
+            .team-scores {
+                position: static;
+                flex-direction: row;
+                justify-content: space-between;
+                margin: 10px 0;
             }
 
             .team-score p {
@@ -451,10 +471,19 @@
                 gap: 10px;
             }
 
+            .additional-controls {
+                flex-direction: column;
+                gap: 10px;
+            }
+
             .timer-box {
-                min-width: 100px;
+                min-width: 280px;
                 font-size: 20px;
                 padding: 10px 20px;
+            }
+
+            .game-controls input[type="text"] {
+                min-width: 280px;
             }
         }
 
@@ -522,7 +551,7 @@
             }
 
             .answer-text {
-                width: 220px;
+                width: 260px;
             }
 
             .answer-points {
@@ -531,6 +560,7 @@
 
             .sum-row {
                 font-size: 18px;
+                max-width: 510px;
             }
 
             .marks-container img {
@@ -557,6 +587,11 @@
             .timer-box {
                 font-size: 18px;
                 padding: 8px 16px;
+                min-width: 280px;
+            }
+
+            .game-controls input[type="text"] {
+                min-width: 280px;
             }
         }
     </style>
@@ -662,6 +697,7 @@
     <div id="game-view">
         <h1>Familiada</h1>
         <div class="round-info">Runda 1</div>
+        <div class="question-number">Pytanie nr 1</div>
         <div class="team-scores">
             <div class="team-score">
                 <p id="team1-name">Drużyna 1</p>
@@ -675,14 +711,14 @@
         <div class="game-board">
             <div class="game-board-question">Czego się boimy?</div>
             <div class="game-board-answers">
-                <div class="answer-row"><span class="answer-number">1</span><span class="answer-text">..............................</span><span class="answer-points">38</span></div>
-                <div class="answer-row"><span class="answer-number">2</span><span class="answer-text">..............................</span><span class="answer-points">26</span></div>
-                <div class="answer-row"><span class="answer-number">3</span><span class="answer-text">..............................</span><span class="answer-points">15</span></div>
-                <div class="answer-row"><span class="answer-number">4</span><span class="answer-text">..............................</span><span class="answer-points">10</span></div>
-                <div class="answer-row"><span class="answer-number">5</span><span class="answer-text">..............................</span><span class="answer-points">8</span></div>
-                <div class="answer-row"><span class="answer-number">6</span><span class="answer-text">..............................</span><span class="answer-points">5</span></div>
-                <div class="answer-row"><span class="answer-number">7</span><span class="answer-text">..............................</span><span class="answer-points">3</span></div>
-                <div class="answer-row"><span class="answer-number">8</span><span class="answer-text">..............................</span><span class="answer-points">2</span></div>
+                <div class="answer-row"><span class="answer-number">1</span><span class="answer-text">....................................</span><span class="answer-points">38</span></div>
+                <div class="answer-row"><span class="answer-number">2</span><span class="answer-text">....................................</span><span class="answer-points">26</span></div>
+                <div class="answer-row"><span class="answer-number">3</span><span class="answer-text">....................................</span><span class="answer-points">15</span></div>
+                <div class="answer-row"><span class="answer-number">4</span><span class="answer-text">....................................</span><span class="answer-points">10</span></div>
+                <div class="answer-row"><span class="answer-number">5</span><span class="answer-text">....................................</span><span class="answer-points">8</span></div>
+                <div class="answer-row"><span class="answer-number">6</span><span class="answer-text">....................................</span><span class="answer-points">5</span></div>
+                <div class="answer-row"><span class="answer-number">7</span><span class="answer-text">....................................</span><span class="answer-points">3</span></div>
+                <div class="answer-row"><span class="answer-number">8</span><span class="answer-text">....................................</span><span class="answer-points">2</span></div>
                 <div class="sum-row">SUMA<span id="total-points">  107</span></div>
             </div>
             <div class="marks-container marks-left">
@@ -696,12 +732,17 @@
                 <img src="familiada/znak.png" alt="Znak">
             </div>
         </div>
-        <div class="question-number">Pytanie nr 1</div>
         <div class="game-controls">
             <button id="back-to-settings-btn">Powrót</button>
             <div class="timer-box">Bez czasu</div>
             <input type="text" id="answer-input" placeholder="Wpisz odpowiedź">
             <button id="next-round-btn">Runda 2</button>
+        </div>
+        <div class="additional-controls">
+            <button>przycisk</button>
+            <button>przycisk</button>
+            <button>przycisk</button>
+            <button>przycisk</button>
         </div>
         <div class="bottom-logo">
             <img src="familiada/logo.png" alt="Logo">
