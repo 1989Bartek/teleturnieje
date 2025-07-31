@@ -349,7 +349,7 @@
             min-width: 280px;
         }
 
-        .timer-box {
+        .timer-box, .question-box {
             border: 4px solid #fff;
             color: #FFFF33;
             font-family: 'Courier New', monospace;
@@ -357,9 +357,40 @@
             padding: 12px 36px;
             border-radius: 8px;
             box-shadow: 0 0 10px #FFD700;
-            min-width: 280px;
+            min-width: 140px;
             text-align: center;
             background-color: transparent;
+        }
+
+        .round-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: #000;
+            border: 4px solid #fff;
+            color: #FFFF33;
+            font-family: 'Courier New', monospace;
+            font-size: 16px;
+            padding: 8px 16px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px #FFD700;
+            cursor: pointer;
+            text-align: center;
+            text-transform: capitalize;
+        }
+
+        .round-nav:hover {
+            background-color: #111;
+            border-color: #FFEA00;
+            box-shadow: 0 0 20px #FFEA00;
+        }
+
+        #prev-round-btn {
+            left: -100px;
+        }
+
+        #next-round-btn {
+            right: -100px;
         }
 
         @media screen and (max-width: 1200px) {
@@ -495,14 +526,27 @@
                 min-width: 280px;
             }
 
-            .timer-box {
-                min-width: 280px;
+            .timer-box, .question-box {
+                min-width: 140px;
                 font-size: 18px;
                 padding: 10px 20px;
             }
 
             #game-fullscreen-btn {
                 display: none;
+            }
+
+            .round-nav {
+                font-size: 14px;
+                padding: 6px 12px;
+            }
+
+            #prev-round-btn {
+                left: -80px;
+            }
+
+            #next-round-btn {
+                right: -80px;
             }
         }
 
@@ -614,10 +658,23 @@
                 min-width: 280px;
             }
 
-            .timer-box {
+            .timer-box, .question-box {
                 font-size: 16px;
                 padding: 8px 16px;
-                min-width: 280px;
+                min-width: 140px;
+            }
+
+            .round-nav {
+                font-size: 12px;
+                padding: 4px 8px;
+            }
+
+            #prev-round-btn {
+                left: -60px;
+            }
+
+            #next-round-btn {
+                right: -60px;
             }
         }
     </style>
@@ -734,6 +791,7 @@
             </div>
         </div>
         <div class="game-board">
+            <button id="prev-round-btn" class="round-nav">Poprzednia runda</button>
             <div class="game-board-question">Czego się boimy?</div>
             <div class="game-board-answers">
                 <div class="answer-row"><span class="answer-number">1</span><span class="answer-text">....................................</span><span class="answer-points">38</span></div>
@@ -756,9 +814,10 @@
                 <img src="familiada/znak.png" alt="Znak">
                 <img src="familiada/znak.png" alt="Znak">
             </div>
+            <button id="next-round-btn" class="round-nav">Następna runda</button>
         </div>
         <div class="game-controls">
-            <div class="question-number">Pytanie nr 1</div>
+            <div class="question-box">Pytanie nr 1</div>
             <input type="text" id="answer-input" placeholder="Wpisz odpowiedź">
             <button id="submit-answer-btn">Zatwierdź</button>
             <div class="timer-box">Bez czasu</div>
@@ -767,7 +826,6 @@
             <button id="back-to-settings-btn">Powrót</button>
             <button id="start-btn">Rozpocznij</button>
             <button id="game-fullscreen-btn">Pełny ekran</button>
-            <button id="next-round-btn">Runda 2</button>
         </div>
         <div class="bottom-logo">
             <img src="familiada/logo.png" alt="Logo">
