@@ -327,9 +327,11 @@
         .round-nav-container {
             display: flex;
             justify-content: space-between;
-            width: 90%;
-            max-width: 1000px;
-            margin-bottom: 5px;
+            width: 100%;
+            max-width: 1100px;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
         }
 
         .round-nav {
@@ -337,13 +339,14 @@
             border: 4px solid #fff;
             color: #FFFF33;
             font-family: 'Courier New', monospace;
-            font-size: 16px;
-            padding: 8px 16px;
+            font-size: 36px;
+            padding: 12px 36px;
             border-radius: 8px;
             box-shadow: 0 0 10px #FFD700;
             cursor: pointer;
             text-align: center;
-            text-transform: capitalize;
+            min-width: 80px;
+            line-height: 1;
         }
 
         .round-nav:hover {
@@ -507,14 +510,16 @@
             }
 
             .round-nav-container {
+                position: static;
+                transform: none;
                 width: 95%;
-                margin-bottom: 5px;
+                margin: 5px 0;
             }
 
             .round-nav {
-                font-size: 14px;
+                font-size: 30px;
                 padding: 6px 12px;
-                min-width: 120px;
+                min-width: 60px;
             }
 
             .question-number {
@@ -653,7 +658,7 @@
             }
 
             .round-nav {
-                font-size: 12px;
+                font-size: 24px;
                 padding: 4px 8px;
                 min-width: 0;
                 flex: 1;
@@ -679,8 +684,7 @@
             }
 
             .game-controls:first-of-type {
-                flex-direction: row;
-                flex-wrap: wrap;
+                flex-direction: column;
                 justify-content: center;
                 gap: 10px;
             }
@@ -814,8 +818,8 @@
         <h1>Familiada</h1>
         <div class="round-info">Runda 1</div>
         <div class="round-nav-container">
-            <button id="prev-round-btn" class="round-nav">Poprzednia runda</button>
-            <button id="next-round-btn" class="round-nav">Następna runda</button>
+            <button id="prev-round-btn" class="round-nav">&larr;</button>
+            <button id="next-round-btn" class="round-nav">&rarr;</button>
         </div>
         <div class="team-scores">
             <div class="team-score">
@@ -853,9 +857,9 @@
         </div>
         <div class="game-controls">
             <div class="question-box">Pytanie nr 1</div>
+            <div class="timer-box">Bez czasu</div>
             <input type="text" id="answer-input" placeholder="Wpisz odpowiedź">
             <button id="submit-answer-btn">Zatwierdź</button>
-            <div class="timer-box">Bez czasu</div>
         </div>
         <div class="game-controls">
             <button id="back-to-settings-btn">Powrót</button>
