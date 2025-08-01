@@ -10,7 +10,6 @@
             margin: 0;
             padding: 0;
         }
-
         body {
             background: linear-gradient(to right, #d40000, #000033, #0033cc);
             font-family: Arial, sans-serif;
@@ -22,7 +21,6 @@
             box-sizing: border-box;
             min-height: 100vh;
         }
-
         h1 {
             font-family: 'Playfair Display', serif;
             font-size: 72px;
@@ -34,14 +32,12 @@
             text-transform: uppercase;
             letter-spacing: 2px;
         }
-
         .button-container {
             display: flex;
             justify-content: center;
             gap: 18px;
             margin: 20px 0;
         }
-
         .section {
             width: 100%;
             max-width: 1200px;
@@ -50,7 +46,6 @@
             margin: 28px 0;
             align-items: flex-start;
         }
-
         .left, .center, .right, .new-col, .new-left {
             flex: 1;
             display: flex;
@@ -58,11 +53,9 @@
             align-items: center;
             text-align: center;
         }
-
         .left {
             align-items: center;
         }
-
         input[type="text"] {
             width: 80%;
             max-width: 300px;
@@ -74,29 +67,24 @@
             color: #000;
             font-size: 16px;
         }
-
         .vertical-buttons {
             display: flex;
             flex-direction: column;
             gap: 10px;
             margin-top: 12px;
         }
-
         .rounds-container, .times-container {
             display: grid;
             grid-template-columns: repeat(2, auto);
             gap: 10px;
             margin-top: 12px;
         }
-
         .rounds-container {
             justify-content: center;
         }
-
         .times-container {
             justify-content: center;
         }
-
         button {
             background-color: #000;
             border: 4px solid #fff;
@@ -112,24 +100,20 @@
             text-align: center;
             text-transform: capitalize;
         }
-
         .rounds-container button, .times-container button {
             min-width: 130px;
         }
-
         button.active {
             background-color: #002266;
             color: #FFFF33;
             border-color: #FFEA00;
             box-shadow: 0 0 20px #FFEA00;
         }
-
         button:hover:not(.active) {
             background-color: #111;
             border-color: #FFEA00;
             box-shadow: 0 0 20px #FFEA00;
         }
-
         .bottom-logo {
             position: absolute;
             bottom: 24px;
@@ -138,18 +122,15 @@
             flex-direction: column;
             align-items: center;
         }
-
         .bottom-logo img {
             width: 140px;
             margin-bottom: 6px;
         }
-
         .bottom-logo a {
             color: white;
             text-decoration: none;
             font-size: 13px;
         }
-
         .aligned-section {
             display: flex;
             justify-content: space-between;
@@ -158,23 +139,19 @@
             margin: 28px 0;
             align-items: flex-start;
         }
-
         .aligned-section p {
             margin-top: 0;
             font-size: 24px;
         }
-
         #settings-view, #instructions-view, #game-view {
             width: 100%;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
-
         #instructions-view, #game-view {
             display: none;
         }
-
         .instructions-text {
             width: 90%;
             max-width: 1000px;
@@ -188,7 +165,6 @@
             text-align: justify;
             color: #000;
         }
-
         .game-board {
             background-color: #000;
             border: 4px solid #fff;
@@ -204,7 +180,6 @@
             position: relative;
             min-height: 400px;
         }
-
         .game-board-question {
             font-family: 'Courier New', monospace;
             color: #FFFF33;
@@ -217,7 +192,6 @@
             margin-left: 50px;
             display: none;
         }
-
         .game-board-answers {
             width: 100%;
             max-width: 600px;
@@ -227,7 +201,6 @@
             align-self: center;
             display: none;
         }
-
         .answer-row {
             display: flex;
             justify-content: center;
@@ -236,28 +209,23 @@
             color: #FFFF33;
             font-size: 24px;
         }
-
         .answer-row span {
             display: inline-block;
         }
-
         .answer-number {
             width: 50px;
             text-align: right;
         }
-
         .answer-text {
             width: 400px;
             text-align: left;
             overflow: hidden;
             white-space: nowrap;
         }
-
         .answer-points {
             width: 50px;
             text-align: right;
         }
-
         .sum-row {
             font-family: 'Courier New', monospace;
             color: #FFFF33;
@@ -267,7 +235,6 @@
             width: 100%;
             max-width: 650px;
         }
-
         .marks-container {
             position: absolute;
             top: 20px;
@@ -276,21 +243,17 @@
             flex-direction: column;
             justify-content: space-between;
         }
-
         .marks-left {
             left: 20px;
         }
-
         .marks-right {
             right: 20px;
         }
-
         .marks-container img {
             width: 50px;
             height: 80px;
             object-fit: contain;
         }
-
         .team-scores {
             display: flex;
             justify-content: space-between;
@@ -299,68 +262,58 @@
             position: absolute;
             top: 145px;
         }
-
         .team-score {
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 10px;
         }
-
         .team-score p {
             font-size: 28px;
             margin: 0;
         }
-
         .team-score span {
             font-size: 42px;
             font-weight: bold;
             color: #FFFF33;
         }
-
         .round-info {
             font-size: 24px;
             margin: 5px 0;
             color: #FFD700;
         }
-
         .round-nav-container {
             display: none;
         }
-
         .round-nav {
             background-color: #000;
             border: 4px solid #fff;
             color: #FFFF33;
             font-family: 'Courier New', monospace;
             font-size: 20px;
-            padding: 12px 24px;
+            padding: 12px 36px;
             border-radius: 8px;
             box-shadow: 0 0 10px #FFD700;
             cursor: pointer;
             text-align: center;
-            min-width: 70px;
+            min-width: 100px;
             line-height: 1;
         }
-
         .round-nav:hover {
             background-color: #111;
             border-color: #FFEA00;
             box-shadow: 0 0 20px #FFEA00;
         }
-
         #prev-round-btn::before {
             content: '◄';
             font-size: 24px;
             font-weight: bold;
         }
-
         #next-round-btn::before {
             content: '►';
             font-size: 24px;
             font-weight: bold;
         }
-
         .question-number {
             font-size: 16px;
             margin: 0 0 10px 0;
@@ -368,7 +321,6 @@
             max-width: 1000px;
             width: 90%;
         }
-
         .game-controls {
             display: flex;
             align-items: center;
@@ -378,19 +330,18 @@
             max-width: 1200px;
             justify-content: center;
         }
-
         .game-controls input[type="text"] {
             min-width: 280px;
         }
-
         .game-controls button {
             min-width: 280px;
         }
-
         .game-controls .round-nav {
-            min-width: 70px;
+            min-width: 100px;
         }
-
+        .game-controls:last-of-type {
+            justify-content: space-between;
+        }
         .timer-box, .question-box {
             border: 4px solid #fff;
             color: #FFFF33;
@@ -403,13 +354,14 @@
             text-align: center;
             background-color: transparent;
         }
-
+        #prev-round-btn, #next-round-btn {
+            width: 93.33px;
+        }
         @media screen and (max-width: 1200px) {
             h1 {
                 font-size: 48px;
                 margin: 28px 0 18px 0;
             }
-
             .section, .aligned-section {
                 max-width: 90%;
                 flex-direction: column;
@@ -417,286 +369,227 @@
                 gap: 18px;
                 margin: 28px 0;
             }
-
             .left, .center, .right, .new-col, .new-left {
                 width: 100%;
                 align-items: center;
             }
-
             input[type="text"] {
                 width: 280px;
                 max-width: 280px;
                 border: 4px solid #000;
             }
-
             button {
                 min-width: 280px;
                 font-size: 18px;
                 padding: 10px 20px;
             }
-
             .rounds-container button, .times-container button {
                 min-width: 120px;
             }
-
             .bottom-logo img {
                 width: 120px;
             }
-
             .bottom-logo a {
                 font-size: 11px;
             }
-
             .aligned-section p {
                 font-size: 20px;
             }
-
             .button-container {
                 flex-direction: column;
                 align-items: center;
                 gap: 10px;
             }
-
             #fullscreen-btn {
                 display: none;
             }
-
             .game-board {
                 width: 95%;
                 padding: 15px;
                 min-height: 350px;
                 margin: 5px 0;
             }
-
             .game-board-question {
                 font-size: 24px;
                 margin-left: 40px;
             }
-
             .answer-row {
                 font-size: 20px;
             }
-
             .answer-number {
                 width: 40px;
             }
-
             .answer-text {
                 width: 320px;
             }
-
             .answer-points {
                 width: 40px;
             }
-
             .sum-row {
                 font-size: 20px;
                 max-width: 570px;
             }
-
             .marks-container img {
                 width: 40px;
                 height: 64px;
             }
-
             .team-scores {
                 position: static;
                 flex-direction: row;
                 justify-content: space-between;
                 margin: 5px 0;
             }
-
             .team-score p {
                 font-size: 20px;
             }
-
             .team-score span {
                 font-size: 28px;
             }
-
             .round-info {
                 font-size: 20px;
                 margin: 5px 0;
             }
-
             .round-nav-container {
                 display: none;
             }
-
             .round-nav {
                 font-size: 18px;
                 padding: 10px 20px;
-                min-width: 70px;
+                min-width: 100px;
             }
-
             .question-number {
                 font-size: 14px;
             }
-
             .game-controls {
                 flex-direction: column;
                 gap: 10px;
                 margin: 10px 0;
             }
-
             .game-controls input[type="text"] {
                 min-width: 280px;
             }
-
             .game-controls button {
                 min-width: 280px;
             }
-
             .game-controls .round-nav {
-                min-width: 70px;
+                min-width: 100px;
             }
-
             .timer-box, .question-box {
                 min-width: 93.33px;
                 font-size: 18px;
                 padding: 10px 20px;
             }
-
             #game-fullscreen-btn {
                 display: none;
             }
         }
-
         @media screen and (max-width: 600px) {
             h1 {
                 font-size: 36px;
                 margin: 28px 0 18px 0;
             }
-
             button {
                 min-width: 280px;
                 font-size: 16px;
                 padding: 8px 16px;
             }
-
             .rounds-container button, .times-container button {
                 min-width: 100px;
             }
-
             input[type="text"] {
                 width: 280px;
                 max-width: 280px;
                 font-size: 14px;
                 border: 4px solid #000;
             }
-
             .aligned-section p {
                 font-size: 18px;
             }
-
             .bottom-logo img {
                 width: 90px;
             }
-
             .bottom-logo a {
                 font-size: 9px;
             }
-
             .bottom-logo {
                 position: static;
                 margin-top: 40px;
                 margin-bottom: 40px;
             }
-
             .instructions-text {
                 width: 90%;
                 font-size: 14px;
             }
-
             .game-board {
                 width: 90%;
                 padding: 10px;
                 min-height: 300px;
                 margin: 5px 0;
             }
-
             .game-board-question {
                 font-size: 20px;
                 margin-left: 30px;
             }
-
             .answer-row {
                 font-size: 18px;
             }
-
             .answer-number {
                 width: 30px;
             }
-
             .answer-text {
                 width: 260px;
             }
-
             .answer-points {
                 width: 30px;
             }
-
             .sum-row {
                 font-size: 18px;
                 max-width: 510px;
             }
-
             .marks-container img {
                 width: 30px;
                 height: 48px;
             }
-
             .team-score p {
                 font-size: 18px;
             }
-
             .team-score span {
                 font-size: 24px;
             }
-
             .round-info {
                 font-size: 18px;
             }
-
             .round-nav-container {
                 display: none;
             }
-
             .round-nav {
                 font-size: 16px;
                 padding: 8px 16px;
-                min-width: 70px;
+                min-width: 100px;
             }
-
             .question-number {
                 font-size: 12px;
             }
-
             .game-controls {
                 flex-direction: column;
                 gap: 10px;
                 margin: 10px 0;
             }
-
             .game-controls input[type="text"] {
                 min-width: 280px;
             }
-
             .game-controls button {
                 min-width: 280px;
             }
-
             .game-controls .round-nav {
-                min-width: 70px;
+                min-width: 100px;
             }
-
             .timer-box, .question-box {
                 font-size: 16px;
                 padding: 8px 16px;
                 min-width: 70px;
                 flex: 1;
             }
-
             .game-controls:first-of-type {
                 flex-direction: row;
                 justify-content: space-between;
@@ -709,13 +602,11 @@
 <body>
     <div id="settings-view">
         <h1>Familiada</h1>
-
         <div class="button-container">
             <button id="instructions-btn">Instrukcja</button>
             <button id="fullscreen-btn">Pełny ekran</button>
             <button>Karta pytań PDF</button>
         </div>
-
         <div class="aligned-section">
             <div class="left">
                 <p>Wariant gry:</p>
@@ -731,13 +622,11 @@
                     <button class="question-order">Losowo</button>
                 </div>
             </div>
-
             <div class="center">
                 <p>Drużyny:</p>
                 <input type="text" id="team1-input" placeholder="Wpisz nazwę drużyny nr 1" maxlength="15">
                 <input type="text" id="team2-input" placeholder="Wpisz nazwę drużyny nr 2" maxlength="15">
             </div>
-
             <div class="right">
                 <p>Grę rozpocznie:</p>
                 <div class="vertical-buttons">
@@ -746,7 +635,6 @@
                 </div>
             </div>
         </div>
-
         <div class="aligned-section">
             <div class="new-left">
                 <p>Pytania na ekranie:</p>
@@ -764,7 +652,6 @@
                     <button class="rounds">9</button>
                 </div>
             </div>
-
             <div class="center">
                 <p>Czas na odpowiedź:</p>
                 <div class="times-container">
@@ -774,7 +661,6 @@
                     <button class="times">Brak</button>
                 </div>
             </div>
-
             <div class="right">
                 <p>Zakończenie gry:</p>
                 <div class="vertical-buttons">
@@ -783,15 +669,12 @@
                 </div>
             </div>
         </div>
-
         <button id="next-btn" style="margin: 28px 0; min-width: 280px;">Dalej</button>
-
         <div class="bottom-logo">
             <img src="familiada/logo.png" alt="Logo">
             <a href="https://www.muzykamikrofonakcja.pl">WWW.MUZYKAMIKROFONAKCJA.PL</a>
         </div>
     </div>
-
     <div id="instructions-view">
         <h1>Familiada</h1>
         <div class="instructions-text">
@@ -803,7 +686,6 @@
             <a href="https://www.muzykamikrofonakcja.pl">WWW.MUZYKAMIKROFONAKCJA.PL</a>
         </div>
     </div>
-
     <div id="game-view">
         <h1>Familiada</h1>
         <div class="round-info">Runda 1</div>
@@ -828,7 +710,7 @@
                 <div class="answer-row"><span class="answer-number">6</span><span class="answer-text">....................................</span><span class="answer-points">5</span></div>
                 <div class="answer-row"><span class="answer-number">7</span><span class="answer-text">....................................</span><span class="answer-points">3</span></div>
                 <div class="answer-row"><span class="answer-number">8</span><span class="answer-text">....................................</span><span class="answer-points">2</span></div>
-                <div class="sum-row">SUMA<span id="total-points">  107</span></div>
+                <div class="sum-row">SUMA<span id="total-points"> 107</span></div>
             </div>
             <div class="marks-container marks-left">
                 <img src="familiada/znak.png" alt="Znak">
@@ -859,7 +741,6 @@
             <a href="https://www.muzykamikrofonakcja.pl">WWW.MUZYKAMIKROFONAKCJA.PL</a>
         </div>
     </div>
-
     <script>
         const fullscreenBtn = document.getElementById('fullscreen-btn');
         const team1Input = document.getElementById('team1-input');
@@ -884,10 +765,8 @@
         const timesButtons = document.querySelectorAll('.times');
         const timerBox = document.querySelector('.timer-box');
         let timerInterval = null;
-
         fullscreenBtn.addEventListener('click', toggleFullscreen);
         gameFullscreenBtn.addEventListener('click', toggleFullscreen);
-
         function toggleFullscreen() {
             if (!document.fullscreenElement) {
                 document.documentElement.requestFullscreen().then(() => {
@@ -905,19 +784,16 @@
                 });
             }
         }
-
         team1Input.addEventListener('input', () => {
             const teamName = team1Input.value || 'Drużyna 1';
             team1Btn.textContent = teamName;
             team1Name.textContent = teamName;
         });
-
         team2Input.addEventListener('input', () => {
             const teamName = team2Input.value || 'Drużyna 2';
             team2Btn.textContent = teamName;
             team2Name.textContent = teamName;
         });
-
         timesButtons.forEach(button => {
             button.addEventListener('click', () => {
                 const timeText = button.textContent;
@@ -932,22 +808,18 @@
                 }
             });
         });
-
         instructionsBtn.addEventListener('click', () => {
             settingsView.style.display = 'none';
             instructionsView.style.display = 'flex';
         });
-
         backBtn.addEventListener('click', () => {
             instructionsView.style.display = 'none';
             settingsView.style.display = 'flex';
         });
-
         nextBtn.addEventListener('click', () => {
             settingsView.style.display = 'none';
             gameView.style.display = 'flex';
         });
-
         backToSettingsBtn.addEventListener('click', () => {
             gameView.style.display = 'none';
             settingsView.style.display = 'flex';
@@ -955,21 +827,17 @@
             gameBoardAnswers.style.display = 'none';
             clearInterval(timerInterval);
         });
-
         startBtn.addEventListener('click', () => {
             gameBoardQuestion.style.display = 'block';
             gameBoardAnswers.style.display = 'flex';
             startTimer();
         });
-
         submitAnswerBtn.addEventListener('click', submitAnswer);
-
         answerInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
                 submitAnswer();
             }
         });
-
         function submitAnswer() {
             const answer = answerInput.value.trim();
             if (answer) {
@@ -977,12 +845,10 @@
                 answerInput.value = '';
             }
         }
-
         function startTimer() {
             clearInterval(timerInterval);
             const timerText = timerBox.textContent;
             if (timerText === 'Bez czasu') return;
-
             let timeInSeconds;
             if (timerText === '01:00') {
                 timeInSeconds = 60;
@@ -991,7 +857,6 @@
             } else {
                 timeInSeconds = parseInt(timerText.split(':')[1]);
             }
-
             timerInterval = setInterval(() => {
                 if (timeInSeconds <= 0) {
                     clearInterval(timerInterval);
@@ -1004,8 +869,6 @@
                 timerBox.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
             }, 1000);
         }
-
-        // Toggle active state for button groups
         const toggleActive = (groupClass) => {
             const buttons = document.querySelectorAll(`.${groupClass}`);
             buttons.forEach(button => {
@@ -1019,7 +882,6 @@
                 });
             });
         };
-
         toggleActive('game-variant');
         toggleActive('team-start');
         toggleActive('game-end');
