@@ -329,8 +329,9 @@
             gap: 10px;
             margin: 10px 0;
             width: 100%;
-            max-width: 1200px;
+            max-width: 1000px;
             justify-content: center;
+            flex-wrap: wrap;
         }
         .game-controls input[type="text"] {
             min-width: 280px;
@@ -344,7 +345,7 @@
         .game-controls:last-of-type {
             justify-content: space-between;
         }
-        .timer-box, .question-box {
+        .question-box {
             border: 4px solid #fff;
             color: #FFFF33;
             font-family: 'Courier New', monospace;
@@ -486,7 +487,7 @@
             .game-controls .round-nav {
                 min-width: 100px;
             }
-            .timer-box, .question-box {
+            .question-box {
                 min-width: 93.33px;
                 font-size: 18px;
                 padding: 10px 20px;
@@ -609,7 +610,7 @@
             .game-controls .round-nav {
                 min-width: 100px;
             }
-            .timer-box, .question-box {
+            .question-box {
                 font-size: 16px;
                 padding: 8px 16px;
                 min-width: 70px;
@@ -759,15 +760,15 @@
             </div>
         </div>
         <div class="game-controls">
-            <div class="question-box">Pytanie nr 1</div>
+            <button id="start-btn">Rozpocznij</button>
             <input type="text" id="answer-input" placeholder="Wpisz odpowiedź">
             <button id="submit-answer-btn">Zatwierdź</button>
-            <div class="timer-box">Bez czasu</div>
+            <button id="answers-btn">Odpowiedzi</button>
+            <div class="question-box">Pytanie nr 1</div>
         </div>
         <div class="game-controls">
             <button id="prev-round-btn" class="round-nav"></button>
             <button id="back-to-settings-btn">Powrót</button>
-            <button id="start-btn">Rozpocznij</button>
             <button id="game-fullscreen-btn">Pełny ekran</button>
             <button id="next-round-btn" class="round-nav"></button>
         </div>
@@ -798,7 +799,6 @@
         const gameBoardQuestion = document.querySelector('.game-board-question');
         const gameBoardAnswers = document.querySelector('.game-board-answers');
         const audioButtons = document.querySelectorAll('.audio');
-        const timerBox = document.querySelector('.timer-box');
         let timerInterval = null;
         fullscreenBtn.addEventListener('click', toggleFullscreen);
         gameFullscreenBtn.addEventListener('click', toggleFullscreen);
@@ -832,7 +832,6 @@
         audioButtons.forEach(button => {
             button.addEventListener('click', () => {
                 const audioText = button.textContent;
-                timerBox.textContent = audioText;
             });
         });
         instructionsBtn.addEventListener('click', () => {
@@ -874,27 +873,6 @@
         }
         function startTimer() {
             clearInterval(timerInterval);
-            const timerText = timerBox.textContent;
-            if (timerText === 'Bez czasu') return;
-            let timeInSeconds;
-            if (timerText === '01:00') {
-                timeInSeconds = 60;
-            } else if (timerText === '02:00') {
-                timeInSeconds = 120;
-            } else {
-                timeInSeconds = parseInt(timerText.split(':')[1]);
-            }
-            timerInterval = setInterval(() => {
-                if (timeInSeconds <= 0) {
-                    clearInterval(timerInterval);
-                    timerBox.textContent = '00:00';
-                    return;
-                }
-                timeInSeconds--;
-                const minutes = Math.floor(timeInSeconds / 60);
-                const seconds = timeInSeconds % 60;
-                timerBox.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-            }, 1000);
         }
         const toggleActive = (groupClass) => {
             const buttons = document.querySelectorAll(`.${groupClass}`);
