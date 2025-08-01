@@ -160,7 +160,7 @@
             margin: 20px 0;
             padding: 20px;
             background-color: #fff;
-            border: 4px solid #000;
+            border: 4px solid #fff;
             border-radius: 8px;
             font-size: 18px;
             line-height: 1.6;
@@ -306,15 +306,17 @@
             border-color: #FFEA00;
             box-shadow: 0 0 20px #FFEA00;
         }
-        #prev-round-btn::before {
-            content: '◄';
-            font-size: 24px;
-            font-weight: bold;
+        #prev-round-btn {
+            min-width: unset;
+            width: 89px;
+            padding: 12px 0;
+            margin-left: 4px;
         }
-        #next-round-btn::before {
-            content: '►';
-            font-size: 24px;
-            font-weight: bold;
+        #next-round-btn {
+            min-width: unset;
+            width: 89px;
+            padding: 12px 0;
+            margin-right: 4px;
         }
         .question-number {
             font-size: 16px;
@@ -357,17 +359,24 @@
             text-align: center;
             background-color: transparent;
         }
-        #prev-round-btn {
-            min-width: unset;
-            width: 89px;
-            padding: 12px 0;
-            margin-left: 4px;
+        .input-with-button {
+            position: relative;
+            display: flex;
+            align-items: center;
+            width: 280px;
         }
-        #next-round-btn {
+        .input-with-button input[type="text"] {
+            width: 100%;
+            padding-right: 60px;
+        }
+        .input-with-button button {
+            position: absolute;
+            right: 4px;
             min-width: unset;
-            width: 89px;
-            padding: 12px 0;
-            margin-right: 4px;
+            width: 48px;
+            padding: 8px;
+            font-size: 16px;
+            line-height: 1;
         }
         @media screen and (max-width: 1200px) {
             h1 {
@@ -492,6 +501,16 @@
                 font-size: 18px;
                 padding: 10px 20px;
             }
+            .input-with-button {
+                width: 280px;
+            }
+            .input-with-button input[type="text"] {
+                width: 100%;
+            }
+            .input-with-button button {
+                width: 44px;
+                padding: 6px;
+            }
             #game-fullscreen-btn {
                 display: none;
             }
@@ -615,6 +634,16 @@
                 padding: 8px 16px;
                 min-width: 70px;
                 flex: 1;
+            }
+            .input-with-button {
+                width: 280px;
+            }
+            .input-with-button input[type="text"] {
+                width: 100%;
+            }
+            .input-with-button button {
+                width: 40px;
+                padding: 4px;
             }
             .game-controls:first-of-type {
                 flex-direction: row;
@@ -760,17 +789,21 @@
             </div>
         </div>
         <div class="game-controls">
-            <button id="start-btn">Rozpocznij</button>
-            <input type="text" id="answer-input" placeholder="Wpisz odpowiedź">
-            <button id="submit-answer-btn">Zatwierdź</button>
-            <button id="answers-btn">Odpowiedzi</button>
+            <button id="prev-round-btn" class="round-nav">Poprzednia runda</button>
             <div class="question-box">Pytanie nr 1</div>
+            <button id="next-round-btn" class="round-nav">Następna runda</button>
         </div>
         <div class="game-controls">
-            <button id="prev-round-btn" class="round-nav"></button>
+            <button id="start-btn">Rozpocznij</button>
+            <div class="input-with-button">
+                <input type="text" id="answer-input" placeholder="Wpisz odpowiedź">
+                <button id="submit-answer-btn">OK</button>
+            </div>
+            <button id="answers-btn">Odpowiedzi</button>
+        </div>
+        <div class="game-controls">
             <button id="back-to-settings-btn">Powrót</button>
             <button id="game-fullscreen-btn">Pełny ekran</button>
-            <button id="next-round-btn" class="round-nav"></button>
         </div>
         <div class="bottom-logo">
             <img src="familiada/logo.png" alt="Logo">
