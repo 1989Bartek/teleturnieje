@@ -59,13 +59,15 @@
         input[type="text"] {
             width: 80%;
             max-width: 300px;
-            padding: 10px;
+            padding: 12px;
             margin: 10px 0;
             border: 4px solid #000;
             border-radius: 5px;
             background-color: #fff;
             color: #000;
             font-size: 16px;
+            height: 48px;
+            box-sizing: border-box;
         }
         .vertical-buttons {
             display: flex;
@@ -687,17 +689,17 @@
                 </div>
             </div>
             <div class="center">
-                <p>Oprawa audio:</p>
-                <div class="audio-container">
-                    <button class="audio">Włącz</button>
-                    <button class="audio">Wyłącz</button>
-                </div>
-            </div>
-            <div class="right">
                 <p>Zakończenie gry:</p>
                 <div class="vertical-buttons">
                     <button class="game-end">Z Finałem</button>
                     <button class="game-end">Bez Finału</button>
+                </div>
+            </div>
+            <div class="right">
+                <p>Oprawa audio:</p>
+                <div class="audio-container">
+                    <button class="audio">Włącz</button>
+                    <button class="audio">Wyłącz</button>
                 </div>
             </div>
         </div>
