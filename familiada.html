@@ -57,15 +57,16 @@
             align-items: center;
         }
         input[type="text"] {
-            width: 80%;
-            max-width: 300px;
-            padding: 10px;
-            margin: 10px 0;
-            border: 4px solid #000;
-            border-radius: 5px;
+            width: 280px;
+            padding: 12px 36px;
+            margin: 12px 0;
+            border: 4px solid #fff;
+            border-radius: 8px;
             background-color: #fff;
             color: #000;
             font-size: 16px;
+            height: 48px;
+            box-sizing: border-box;
         }
         .vertical-buttons {
             display: flex;
@@ -73,7 +74,7 @@
             gap: 10px;
             margin-top: 12px;
         }
-        .rounds-container, .times-container {
+        .rounds-container, .audio-container {
             display: grid;
             grid-template-columns: repeat(2, auto);
             gap: 10px;
@@ -82,7 +83,8 @@
         .rounds-container {
             justify-content: center;
         }
-        .times-container {
+        .audio-container {
+            grid-template-columns: 1fr;
             justify-content: center;
         }
         button {
@@ -100,7 +102,7 @@
             text-align: center;
             text-transform: capitalize;
         }
-        .rounds-container button, .times-container button {
+        .rounds-container button {
             min-width: 130px;
         }
         button.active {
@@ -158,7 +160,7 @@
             margin: 20px 0;
             padding: 20px;
             background-color: #fff;
-            border: 4px solid #000;
+            border: 4px solid #fff;
             border-radius: 8px;
             font-size: 18px;
             line-height: 1.6;
@@ -296,7 +298,7 @@
             box-shadow: 0 0 10px #FFD700;
             cursor: pointer;
             text-align: center;
-            min-width: 100px;
+            min-width: 280px;
             line-height: 1;
         }
         .round-nav:hover {
@@ -304,15 +306,15 @@
             border-color: #FFEA00;
             box-shadow: 0 0 20px #FFEA00;
         }
-        #prev-round-btn::before {
-            content: '◄';
-            font-size: 24px;
-            font-weight: bold;
+        #prev-round-btn {
+            min-width: 280px;
+            padding: 12px 36px;
+            margin-left: 4px;
         }
-        #next-round-btn::before {
-            content: '►';
-            font-size: 24px;
-            font-weight: bold;
+        #next-round-btn {
+            min-width: 280px;
+            padding: 12px 36px;
+            margin-right: 4px;
         }
         .question-number {
             font-size: 16px;
@@ -327,8 +329,9 @@
             gap: 10px;
             margin: 10px 0;
             width: 100%;
-            max-width: 1200px;
+            max-width: 1000px;
             justify-content: center;
+            flex-wrap: wrap;
         }
         .game-controls input[type="text"] {
             min-width: 280px;
@@ -337,12 +340,12 @@
             min-width: 280px;
         }
         .game-controls .round-nav {
-            min-width: 100px;
+            min-width: 280px;
         }
         .game-controls:last-of-type {
             justify-content: space-between;
         }
-        .timer-box, .question-box {
+        .question-box {
             border: 4px solid #fff;
             color: #FFFF33;
             font-family: 'Courier New', monospace;
@@ -350,12 +353,28 @@
             padding: 12px 36px;
             border-radius: 8px;
             box-shadow: 0 0 10px #FFD700;
-            min-width: 93.33px;
+            min-width: 280px;
             text-align: center;
             background-color: transparent;
         }
-        #prev-round-btn, #next-round-btn {
-            width: 93.33px;
+        .input-with-button {
+            position: relative;
+            display: flex;
+            align-items: center;
+            width: 280px;
+        }
+        .input-with-button input[type="text"] {
+            width: 100%;
+            padding-right: 60px;
+        }
+        .input-with-button button {
+            position: absolute;
+            right: 4px;
+            min-width: unset;
+            width: 48px;
+            padding: 8px;
+            font-size: 16px;
+            line-height: 1;
         }
         @media screen and (max-width: 1200px) {
             h1 {
@@ -376,14 +395,15 @@
             input[type="text"] {
                 width: 280px;
                 max-width: 280px;
-                border: 4px solid #000;
+                border: 4px solid #fff;
+                margin: 12px 0;
             }
             button {
                 min-width: 280px;
                 font-size: 18px;
                 padding: 10px 20px;
             }
-            .rounds-container button, .times-container button {
+            .rounds-container button {
                 min-width: 120px;
             }
             .bottom-logo img {
@@ -455,7 +475,7 @@
             .round-nav {
                 font-size: 18px;
                 padding: 10px 20px;
-                min-width: 100px;
+                min-width: 280px;
             }
             .question-number {
                 font-size: 14px;
@@ -472,15 +492,35 @@
                 min-width: 280px;
             }
             .game-controls .round-nav {
-                min-width: 100px;
+                min-width: 280px;
             }
-            .timer-box, .question-box {
-                min-width: 93.33px;
+            .question-box {
+                min-width: 280px;
                 font-size: 18px;
                 padding: 10px 20px;
             }
+            .input-with-button {
+                width: 280px;
+            }
+            .input-with-button input[type="text"] {
+                width: 100%;
+            }
+            .input-with-button button {
+                width: 44px;
+                padding: 6px;
+            }
             #game-fullscreen-btn {
                 display: none;
+            }
+            #prev-round-btn {
+                min-width: 280px;
+                padding: 10px 20px;
+                margin-left: 4px;
+            }
+            #next-round-btn {
+                min-width: 280px;
+                padding: 10px 20px;
+                margin-right: 4px;
             }
         }
         @media screen and (max-width: 600px) {
@@ -493,14 +533,15 @@
                 font-size: 16px;
                 padding: 8px 16px;
             }
-            .rounds-container button, .times-container button {
+            .rounds-container button {
                 min-width: 100px;
             }
             input[type="text"] {
                 width: 280px;
                 max-width: 280px;
                 font-size: 14px;
-                border: 4px solid #000;
+                border: 4px solid #fff;
+                margin: 12px 0;
             }
             .aligned-section p {
                 font-size: 18px;
@@ -565,7 +606,7 @@
             .round-nav {
                 font-size: 16px;
                 padding: 8px 16px;
-                min-width: 100px;
+                min-width: 280px;
             }
             .question-number {
                 font-size: 12px;
@@ -582,19 +623,39 @@
                 min-width: 280px;
             }
             .game-controls .round-nav {
-                min-width: 100px;
+                min-width: 280px;
             }
-            .timer-box, .question-box {
+            .question-box {
                 font-size: 16px;
                 padding: 8px 16px;
-                min-width: 70px;
+                min-width: 280px;
                 flex: 1;
+            }
+            .input-with-button {
+                width: 280px;
+            }
+            .input-with-button input[type="text"] {
+                width: 100%;
+            }
+            .input-with-button button {
+                width: 40px;
+                padding: 4px;
             }
             .game-controls:first-of-type {
                 flex-direction: row;
                 justify-content: space-between;
                 gap: 10px;
                 align-items: center;
+            }
+            #prev-round-btn {
+                min-width: 280px;
+                padding: 8px 16px;
+                margin-left: 4px;
+            }
+            #next-round-btn {
+                min-width: 280px;
+                padding: 8px 16px;
+                margin-right: 4px;
             }
         }
     </style>
@@ -611,8 +672,8 @@
             <div class="left">
                 <p>Wariant gry:</p>
                 <div class="vertical-buttons">
-                    <button class="game-variant">Własne pytania</button>
                     <button class="game-variant">Gotowe pytania</button>
+                    <button class="game-variant">Własne pytania</button>
                 </div>
             </div>
             <div class="new-col">
@@ -653,19 +714,17 @@
                 </div>
             </div>
             <div class="center">
-                <p>Czas na odpowiedź:</p>
-                <div class="times-container">
-                    <button class="times">30s</button>
-                    <button class="times">60s</button>
-                    <button class="times">120s</button>
-                    <button class="times">Brak</button>
-                </div>
-            </div>
-            <div class="right">
                 <p>Zakończenie gry:</p>
                 <div class="vertical-buttons">
                     <button class="game-end">Z Finałem</button>
                     <button class="game-end">Bez Finału</button>
+                </div>
+            </div>
+            <div class="right">
+                <p>Oprawa audio:</p>
+                <div class="audio-container">
+                    <button class="audio">Włącz</button>
+                    <button class="audio">Wyłącz</button>
                 </div>
             </div>
         </div>
@@ -724,17 +783,21 @@
             </div>
         </div>
         <div class="game-controls">
+            <button id="prev-round-btn" class="round-nav">Poprzednia runda</button>
             <div class="question-box">Pytanie nr 1</div>
-            <input type="text" id="answer-input" placeholder="Wpisz odpowiedź">
-            <button id="submit-answer-btn">Zatwierdź</button>
-            <div class="timer-box">Bez czasu</div>
+            <button id="next-round-btn" class="round-nav">Następna runda</button>
         </div>
         <div class="game-controls">
-            <button id="prev-round-btn" class="round-nav"></button>
-            <button id="back-to-settings-btn">Powrót</button>
             <button id="start-btn">Rozpocznij</button>
+            <div class="input-with-button">
+                <input type="text" id="answer-input" placeholder="Wpisz odpowiedź">
+                <button id="submit-answer-btn">OK</button>
+            </div>
+            <button id="answers-btn">Odpowiedzi</button>
+        </div>
+        <div class="game-controls">
+            <button id="back-to-settings-btn">Powrót</button>
             <button id="game-fullscreen-btn">Pełny ekran</button>
-            <button id="next-round-btn" class="round-nav"></button>
         </div>
         <div class="bottom-logo">
             <img src="familiada/logo.png" alt="Logo">
@@ -762,8 +825,7 @@
         const answerInput = document.getElementById('answer-input');
         const gameBoardQuestion = document.querySelector('.game-board-question');
         const gameBoardAnswers = document.querySelector('.game-board-answers');
-        const timesButtons = document.querySelectorAll('.times');
-        const timerBox = document.querySelector('.timer-box');
+        const audioButtons = document.querySelectorAll('.audio');
         let timerInterval = null;
         fullscreenBtn.addEventListener('click', toggleFullscreen);
         gameFullscreenBtn.addEventListener('click', toggleFullscreen);
@@ -794,18 +856,9 @@
             team2Btn.textContent = teamName;
             team2Name.textContent = teamName;
         });
-        timesButtons.forEach(button => {
+        audioButtons.forEach(button => {
             button.addEventListener('click', () => {
-                const timeText = button.textContent;
-                if (timeText === '60s') {
-                    timerBox.textContent = '01:00';
-                } else if (timeText === '120s') {
-                    timerBox.textContent = '02:00';
-                } else if (timeText === 'Brak') {
-                    timerBox.textContent = 'Bez czasu';
-                } else {
-                    timerBox.textContent = `00:${timeText.replace('s', '').padStart(2, '0')}`;
-                }
+                const audioText = button.textContent;
             });
         });
         instructionsBtn.addEventListener('click', () => {
@@ -847,27 +900,6 @@
         }
         function startTimer() {
             clearInterval(timerInterval);
-            const timerText = timerBox.textContent;
-            if (timerText === 'Bez czasu') return;
-            let timeInSeconds;
-            if (timerText === '01:00') {
-                timeInSeconds = 60;
-            } else if (timerText === '02:00') {
-                timeInSeconds = 120;
-            } else {
-                timeInSeconds = parseInt(timerText.split(':')[1]);
-            }
-            timerInterval = setInterval(() => {
-                if (timeInSeconds <= 0) {
-                    clearInterval(timerInterval);
-                    timerBox.textContent = '00:00';
-                    return;
-                }
-                timeInSeconds--;
-                const minutes = Math.floor(timeInSeconds / 60);
-                const seconds = timeInSeconds % 60;
-                timerBox.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-            }, 1000);
         }
         const toggleActive = (groupClass) => {
             const buttons = document.querySelectorAll(`.${groupClass}`);
@@ -886,7 +918,7 @@
         toggleActive('team-start');
         toggleActive('game-end');
         toggleActive('rounds');
-        toggleActive('times');
+        toggleActive('audio');
         toggleActive('question-order');
         toggleActive('display-questions');
     </script>
