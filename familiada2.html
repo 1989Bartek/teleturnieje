@@ -73,7 +73,7 @@
             gap: 10px;
             margin-top: 12px;
         }
-        .rounds-container, .times-container {
+        .rounds-container, .audio-container {
             display: grid;
             grid-template-columns: repeat(2, auto);
             gap: 10px;
@@ -82,7 +82,8 @@
         .rounds-container {
             justify-content: center;
         }
-        .times-container {
+        .audio-container {
+            grid-template-columns: 1fr;
             justify-content: center;
         }
         button {
@@ -100,7 +101,7 @@
             text-align: center;
             text-transform: capitalize;
         }
-        .rounds-container button, .times-container button {
+        .rounds-container button {
             min-width: 130px;
         }
         button.active {
@@ -392,7 +393,7 @@
                 font-size: 18px;
                 padding: 10px 20px;
             }
-            .rounds-container button, .times-container button {
+            .rounds-container button {
                 min-width: 120px;
             }
             .bottom-logo img {
@@ -514,7 +515,7 @@
                 font-size: 16px;
                 padding: 8px 16px;
             }
-            .rounds-container button, .times-container button {
+            .rounds-container button {
                 min-width: 100px;
             }
             input[type="text"] {
@@ -686,12 +687,10 @@
                 </div>
             </div>
             <div class="center">
-                <p>Czas na odpowiedź:</p>
-                <div class="times-container">
-                    <button class="times">30s</button>
-                    <button class="times">60s</button>
-                    <button class="times">120s</button>
-                    <button class="times">Brak</button>
+                <p>Oprawa audio:</p>
+                <div class="audio-container">
+                    <button class="audio">Włącz</button>
+                    <button class="audio">Wyłącz</button>
                 </div>
             </div>
             <div class="right">
@@ -795,7 +794,7 @@
         const answerInput = document.getElementById('answer-input');
         const gameBoardQuestion = document.querySelector('.game-board-question');
         const gameBoardAnswers = document.querySelector('.game-board-answers');
-        const timesButtons = document.querySelectorAll('.times');
+        const audioButtons = document.querySelectorAll('.audio');
         const timerBox = document.querySelector('.timer-box');
         let timerInterval = null;
         fullscreenBtn.addEventListener('click', toggleFullscreen);
@@ -827,18 +826,10 @@
             team2Btn.textContent = teamName;
             team2Name.textContent = teamName;
         });
-        timesButtons.forEach(button => {
+        audioButtons.forEach(button => {
             button.addEventListener('click', () => {
-                const timeText = button.textContent;
-                if (timeText === '60s') {
-                    timerBox.textContent = '01:00';
-                } else if (timeText === '120s') {
-                    timerBox.textContent = '02:00';
-                } else if (timeText === 'Brak') {
-                    timerBox.textContent = 'Bez czasu';
-                } else {
-                    timerBox.textContent = `00:${timeText.replace('s', '').padStart(2, '0')}`;
-                }
+                const audioText = button.textContent;
+                timerBox.textContent = audioText;
             });
         });
         instructionsBtn.addEventListener('click', () => {
@@ -919,7 +910,7 @@
         toggleActive('team-start');
         toggleActive('game-end');
         toggleActive('rounds');
-        toggleActive('times');
+        toggleActive('audio');
         toggleActive('question-order');
         toggleActive('display-questions');
     </script>
