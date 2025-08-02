@@ -439,18 +439,15 @@
                 font-size: 14px;
                 padding: 15px;
             }
-            .game-controls:first-of-type {
-                flex-wrap: wrap;
-                justify-content: center;
+            .game-controls {
+                flex-direction: column;
                 align-items: center;
                 gap: 10px;
             }
             .question-box {
                 width: 280px;
                 min-width: 280px;
-                flex-basis: 100%;
                 margin: 0 auto 10px auto;
-                order: -1;
             }
             #prev-round-btn, #next-round-btn {
                 min-width: 140px;
@@ -520,8 +517,8 @@
             }
             .team-scores {
                 position: static;
-                order: 5;
                 margin: 5px 0;
+                order: 1;
             }
             .team-score p {
                 font-size: 21px;
@@ -529,11 +526,27 @@
             .team-score span {
                 font-size: 31.5px;
             }
+            .game-controls:first-of-type {
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                gap: 10px;
+                order: 3;
+            }
+            .game-controls:nth-of-type(2) {
+                order: 4;
+            }
+            .game-controls:last-of-type {
+                order: 5;
+                justify-content: center;
+            }
             .input-with-button button {
-                width: 40px;
-                padding: 4px;
-                height: auto;
+                width: 48px;
+                padding: 8px;
+                height: 48px;
                 display: block;
+                border: 4px solid #fff;
+                box-sizing: border-box;
             }
         }
     </style>
@@ -626,16 +639,6 @@
     <div id="game-view">
         <h1>Familiada</h1>
         <div class="round-info">Runda 1</div>
-        <div class="team-scores">
-            <div class="team-score">
-                <p id="team1-name">Drużyna 1</p>
-                <span id="team1-score">0</span>
-            </div>
-            <div class="team-score">
-                <p id="team2-name">Drużyna 2</p>
-                <span id="team2-score">0</span>
-            </div>
-        </div>
         <div class="game-board">
             <div class="game-board-question">Czego się boimy?</div>
             <div class="game-board-answers">
@@ -660,17 +663,33 @@
                 <img src="familiada/znak.png" alt="Znak">
             </div>
         </div>
+        <div class="team-scores">
+            <div class="team-score">
+                <p id="team1-name">Drużyna 1</p>
+                <span id="team1-score">0</span>
+            </div>
+            <div class="team-score">
+                <p id="team2-name">Drużyna 2</p>
+                <span id="team2-score">0</span>
+            </div>
+        </div>
+        <div class="game-controls">
+            <div class="question-box">Pytanie nr 1</div>
+        </div>
         <div class="game-controls">
             <button id="prev-round-btn" class="round-nav">Poprzednia runda</button>
-            <div class="question-box">Pytanie nr 1</div>
             <button id="next-round-btn" class="round-nav">Następna runda</button>
         </div>
         <div class="game-controls">
-            <button id="start-btn">Rozpocznij</button>
             <div class="input-with-button">
                 <input type="text" id="answer-input" placeholder="Wpisz odpowiedź">
                 <button id="submit-answer-btn">OK</button>
             </div>
+        </div>
+        <div class="game-controls">
+            <button id="start-btn">Rozpocznij</button>
+        </div>
+        <div class="game-controls">
             <button id="answers-btn">Odpowiedzi</button>
         </div>
         <div class="game-controls">
