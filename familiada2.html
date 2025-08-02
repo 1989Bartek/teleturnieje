@@ -65,7 +65,7 @@
             background-color: #fff;
             color: #000;
             font-size: 16px;
-            height: 48px;
+            height: 52px;
             box-sizing: border-box;
         }
         .vertical-buttons {
@@ -101,6 +101,7 @@
             min-width: 280px;
             text-align: center;
             text-transform: capitalize;
+            height: 52px;
         }
         .rounds-container button {
             min-width: 130px;
@@ -300,6 +301,7 @@
             text-align: center;
             min-width: 280px;
             line-height: 1;
+            height: 52px;
         }
         .round-nav:hover {
             background-color: #111;
@@ -375,6 +377,7 @@
             padding: 8px;
             font-size: 16px;
             line-height: 1;
+            height: 40px;
         }
         .nav-wrapper, .answer-wrapper {
             display: flex;
@@ -384,10 +387,6 @@
             margin: 4px 0;
             width: 100%;
             max-width: 1000px;
-        }
-        .nav-wrapper {
-            align-items: center;
-            justify-content: space-between;
         }
         @media screen and (max-width: 1200px) {
             h1 {
@@ -411,6 +410,7 @@
                 border: 4px solid #fff;
                 margin: 12px 0;
                 font-size: 14px;
+                height: 48px;
             }
             button {
                 min-width: 280px;
@@ -586,11 +586,20 @@
                 max-width: 1000px;
                 margin: 0;
                 position: relative;
-                top: -64px;
+                top: -52px;
             }
             .question-box {
                 position: relative;
-                top: 4px;
+                top: 0;
+                height: 52px;
+                line-height: 28px;
+            }
+            #prev-round-btn, #next-round-btn {
+                min-width: 280px;
+                padding: 12px 36px;
+                margin: 0 4px;
+                line-height: 1;
+                height: 52px;
             }
         }
     </style>
