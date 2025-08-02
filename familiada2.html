@@ -454,11 +454,18 @@
                 gap: 10px;
             }
 .question-box {
-    width: 280px;
-    min-width: 280px;
+    width: 280px !important;
     max-width: 280px;
+    min-width: 280px;
     margin: 0 auto 10px auto;
-    text-align: center;
+}
+
+.arrow-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    width: 280px;
+    margin: 10px auto;
 }
             #prev-round-btn, #next-round-btn {
                 min-width: 136px;
@@ -690,11 +697,11 @@
                 <span id="team2-score">0</span>
             </div>
         </div>
-        <div class="nav-wrapper">
-            <button id="prev-round-btn" class="round-nav">Poprzednia runda</button>
-            <div class="question-box">Pytanie nr 1</div>
-            <button id="next-round-btn" class="round-nav">Następna runda</button>
-        </div>
+<div class="question-box">Pytanie nr 1</div>
+<div class="arrow-buttons">
+    <button id="prev-round-btn" class="round-nav">◀</button>
+    <button id="next-round-btn" class="round-nav">▶</button>
+</div>
         <div class="answer-wrapper">
             <button id="start-btn">Rozpocznij</button>
             <div class="input-with-button">
