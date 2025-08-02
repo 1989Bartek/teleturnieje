@@ -456,7 +456,7 @@
             .question-box {
                 width: 280px;
                 min-width: 280px;
-                margin: 0 auto 10px auto;
+                margin: 10px auto;
             }
             #prev-round-btn, #next-round-btn {
                 min-width: 136px;
@@ -549,16 +549,15 @@
                 box-sizing: border-box;
             }
             .nav-wrapper {
-                flex-wrap: wrap;
+                flex-wrap: nowrap;
                 flex-direction: row;
                 align-items: center;
                 justify-content: center;
+                gap: 10px;
             }
-            .question-box {
-                flex-basis: 100%;
-                order: -1;
-                width: 280px;
-                min-width: 280px;
+            #prev-round-btn, #next-round-btn {
+                flex: 1;
+                max-width: 140px;
             }
             .answer-wrapper {
                 flex-direction: column;
@@ -688,9 +687,9 @@
                 <span id="team2-score">0</span>
             </div>
         </div>
+        <div class="question-box">Pytanie nr 1</div>
         <div class="nav-wrapper">
             <button id="prev-round-btn" class="round-nav">Poprzednia runda</button>
-            <div class="question-box">Pytanie nr 1</div>
             <button id="next-round-btn" class="round-nav">Następna runda</button>
         </div>
         <div class="answer-wrapper">
