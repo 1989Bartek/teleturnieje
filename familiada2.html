@@ -385,6 +385,10 @@
             width: 100%;
             max-width: 1000px;
         }
+        .nav-wrapper {
+            align-items: center;
+            justify-content: space-between;
+        }
         @media screen and (max-width: 1200px) {
             h1 {
                 font-size: 36px;
@@ -533,9 +537,15 @@
             .team-scores {
                 position: static;
                 margin: 5px 0;
+                width: 90%;
+                max-width: 750px;
+                justify-content: center;
+                align-items: center;
+                gap: 20px;
             }
             .team-score p {
                 font-size: 21px;
+                margin: 0;
             }
             .team-score span {
                 font-size: 31.5px;
@@ -565,6 +575,22 @@
             }
             .answer-wrapper {
                 flex-direction: column;
+            }
+        }
+        @media screen and (min-width: 1201px) {
+            .nav-wrapper {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                width: 100%;
+                max-width: 1000px;
+                margin: 0;
+                position: relative;
+                top: -64px;
+            }
+            .question-box {
+                position: relative;
+                top: 4px;
             }
         }
     </style>
