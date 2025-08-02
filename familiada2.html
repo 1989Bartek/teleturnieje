@@ -614,14 +614,10 @@
                 width: 100%;
                 max-width: 1000px;
                 margin-bottom: 4px;
-                gap: 8px;
+                gap: 10px;
             }
             .nav-wrapper {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                gap: 8px;
-                width: auto;
+                display: contents;
             }
             .question-box {
                 height: 52px;
@@ -630,13 +626,14 @@
                 align-items: center;
                 justify-content: center;
                 box-sizing: border-box;
-                margin: 0 4px;
+                margin: 0;
                 flex: 0 0 280px;
+                order: 2;
             }
             #prev-round-btn {
                 min-width: 280px;
                 padding: 12px 36px;
-                margin: 0 4px;
+                margin: 0;
                 line-height: 1;
                 height: 52px;
                 display: flex;
@@ -644,11 +641,12 @@
                 justify-content: center;
                 box-sizing: border-box;
                 flex: 0 0 280px;
+                order: 1;
             }
             #next-round-btn {
                 min-width: 280px;
                 padding: 12px 36px;
-                margin: 0 4px;
+                margin: 0;
                 line-height: 1;
                 height: 52px;
                 display: flex;
@@ -656,6 +654,7 @@
                 justify-content: center;
                 box-sizing: border-box;
                 flex: 0 0 280px;
+                order: 3;
             }
             .answer-wrapper {
                 display: flex;
@@ -664,23 +663,26 @@
                 width: 100%;
                 max-width: 1000px;
                 margin: 4px 0;
-                gap: 8px;
+                gap: 10px;
             }
             #start-btn {
                 min-width: 280px;
-                margin: 0 4px;
+                margin: 0;
                 height: 52px;
                 flex: 0 0 280px;
+                order: 1;
             }
             .input-with-button {
                 flex: 0 0 280px;
-                margin: 0 4px;
+                margin: 0;
+                order: 2;
             }
             #answers-btn {
                 min-width: 280px;
-                margin: 0 4px;
+                margin: 0;
                 height: 52px;
                 flex: 0 0 280px;
+                order: 3;
             }
             .game-controls {
                 margin: 4px 0;
