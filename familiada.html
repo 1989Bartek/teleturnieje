@@ -376,6 +376,15 @@
             font-size: 16px;
             line-height: 1;
         }
+        .nav-wrapper, .answer-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            margin: 4px 0;
+            width: 100%;
+            max-width: 1000px;
+        }
         @media screen and (max-width: 1200px) {
             h1 {
                 font-size: 36px;
@@ -518,7 +527,6 @@
             .team-scores {
                 position: static;
                 margin: 5px 0;
-                order: 1;
             }
             .team-score p {
                 font-size: 21px;
@@ -526,18 +534,8 @@
             .team-score span {
                 font-size: 31.5px;
             }
-            .game-controls:first-of-type {
-                flex-direction: row;
-                justify-content: center;
-                align-items: center;
-                gap: 10px;
-                order: 3;
-            }
-            .game-controls:nth-of-type(2) {
-                order: 4;
-            }
-            .game-controls:last-of-type {
-                order: 5;
+            .game-controls {
+                flex-direction: column;
                 justify-content: center;
             }
             .input-with-button button {
@@ -547,6 +545,20 @@
                 display: block;
                 border: 4px solid #fff;
                 box-sizing: border-box;
+            }
+            .nav-wrapper {
+                flex-wrap: wrap;
+            }
+            .question-box {
+                flex-basis: 100%;
+                order: -1;
+            }
+            #prev-round-btn, #next-round-btn {
+                flex: 1;
+                min-width: 130px;
+            }
+            .answer-wrapper {
+                flex-direction: column;
             }
         }
     </style>
@@ -673,23 +685,17 @@
                 <span id="team2-score">0</span>
             </div>
         </div>
-        <div class="game-controls">
-            <div class="question-box">Pytanie nr 1</div>
-        </div>
-        <div class="game-controls">
+        <div class="nav-wrapper">
             <button id="prev-round-btn" class="round-nav">Poprzednia runda</button>
+            <div class="question-box">Pytanie nr 1</div>
             <button id="next-round-btn" class="round-nav">Następna runda</button>
         </div>
-        <div class="game-controls">
+        <div class="answer-wrapper">
+            <button id="start-btn">Rozpocznij</button>
             <div class="input-with-button">
                 <input type="text" id="answer-input" placeholder="Wpisz odpowiedź">
                 <button id="submit-answer-btn">OK</button>
             </div>
-        </div>
-        <div class="game-controls">
-            <button id="start-btn">Rozpocznij</button>
-        </div>
-        <div class="game-controls">
             <button id="answers-btn">Odpowiedzi</button>
         </div>
         <div class="game-controls">
