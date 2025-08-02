@@ -101,9 +101,15 @@
             min-width: 280px;
             text-align: center;
             text-transform: capitalize;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
         }
         .rounds-container button {
             min-width: 130px;
+            height: 48px;
         }
         button.active {
             background-color: #002266;
@@ -300,6 +306,11 @@
             text-align: center;
             min-width: 280px;
             line-height: 1;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
         }
         .round-nav:hover {
             background-color: #111;
@@ -335,12 +346,15 @@
         }
         .game-controls input[type="text"] {
             min-width: 280px;
+            height: 48px;
         }
         .game-controls button {
             min-width: 280px;
+            height: 48px;
         }
         .game-controls .round-nav {
             min-width: 280px;
+            height: 48px;
         }
         .game-controls:last-of-type {
             justify-content: space-between;
@@ -356,16 +370,23 @@
             min-width: 280px;
             text-align: center;
             background-color: transparent;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
         }
         .input-with-button {
             position: relative;
             display: flex;
             align-items: center;
             width: 280px;
+            height: 48px;
         }
         .input-with-button input[type="text"] {
             width: 100%;
             padding-right: 60px;
+            height: 48px;
         }
         .input-with-button button {
             position: absolute;
@@ -375,15 +396,26 @@
             padding: 8px;
             font-size: 16px;
             line-height: 1;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
         }
         .nav-wrapper, .answer-wrapper {
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
             gap: 10px;
             margin: 4px 0;
             width: 100%;
             max-width: 1000px;
+        }
+        .nav-wrapper {
+            flex-wrap: nowrap;
+        }
+        .answer-wrapper {
+            flex-wrap: nowrap;
         }
         @media screen and (max-width: 1200px) {
             h1 {
@@ -681,19 +713,9 @@
                 <img src="familiada/znak.png" alt="Znak">
             </div>
         </div>
-        <div class="team-scores">
-            <div class="team-score">
-                <p id="team1-name">Drużyna 1</p>
-                <span id="team1-score">0</span>
-            </div>
-            <div class="team-score">
-                <p id="team2-name">Drużyna 2</p>
-                <span id="team2-score">0</span>
-            </div>
-        </div>
-        <div class="question-box">Pytanie nr 1</div>
         <div class="nav-wrapper">
             <button id="prev-round-btn" class="round-nav">Poprzednia runda</button>
+            <div class="question-box">Pytanie nr 1</div>
             <button id="next-round-btn" class="round-nav">Następna runda</button>
         </div>
         <div class="answer-wrapper">
