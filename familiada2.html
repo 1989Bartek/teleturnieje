@@ -387,15 +387,6 @@
             height: 40px;
             box-sizing: border-box;
         }
-        .nav-wrapper, .answer-wrapper {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 10px;
-            margin: 4px 0;
-            width: 100%;
-            max-width: 1000px;
-        }
         .question-nav-container {
             display: flex;
             justify-content: center;
@@ -404,6 +395,23 @@
             width: 100%;
             max-width: 1000px;
             margin-bottom: 4px;
+        }
+        .nav-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            max-width: 1000px;
+        }
+        .answer-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            margin: 4px 0;
+            width: 100%;
+            max-width: 1000px;
         }
         @media screen and (max-width: 1200px) {
             h1 {
@@ -608,11 +616,7 @@
                 margin-bottom: 4px;
             }
             .nav-wrapper {
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                gap: 10px;
-                width: auto;
+                display: contents;
             }
             .question-box {
                 height: 52px;
@@ -622,8 +626,9 @@
                 justify-content: center;
                 box-sizing: border-box;
                 margin: 0;
+                order: 2;
             }
-            #prev-round-btn, #next-round-btn {
+            #prev-round-btn {
                 min-width: 280px;
                 padding: 12px 36px;
                 margin: 0 4px;
@@ -633,6 +638,19 @@
                 align-items: center;
                 justify-content: center;
                 box-sizing: border-box;
+                order: 1;
+            }
+            #next-round-btn {
+                min-width: 280px;
+                padding: 12px 36px;
+                margin: 0 4px;
+                line-height: 1;
+                height: 52px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                box-sizing: border-box;
+                order: 3;
             }
             .answer-wrapper {
                 margin: 4px 0;
