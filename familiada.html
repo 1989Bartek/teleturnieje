@@ -378,7 +378,7 @@
         }
         @media screen and (max-width: 1200px) {
             h1 {
-                font-size: 48px;
+                font-size: 36px;
                 margin: 28px 0 18px 0;
             }
             .section, .aligned-section {
@@ -397,154 +397,20 @@
                 max-width: 280px;
                 border: 4px solid #fff;
                 margin: 12px 0;
-            }
-            button {
-                min-width: 280px;
-                font-size: 18px;
-                padding: 10px 20px;
-            }
-            .rounds-container button {
-                min-width: 120px;
-            }
-            .bottom-logo img {
-                width: 120px;
-            }
-            .bottom-logo a {
-                font-size: 11px;
-            }
-            .aligned-section p {
-                font-size: 20px;
-            }
-            .button-container {
-                flex-direction: column;
-                align-items: center;
-                gap: 10px;
-            }
-            #fullscreen-btn {
-                display: none;
-            }
-            .game-board {
-                width: 95%;
-                padding: 15px;
-                min-height: 350px;
-                margin: 5px 0;
-            }
-            .game-board-question {
-                font-size: 24px;
-                margin-left: 40px;
-            }
-            .answer-row {
-                font-size: 20px;
-            }
-            .answer-number {
-                width: 40px;
-            }
-            .answer-text {
-                width: 320px;
-            }
-            .answer-points {
-                width: 40px;
-            }
-            .sum-row {
-                font-size: 20px;
-                max-width: 570px;
-            }
-            .marks-container img {
-                width: 40px;
-                height: 64px;
-            }
-            .team-scores {
-                position: static;
-                flex-direction: row;
-                justify-content: space-between;
-                margin: 5px 0;
-            }
-            .team-score p {
-                font-size: 20px;
-            }
-            .team-score span {
-                font-size: 28px;
-            }
-            .round-info {
-                font-size: 20px;
-                margin: 5px 0;
-            }
-            .round-nav-container {
-                display: none;
-            }
-            .round-nav {
-                font-size: 18px;
-                padding: 10px 20px;
-                min-width: 280px;
-            }
-            .question-number {
                 font-size: 14px;
-            }
-            .game-controls {
-                flex-direction: column;
-                gap: 10px;
-                margin: 10px 0;
-            }
-            .game-controls input[type="text"] {
-                min-width: 280px;
-            }
-            .game-controls button {
-                min-width: 280px;
-            }
-            .game-controls .round-nav {
-                min-width: 280px;
-            }
-            .question-box {
-                min-width: 280px;
-                font-size: 18px;
-                padding: 10px 20px;
-            }
-            .input-with-button {
-                width: 280px;
-            }
-            .input-with-button input[type="text"] {
-                width: 100%;
-            }
-            .input-with-button button {
-                width: 44px;
-                padding: 6px;
-            }
-            #game-fullscreen-btn {
-                display: none;
-            }
-            #prev-round-btn {
-                min-width: 280px;
-                padding: 10px 20px;
-                margin-left: 4px;
-            }
-            #next-round-btn {
-                min-width: 280px;
-                padding: 10px 20px;
-                margin-right: 4px;
-            }
-        }
-        @media screen and (max-width: 600px) {
-            h1 {
-                font-size: 36px;
-                margin: 28px 0 18px 0;
             }
             button {
                 min-width: 280px;
                 font-size: 16px;
                 padding: 8px 16px;
+                box-sizing: border-box;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 48px;
             }
             .rounds-container button {
                 min-width: 100px;
-            }
-            input[type="text"] {
-                width: 280px;
-                max-width: 280px;
-                font-size: 14px;
-                border: 4px solid #fff;
-                margin: 12px 0;
-            }
-            .aligned-section p {
-                font-size: 18px;
             }
             .bottom-logo img {
                 width: 90px;
@@ -557,105 +423,117 @@
                 margin-top: 40px;
                 margin-bottom: 40px;
             }
+            .aligned-section p {
+                font-size: 18px;
+            }
+            .button-container {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+            #fullscreen-btn {
+                display: none;
+            }
             .instructions-text {
                 width: 90%;
                 font-size: 14px;
+                padding: 15px;
+            }
+            .game-controls:first-of-type {
+                flex-wrap: wrap;
+                justify-content: center;
+                align-items: center;
+                gap: 10px;
+            }
+            .question-box {
+                width: 280px;
+                min-width: 280px;
+                flex-basis: 100%;
+                margin: 0 auto 10px auto;
+                order: -1;
+            }
+            #prev-round-btn, #next-round-btn {
+                min-width: 140px;
+                text-indent: -9999px;
+                overflow: hidden;
+                position: relative;
+            }
+            #prev-round-btn::before {
+                content: '◀';
+                font-size: 24px;
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: 50%;
+                transform: translateY(-50%);
+                text-align: center;
+                text-indent: 0;
+            }
+            #next-round-btn::before {
+                content: '▶';
+                font-size: 24px;
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: 50%;
+                transform: translateY(-50%);
+                text-align: center;
+                text-indent: 0;
+            }
+            #game-fullscreen-btn {
+                display: none;
             }
             .game-board {
+                transform: scale(0.75);
+                transform-origin: top center;
                 width: 90%;
-                padding: 10px;
+                max-width: 1000px;
                 min-height: 300px;
-                margin: 5px 0;
             }
             .game-board-question {
-                font-size: 20px;
-                margin-left: 30px;
+                font-size: 21px;
+                margin-left: 37.5px;
+                max-width: 450px;
+            }
+            .game-board-answers {
+                max-width: 450px;
             }
             .answer-row {
                 font-size: 18px;
             }
             .answer-number {
-                width: 30px;
+                width: 37.5px;
             }
             .answer-text {
-                width: 260px;
+                width: 300px;
             }
             .answer-points {
-                width: 30px;
+                width: 37.5px;
             }
             .sum-row {
                 font-size: 18px;
-                max-width: 510px;
+                max-width: 487.5px;
             }
             .marks-container img {
-                width: 30px;
-                height: 48px;
+                width: 37.5px;
+                height: 60px;
+            }
+            .team-scores {
+                position: static;
+                order: 5;
+                margin: 5px 0;
             }
             .team-score p {
-                font-size: 18px;
+                font-size: 21px;
             }
             .team-score span {
-                font-size: 24px;
-            }
-            .round-info {
-                font-size: 18px;
-            }
-            .round-nav-container {
-                display: none;
-            }
-            .round-nav {
-                font-size: 16px;
-                padding: 8px 16px;
-                min-width: 280px;
-            }
-            .question-number {
-                font-size: 12px;
-            }
-            .game-controls {
-                flex-direction: column;
-                gap: 10px;
-                margin: 10px 0;
-            }
-            .game-controls input[type="text"] {
-                min-width: 280px;
-            }
-            .game-controls button {
-                min-width: 280px;
-            }
-            .game-controls .round-nav {
-                min-width: 280px;
-            }
-            .question-box {
-                font-size: 16px;
-                padding: 8px 16px;
-                min-width: 280px;
-                flex: 1;
-            }
-            .input-with-button {
-                width: 280px;
-            }
-            .input-with-button input[type="text"] {
-                width: 100%;
+                font-size: 31.5px;
             }
             .input-with-button button {
                 width: 40px;
                 padding: 4px;
-            }
-            .game-controls:first-of-type {
-                flex-direction: row;
-                justify-content: space-between;
-                gap: 10px;
-                align-items: center;
-            }
-            #prev-round-btn {
-                min-width: 280px;
-                padding: 8px 16px;
-                margin-left: 4px;
-            }
-            #next-round-btn {
-                min-width: 280px;
-                padding: 8px 16px;
-                margin-right: 4px;
+                height: auto;
+                display: block;
             }
         }
     </style>
