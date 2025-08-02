@@ -614,9 +614,14 @@
                 width: 100%;
                 max-width: 1000px;
                 margin-bottom: 4px;
+                gap: 8px;
             }
             .nav-wrapper {
-                display: contents;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                gap: 8px;
+                width: auto;
             }
             .question-box {
                 height: 52px;
@@ -625,8 +630,8 @@
                 align-items: center;
                 justify-content: center;
                 box-sizing: border-box;
-                margin: 0;
-                order: 2;
+                margin: 0 4px;
+                flex: 0 0 280px;
             }
             #prev-round-btn {
                 min-width: 280px;
@@ -638,7 +643,7 @@
                 align-items: center;
                 justify-content: center;
                 box-sizing: border-box;
-                order: 1;
+                flex: 0 0 280px;
             }
             #next-round-btn {
                 min-width: 280px;
@@ -650,10 +655,32 @@
                 align-items: center;
                 justify-content: center;
                 box-sizing: border-box;
-                order: 3;
+                flex: 0 0 280px;
             }
             .answer-wrapper {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+                max-width: 1000px;
                 margin: 4px 0;
+                gap: 8px;
+            }
+            #start-btn {
+                min-width: 280px;
+                margin: 0 4px;
+                height: 52px;
+                flex: 0 0 280px;
+            }
+            .input-with-button {
+                flex: 0 0 280px;
+                margin: 0 4px;
+            }
+            #answers-btn {
+                min-width: 280px;
+                margin: 0 4px;
+                height: 52px;
+                flex: 0 0 280px;
             }
             .game-controls {
                 margin: 4px 0;
