@@ -374,18 +374,19 @@
         }
         .input-with-button input[type="text"] {
             width: 100%;
-            padding-right: 60px;
+            padding-right: 54px; /* Adjusted for smaller OK button */
         }
         .input-with-button button {
             position: absolute;
             right: 4px;
             min-width: unset;
-            width: 48px;
-            padding: 8px;
-            font-size: 16px;
+            width: 43.2px; /* 48px * 0.9 = 10% reduction */
+            padding: 7.2px; /* 8px * 0.9 */
+            font-size: 14.4px; /* 16px * 0.9 */
             line-height: 1;
-            height: 40px;
+            height: 36px; /* 40px * 0.9 */
             box-sizing: border-box;
+            border-color: #FFEA00; /* Golden border */
         }
         .question-nav-container {
             display: flex;
@@ -565,7 +566,7 @@
             }
             .team-scores {
                 position: static;
-                margin: 5px 0;
+                margin: -28px 0 5px 0; /* Lift by half the space above (56px / 2 = 28px) */
                 width: 90%;
                 max-width: 750px;
                 justify-content: center;
@@ -584,12 +585,13 @@
                 justify-content: center;
             }
             .input-with-button button {
-                width: 48px;
-                padding: 8px;
-                height: 48px;
+                width: 43.2px; /* 48px * 0.9 = 10% reduction */
+                padding: 7.2px; /* 8px * 0.9 */
+                height: 43.2px; /* 48px * 0.9 */
                 display: block;
-                border: 4px solid #fff;
+                border: 4px solid #FFEA00; /* Golden border */
                 box-sizing: border-box;
+                font-size: 14.4px; /* 16px * 0.9 */
             }
             .nav-wrapper {
                 flex-wrap: nowrap;
