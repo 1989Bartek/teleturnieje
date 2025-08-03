@@ -429,7 +429,7 @@
             align-items: center;
             gap: 10px;
             width: 100%;
-            margin: 0.5px 0;
+            margin: 0.5px 0; /* Zmniejszony o połowę odstęp między wierszami */
         }
         .question-label {
             font-size: 24px;
@@ -446,6 +446,7 @@
             background-color: #fff;
             color: #000;
             font-size: 16px;
+            height: 36.4px;
             box-sizing: border-box;
         }
         .answer-counter {
@@ -496,9 +497,9 @@
             box-sizing: border-box;
         }
         .answer-input {
-            width: 210px;
-            min-width: 210px;
-            max-width: 210px;
+            width: 126px; /* Zmniejszona o 40% z 210px */
+            min-width: 126px;
+            max-width: 126px;
             padding: 12px 36px;
             margin: 0;
             border: 4px solid #fff;
@@ -506,6 +507,7 @@
             background-color: #fff;
             color: #000;
             font-size: 16px;
+            height: 36.4px;
             box-sizing: border-box;
         }
         .answer-input-container {
@@ -747,7 +749,7 @@
             .question-row {
                 flex-direction: column;
                 align-items: center;
-                margin: 0.5px 0;
+                margin: 0.5px 0; /* Zmniejszony o połowę odstęp między wierszami */
             }
             .question-label {
                 width: 100%;
@@ -755,6 +757,7 @@
             }
             .question-input {
                 width: 280px;
+                height: 33.6px;
             }
             .answer-counter {
                 margin: 1px 0;
@@ -764,9 +767,10 @@
                 align-items: center;
             }
             .answer-input {
-                width: 280px;
-                min-width: 280px;
-                max-width: 280px;
+                width: 168px; /* Zmniejszona o 40% z 280px w mobilnym */
+                min-width: 168px;
+                max-width: 168px;
+                height: 33.6px;
             }
             .questions-controls {
                 flex-direction: column;
@@ -975,137 +979,137 @@
             <p class="answers-subtext">lorem ipsum</p>
             <div class="question-row" data-index="1">
                 <span class="question-label">1</span>
-                <input type="text" class="question-input" placeholder="Wpisz pytanie" style="height: 36.4px;">
+                <input type="text" class="question-input" placeholder="Pytanie" style="height: 36.4px;">
                 <div class="answer-counter">
                     <button class="counter-btn counter-decrement disabled">◀</button>
                     <span class="counter-display">4</span>
                     <button class="counter-btn counter-increment">▶</button>
                 </div>
                 <div class="answer-input-container">
-                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź" style="height: 36.4px;">
-                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź" style="height: 36.4px;">
-                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź" style="height: 36.4px;">
-                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź" style="height: 36.4px;">
+                    <input type="text" class="answer-input" placeholder="Odpowiedź" style="height: 36.4px;">
+                    <input type="text" class="answer-input" placeholder="Odpowiedź" style="height: 36.4px;">
+                    <input type="text" class="answer-input" placeholder="Odpowiedź" style="height: 36.4px;">
+                    <input type="text" class="answer-input" placeholder="Odpowiedź" style="height: 36.4px;">
                 </div>
             </div>
             <div class="question-row" data-index="2">
                 <span class="question-label">2</span>
-                <input type="text" class="question-input" placeholder="Wpisz pytanie" style="height: 36.4px;">
+                <input type="text" class="question-input" placeholder="Pytanie" style="height: 36.4px;">
                 <div class="answer-counter">
                     <button class="counter-btn counter-decrement disabled">◀</button>
                     <span class="counter-display">4</span>
                     <button class="counter-btn counter-increment">▶</button>
                 </div>
                 <div class="answer-input-container">
-                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź" style="height: 36.4px;">
-                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź" style="height: 36.4px;">
-                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź" style="height: 36.4px;">
-                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź" style="height: 36.4px;">
+                    <input type="text" class="answer-input" placeholder="Odpowiedź" style="height: 36.4px;">
+                    <input type="text" class="answer-input" placeholder="Odpowiedź" style="height: 36.4px;">
+                    <input type="text" class="answer-input" placeholder="Odpowiedź" style="height: 36.4px;">
+                    <input type="text" class="answer-input" placeholder="Odpowiedź" style="height: 36.4px;">
                 </div>
             </div>
             <div class="question-row" data-index="3">
                 <span class="question-label">3</span>
-                <input type="text" class="question-input" placeholder="Wpisz pytanie" style="height: 36.4px;">
+                <input type="text" class="question-input" placeholder="Pytanie" style="height: 36.4px;">
                 <div class="answer-counter">
                     <button class="counter-btn counter-decrement disabled">◀</button>
                     <span class="counter-display">4</span>
                     <button class="counter-btn counter-increment">▶</button>
                 </div>
                 <div class="answer-input-container">
-                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź" style="height: 36.4px;">
-                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź" style="height: 36.4px;">
-                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź" style="height: 36.4px;">
-                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź" style="height: 36.4px;">
+                    <input type="text" class="answer-input" placeholder="Odpowiedź" style="height: 36.4px;">
+                    <input type="text" class="answer-input" placeholder="Odpowiedź" style="height: 36.4px;">
+                    <input type="text" class="answer-input" placeholder="Odpowiedź" style="height: 36.4px;">
+                    <input type="text" class="answer-input" placeholder="Odpowiedź" style="height: 36.4px;">
                 </div>
             </div>
             <div class="question-row" data-index="4">
                 <span class="question-label">4</span>
-                <input type="text" class="question-input" placeholder="Wpisz pytanie" style="height: 36.4px;">
+                <input type="text" class="question-input" placeholder="Pytanie" style="height: 36.4px;">
                 <div class="answer-counter">
                     <button class="counter-btn counter-decrement disabled">◀</button>
                     <span class="counter-display">4</span>
                     <button class="counter-btn counter-increment">▶</button>
                 </div>
                 <div class="answer-input-container">
-                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź" style="height: 36.4px;">
-                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź" style="height: 36.4px;">
-                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź" style="height: 36.4px;">
-                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź" style="height: 36.4px;">
+                    <input type="text" class="answer-input" placeholder="Odpowiedź" style="height: 36.4px;">
+                    <input type="text" class="answer-input" placeholder="Odpowiedź" style="height: 36.4px;">
+                    <input type="text" class="answer-input" placeholder="Odpowiedź" style="height: 36.4px;">
+                    <input type="text" class="answer-input" placeholder="Odpowiedź" style="height: 36.4px;">
                 </div>
             </div>
             <div class="question-row" data-index="5">
                 <span class="question-label">5</span>
-                <input type="text" class="question-input" placeholder="Wpisz pytanie" style="height: 36.4px;">
+                <input type="text" class="question-input" placeholder="Pytanie" style="height: 36.4px;">
                 <div class="answer-counter">
                     <button class="counter-btn counter-decrement disabled">◀</button>
                     <span class="counter-display">4</span>
                     <button class="counter-btn counter-increment">▶</button>
                 </div>
                 <div class="answer-input-container">
-                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź" style="height: 36.4px;">
-                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź" style="height: 36.4px;">
-                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź" style="height: 36.4px;">
-                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź" style="height: 36.4px;">
+                    <input type="text" class="answer-input" placeholder="Odpowiedź" style="height: 36.4px;">
+                    <input type="text" class="answer-input" placeholder="Odpowiedź" style="height: 36.4px;">
+                    <input type="text" class="answer-input" placeholder="Odpowiedź" style="height: 36.4px;">
+                    <input type="text" class="answer-input" placeholder="Odpowiedź" style="height: 36.4px;">
                 </div>
             </div>
             <div class="question-row" data-index="6">
                 <span class="question-label">6</span>
-                <input type="text" class="question-input" placeholder="Wpisz pytanie" style="height: 36.4px;">
+                <input type="text" class="question-input" placeholder="Pytanie" style="height: 36.4px;">
                 <div class="answer-counter">
                     <button class="counter-btn counter-decrement disabled">◀</button>
                     <span class="counter-display">4</span>
                     <button class="counter-btn counter-increment">▶</button>
                 </div>
                 <div class="answer-input-container">
-                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź" style="height: 36.4px;">
-                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź" style="height: 36.4px;">
-                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź" style="height: 36.4px;">
-                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź" style="height: 36.4px;">
+                    <input type="text" class="answer-input" placeholder="Odpowiedź" style="height: 36.4px;">
+                    <input type="text" class="answer-input" placeholder="Odpowiedź" style="height: 36.4px;">
+                    <input type="text" class="answer-input" placeholder="Odpowiedź" style="height: 36.4px;">
+                    <input type="text" class="answer-input" placeholder="Odpowiedź" style="height: 36.4px;">
                 </div>
             </div>
             <div class="question-row" data-index="7">
                 <span class="question-label">7</span>
-                <input type="text" class="question-input" placeholder="Wpisz pytanie" style="height: 36.4px;">
+                <input type="text" class="question-input" placeholder="Pytanie" style="height: 36.4px;">
                 <div class="answer-counter">
                     <button class="counter-btn counter-decrement disabled">◀</button>
                     <span class="counter-display">4</span>
                     <button class="counter-btn counter-increment">▶</button>
                 </div>
                 <div class="answer-input-container">
-                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź" style="height: 36.4px;">
-                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź" style="height: 36.4px;">
-                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź" style="height: 36.4px;">
-                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź" style="height: 36.4px;">
+                    <input type="text" class="answer-input" placeholder="Odpowiedź" style="height: 36.4px;">
+                    <input type="text" class="answer-input" placeholder="Odpowiedź" style="height: 36.4px;">
+                    <input type="text" class="answer-input" placeholder="Odpowiedź" style="height: 36.4px;">
+                    <input type="text" class="answer-input" placeholder="Odpowiedź" style="height: 36.4px;">
                 </div>
             </div>
             <div class="question-row" data-index="8">
                 <span class="question-label">8</span>
-                <input type="text" class="question-input" placeholder="Wpisz pytanie" style="height: 36.4px;">
+                <input type="text" class="question-input" placeholder="Pytanie" style="height: 36.4px;">
                 <div class="answer-counter">
                     <button class="counter-btn counter-decrement disabled">◀</button>
                     <span class="counter-display">4</span>
                     <button class="counter-btn counter-increment">▶</button>
                 </div>
                 <div class="answer-input-container">
-                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź" style="height: 36.4px;">
-                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź" style="height: 36.4px;">
-                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź" style="height: 36.4px;">
-                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź" style="height: 36.4px;">
+                    <input type="text" class="answer-input" placeholder="Odpowiedź" style="height: 36.4px;">
+                    <input type="text" class="answer-input" placeholder="Odpowiedź" style="height: 36.4px;">
+                    <input type="text" class="answer-input" placeholder="Odpowiedź" style="height: 36.4px;">
+                    <input type="text" class="answer-input" placeholder="Odpowiedź" style="height: 36.4px;">
                 </div>
             </div>
             <div class="question-row" data-index="9">
                 <span class="question-label">9</span>
-                <input type="text" class="question-input" placeholder="Wpisz pytanie" style="height: 36.4px;">
+                <input type="text" class="question-input" placeholder="Pytanie" style="height: 36.4px;">
                 <div class="answer-counter">
                     <button class="counter-btn counter-decrement disabled">◀</button>
                     <span class="counter-display">4</span>
                     <button class="counter-btn counter-increment">▶</button>
                 </div>
                 <div class="answer-input-container">
-                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź" style="height: 36.4px;">
-                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź" style="height: 36.4px;">
-                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź" style="height: 36.4px;">
-                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź" style="height: 36.4px;">
+                    <input type="text" class="answer-input" placeholder="Odpowiedź" style="height: 36.4px;">
+                    <input type="text" class="answer-input" placeholder="Odpowiedź" style="height: 36.4px;">
+                    <input type="text" class="answer-input" placeholder="Odpowiedź" style="height: 36.4px;">
+                    <input type="text" class="answer-input" placeholder="Odpowiedź" style="height: 36.4px;">
                 </div>
             </div>
             <div class="questions-controls">
@@ -1350,8 +1354,8 @@
                     const newInput = document.createElement('input');
                     newInput.type = 'text';
                     newInput.className = 'answer-input';
-                    newInput.placeholder = 'Wpisz odpowiedź';
-                    newInput.style.height = '36.4px';  // Dodane inline dla nowych inputów tworzonych dynamicznie
+                    newInput.placeholder = 'Odpowiedź';
+                    newInput.style.height = '36.4px';  // Dla nowych pól dynamicznych
                     answerContainer.appendChild(newInput);
                     updateCounterButtons(row);
                 }
