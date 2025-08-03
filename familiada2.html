@@ -109,7 +109,7 @@
             justify-content: center;
         }
         .rounds-container button {
-            min-width: 130px;
+            min-width: 135px; /* Adjusted to (280px - 10px gap) / 2 */
         }
         button.active {
             background-color: #002266;
@@ -450,7 +450,7 @@
                 height: 48px;
             }
             .rounds-container button {
-                min-width: 100px;
+                min-width: 135px; /* Adjusted to (280px - 10px gap) / 2 */
             }
             .bottom-logo img {
                 width: 90px;
@@ -887,10 +887,8 @@
         const gameBoardAnswers = document.querySelector('.game-board-answers');
         const audioButtons = document.querySelectorAll('.audio');
         let timerInterval = null;
-
         fullscreenBtn.addEventListener('click', toggleFullscreen);
         gameFullscreenBtn.addEventListener('click', toggleFullscreen);
-
         function toggleFullscreen() {
             if (!document.fullscreenElement) {
                 document.documentElement.requestFullscreen().then(() => {
@@ -908,43 +906,36 @@
                 });
             }
         }
-
         team1Input.addEventListener('input', () => {
             const teamName = team1Input.value || 'Drużyna 1';
             team1Btn.textContent = teamName;
             team1Name.textContent = teamName;
         });
-
         team2Input.addEventListener('input', () => {
             const teamName = team2Input.value || 'Drużyna 2';
             team2Btn.textContent = teamName;
             team2Name.textContent = teamName;
         });
-
         audioButtons.forEach(button => {
             button.addEventListener('click', () => {
                 const audioText = button.textContent;
             });
         });
-
         instructionsBtn.addEventListener('click', () => {
             settingsView.style.display = 'none';
             instructionsView.style.display = 'flex';
             window.scrollTo(0, 0);
         });
-
         backBtn.addEventListener('click', () => {
             instructionsView.style.display = 'none';
             settingsView.style.display = 'flex';
             window.scrollTo(0, 0);
         });
-
         nextBtn.addEventListener('click', () => {
             settingsView.style.display = 'none';
             gameView.style.display = 'flex';
             window.scrollTo(0, 0);
         });
-
         backToSettingsBtn.addEventListener('click', () => {
             gameView.style.display = 'none';
             settingsView.style.display = 'flex';
@@ -953,20 +944,17 @@
             clearInterval(timerInterval);
             window.scrollTo(0, 0);
         });
-
         startBtn.addEventListener('click', () => {
             gameBoardQuestion.style.display = 'block';
             gameBoardAnswers.style.display = 'flex';
             startTimer();
         });
-
         submitAnswerBtn.addEventListener('click', submitAnswer);
         answerInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
                 submitAnswer();
             }
         });
-
         function submitAnswer() {
             const answer = answerInput.value.trim();
             if (answer) {
@@ -974,11 +962,9 @@
                 answerInput.value = '';
             }
         }
-
         function startTimer() {
             clearInterval(timerInterval);
         }
-
         const toggleActive = (groupClass) => {
             const buttons = document.querySelectorAll(`.${groupClass}`);
             buttons.forEach(button => {
@@ -992,7 +978,6 @@
                 });
             });
         };
-
         toggleActive('game-variant');
         toggleActive('team-start');
         toggleActive('game-end');
