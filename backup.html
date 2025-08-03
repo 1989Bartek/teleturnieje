@@ -9,6 +9,7 @@
         html, body {
             margin: 0;
             padding: 0;
+            scroll-behavior: auto;
         }
         body {
             background: linear-gradient(to right, #d40000, #000033, #0033cc);
@@ -108,7 +109,7 @@
             justify-content: center;
         }
         .rounds-container button {
-            min-width: 130px;
+            min-width: 135px; /* Adjusted to (280px - 10px gap) / 2 */
         }
         button.active {
             background-color: #002266;
@@ -374,19 +375,19 @@
         }
         .input-with-button input[type="text"] {
             width: 100%;
-            padding-right: 54px; /* Adjusted for smaller OK button */
+            padding-right: 54px;
         }
         .input-with-button button {
             position: absolute;
             right: 4px;
             min-width: unset;
-            width: 43.2px; /* 48px * 0.9 = 10% reduction */
-            padding: 7.2px; /* 8px * 0.9 */
-            font-size: 14.4px; /* 16px * 0.9 */
+            width: 43.2px;
+            padding: 7.2px;
+            font-size: 14.4px;
             line-height: 1;
-            height: 36px; /* 40px * 0.9 */
+            height: 36px;
             box-sizing: border-box;
-            border-color: #FFEA00; /* Golden border */
+            border-color: #FFEA00;
         }
         .question-nav-container {
             display: flex;
@@ -449,7 +450,7 @@
                 height: 48px;
             }
             .rounds-container button {
-                min-width: 100px;
+                min-width: 135px; /* Adjusted to (280px - 10px gap) / 2 */
             }
             .bottom-logo img {
                 width: 90px;
@@ -498,9 +499,9 @@
             }
             #prev-round-btn, #next-round-btn {
                 min-width: 135px;
-                text-indent: -9999px;
-                overflow: hidden;
                 position: relative;
+                text-indent: 0;
+                overflow: visible;
             }
             #prev-round-btn::before {
                 content: '◀';
@@ -524,51 +525,62 @@
                 text-align: center;
                 text-indent: 0;
             }
+            #prev-round-btn span, #next-round-btn span {
+                display: none;
+            }
+            @media screen and (min-width: 1201px) {
+                #prev-round-btn::before, #next-round-btn::before {
+                    display: none;
+                }
+                #prev-round-btn span, #next-round-btn span {
+                    display: inline;
+                }
+            }
             #game-fullscreen-btn {
                 display: none;
             }
             .game-board {
-                transform: scale(0.75);
+                transform: scale(0.55);
                 transform-origin: top center;
-                width: 750px;
-                max-width: 750px;
+                width: 600px;
+                max-width: 600px;
                 min-height: 300px;
                 box-sizing: border-box;
                 height: 400px;
             }
             .game-board-question {
-                font-size: 21px;
-                margin-left: 37.5px;
-                max-width: 450px;
+                font-size: 16px;
+                margin-left: 27.5px;
+                max-width: 330px;
             }
             .game-board-answers {
-                max-width: 450px;
+                max-width: 330px;
             }
             .answer-row {
-                font-size: 18px;
+                font-size: 14px;
             }
             .answer-number {
-                width: 37.5px;
+                width: 25px;
             }
             .answer-text {
-                width: 300px;
+                width: 220px;
             }
             .answer-points {
-                width: 37.5px;
+                width: 25px;
             }
             .sum-row {
-                font-size: 18px;
-                max-width: 487.5px;
+                font-size: 14px;
+                max-width: 357.5px;
             }
             .marks-container img {
-                width: 37.5px;
-                height: 60px;
+                width: 25px;
+                height: 40px;
             }
             .team-scores {
                 position: static;
-                margin: -28px 0 5px 0; /* Lift by half the space above (56px / 2 = 28px) */
+                margin: -56px 0 5px 0;
                 width: 90%;
-                max-width: 750px;
+                max-width: 600px;
                 justify-content: center;
                 align-items: center;
                 gap: 20px;
@@ -585,13 +597,13 @@
                 justify-content: center;
             }
             .input-with-button button {
-                width: 43.2px; /* 48px * 0.9 = 10% reduction */
-                padding: 7.2px; /* 8px * 0.9 */
-                height: 43.2px; /* 48px * 0.9 */
+                width: 43.2px;
+                padding: 7.2px;
+                height: 43.2px;
                 display: block;
-                border: 4px solid #FFEA00; /* Golden border */
+                border: 4px solid #FFEA00;
                 box-sizing: border-box;
-                font-size: 14.4px; /* 16px * 0.9 */
+                font-size: 14.4px;
             }
             .nav-wrapper {
                 flex-wrap: nowrap;
@@ -693,15 +705,15 @@
                 display: flex;
                 flex-direction: column;
                 align-items: center;
-                justify-content: flex-end; /* Align items to the bottom */
-                height: 100%; /* Ensure the container takes full height of its parent */
+                justify-content: flex-end;
+                height: 100%;
             }
             .center input[type="text"] {
-                margin: 12px 0 0 0; /* Remove bottom margin for team2-input */
+                margin: 12px 0 0 0;
             }
             #team2-input {
-                margin-top: 12px; /* Adjust spacing between inputs */
-                margin-bottom: 0; /* Ensure no extra margin at the bottom */
+                margin-top: 12px;
+                margin-bottom: 0;
             }
         }
     </style>
@@ -831,8 +843,8 @@
         <div class="question-nav-container">
             <div class="question-box">Pytanie nr 1</div>
             <div class="nav-wrapper">
-                <button id="prev-round-btn" class="round-nav">Poprzednia runda</button>
-                <button id="next-round-btn" class="round-nav">Następna runda</button>
+                <button id="prev-round-btn" class="round-nav"><span>Poprzednia runda</span></button>
+                <button id="next-round-btn" class="round-nav"><span>Następna runda</span></button>
             </div>
         </div>
         <div class="answer-wrapper">
@@ -912,14 +924,17 @@
         instructionsBtn.addEventListener('click', () => {
             settingsView.style.display = 'none';
             instructionsView.style.display = 'flex';
+            window.scrollTo(0, 0);
         });
         backBtn.addEventListener('click', () => {
             instructionsView.style.display = 'none';
             settingsView.style.display = 'flex';
+            window.scrollTo(0, 0);
         });
         nextBtn.addEventListener('click', () => {
             settingsView.style.display = 'none';
             gameView.style.display = 'flex';
+            window.scrollTo(0, 0);
         });
         backToSettingsBtn.addEventListener('click', () => {
             gameView.style.display = 'none';
@@ -927,6 +942,7 @@
             gameBoardQuestion.style.display = 'none';
             gameBoardAnswers.style.display = 'none';
             clearInterval(timerInterval);
+            window.scrollTo(0, 0);
         });
         startBtn.addEventListener('click', () => {
             gameBoardQuestion.style.display = 'block';
