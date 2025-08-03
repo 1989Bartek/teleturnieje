@@ -420,9 +420,9 @@
             max-width: 1200px;
             display: flex;
             flex-direction: column;
-            align-items: flex-start;
+            align-items: center;
             margin: 28px 0;
-            padding-left: 20px;
+            padding-left: 10px;
         }
         .question-row {
             display: flex;
@@ -517,29 +517,11 @@
             opacity: 0.5;
             pointer-events: none;
         }
-        .questions-header {
-            font-size: 24px;
-            margin: 20px 0 10px;
-            text-align: center;
-            width: 560px;
-        }
-        .answers-header {
-            font-size: 24px;
-            margin: 20px 0 10px;
-            text-align: center;
-            width: 610px;
-        }
-        .answers-subtext {
-            font-size: 18px;
-            margin: 10px 0;
-            text-align: center;
-            width: 610px;
-            color: #FFFF33;
-        }
         .questions-controls {
             display: flex;
             gap: 10px;
-            margin: 20px 0;
+            margin: 20px auto;
+            justify-content: center;
         }
         @media screen and (max-width: 1200px) {
             h1 {
@@ -783,15 +765,6 @@
             .answer-input {
                 width: 280px;
             }
-            .questions-header {
-                width: 280px;
-            }
-            .answers-header {
-                width: 280px;
-            }
-            .answers-subtext {
-                width: 280px;
-            }
             .questions-controls {
                 flex-direction: column;
                 align-items: center;
@@ -892,6 +865,13 @@
                 margin-top: 12px;
                 margin-bottom: 0;
             }
+            .rounds-container.questions-rounds {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                gap: 10px;
+                margin-top: 12px;
+            }
         }
     </style>
 </head>
@@ -983,15 +963,12 @@
     <div id="questions-view">
         <h1>Familiada</h1>
         <div class="questions-section">
-            <p class="questions-header">Pytania</p>
-            <p class="questions-header">Ilość rund</p>
-            <div class="rounds-container">
+            <div class="rounds-container questions-rounds">
                 <button class="rounds" data-rounds="3">3</button>
                 <button class="rounds" data-rounds="5">5</button>
                 <button class="rounds" data-rounds="7">7</button>
                 <button class="rounds" data-rounds="9">9</button>
             </div>
-            <p class="answers-header">Odpowiedzi</p>
             <p class="answers-subtext">lorem ipsum</p>
             <div class="question-row" data-index="1">
                 <span class="question-label">1</span>
