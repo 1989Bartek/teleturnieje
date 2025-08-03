@@ -528,41 +528,41 @@
                 display: none;
             }
             .game-board {
-                transform: scale(0.75);
+                transform: scale(0.65); /* Further scaled down from 0.75 */
                 transform-origin: top center;
-                width: 750px;
-                max-width: 750px;
+                width: 650px; /* Reduced from 750px */
+                max-width: 650px; /* Reduced from 750px */
                 min-height: 300px;
                 box-sizing: border-box;
                 height: 400px;
             }
             .game-board-question {
-                font-size: 21px;
-                margin-left: 37.5px;
-                max-width: 450px;
+                font-size: 18px; /* Reduced from 21px */
+                margin-left: 32.5px; /* Adjusted proportionally: 37.5px * 0.65/0.75 */
+                max-width: 390px; /* Adjusted proportionally: 450px * 0.65/0.75 */
             }
             .game-board-answers {
-                max-width: 450px;
+                max-width: 390px; /* Adjusted proportionally: 450px * 0.65/0.75 */
             }
             .answer-row {
-                font-size: 18px;
+                font-size: 16px; /* Reduced from 18px */
             }
             .answer-number {
-                width: 37.5px;
+                width: 30px; /* Adjusted proportionally: 37.5px * 0.8 */
             }
             .answer-text {
-                width: 300px;
+                width: 260px; /* Adjusted proportionally: 300px * 0.65/0.75 */
             }
             .answer-points {
-                width: 37.5px;
+                width: 30px; /* Adjusted proportionally: 37.5px * 0.8 */
             }
             .sum-row {
-                font-size: 18px;
-                max-width: 487.5px;
+                font-size: 16px; /* Reduced from 18px */
+                max-width: 422.5px; /* Adjusted proportionally: 487.5px * 0.65/0.75 */
             }
             .marks-container img {
-                width: 37.5px;
-                height: 60px;
+                width: 30px; /* Reduced from 37.5px by 20% */
+                height: 48px; /* Reduced from 60px by 20% */
             }
             .team-scores {
                 position: static;
