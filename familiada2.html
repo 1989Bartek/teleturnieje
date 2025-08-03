@@ -687,6 +687,20 @@
             .game-controls {
                 margin: 4px 0;
             }
+            .center {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-end; /* Align items to the bottom */
+                height: 100%; /* Ensure the container takes full height of its parent */
+            }
+            .center input[type="text"] {
+                margin: 12px 0 0 0; /* Remove bottom margin for team2-input */
+            }
+            #team2-input {
+                margin-top: 12px; /* Adjust spacing between inputs */
+                margin-bottom: 0; /* Ensure no extra margin at the bottom */
+            }
         }
     </style>
 </head>
