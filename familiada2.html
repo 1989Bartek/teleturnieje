@@ -424,102 +424,6 @@
             margin: 28px 0;
             padding-left: 10px;
         }
-        .question-row {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            width: 100%;
-            margin: 0.5px 0;
-        }
-        .question-label {
-            font-size: 24px;
-            color: white;
-            width: 50px;
-            text-align: right;
-        }
-        #questions-view .question-input {
-            width: 392px !important;
-            padding: 10px 10.8px !important;
-            margin: 0;
-            border: 4px solid #fff;
-            border-radius: 8px;
-            background-color: #fff;
-            color: #000;
-            font-size: 16px;
-            height: 72.8px !important;
-            box-sizing: border-box;
-        }
-        .answer-counter {
-            display: flex;
-            align-items: center;
-            gap: 0;
-        }
-        .counter-btn {
-            background-color: #000;
-            border: 4px solid #fff;
-            color: #FFFF33;
-            font-family: 'Courier New', monospace;
-            font-size: 24px;
-            padding: 0;
-            border-radius: 8px;
-            box-shadow: 0 0 10px #FFD700;
-            cursor: pointer;
-            transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
-            width: 26px;
-            min-width: 26px;
-            max-width: 26px;
-            height: 72.8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-sizing: border-box;
-            flex-grow: 0;
-            flex-shrink: 0;
-            flex-basis: auto;
-        }
-        .counter-btn.disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-        .counter-display {
-            width: 52px;
-            height: 72.8px;
-            border: 4px solid #fff;
-            border-radius: 8px;
-            background-color: #000;
-            color: #FFFF33;
-            font-family: 'Courier New', monospace;
-            font-size: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 0 10px #FFD700;
-            box-sizing: border-box;
-        }
-        #questions-view .answer-input {
-            width: 126px !important;
-            min-width: 126px !important;
-            max-width: 126px !important;
-            padding: 3.6px 10.8px !important;
-            margin: 0;
-            border: 4px solid #fff;
-            border-radius: 8px;
-            background-color: #fff;
-            color: #000;
-            font-size: 16px;
-            height: 36.4px;
-            box-sizing: border-box;
-        }
-        .answer-input-container {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            justify-content: flex-start;
-        }
-        .question-row.disabled {
-            opacity: 0.5;
-            pointer-events: none;
-        }
         .questions-controls {
             display: flex;
             gap: 10px;
@@ -527,11 +431,18 @@
             justify-content: center;
         }
         .rounds-container.questions-rounds {
-            display: flex;
-            flex-direction: row;
+            display: grid;
+            grid-template-columns: repeat(2, auto);
+            grid-template-rows: repeat(2, auto);
             justify-content: center;
             gap: 10px;
-            margin-top: 0px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+        .rounds-text {
+            font-size: 24px;
+            margin: 20px 0 10px 0;
+            color: #FFD700;
         }
         @media screen and (max-width: 1200px) {
             h1 {
@@ -570,22 +481,6 @@
             }
             .rounds-container button {
                 min-width: 135px;
-            }
-            .counter-btn {
-                width: 26px;
-                min-width: 26px;
-                max-width: 26px;
-                height: 67.2px;
-                font-size: 18px;
-                padding: 0;
-                flex-grow: 0;
-                flex-shrink: 0;
-                flex-basis: auto;
-            }
-            .counter-display {
-                width: 52px;
-                height: 67.2px;
-                font-size: 32px;
             }
             .bottom-logo img {
                 width: 90px;
@@ -754,29 +649,9 @@
             .answer-wrapper {
                 flex-direction: column;
             }
-            .question-row {
-                flex-direction: column;
-                align-items: center;
-                margin: 0.5px 0;
-            }
-            .question-label {
-                width: 100%;
-                text-align: center;
-            }
-            #questions-view .question-input {
-                width: 196px !important;
-                height: 67.2px !important;
-                padding: 7.2px 10.8px !important;
-            }
-            .answer-counter {
-                margin: 1px 0;
-            }
-            #questions-view .answer-input {
-                width: 168px !important;
-                min-width: 168px !important;
-                max-width: 168px !important;
-                height: 33.6px !important;
-                padding: 3.6px 10.8px !important;
+            .rounds-text {
+                font-size: 18px;
+                margin: 10px 0;
             }
             .questions-controls {
                 flex-direction: column;
@@ -879,11 +754,13 @@
                 margin-bottom: 0;
             }
             .rounds-container.questions-rounds {
-                display: flex;
-                flex-direction: row;
+                display: grid;
+                grid-template-columns: repeat(2, auto);
+                grid-template-rows: repeat(2, auto);
                 justify-content: center;
                 gap: 10px;
-                margin-top: 0px;
+                margin-top: 10px;
+                margin-bottom: 10px;
             }
         }
     </style>
@@ -976,151 +853,15 @@
     <div id="questions-view">
         <h1>Familiada</h1>
         <div class="questions-section">
+            <p class="rounds-text">Wybierz ilość rund</p>
             <div class="rounds-container questions-rounds">
                 <button class="rounds" data-rounds="3">3</button>
                 <button class="rounds" data-rounds="5">5</button>
                 <button class="rounds" data-rounds="7">7</button>
                 <button class="rounds" data-rounds="9">9</button>
             </div>
-            <p class="answers-subtext">lorem ipsum</p>
-            <div class="question-row" data-index="1">
-                <span class="question-label">1</span>
-                <input type="text" class="question-input" placeholder="Pytanie" style="height: 72.8px;">
-                <div class="answer-counter">
-                    <button class="counter-btn counter-decrement disabled">◀</button>
-                    <span class="counter-display">4</span>
-                    <button class="counter-btn counter-increment">▶</button>
-                </div>
-                <div class="answer-input-container">
-                    <input type="text" class="answer-input" placeholder="Odpowiedź" style="height: 36.4px;">
-                    <input type="text" class="answer-input" placeholder="Odpowiedź" style="height: 36.4px;">
-                    <input type="text" class="answer-input" placeholder="Odpowiedź" style="height: 36.4px;">
-                    <input type="text" class="answer-input" placeholder="Odpowiedź" style="height: 36.4px;">
-                </div>
-            </div>
-            <div class="question-row" data-index="2">
-                <span class="question-label">2</span>
-                <input type="text" class="question-input" placeholder="Pytanie" style="height: 72.8px;">
-                <div class="answer-counter">
-                    <button class="counter-btn counter-decrement disabled">◀</button>
-                    <span class="counter-display">4</span>
-                    <button class="counter-btn counter-increment">▶</button>
-                </div>
-                <div class="answer-input-container">
-                    <input type="text" class="answer-input" placeholder="Odpowiedź" style="height: 36.4px;">
-                    <input type="text" class="answer-input" placeholder="Odpowiedź" style="height: 36.4px;">
-                    <input type="text" class="answer-input" placeholder="Odpowiedź" style="height: 36.4px;">
-                    <input type="text" class="answer-input" placeholder="Odpowiedź" style="height: 36.4px;">
-                </div>
-            </div>
-            <div class="question-row" data-index="3">
-                <span class="question-label">3</span>
-                <input type="text" class="question-input" placeholder="Pytanie" style="height: 72.8px;">
-                <div class="answer-counter">
-                    <button class="counter-btn counter-decrement disabled">◀</button>
-                    <span class="counter-display">4</span>
-                    <button class="counter-btn counter-increment">▶</button>
-                </div>
-                <div class="answer-input-container">
-                    <input type="text" class="answer-input" placeholder="Odpowiedź" style="height: 36.4px;">
-                    <input type="text" class="answer-input" placeholder="Odpowiedź" style="height: 36.4px;">
-                    <input type="text" class="answer-input" placeholder="Odpowiedź" style="height: 36.4px;">
-                    <input type="text" class="answer-input" placeholder="Odpowiedź" style="height: 36.4px;">
-                </div>
-            </div>
-            <div class="question-row" data-index="4">
-                <span class="question-label">4</span>
-                <input type="text" class="question-input" placeholder="Pytanie" style="height: 72.8px;">
-                <div class="answer-counter">
-                    <button class="counter-btn counter-decrement disabled">◀</button>
-                    <span class="counter-display">4</span>
-                    <button class="counter-btn counter-increment">▶</button>
-                </div>
-                <div class="answer-input-container">
-                    <input type="text" class="answer-input" placeholder="Odpowiedź" style="height: 36.4px;">
-                    <input type="text" class="answer-input" placeholder="Odpowiedź" style="height: 36.4px;">
-                    <input type="text" class="answer-input" placeholder="Odpowiedź" style="height: 36.4px;">
-                    <input type="text" class="answer-input" placeholder="Odpowiedź" style="height: 36.4px;">
-                </div>
-            </div>
-            <div class="question-row" data-index="5">
-                <span class="question-label">5</span>
-                <input type="text" class="question-input" placeholder="Pytanie" style="height: 72.8px;">
-                <div class="answer-counter">
-                    <button class="counter-btn counter-decrement disabled">◀</button>
-                    <span class="counter-display">4</span>
-                    <button class="counter-btn counter-increment">▶</button>
-                </div>
-                <div class="answer-input-container">
-                    <input type="text" class="answer-input" placeholder="Odpowiedź" style="height: 36.4px;">
-                    <input type="text" class="answer-input" placeholder="Odpowiedź" style="height: 36.4px;">
-                    <input type="text" class="answer-input" placeholder="Odpowiedź" style="height: 36.4px;">
-                    <input type="text" class="answer-input" placeholder="Odpowiedź" style="height: 36.4px;">
-                </div>
-            </div>
-            <div class="question-row" data-index="6">
-                <span class="question-label">6</span>
-                <input type="text" class="question-input" placeholder="Pytanie" style="height: 72.8px;">
-                <div class="answer-counter">
-                    <button class="counter-btn counter-decrement disabled">◀</button>
-                    <span class="counter-display">4</span>
-                    <button class="counter-btn counter-increment">▶</button>
-                </div>
-                <div class="answer-input-container">
-                    <input type="text" class="answer-input" placeholder="Odpowiedź" style="height: 36.4px;">
-                    <input type="text" class="answer-input" placeholder="Odpowiedź" style="height: 36.4px;">
-                    <input type="text" class="answer-input" placeholder="Odpowiedź" style="height: 36.4px;">
-                    <input type="text" class="answer-input" placeholder="Odpowiedź" style="height: 36.4px;">
-                </div>
-            </div>
-            <div class="question-row" data-index="7">
-                <span class="question-label">7</span>
-                <input type="text" class="question-input" placeholder="Pytanie" style="height: 72.8px;">
-                <div class="answer-counter">
-                    <button class="counter-btn counter-decrement disabled">◀</button>
-                    <span class="counter-display">4</span>
-                    <button class="counter-btn counter-increment">▶</button>
-                </div>
-                <div class="answer-input-container">
-                    <input type="text" class="answer-input" placeholder="Odpowiedź" style="height: 36.4px;">
-                    <input type="text" class="answer-input" placeholder="Odpowiedź" style="height: 36.4px;">
-                    <input type="text" class="answer-input" placeholder="Odpowiedź" style="height: 36.4px;">
-                    <input type="text" class="answer-input" placeholder="Odpowiedź" style="height: 36.4px;">
-                </div>
-            </div>
-            <div class="question-row" data-index="8">
-                <span class="question-label">8</span>
-                <input type="text" class="question-input" placeholder="Pytanie" style="height: 72.8px;">
-                <div class="answer-counter">
-                    <button class="counter-btn counter-decrement disabled">◀</button>
-                    <span class="counter-display">4</span>
-                    <button class="counter-btn counter-increment">▶</button>
-                </div>
-                <div class="answer-input-container">
-                    <input type="text" class="answer-input" placeholder="Odpowiedź" style="height: 36.4px;">
-                    <input type="text" class="answer-input" placeholder="Odpowiedź" style="height: 36.4px;">
-                    <input type="text" class="answer-input" placeholder="Odpowiedź" style="height: 36.4px;">
-                    <input type="text" class="answer-input" placeholder="Odpowiedź" style="height: 36.4px;">
-                </div>
-            </div>
-            <div class="question-row" data-index="9">
-                <span class="question-label">9</span>
-                <input type="text" class="question-input" placeholder="Pytanie" style="height: 72.8px;">
-                <div class="answer-counter">
-                    <button class="counter-btn counter-decrement disabled">◀</button>
-                    <span class="counter-display">4</span>
-                    <button class="counter-btn counter-increment">▶</button>
-                </div>
-                <div class="answer-input-container">
-                    <input type="text" class="answer-input" placeholder="Odpowiedź" style="height: 36.4px;">
-                    <input type="text" class="answer-input" placeholder="Odpowiedź" style="height: 36.4px;">
-                    <input type="text" class="answer-input" placeholder="Odpowiedź" style="height: 36.4px;">
-                    <input type="text" class="answer-input" placeholder="Odpowiedź" style="height: 36.4px;">
-                </div>
-            </div>
             <div class="questions-controls">
                 <button id="questions-back-btn">Powrót</button>
-                <button id="questions-submit-btn">Zatwierdź</button>
             </div>
         </div>
         <div class="bottom-logo">
@@ -1213,7 +954,6 @@
         const gameBoardAnswers = document.querySelector('.game-board-answers');
         const customQuestionsBtn = document.getElementById('custom-questions-btn');
         const questionsBackBtn = document.getElementById('questions-back-btn');
-        const questionsSubmitBtn = document.getElementById('questions-submit-btn');
         const audioButtons = document.querySelectorAll('.audio');
         let timerInterval = null;
         let customQuestions = [];
@@ -1270,30 +1010,6 @@
             questionsView.style.display = 'none';
             settingsView.style.display = 'flex';
             customQuestions = [];
-            document.querySelectorAll('.question-row').forEach(row => {
-                row.classList.remove('disabled');
-                row.querySelector('.question-input').value = '';
-                row.querySelectorAll('.answer-input').forEach(input => input.value = '');
-                const container = row.querySelector('.answer-input-container');
-                while (container.children.length > 4) {
-                    container.removeChild(container.lastChild);
-                }
-                row.querySelector('.counter-display').textContent = '4';
-                updateCounterButtons(row);
-            });
-            window.scrollTo(0, 0);
-        });
-        questionsSubmitBtn.addEventListener('click', () => {
-            customQuestions = [];
-            document.querySelectorAll('.question-row').forEach(row => {
-                if (!row.classList.contains('disabled')) {
-                    const question = row.querySelector('.question-input').value;
-                    const answers = Array.from(row.querySelectorAll('.answer-input')).map(input => input.value);
-                    customQuestions.push({ question, answers });
-                }
-            });
-            questionsView.style.display = 'none';
-            settingsView.style.display = 'flex';
             window.scrollTo(0, 0);
         });
         nextBtn.addEventListener('click', () => {
@@ -1330,43 +1046,6 @@
         function startTimer() {
             clearInterval(timerInterval);
         }
-        function updateCounterButtons(row) {
-            const counterDisplay = row.querySelector('.counter-display');
-            const decrementBtn = row.querySelector('.counter-decrement');
-            const incrementBtn = row.querySelector('.counter-increment');
-            const count = parseInt(counterDisplay.textContent);
-            decrementBtn.classList.toggle('disabled', count <= 4);
-            incrementBtn.classList.toggle('disabled', count >= 8);
-        }
-        document.querySelectorAll('.question-row').forEach(row => {
-            const decrementBtn = row.querySelector('.counter-decrement');
-            const incrementBtn = row.querySelector('.counter-increment');
-            const counterDisplay = row.querySelector('.counter-display');
-            const answerContainer = row.querySelector('.answer-input-container');
-            decrementBtn.addEventListener('click', () => {
-                let count = parseInt(counterDisplay.textContent);
-                if (count > 4) {
-                    count--;
-                    counterDisplay.textContent = count;
-                    answerContainer.removeChild(answerContainer.lastChild);
-                    updateCounterButtons(row);
-                }
-            });
-            incrementBtn.addEventListener('click', () => {
-                let count = parseInt(counterDisplay.textContent);
-                if (count < 8) {
-                    count++;
-                    counterDisplay.textContent = count;
-                    const newInput = document.createElement('input');
-                    newInput.type = 'text';
-                    newInput.className = 'answer-input';
-                    newInput.placeholder = 'Odpowiedź';
-                    newInput.style.height = '36.4px';
-                    answerContainer.appendChild(newInput);
-                    updateCounterButtons(row);
-                }
-            });
-        });
         const toggleActive = (groupClass) => {
             const buttons = document.querySelectorAll(`.${groupClass}`);
             buttons.forEach(button => {
@@ -1390,10 +1069,6 @@
         document.querySelectorAll('#questions-view .rounds').forEach(button => {
             button.addEventListener('click', () => {
                 const rounds = parseInt(button.dataset.rounds);
-                document.querySelectorAll('.question-row').forEach(row => {
-                    const index = parseInt(row.dataset.index);
-                    row.classList.toggle('disabled', index > rounds);
-                });
                 document.querySelectorAll('#settings-view .rounds').forEach(settingBtn => {
                     settingBtn.classList.toggle('active', parseInt(settingBtn.textContent) === rounds);
                 });
