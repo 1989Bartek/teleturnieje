@@ -420,8 +420,9 @@
             max-width: 1200px;
             display: flex;
             flex-direction: column;
-            align-items: center;
+            align-items: flex-start;
             margin: 28px 0;
+            padding-left: 20px;
         }
         .question-row {
             display: flex;
@@ -458,18 +459,23 @@
             border: 4px solid #fff;
             color: #FFFF33;
             font-family: 'Courier New', monospace;
-            font-size: 20px;
-            padding: 12px;
+            font-size: 12px;
+            padding: 0;
             border-radius: 8px;
             box-shadow: 0 0 10px #FFD700;
             cursor: pointer;
             transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
-            width: 52px;
+            width: 26px;
+            min-width: 26px;
+            max-width: 26px;
             height: 52px;
             display: flex;
             align-items: center;
             justify-content: center;
             box-sizing: border-box;
+            flex-grow: 0;
+            flex-shrink: 0;
+            flex-basis: auto;
         }
         .counter-btn.disabled {
             opacity: 0.5;
@@ -546,6 +552,7 @@
                 align-items: center;
                 gap: 18px;
                 margin: 28px 0;
+                padding-left: 0;
             }
             .left, .center, .right, .new-col, .new-left {
                 width: 100%;
@@ -571,6 +578,22 @@
             }
             .rounds-container button {
                 min-width: 135px;
+            }
+            .counter-btn {
+                width: 26px;
+                min-width: 26px;
+                max-width: 26px;
+                height: 48px;
+                font-size: 12px;
+                padding: 0;
+                flex-grow: 0;
+                flex-shrink: 0;
+                flex-basis: auto;
+            }
+            .counter-display {
+                width: 52px;
+                height: 48px;
+                font-size: 16px;
             }
             .bottom-logo img {
                 width: 90px;
@@ -1204,10 +1227,8 @@
         const audioButtons = document.querySelectorAll('.audio');
         let timerInterval = null;
         let customQuestions = [];
-
         fullscreenBtn.addEventListener('click', toggleFullscreen);
         gameFullscreenBtn.addEventListener('click', toggleFullscreen);
-
         function toggleFullscreen() {
             if (!document.fullscreenElement) {
                 document.documentElement.requestFullscreen().then(() => {
@@ -1225,43 +1246,36 @@
                 });
             }
         }
-
         team1Input.addEventListener('input', () => {
             const teamName = team1Input.value || 'Drużyna 1';
             team1Btn.textContent = teamName;
             team1Name.textContent = teamName;
         });
-
         team2Input.addEventListener('input', () => {
             const teamName = team2Input.value || 'Drużyna 2';
             team2Btn.textContent = teamName;
             team2Name.textContent = teamName;
         });
-
         audioButtons.forEach(button => {
             button.addEventListener('click', () => {
                 const audioText = button.textContent;
             });
         });
-
         instructionsBtn.addEventListener('click', () => {
             settingsView.style.display = 'none';
             instructionsView.style.display = 'flex';
             window.scrollTo(0, 0);
         });
-
         backBtn.addEventListener('click', () => {
             instructionsView.style.display = 'none';
             settingsView.style.display = 'flex';
             window.scrollTo(0, 0);
         });
-
         customQuestionsBtn.addEventListener('click', () => {
             settingsView.style.display = 'none';
             questionsView.style.display = 'flex';
             window.scrollTo(0, 0);
         });
-
         questionsBackBtn.addEventListener('click', () => {
             questionsView.style.display = 'none';
             settingsView.style.display = 'flex';
@@ -1279,7 +1293,6 @@
             });
             window.scrollTo(0, 0);
         });
-
         questionsSubmitBtn.addEventListener('click', () => {
             customQuestions = [];
             document.querySelectorAll('.question-row').forEach(row => {
@@ -1293,13 +1306,11 @@
             settingsView.style.display = 'flex';
             window.scrollTo(0, 0);
         });
-
         nextBtn.addEventListener('click', () => {
             settingsView.style.display = 'none';
             gameView.style.display = 'flex';
             window.scrollTo(0, 0);
         });
-
         backToSettingsBtn.addEventListener('click', () => {
             gameView.style.display = 'none';
             settingsView.style.display = 'flex';
@@ -1308,20 +1319,17 @@
             clearInterval(timerInterval);
             window.scrollTo(0, 0);
         });
-
         startBtn.addEventListener('click', () => {
             gameBoardQuestion.style.display = 'block';
             gameBoardAnswers.style.display = 'flex';
             startTimer();
         });
-
         submitAnswerBtn.addEventListener('click', submitAnswer);
         answerInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
                 submitAnswer();
             }
         });
-
         function submitAnswer() {
             const answer = answerInput.value.trim();
             if (answer) {
@@ -1329,11 +1337,9 @@
                 answerInput.value = '';
             }
         }
-
         function startTimer() {
             clearInterval(timerInterval);
         }
-
         function updateCounterButtons(row) {
             const counterDisplay = row.querySelector('.counter-display');
             const decrementBtn = row.querySelector('.counter-decrement');
@@ -1342,13 +1348,11 @@
             decrementBtn.classList.toggle('disabled', count <= 4);
             incrementBtn.classList.toggle('disabled', count >= 8);
         }
-
         document.querySelectorAll('.question-row').forEach(row => {
             const decrementBtn = row.querySelector('.counter-decrement');
             const incrementBtn = row.querySelector('.counter-increment');
             const counterDisplay = row.querySelector('.counter-display');
             const answerContainer = row.querySelector('.answer-input-container');
-
             decrementBtn.addEventListener('click', () => {
                 let count = parseInt(counterDisplay.textContent);
                 if (count > 4) {
@@ -1358,7 +1362,6 @@
                     updateCounterButtons(row);
                 }
             });
-
             incrementBtn.addEventListener('click', () => {
                 let count = parseInt(counterDisplay.textContent);
                 if (count < 8) {
@@ -1373,7 +1376,6 @@
                 }
             });
         });
-
         const toggleActive = (groupClass) => {
             const buttons = document.querySelectorAll(`.${groupClass}`);
             buttons.forEach(button => {
@@ -1387,7 +1389,6 @@
                 });
             });
         };
-
         toggleActive('game-variant');
         toggleActive('team-start');
         toggleActive('game-end');
@@ -1395,7 +1396,6 @@
         toggleActive('audio');
         toggleActive('question-order');
         toggleActive('display-questions');
-
         document.querySelectorAll('#questions-view .rounds').forEach(button => {
             button.addEventListener('click', () => {
                 const rounds = parseInt(button.dataset.rounds);
