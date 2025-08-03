@@ -109,7 +109,7 @@
             justify-content: center;
         }
         .rounds-container button {
-            min-width: 135px; /* Adjusted to (280px - 10px gap) / 2 */
+            min-width: 135px;
         }
         button.active {
             background-color: #002266;
@@ -151,13 +151,13 @@
             margin-top: 0;
             font-size: 24px;
         }
-        #settings-view, #instructions-view, #game-view {
+        #settings-view, #instructions-view, #game-view, #questions-view {
             width: 100%;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
-        #instructions-view, #game-view {
+        #instructions-view, #game-view, #questions-view {
             display: none;
         }
         .instructions-text {
@@ -415,12 +415,132 @@
             width: 100%;
             max-width: 1000px;
         }
+        .questions-section {
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 28px 0;
+        }
+        .question-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            margin: 10px 0;
+        }
+        .question-label {
+            font-size: 24px;
+            color: white;
+            width: 50px;
+            text-align: right;
+        }
+        .question-input {
+            width: 560px;
+            padding: 12px 36px;
+            margin: 0;
+            border: 4px solid #fff;
+            border-radius: 8px;
+            background-color: #fff;
+            color: #000;
+            font-size: 16px;
+            height: 52px;
+            box-sizing: border-box;
+        }
+        .answer-counter {
+            display: flex;
+            align-items: center;
+            gap: 0;
+        }
+        .counter-btn {
+            background-color: #000;
+            border: 4px solid #fff;
+            color: #FFFF33;
+            font-family: 'Courier New', monospace;
+            font-size: 20px;
+            padding: 12px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px #FFD700;
+            cursor: pointer;
+            transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
+            width: 52px;
+            height: 52px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
+        }
+        .counter-btn.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .counter-display {
+            width: 52px;
+            height: 52px;
+            border: 4px solid #fff;
+            border-radius: 8px;
+            background-color: #000;
+            color: #FFFF33;
+            font-family: 'Courier New', monospace;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 10px #FFD700;
+            box-sizing: border-box;
+        }
+        .answer-input {
+            width: 140px;
+            padding: 12px 36px;
+            margin: 0;
+            border: 4px solid #fff;
+            border-radius: 8px;
+            background-color: #fff;
+            color: #000;
+            font-size: 16px;
+            height: 52px;
+            box-sizing: border-box;
+        }
+        .answer-input-container {
+            display: flex;
+            gap: 10px;
+            flex-wrap: nowrap;
+        }
+        .question-row.disabled {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+        .questions-header {
+            font-size: 24px;
+            margin: 20px 0 10px;
+            text-align: center;
+            width: 560px;
+        }
+        .answers-header {
+            font-size: 24px;
+            margin: 20px 0 10px;
+            text-align: center;
+            width: 610px;
+        }
+        .answers-subtext {
+            font-size: 18px;
+            margin: 10px 0;
+            text-align: center;
+            width: 610px;
+            color: #FFFF33;
+        }
+        .questions-controls {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+        }
         @media screen and (max-width: 1200px) {
             h1 {
                 font-size: 36px;
                 margin: 28px 0 18px 0;
             }
-            .section, .aligned-section {
+            .section, .aligned-section, .questions-section {
                 max-width: 90%;
                 flex-direction: column;
                 align-items: center;
@@ -450,7 +570,7 @@
                 height: 48px;
             }
             .rounds-container button {
-                min-width: 135px; /* Adjusted to (280px - 10px gap) / 2 */
+                min-width: 135px;
             }
             .bottom-logo img {
                 width: 90px;
@@ -619,6 +739,40 @@
             .answer-wrapper {
                 flex-direction: column;
             }
+            .question-row {
+                flex-direction: column;
+                align-items: center;
+            }
+            .question-label {
+                width: 100%;
+                text-align: center;
+            }
+            .question-input {
+                width: 280px;
+            }
+            .answer-counter {
+                margin: 10px 0;
+            }
+            .answer-input-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            .answer-input {
+                width: 280px;
+            }
+            .questions-header {
+                width: 280px;
+            }
+            .answers-header {
+                width: 280px;
+            }
+            .answers-subtext {
+                width: 280px;
+            }
+            .questions-controls {
+                flex-direction: column;
+                align-items: center;
+            }
         }
         @media screen and (min-width: 1201px) {
             .question-nav-container {
@@ -731,7 +885,7 @@
                 <p>Wariant gry:</p>
                 <div class="vertical-buttons">
                     <button class="game-variant">Gotowe pytania</button>
-                    <button class="game-variant">Własne pytania</button>
+                    <button class="game-variant" id="custom-questions-btn">Własne pytania</button>
                 </div>
             </div>
             <div class="new-col">
@@ -798,6 +952,164 @@
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
         </div>
         <button id="back-btn" style="margin: 28px 0; min-width: 280px;">Powrót</button>
+        <div class="bottom-logo">
+            <img src="familiada/logo.png" alt="Logo">
+            <a href="https://www.muzykamikrofonakcja.pl">WWW.MUZYKAMIKROFONAKCJA.PL</a>
+        </div>
+    </div>
+    <div id="questions-view">
+        <h1>Familiada</h1>
+        <div class="questions-section">
+            <p class="questions-header">Pytania</p>
+            <p class="questions-header">Ilość rund</p>
+            <div class="rounds-container">
+                <button class="rounds" data-rounds="3">3</button>
+                <button class="rounds" data-rounds="5">5</button>
+                <button class="rounds" data-rounds="7">7</button>
+                <button class="rounds" data-rounds="9">9</button>
+            </div>
+            <p class="answers-header">Odpowiedzi</p>
+            <p class="answers-subtext">lorem ipsum</p>
+            <div class="question-row" data-index="1">
+                <span class="question-label">1</span>
+                <input type="text" class="question-input" placeholder="Wpisz pytanie">
+                <div class="answer-counter">
+                    <button class="counter-btn counter-decrement disabled">◀</button>
+                    <span class="counter-display">4</span>
+                    <button class="counter-btn counter-increment">▶</button>
+                </div>
+                <div class="answer-input-container">
+                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
+                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
+                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
+                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
+                </div>
+            </div>
+            <div class="question-row" data-index="2">
+                <span class="question-label">2</span>
+                <input type="text" class="question-input" placeholder="Wpisz pytanie">
+                <div class="answer-counter">
+                    <button class="counter-btn counter-decrement disabled">◀</button>
+                    <span class="counter-display">4</span>
+                    <button class="counter-btn counter-increment">▶</button>
+                </div>
+                <div class="answer-input-container">
+                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
+                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
+                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
+                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
+                </div>
+            </div>
+            <div class="question-row" data-index="3">
+                <span class="question-label">3</span>
+                <input type="text" class="question-input" placeholder="Wpisz pytanie">
+                <div class="answer-counter">
+                    <button class="counter-btn counter-decrement disabled">◀</button>
+                    <span class="counter-display">4</span>
+                    <button class="counter-btn counter-increment">▶</button>
+                </div>
+                <div class="answer-input-container">
+                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
+                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
+                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
+                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
+                </div>
+            </div>
+            <div class="question-row" data-index="4">
+                <span class="question-label">4</span>
+                <input type="text" class="question-input" placeholder="Wpisz pytanie">
+                <div class="answer-counter">
+                    <button class="counter-btn counter-decrement disabled">◀</button>
+                    <span class="counter-display">4</span>
+                    <button class="counter-btn counter-increment">▶</button>
+                </div>
+                <div class="answer-input-container">
+                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
+                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
+                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
+                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
+                </div>
+            </div>
+            <div class="question-row" data-index="5">
+                <span class="question-label">5</span>
+                <input type="text" class="question-input" placeholder="Wpisz pytanie">
+                <div class="answer-counter">
+                    <button class="counter-btn counter-decrement disabled">◀</button>
+                    <span class="counter-display">4</span>
+                    <button class="counter-btn counter-increment">▶</button>
+                </div>
+                <div class="answer-input-container">
+                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
+                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
+                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
+                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
+                </div>
+            </div>
+            <div class="question-row" data-index="6">
+                <span class="question-label">6</span>
+                <input type="text" class="question-input" placeholder="Wpisz pytanie">
+                <div class="answer-counter">
+                    <button class="counter-btn counter-decrement disabled">◀</button>
+                    <span class="counter-display">4</span>
+                    <button class="counter-btn counter-increment">▶</button>
+                </div>
+                <div class="answer-input-container">
+                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
+                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
+                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
+                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
+                </div>
+            </div>
+            <div class="question-row" data-index="7">
+                <span class="question-label">7</span>
+                <input type="text" class="question-input" placeholder="Wpisz pytanie">
+                <div class="answer-counter">
+                    <button class="counter-btn counter-decrement disabled">◀</button>
+                    <span class="counter-display">4</span>
+                    <button class="counter-btn counter-increment">▶</button>
+                </div>
+                <div class="answer-input-container">
+                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
+                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
+                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
+                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
+                </div>
+            </div>
+            <div class="question-row" data-index="8">
+                <span class="question-label">8</span>
+                <input type="text" class="question-input" placeholder="Wpisz pytanie">
+                <div class="answer-counter">
+                    <button class="counter-btn counter-decrement disabled">◀</button>
+                    <span class="counter-display">4</span>
+                    <button class="counter-btn counter-increment">▶</button>
+                </div>
+                <div class="answer-input-container">
+                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
+                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
+                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
+                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
+                </div>
+            </div>
+            <div class="question-row" data-index="9">
+                <span class="question-label">9</span>
+                <input type="text" class="question-input" placeholder="Wpisz pytanie">
+                <div class="answer-counter">
+                    <button class="counter-btn counter-decrement disabled">◀</button>
+                    <span class="counter-display">4</span>
+                    <button class="counter-btn counter-increment">▶</button>
+                </div>
+                <div class="answer-input-container">
+                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
+                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
+                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
+                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
+                </div>
+            </div>
+            <div class="questions-controls">
+                <button id="questions-back-btn">Powrót</button>
+                <button id="questions-submit-btn">Zatwierdź</button>
+            </div>
+        </div>
         <div class="bottom-logo">
             <img src="familiada/logo.png" alt="Logo">
             <a href="https://www.muzykamikrofonakcja.pl">WWW.MUZYKAMIKROFONAKCJA.PL</a>
@@ -877,6 +1189,7 @@
         const settingsView = document.getElementById('settings-view');
         const instructionsView = document.getElementById('instructions-view');
         const gameView = document.getElementById('game-view');
+        const questionsView = document.getElementById('questions-view');
         const team1Name = document.getElementById('team1-name');
         const team2Name = document.getElementById('team2-name');
         const startBtn = document.getElementById('start-btn');
@@ -885,10 +1198,16 @@
         const answerInput = document.getElementById('answer-input');
         const gameBoardQuestion = document.querySelector('.game-board-question');
         const gameBoardAnswers = document.querySelector('.game-board-answers');
+        const customQuestionsBtn = document.getElementById('custom-questions-btn');
+        const questionsBackBtn = document.getElementById('questions-back-btn');
+        const questionsSubmitBtn = document.getElementById('questions-submit-btn');
         const audioButtons = document.querySelectorAll('.audio');
         let timerInterval = null;
+        let customQuestions = [];
+
         fullscreenBtn.addEventListener('click', toggleFullscreen);
         gameFullscreenBtn.addEventListener('click', toggleFullscreen);
+
         function toggleFullscreen() {
             if (!document.fullscreenElement) {
                 document.documentElement.requestFullscreen().then(() => {
@@ -906,36 +1225,81 @@
                 });
             }
         }
+
         team1Input.addEventListener('input', () => {
             const teamName = team1Input.value || 'Drużyna 1';
             team1Btn.textContent = teamName;
             team1Name.textContent = teamName;
         });
+
         team2Input.addEventListener('input', () => {
             const teamName = team2Input.value || 'Drużyna 2';
             team2Btn.textContent = teamName;
             team2Name.textContent = teamName;
         });
+
         audioButtons.forEach(button => {
             button.addEventListener('click', () => {
                 const audioText = button.textContent;
             });
         });
+
         instructionsBtn.addEventListener('click', () => {
             settingsView.style.display = 'none';
             instructionsView.style.display = 'flex';
             window.scrollTo(0, 0);
         });
+
         backBtn.addEventListener('click', () => {
             instructionsView.style.display = 'none';
             settingsView.style.display = 'flex';
             window.scrollTo(0, 0);
         });
+
+        customQuestionsBtn.addEventListener('click', () => {
+            settingsView.style.display = 'none';
+            questionsView.style.display = 'flex';
+            window.scrollTo(0, 0);
+        });
+
+        questionsBackBtn.addEventListener('click', () => {
+            questionsView.style.display = 'none';
+            settingsView.style.display = 'flex';
+            customQuestions = [];
+            document.querySelectorAll('.question-row').forEach(row => {
+                row.classList.remove('disabled');
+                row.querySelector('.question-input').value = '';
+                row.querySelectorAll('.answer-input').forEach(input => input.value = '');
+                const container = row.querySelector('.answer-input-container');
+                while (container.children.length > 4) {
+                    container.removeChild(container.lastChild);
+                }
+                row.querySelector('.counter-display').textContent = '4';
+                updateCounterButtons(row);
+            });
+            window.scrollTo(0, 0);
+        });
+
+        questionsSubmitBtn.addEventListener('click', () => {
+            customQuestions = [];
+            document.querySelectorAll('.question-row').forEach(row => {
+                if (!row.classList.contains('disabled')) {
+                    const question = row.querySelector('.question-input').value;
+                    const answers = Array.from(row.querySelectorAll('.answer-input')).map(input => input.value);
+                    customQuestions.push({ question, answers });
+                }
+            });
+            questionsView.style.display = 'none';
+            settingsView.style.display = 'flex';
+            window.scrollTo(0, 0);
+        });
+
         nextBtn.addEventListener('click', () => {
             settingsView.style.display = 'none';
             gameView.style.display = 'flex';
             window.scrollTo(0, 0);
         });
+
         backToSettingsBtn.addEventListener('click', () => {
             gameView.style.display = 'none';
             settingsView.style.display = 'flex';
@@ -944,17 +1308,20 @@
             clearInterval(timerInterval);
             window.scrollTo(0, 0);
         });
+
         startBtn.addEventListener('click', () => {
             gameBoardQuestion.style.display = 'block';
             gameBoardAnswers.style.display = 'flex';
             startTimer();
         });
+
         submitAnswerBtn.addEventListener('click', submitAnswer);
         answerInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
                 submitAnswer();
             }
         });
+
         function submitAnswer() {
             const answer = answerInput.value.trim();
             if (answer) {
@@ -962,9 +1329,51 @@
                 answerInput.value = '';
             }
         }
+
         function startTimer() {
             clearInterval(timerInterval);
         }
+
+        function updateCounterButtons(row) {
+            const counterDisplay = row.querySelector('.counter-display');
+            const decrementBtn = row.querySelector('.counter-decrement');
+            const incrementBtn = row.querySelector('.counter-increment');
+            const count = parseInt(counterDisplay.textContent);
+            decrementBtn.classList.toggle('disabled', count <= 4);
+            incrementBtn.classList.toggle('disabled', count >= 8);
+        }
+
+        document.querySelectorAll('.question-row').forEach(row => {
+            const decrementBtn = row.querySelector('.counter-decrement');
+            const incrementBtn = row.querySelector('.counter-increment');
+            const counterDisplay = row.querySelector('.counter-display');
+            const answerContainer = row.querySelector('.answer-input-container');
+
+            decrementBtn.addEventListener('click', () => {
+                let count = parseInt(counterDisplay.textContent);
+                if (count > 4) {
+                    count--;
+                    counterDisplay.textContent = count;
+                    answerContainer.removeChild(answerContainer.lastChild);
+                    updateCounterButtons(row);
+                }
+            });
+
+            incrementBtn.addEventListener('click', () => {
+                let count = parseInt(counterDisplay.textContent);
+                if (count < 8) {
+                    count++;
+                    counterDisplay.textContent = count;
+                    const newInput = document.createElement('input');
+                    newInput.type = 'text';
+                    newInput.className = 'answer-input';
+                    newInput.placeholder = 'Wpisz odpowiedź';
+                    answerContainer.appendChild(newInput);
+                    updateCounterButtons(row);
+                }
+            });
+        });
+
         const toggleActive = (groupClass) => {
             const buttons = document.querySelectorAll(`.${groupClass}`);
             buttons.forEach(button => {
@@ -978,6 +1387,7 @@
                 });
             });
         };
+
         toggleActive('game-variant');
         toggleActive('team-start');
         toggleActive('game-end');
@@ -985,6 +1395,22 @@
         toggleActive('audio');
         toggleActive('question-order');
         toggleActive('display-questions');
+
+        document.querySelectorAll('#questions-view .rounds').forEach(button => {
+            button.addEventListener('click', () => {
+                const rounds = parseInt(button.dataset.rounds);
+                document.querySelectorAll('.question-row').forEach(row => {
+                    const index = parseInt(row.dataset.index);
+                    row.classList.toggle('disabled', index > rounds);
+                });
+                document.querySelectorAll('#settings-view .rounds').forEach(settingBtn => {
+                    settingBtn.classList.toggle('active', parseInt(settingBtn.textContent) === rounds);
+                });
+                document.querySelectorAll('#questions-view .rounds').forEach(btn => {
+                    btn.classList.toggle('active', parseInt(btn.dataset.rounds) === rounds);
+                });
+            });
+        });
     </script>
 </body>
 </html>
