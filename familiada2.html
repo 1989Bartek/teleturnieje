@@ -616,11 +616,7 @@
             max-width: 1000px;
         }
         .questions-section.rounds-selection .questions-controls {
-            position: absolute;
-            bottom: 104px;
-            margin: 0 auto;
-            flex-direction: column;
-            align-items: center;
+            margin: 28px 0;
         }
         .rounds-container.questions-rounds {
             display: grid;
@@ -712,6 +708,9 @@
                 flex-direction: column;
                 align-items: center;
                 gap: 10px;
+            }
+            .questions-section.rounds-selection .questions-controls {
+                margin: 28px 0;
             }
             #fullscreen-btn {
                 display: none;
@@ -1110,68 +1109,6 @@
             <a href="https://www.muzykamikrofonakcja.pl">WWW.MUZYKAMIKROFONAKCJA.PL</a>
         </div>
     </div>
-    <div id="questions-view">
-        <h1>Familiada</h1>
-        <div class="questions-section">
-            <p class="rounds-text">Wybierz ilość rund:</p>
-            <div class="rounds-container questions-rounds">
-                <button class="rounds" data-rounds="3">3</button>
-                <button class="rounds" data-rounds="5">5</button>
-                <button class="rounds" data-rounds="7">7</button>
-                <button class="rounds" data-rounds="9">9</button>
-            </div>
-            <div class="questions-controls rounds-selection-controls">
-                <button id="rounds-back-btn">Powrót</button>
-            </div>
-            <div id="questions-edit-view">
-                <div class="info-text">W odpowiednie pola wpisz pytanie możliwe odpowiedzi (od 3 do 7) oraz ilość punktów do zdobycia (od 5 do 50). W przypadku różnych wariacji odpowiedzi, zapisz wszystkie w jednym polu, oddzielając je przecinkiem np. telefon, komórka, smartphone. Kiedy uczestnik poda którekolwiek określenie po przecinku, w grze wyświetli się zawsze pierwsza propozycja.</div>
-                <div class="question-form">
-                    <div class="question-header">
-                        <div class="question-left">
-                            <p>Pytanie:</p>
-                            <input type="text" class="question-input" placeholder="Wpisz pytanie">
-                        </div>
-                        <div class="question-right">
-                            <p>Liczba odpowiedzi:</p>
-                            <div class="answer-counter">
-                                <button class="counter-btn counter-decrement disabled">◀</button>
-                                <span class="counter-display">3</span>
-                                <button class="counter-btn counter-increment">▶</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="answers-header">
-                        <div class="answers-left">
-                            <p>Odpowiedzi:</p>
-                            <div class="answer-input-container">
-                                <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
-                                <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
-                                <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
-                            </div>
-                        </div>
-                        <div class="points-right">
-                            <p>Punktacja:</p>
-                            <div class="points-input-container">
-                                <input type="text" class="points-input" placeholder="5-50 pkt">
-                                <input type="text" class="points-input" placeholder="5-50 pkt">
-                                <input type="text" class="points-input" placeholder="5-50 pkt">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="questions-controls">
-                        <div class="question-box" id="question-indicator">Pytanie 1/3</div>
-                        <button id="questions-back-btn">Powrót</button>
-                        <button id="prev-question" disabled>Wstecz</button>
-                        <button id="next-question">Dalej</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="bottom-logo">
-            <img src="familiada/logo.png" alt="Logo">
-            <a href="https://www.muzykamikrofonakcja.pl">WWW.MUZYKAMIKROFONAKCJA.PL</a>
-        </div>
-    </div>
     <div id="game-view">
         <h1>Familiada</h1>
         <div class="round-info">Runda 1</div>
@@ -1245,7 +1182,6 @@
         const settingsView = document.getElementById('settings-view');
         const instructionsView = document.getElementById('instructions-view');
         const gameView = document.getElementById('game-view');
-        const questionsView = document.getElementById('questions-view');
         const team1Name = document.getElementById('team1-name');
         const team2Name = document.getElementById('team2-name');
         const startBtn = document.getElementById('start-btn');
@@ -1255,22 +1191,7 @@
         const gameBoardQuestion = document.querySelector('.game-board-question');
         const gameBoardAnswers = document.querySelector('.game-board-answers');
         const customQuestionsBtn = document.getElementById('custom-questions-btn');
-        const questionsBackBtn = document.getElementById('questions-back-btn');
-        const roundsBackBtn = document.getElementById('rounds-back-btn');
-        const audioButtons = document.querySelectorAll('.audio');
-        const roundsButtons = document.querySelectorAll('#questions-view .rounds');
-        const roundsText = document.querySelector('.rounds-text');
-        const roundsContainer = document.querySelector('.rounds-container.questions-rounds');
-        const questionsEditView = document.getElementById('questions-edit-view');
-        const prevQuestionBtn = document.getElementById('prev-question');
-        const nextQuestionBtn = document.getElementById('next-question');
-        const questionIndicator = document.getElementById('question-indicator');
-        const questionsSection = document.querySelector('.questions-section');
         let timerInterval = null;
-        let customQuestions = [];
-        let numRounds = 0;
-        let currentQuestion = 1;
-        let questionsData = [];
         fullscreenBtn.addEventListener('click', toggleFullscreen);
         gameFullscreenBtn.addEventListener('click', toggleFullscreen);
         function toggleFullscreen() {
@@ -1300,11 +1221,6 @@
             team2Btn.textContent = teamName;
             team2Name.textContent = teamName;
         });
-        audioButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const audioText = button.textContent;
-            });
-        });
         instructionsBtn.addEventListener('click', () => {
             settingsView.style.display = 'none';
             instructionsView.style.display = 'flex';
@@ -1317,45 +1233,6 @@
         });
         customQuestionsBtn.addEventListener('click', () => {
             settingsView.style.display = 'none';
-            questionsView.style.display = 'flex';
-            roundsText.style.display = 'block';
-            roundsContainer.style.display = 'grid';
-            questionsEditView.style.display = 'none';
-            prevQuestionBtn.style.display = 'none';
-            nextQuestionBtn.style.display = 'none';
-            questionIndicator.style.display = 'none';
-            questionsSection.classList.add('rounds-selection');
-            roundsButtons.forEach(btn => btn.classList.remove('active'));
-            window.scrollTo(0, 0);
-        });
-        questionsBackBtn.addEventListener('click', () => {
-            roundsText.style.display = 'block';
-            roundsContainer.style.display = 'grid';
-            questionsEditView.style.display = 'none';
-            prevQuestionBtn.style.display = 'none';
-            nextQuestionBtn.style.display = 'none';
-            questionIndicator.style.display = 'none';
-            customQuestions = [];
-            numRounds = 0;
-            questionsData = [];
-            questionsSection.classList.add('rounds-selection');
-            roundsButtons.forEach(btn => btn.classList.remove('active'));
-            window.scrollTo(0, 0);
-        });
-        roundsBackBtn.addEventListener('click', () => {
-            questionsView.style.display = 'none';
-            settingsView.style.display = 'flex';
-            roundsText.style.display = 'block';
-            roundsContainer.style.display = 'grid';
-            questionsEditView.style.display = 'none';
-            prevQuestionBtn.style.display = 'none';
-            nextQuestionBtn.style.display = 'none';
-            questionIndicator.style.display = 'none';
-            customQuestions = [];
-            numRounds = 0;
-            questionsData = [];
-            questionsSection.classList.add('rounds-selection');
-            roundsButtons.forEach(btn => btn.classList.remove('active'));
             window.scrollTo(0, 0);
         });
         nextBtn.addEventListener('click', () => {
@@ -1392,116 +1269,6 @@
         function startTimer() {
             clearInterval(timerInterval);
         }
-        function updateCounterButtons() {
-            const decrementBtn = document.querySelector('.counter-decrement');
-            const incrementBtn = document.querySelector('.counter-increment');
-            const counterDisplay = document.querySelector('.counter-display');
-            const count = parseInt(counterDisplay.textContent);
-            decrementBtn.classList.toggle('disabled', count <= 3);
-            incrementBtn.classList.toggle('disabled', count >= 7);
-            decrementBtn.disabled = count <= 3;
-            incrementBtn.disabled = count >= 7;
-        }
-        function saveCurrentQuestion() {
-            const questionInput = document.querySelector('.question-input');
-            const answerInputs = document.querySelectorAll('.answer-input');
-            const pointsInputs = document.querySelectorAll('.points-input');
-            questionsData[currentQuestion - 1].question = questionInput.value;
-            questionsData[currentQuestion - 1].answers = Array.from(answerInputs).map(input => input.value);
-            questionsData[currentQuestion - 1].points = Array.from(pointsInputs).map(input => input.value);
-        }
-        function loadCurrentQuestion() {
-            const data = questionsData[currentQuestion - 1];
-            const questionInput = document.querySelector('.question-input');
-            const answerContainer = document.querySelector('.answer-input-container');
-            const pointsContainer = document.querySelector('.points-input-container');
-            const counterDisplay = document.querySelector('.counter-display');
-            questionInput.value = data.question;
-            const numAnswers = data.answers.length;
-            counterDisplay.textContent = numAnswers;
-            answerContainer.innerHTML = '';
-            pointsContainer.innerHTML = '';
-            for (let i = 0; i < numAnswers; i++) {
-                const answerInput = document.createElement('input');
-                answerInput.type = 'text';
-                answerInput.className = 'answer-input';
-                answerInput.placeholder = 'Wpisz odpowiedź';
-                answerInput.value = data.answers[i];
-                answerContainer.appendChild(answerInput);
-                const pointsInput = document.createElement('input');
-                pointsInput.type = 'text';
-                pointsInput.className = 'points-input';
-                pointsInput.placeholder = '5-50 pkt';
-                pointsInput.value = data.points[i];
-                pointsContainer.appendChild(pointsInput);
-            }
-            updateCounterButtons();
-            questionIndicator.textContent = `Pytanie ${currentQuestion}/${numRounds}`;
-            prevQuestionBtn.disabled = currentQuestion === 1;
-            if (currentQuestion === numRounds) {
-                nextQuestionBtn.textContent = 'Zatwierdź';
-            } else {
-                nextQuestionBtn.textContent = 'Dalej';
-            }
-        }
-        document.querySelector('.counter-decrement').addEventListener('click', () => {
-            const counterDisplay = document.querySelector('.counter-display');
-            let count = parseInt(counterDisplay.textContent);
-            if (count > 3) {
-                saveCurrentQuestion();
-                count--;
-                counterDisplay.textContent = count;
-                const answerContainer = document.querySelector('.answer-input-container');
-                const pointsContainer = document.querySelector('.points-input-container');
-                answerContainer.removeChild(answerContainer.lastChild);
-                pointsContainer.removeChild(pointsContainer.lastChild);
-                updateCounterButtons();
-            }
-        });
-        document.querySelector('.counter-increment').addEventListener('click', () => {
-            const counterDisplay = document.querySelector('.counter-display');
-            let count = parseInt(counterDisplay.textContent);
-            if (count < 7) {
-                saveCurrentQuestion();
-                count++;
-                counterDisplay.textContent = count;
-                const answerContainer = document.querySelector('.answer-input-container');
-                const pointsContainer = document.querySelector('.points-input-container');
-                const newAnswerInput = document.createElement('input');
-                newAnswerInput.type = 'text';
-                newAnswerInput.className = 'answer-input';
-                newAnswerInput.placeholder = 'Wpisz odpowiedź';
-                answerContainer.appendChild(newAnswerInput);
-                const newPointsInput = document.createElement('input');
-                newPointsInput.type = 'text';
-                newPointsInput.className = 'points-input';
-                newPointsInput.placeholder = '5-50 pkt';
-                pointsContainer.appendChild(newPointsInput);
-                updateCounterButtons();
-            }
-        });
-        prevQuestionBtn.addEventListener('click', () => {
-            if (currentQuestion > 1) {
-                saveCurrentQuestion();
-                currentQuestion--;
-                loadCurrentQuestion();
-            }
-        });
-        nextQuestionBtn.addEventListener('click', () => {
-            saveCurrentQuestion();
-            if (currentQuestion < numRounds) {
-                currentQuestion++;
-                loadCurrentQuestion();
-            } else {
-                customQuestions = questionsData.map(d => ({
-                    question: d.question,
-                    answers: d.answers.map((a, i) => ({text: a, points: d.points[i]}))
-                }));
-                questionsView.style.display = 'none';
-                settingsView.style.display = 'flex';
-                window.scrollTo(0, 0);
-            }
-        });
         const toggleActive = (groupClass) => {
             const buttons = document.querySelectorAll(`.${groupClass}`);
             buttons.forEach(button => {
@@ -1522,28 +1289,6 @@
         toggleActive('audio');
         toggleActive('question-order');
         toggleActive('display-questions');
-        roundsButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                numRounds = parseInt(button.dataset.rounds);
-                questionsData = Array.from({length: numRounds}, () => ({
-                    question: '',
-                    answers: ['', '', ''],
-                    points: ['', '', '']
-                }));
-                currentQuestion = 1;
-                roundsText.style.display = 'none';
-                roundsContainer.style.display = 'none';
-                questionsEditView.style.display = 'flex';
-                prevQuestionBtn.style.display = 'block';
-                nextQuestionBtn.style.display = 'block';
-                questionIndicator.style.display = 'flex';
-                document.querySelectorAll('#settings-view .rounds').forEach(settingBtn => {
-                    settingBtn.classList.toggle('active', parseInt(settingBtn.textContent) === numRounds);
-                });
-                questionsSection.classList.remove('rounds-selection');
-                loadCurrentQuestion();
-            });
-        });
     </script>
 </body>
 </html>
