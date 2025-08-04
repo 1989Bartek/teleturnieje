@@ -124,7 +124,7 @@
         }
         .bottom-logo {
             position: absolute;
-            bottom: 24px;
+            bottom: 12px;
             right: 12px;
             display: flex;
             flex-direction: column;
@@ -397,6 +397,8 @@
             width: 100%;
             max-width: 1000px;
             margin-bottom: 4px;
+            position: absolute;
+            bottom: 104px;
         }
         .nav-wrapper {
             display: flex;
@@ -423,6 +425,8 @@
             align-items: center;
             margin: -20px 0 28px 0;
             padding-left: 10px;
+            position: relative;
+            min-height: 800px;
         }
         .question-row {
             display: flex;
@@ -529,14 +533,14 @@
             flex-direction: column;
             gap: 10px;
             justify-content: flex-start;
-            min-height: calc(8 * (32.4px + 10px)); /* Reserve space for 8 fields */
+            min-height: calc(8 * (32.4px + 10px));
         }
         .points-input-container {
             display: flex;
             flex-direction: column;
             gap: 10px;
             justify-content: flex-start;
-            min-height: calc(8 * (32.4px + 10px)); /* Reserve space for 8 fields */
+            min-height: calc(8 * (32.4px + 10px));
         }
         .question-header {
             display: flex;
@@ -597,8 +601,12 @@
         .questions-controls {
             display: flex;
             gap: 10px;
-            margin: 60px auto;
+            margin: 10px auto;
             justify-content: center;
+            position: absolute;
+            bottom: 52px;
+            width: 100%;
+            max-width: 1000px;
         }
         .rounds-container.questions-rounds {
             display: grid;
@@ -682,8 +690,8 @@
             }
             .bottom-logo {
                 position: static;
-                margin-top: 40px;
-                margin-bottom: 40px;
+                margin-top: 20px;
+                margin-bottom: 20px;
             }
             .aligned-section p {
                 font-size: 18px;
@@ -718,6 +726,7 @@
             .question-nav-container {
                 flex-direction: column;
                 margin-bottom: 10px;
+                position: static;
             }
             #prev-round-btn, #next-round-btn {
                 min-width: 135px;
@@ -876,6 +885,11 @@
             .questions-controls {
                 flex-direction: column;
                 align-items: center;
+                position: static;
+                margin: 10px auto;
+            }
+            .question-nav-container {
+                position: static;
             }
             .question-header {
                 flex-direction: column;
@@ -1446,7 +1460,6 @@
                 currentQuestion++;
                 loadCurrentQuestion();
             } else {
-                // Zatwierdź
                 customQuestions = questionsData.map(d => ({
                     question: d.question,
                     answers: d.answers.map((a, i) => ({text: a, points: d.points[i]}))
