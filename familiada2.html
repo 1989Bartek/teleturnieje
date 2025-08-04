@@ -507,9 +507,7 @@
             box-sizing: border-box;
         }
         #questions-view .answer-input {
-            width: 509.6px !important;
-            min-width: 509.6px !important;
-            max-width: 509.6px !important;
+            flex: 2;
             padding: 3.6px 10.8px !important;
             margin: 0 0 10px 0;
             border: 4px solid #fff;
@@ -521,9 +519,7 @@
             box-sizing: border-box;
         }
         #questions-view .points-input {
-            width: 127.4px !important;
-            min-width: 127.4px !important;
-            max-width: 127.4px !important;
+            flex: 1;
             padding: 3.6px 10.8px !important;
             margin: 0 0 10px 10px;
             border: 4px solid #fff;
@@ -605,7 +601,7 @@
             color: #FFD700;
             font-size: 20px;
             text-align: center;
-            margin: 10px 0;
+            margin: 10px 0 20px 0;
         }
         .questions-controls {
             display: flex;
@@ -889,16 +885,12 @@
                 margin: 0;
             }
             #questions-view .answer-input {
-                width: 364px !important;
-                min-width: 364px !important;
-                max-width: 364px !important;
+                flex: 2;
                 height: 31.6px !important;
                 padding: 3.6px 10.8px !important;
             }
             #questions-view .points-input {
-                width: 91px !important;
-                min-width: 91px !important;
-                max-width: 91px !important;
+                flex: 1;
                 height: 31.6px !important;
                 padding: 3.6px 10.8px !important;
                 margin: 0 0 10px 10px;
@@ -1031,6 +1023,35 @@
                 justify-content: center;
                 gap: 10px;
                 margin-top: 10px;
+            }
+        }
+        #questions-view .question-nav-container {
+            margin-bottom: 20px;
+        }
+        #questions-view .question-input {
+            margin-bottom: 20px;
+        }
+        .answer-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 100%;
+            max-width: 800px;
+        }
+        .answer-row {
+            display: flex;
+            gap: 10px;
+            justify-content: space-between;
+        }
+        .answer-pair {
+            display: flex;
+            gap: 10px;
+            flex: 1;
+        }
+        @media screen and (max-width: 1200px) {
+            .answer-row {
+                flex-direction: column;
+                gap: 20px;
             }
         }
     </style>
@@ -1201,25 +1222,45 @@
         </div>
         <div class="question-form">
             <input type="text" class="question-input" id="question-input" placeholder="Wpisz pytanie">
-            <div class="answers-header">
-                <div class="answers-left">
-                    <div class="answer-input-container" id="answer-input-container">
-                        <div class="answer-wrapper">
-                            <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
-                            <input type="text" class="points-input" placeholder="5-50 pkt.">
-                        </div>
-                        <div class="answer-wrapper">
-                            <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
-                            <input type="text" class="points-input" placeholder="5-50 pkt.">
-                        </div>
-                        <div class="answer-wrapper">
-                            <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
-                            <input type="text" class="points-input" placeholder="5-50 pkt.">
-                        </div>
-                        <div class="answer-wrapper">
-                            <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
-                            <input type="text" class="points-input" placeholder="5-50 pkt.">
-                        </div>
+            <div class="answer-grid">
+                <div class="answer-row">
+                    <div class="answer-pair">
+                        <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
+                        <input type="text" class="points-input" placeholder="5-50 pkt.">
+                    </div>
+                    <div class="answer-pair">
+                        <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
+                        <input type="text" class="points-input" placeholder="5-50 pkt.">
+                    </div>
+                </div>
+                <div class="answer-row">
+                    <div class="answer-pair">
+                        <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
+                        <input type="text" class="points-input" placeholder="5-50 pkt.">
+                    </div>
+                    <div class="answer-pair">
+                        <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
+                        <input type="text" class="points-input" placeholder="5-50 pkt.">
+                    </div>
+                </div>
+                <div class="answer-row">
+                    <div class="answer-pair">
+                        <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
+                        <input type="text" class="points-input" placeholder="5-50 pkt.">
+                    </div>
+                    <div class="answer-pair">
+                        <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
+                        <input type="text" class="points-input" placeholder="5-50 pkt.">
+                    </div>
+                </div>
+                <div class="answer-row">
+                    <div class="answer-pair">
+                        <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
+                        <input type="text" class="points-input" placeholder="5-50 pkt.">
+                    </div>
+                    <div class="answer-pair">
+                        <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
+                        <input type="text" class="points-input" placeholder="5-50 pkt.">
                     </div>
                 </div>
             </div>
@@ -1265,7 +1306,6 @@
         const answersDisplay = document.getElementById('answers-display');
         const questionNumber = document.getElementById('question-number');
         const questionInput = document.getElementById('question-input');
-        const answerInputContainer = document.getElementById('answer-input-container');
         const questionsBackBtn = document.getElementById('questions-back-btn');
         const prevQuestionBtn = document.getElementById('prev-question-btn');
         const nextQuestionBtn = document.getElementById('next-question-btn');
@@ -1276,10 +1316,8 @@
         let questionsData = [];
         let isCustomQuestionsActive = false;
         let roundsLocked = false;
-
         fullscreenBtn.addEventListener('click', toggleFullscreen);
         gameFullscreenBtn.addEventListener('click', toggleFullscreen);
-
         function toggleFullscreen() {
             if (!document.fullscreenElement) {
                 document.documentElement.requestFullscreen().then(() => {
@@ -1297,44 +1335,37 @@
                 });
             }
         }
-
         team1Input.addEventListener('input', () => {
             const teamName = team1Input.value || 'Drużyna 1';
             team1Btn.textContent = teamName;
             team1Name.textContent = teamName;
         });
-
         team2Input.addEventListener('input', () => {
             const teamName = team2Input.value || 'Drużyna 2';
             team2Btn.textContent = teamName;
             team2Name.textContent = teamName;
         });
-
         instructionsBtn.addEventListener('click', () => {
             settingsView.style.display = 'none';
             instructionsView.style.display = 'flex';
             window.scrollTo(0, 0);
         });
-
         backBtn.addEventListener('click', () => {
             instructionsView.style.display = 'none';
             settingsView.style.display = 'flex';
             window.scrollTo(0, 0);
         });
-
         customQuestionsBtn.addEventListener('click', () => {
             settingsView.style.display = 'none';
             questionsView.style.display = 'flex';
             updateQuestionView();
             window.scrollTo(0, 0);
         });
-
         nextBtn.addEventListener('click', () => {
             settingsView.style.display = 'none';
             gameView.style.display = 'flex';
             window.scrollTo(0, 0);
         });
-
         backToSettingsBtn.addEventListener('click', () => {
             gameView.style.display = 'none';
             settingsView.style.display = 'flex';
@@ -1343,21 +1374,17 @@
             clearInterval(timerInterval);
             window.scrollTo(0, 0);
         });
-
         startBtn.addEventListener('click', () => {
             gameBoardQuestion.style.display = 'block';
             gameBoardAnswers.style.display = 'flex';
             startTimer();
         });
-
         submitAnswerBtn.addEventListener('click', submitAnswer);
-
         answerInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
                 submitAnswer();
             }
         });
-
         function submitAnswer() {
             const answer = answerInput.value.trim();
             if (answer) {
@@ -1365,11 +1392,9 @@
                 answerInput.value = '';
             }
         }
-
         function startTimer() {
             clearInterval(timerInterval);
         }
-
         const toggleActive = (groupClass) => {
             const buttons = document.querySelectorAll(`.${groupClass}`);
             buttons.forEach(button => {
@@ -1388,7 +1413,6 @@
                 });
             });
         };
-
         toggleActive('game-variant');
         toggleActive('team-start');
         toggleActive('game-end');
@@ -1396,7 +1420,6 @@
         toggleActive('audio');
         toggleActive('question-order');
         toggleActive('display-questions');
-
         document.querySelectorAll('.rounds').forEach(button => {
             button.addEventListener('click', () => {
                 if (!roundsLocked) {
@@ -1405,21 +1428,18 @@
                 }
             });
         });
-
         prevRoundsBtn.addEventListener('click', () => {
             if (currentRoundCount > 3) {
                 currentRoundCount -= 2;
                 updateQuestionView();
             }
         });
-
         nextRoundsBtn.addEventListener('click', () => {
             if (currentRoundCount < 9) {
                 currentRoundCount += 2;
                 updateQuestionView();
             }
         });
-
         prevAnswersBtn.addEventListener('click', () => {
             if (currentAnswerCount > 4) {
                 currentAnswerCount--;
@@ -1429,7 +1449,6 @@
                 nextAnswersBtn.classList.toggle('disabled', currentAnswerCount === 8);
             }
         });
-
         nextAnswersBtn.addEventListener('click', () => {
             if (currentAnswerCount < 8) {
                 currentAnswerCount++;
@@ -1439,7 +1458,6 @@
                 nextAnswersBtn.classList.toggle('disabled', currentAnswerCount === 8);
             }
         });
-
         questionsBackBtn.addEventListener('click', () => {
             questionsView.style.display = 'none';
             settingsView.style.display = 'flex';
@@ -1450,7 +1468,6 @@
             updateQuestionView();
             window.scrollTo(0, 0);
         });
-
         prevQuestionBtn.addEventListener('click', () => {
             if (currentQuestionIndex > 1) {
                 saveCurrentQuestion();
@@ -1459,7 +1476,6 @@
                 updateQuestionView();
             }
         });
-
         nextQuestionBtn.addEventListener('click', () => {
             saveCurrentQuestion();
             if (currentQuestionIndex < currentRoundCount) {
@@ -1485,7 +1501,6 @@
                 window.scrollTo(0, 0);
             }
         });
-
         function updateQuestionView() {
             roundsDisplay.textContent = `Liczba rund: ${currentRoundCount}`;
             questionNumber.textContent = `Pytanie ${currentQuestionIndex}/${currentRoundCount}`;
@@ -1497,50 +1512,27 @@
             prevQuestionBtn.classList.toggle('disabled', currentQuestionIndex === 1);
             nextQuestionBtn.textContent = currentQuestionIndex === currentRoundCount ? 'Zatwierdź' : 'Dalej';
             updateAnswerInputs();
-            const question = questionsData[currentQuestionIndex - 1] || { question: '', answers: Array(currentAnswerCount).fill(''), points: Array(currentAnswerCount).fill('') };
+            const question = questionsData[currentQuestionIndex - 1] || { question: '', answers: [], points: [] };
             questionInput.value = question.question;
             const answerInputs = document.querySelectorAll('.answer-input');
             const pointsInputs = document.querySelectorAll('.points-input');
             answerInputs.forEach((input, index) => {
-                input.value = question.answers[index] || '';
+                input.value = (index < question.answers.length) ? question.answers[index] : '';
             });
             pointsInputs.forEach((input, index) => {
-                input.value = question.points[index] || '';
+                input.value = (index < question.points.length) ? question.points[index] : '';
             });
         }
-
         function updateAnswerInputs() {
-            answerInputContainer.innerHTML = '';
-            for (let i = 0; i < currentAnswerCount; i++) {
-                const answerWrapper = document.createElement('div');
-                answerWrapper.className = 'answer-wrapper';
-                const answerInput = document.createElement('input');
-                answerInput.type = 'text';
-                answerInput.className = 'answer-input';
-                answerInput.placeholder = 'Wpisz odpowiedź';
-                answerWrapper.appendChild(answerInput);
-                const pointsInput = document.createElement('input');
-                pointsInput.type = 'text';
-                pointsInput.className = 'points-input';
-                pointsInput.placeholder = '5-50 pkt.';
-                answerWrapper.appendChild(pointsInput);
-                answerInputContainer.appendChild(answerWrapper);
-            }
-            const question = questionsData[currentQuestionIndex - 1] || { question: '', answers: Array(currentAnswerCount).fill(''), points: Array(currentAnswerCount).fill('') };
-            const answerInputs = document.querySelectorAll('.answer-input');
-            const pointsInputs = document.querySelectorAll('.points-input');
-            answerInputs.forEach((input, index) => {
-                input.value = question.answers[index] || '';
-            });
-            pointsInputs.forEach((input, index) => {
-                input.value = question.points[index] || '';
+            const answerPairs = document.querySelectorAll('.answer-pair');
+            answerPairs.forEach((pair, index) => {
+                pair.style.visibility = (index < currentAnswerCount) ? 'visible' : 'hidden';
             });
         }
-
         function saveCurrentQuestion() {
             const question = questionInput.value;
-            const answers = Array.from(document.querySelectorAll('.answer-input')).map(input => input.value);
-            const points = Array.from(document.querySelectorAll('.points-input')).map(input => input.value);
+            const answers = Array.from(document.querySelectorAll('.answer-input')).slice(0, currentAnswerCount).map(input => input.value);
+            const points = Array.from(document.querySelectorAll('.points-input')).slice(0, currentAnswerCount).map(input => input.value);
             questionsData[currentQuestionIndex - 1] = { question, answers, points };
         }
     </script>
