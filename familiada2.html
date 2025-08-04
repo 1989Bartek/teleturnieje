@@ -424,7 +424,7 @@
             margin: -20px 0 0 0;
             padding-left: 10px;
             position: relative;
-            min-height: 800px;
+            min-height: 600px;
         }
         .questions-section.rounds-selection {
             justify-content: center;
@@ -1121,7 +1121,7 @@
                 <button class="rounds" data-rounds="9">9</button>
             </div>
             <div class="questions-controls rounds-selection-controls">
-                <button id="questions-back-btn">Powrót</button>
+                <button id="rounds-back-btn">Powrót</button>
             </div>
             <div id="questions-edit-view">
                 <div class="info-text">W odpowiednie pola wpisz pytanie możliwe odpowiedzi (od 3 do 7) oraz ilość punktów do zdobycia (od 5 do 50). W przypadku różnych wariacji odpowiedzi, zapisz wszystkie w jednym polu, oddzielając je przecinkiem np. telefon, komórka, smartphone. Kiedy uczestnik poda którekolwiek określenie po przecinku, w grze wyświetli się zawsze pierwsza propozycja.</div>
@@ -1255,7 +1255,8 @@
         const gameBoardQuestion = document.querySelector('.game-board-question');
         const gameBoardAnswers = document.querySelector('.game-board-answers');
         const customQuestionsBtn = document.getElementById('custom-questions-btn');
-        const questionsBackBtn = document.querySelector('#questions-back-btn');
+        const questionsBackBtn = document.getElementById('questions-back-btn');
+        const roundsBackBtn = document.getElementById('rounds-back-btn');
         const audioButtons = document.querySelectorAll('.audio');
         const roundsButtons = document.querySelectorAll('#questions-view .rounds');
         const roundsText = document.querySelector('.rounds-text');
@@ -1328,22 +1329,22 @@
             window.scrollTo(0, 0);
         });
         questionsBackBtn.addEventListener('click', () => {
-            if (questionsEditView.style.display === 'none') {
-                questionsView.style.display = 'none';
-                settingsView.style.display = 'flex';
-            } else {
-                roundsText.style.display = 'block';
-                roundsContainer.style.display = 'grid';
-                questionsEditView.style.display = 'none';
-                prevQuestionBtn.style.display = 'none';
-                nextQuestionBtn.style.display = 'none';
-                questionIndicator.style.display = 'none';
-                customQuestions = [];
-                numRounds = 0;
-                questionsData = [];
-                questionsSection.classList.add('rounds-selection');
-                roundsButtons.forEach(btn => btn.classList.remove('active'));
-            }
+            roundsText.style.display = 'block';
+            roundsContainer.style.display = 'grid';
+            questionsEditView.style.display = 'none';
+            prevQuestionBtn.style.display = 'none';
+            nextQuestionBtn.style.display = 'none';
+            questionIndicator.style.display = 'none';
+            customQuestions = [];
+            numRounds = 0;
+            questionsData = [];
+            questionsSection.classList.add('rounds-selection');
+            roundsButtons.forEach(btn => btn.classList.remove('active'));
+            window.scrollTo(0, 0);
+        });
+        roundsBackBtn.addEventListener('click', () => {
+            questionsView.style.display = 'none';
+            settingsView.style.display = 'flex';
             window.scrollTo(0, 0);
         });
         nextBtn.addEventListener('click', () => {
