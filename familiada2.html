@@ -447,7 +447,7 @@
             text-align: right;
         }
         #questions-view .question-input {
-            width: 509.6px !important;
+            width: 800px !important;
             padding: 10.8px !important;
             margin: 0;
             border: 4px solid #fff;
@@ -455,7 +455,7 @@
             background-color: #fff;
             color: #000;
             font-size: 16px;
-            height: 32.4px !important;
+            height: 64.8px !important;
             box-sizing: border-box;
         }
         .answer-counter {
@@ -478,7 +478,7 @@
             width: 52px;
             min-width: 52px;
             max-width: 52px;
-            height: 32.4px;
+            height: 52px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -539,14 +539,14 @@
             flex-direction: column;
             gap: 10px;
             justify-content: flex-start;
-            min-height: calc(7 * (32.4px + 10px));
+            min-height: calc(8 * (32.4px + 10px));
         }
         .points-input-container {
             display: flex;
             flex-direction: column;
             gap: 10px;
             justify-content: flex-start;
-            min-height: calc(7 * (32.4px + 10px));
+            min-height: calc(8 * (32.4px + 10px));
         }
         .question-header {
             display: flex;
@@ -603,7 +603,7 @@
         }
         .info-text {
             color: #FFD700;
-            font-size: 10px;
+            font-size: 20px;
             text-align: center;
             margin: 10px 0;
         }
@@ -881,8 +881,8 @@
                 text-align: center;
             }
             #questions-view .question-input {
-                width: 364px !important;
-                height: 31.6px !important;
+                width: 570px !important;
+                height: 63.2px !important;
                 padding: 7.2px 10.8px !important;
             }
             .answer-counter {
@@ -926,7 +926,7 @@
                 font-size: 18px;
             }
             .info-text {
-                font-size: 10px;
+                font-size: 20px;
             }
         }
         @media screen and (min-width: 1201px) {
@@ -1207,12 +1207,16 @@
                         <div class="answer-wrapper">
                             <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
                             <input type="text" class="points-input" placeholder="5-50 pkt.">
+                        </div>
+                        <div class="answer-wrapper">
                             <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
                             <input type="text" class="points-input" placeholder="5-50 pkt.">
                         </div>
                         <div class="answer-wrapper">
                             <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
                             <input type="text" class="points-input" placeholder="5-50 pkt.">
+                        </div>
+                        <div class="answer-wrapper">
                             <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
                             <input type="text" class="points-input" placeholder="5-50 pkt.">
                         </div>
@@ -1347,6 +1351,7 @@
         });
 
         submitAnswerBtn.addEventListener('click', submitAnswer);
+
         answerInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
                 submitAnswer();
@@ -1419,6 +1424,9 @@
             if (currentAnswerCount > 4) {
                 currentAnswerCount--;
                 updateAnswerInputs();
+                answersDisplay.textContent = `Liczba odpowiedzi: ${currentAnswerCount}`;
+                prevAnswersBtn.classList.toggle('disabled', currentAnswerCount === 4);
+                nextAnswersBtn.classList.toggle('disabled', currentAnswerCount === 8);
             }
         });
 
@@ -1426,6 +1434,9 @@
             if (currentAnswerCount < 8) {
                 currentAnswerCount++;
                 updateAnswerInputs();
+                answersDisplay.textContent = `Liczba odpowiedzi: ${currentAnswerCount}`;
+                prevAnswersBtn.classList.toggle('disabled', currentAnswerCount === 4);
+                nextAnswersBtn.classList.toggle('disabled', currentAnswerCount === 8);
             }
         });
 
@@ -1444,6 +1455,7 @@
             if (currentQuestionIndex > 1) {
                 saveCurrentQuestion();
                 currentQuestionIndex--;
+                currentAnswerCount = (questionsData[currentQuestionIndex - 1]?.answers.length || 4);
                 updateQuestionView();
             }
         });
@@ -1452,6 +1464,7 @@
             saveCurrentQuestion();
             if (currentQuestionIndex < currentRoundCount) {
                 currentQuestionIndex++;
+                currentAnswerCount = (questionsData[currentQuestionIndex - 1]?.answers.length || 4);
                 updateQuestionView();
             } else {
                 saveCurrentQuestion();
@@ -1484,7 +1497,6 @@
             prevQuestionBtn.classList.toggle('disabled', currentQuestionIndex === 1);
             nextQuestionBtn.textContent = currentQuestionIndex === currentRoundCount ? 'Zatwierdź' : 'Dalej';
             updateAnswerInputs();
-
             const question = questionsData[currentQuestionIndex - 1] || { question: '', answers: Array(currentAnswerCount).fill(''), points: Array(currentAnswerCount).fill('') };
             questionInput.value = question.question;
             const answerInputs = document.querySelectorAll('.answer-input');
@@ -1499,22 +1511,19 @@
 
         function updateAnswerInputs() {
             answerInputContainer.innerHTML = '';
-            const rows = Math.ceil(currentAnswerCount / 2);
-            for (let i = 0; i < rows; i++) {
+            for (let i = 0; i < currentAnswerCount; i++) {
                 const answerWrapper = document.createElement('div');
                 answerWrapper.className = 'answer-wrapper';
-                for (let j = 0; j < 2 && (i * 2 + j) < currentAnswerCount; j++) {
-                    const answerInput = document.createElement('input');
-                    answerInput.type = 'text';
-                    answerInput.className = 'answer-input';
-                    answerInput.placeholder = 'Wpisz odpowiedź';
-                    answerWrapper.appendChild(answerInput);
-                    const pointsInput = document.createElement('input');
-                    pointsInput.type = 'text';
-                    pointsInput.className = 'points-input';
-                    pointsInput.placeholder = '5-50 pkt.';
-                    answerWrapper.appendChild(pointsInput);
-                }
+                const answerInput = document.createElement('input');
+                answerInput.type = 'text';
+                answerInput.className = 'answer-input';
+                answerInput.placeholder = 'Wpisz odpowiedź';
+                answerWrapper.appendChild(answerInput);
+                const pointsInput = document.createElement('input');
+                pointsInput.type = 'text';
+                pointsInput.className = 'points-input';
+                pointsInput.placeholder = '5-50 pkt.';
+                answerWrapper.appendChild(pointsInput);
                 answerInputContainer.appendChild(answerWrapper);
             }
             const question = questionsData[currentQuestionIndex - 1] || { question: '', answers: Array(currentAnswerCount).fill(''), points: Array(currentAnswerCount).fill('') };
