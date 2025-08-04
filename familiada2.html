@@ -124,20 +124,20 @@
         }
         .bottom-logo {
             position: absolute;
-            bottom: 80px;
+            bottom: 24px;
             right: 12px;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
         .bottom-logo img {
-            width: 120px;
+            width: 140px;
             margin-bottom: 6px;
         }
         .bottom-logo a {
             color: white;
             text-decoration: none;
-            font-size: 11px;
+            font-size: 13px;
         }
         .aligned-section {
             display: flex;
@@ -397,6 +397,8 @@
             width: 100%;
             max-width: 1000px;
             margin-bottom: 4px;
+            position: absolute;
+            bottom: 62px;
         }
         .nav-wrapper {
             display: flex;
@@ -429,6 +431,15 @@
         .questions-section.rounds-selection {
             justify-content: center;
             height: calc(100vh - 120px);
+        }
+        .questions-section.rounds-selection .rounds-container {
+            margin-bottom: 0;
+        }
+        .questions-section.rounds-selection .questions-controls {
+            position: static;
+            margin: 10px auto 0;
+            flex-direction: column;
+            align-items: center;
         }
         .question-row {
             display: flex;
@@ -535,14 +546,14 @@
             flex-direction: column;
             gap: 10px;
             justify-content: flex-start;
-            min-height: calc(8 * (32.4px + 10px)); /* Reserve space for 8 fields */
+            min-height: calc(8 * (32.4px + 10px));
         }
         .points-input-container {
             display: flex;
             flex-direction: column;
             gap: 10px;
             justify-content: flex-start;
-            min-height: calc(8 * (32.4px + 10px)); /* Reserve space for 8 fields */
+            min-height: calc(8 * (32.4px + 10px));
         }
         .question-header {
             display: flex;
@@ -550,7 +561,7 @@
             gap: 20px;
             width: 100%;
             max-width: 800px;
-            margin-top: 20px;
+            margin-top: 10px;
         }
         .question-left {
             flex: 3;
@@ -570,7 +581,7 @@
             gap: 20px;
             width: 100%;
             max-width: 800px;
-            margin-top: 20px;
+            margin-top: 10px;
         }
         .answers-left {
             flex: 3;
@@ -598,9 +609,9 @@
         }
         .info-text {
             color: #FFD700;
-            font-size: 18px;
+            font-size: 16px;
             text-align: center;
-            margin: 20px 0;
+            margin: 10px 0;
         }
         .questions-controls {
             display: flex;
@@ -608,7 +619,7 @@
             margin: 10px auto;
             justify-content: center;
             position: absolute;
-            bottom: 52px;
+            bottom: 62px;
             width: 100%;
             max-width: 1000px;
         }
@@ -618,7 +629,6 @@
             grid-template-rows: repeat(2, auto);
             gap: 10px;
             margin-top: 10px;
-            margin-bottom: 10px;
         }
         .rounds-text {
             margin-top: 0;
@@ -693,7 +703,7 @@
                 font-size: 9px;
             }
             .bottom-logo {
-                bottom: 60px;
+                bottom: 48px;
             }
             .aligned-section p {
                 font-size: 18px;
@@ -728,6 +738,8 @@
             .question-nav-container {
                 flex-direction: column;
                 margin-bottom: 10px;
+                position: absolute;
+                bottom: 58px;
             }
             #prev-round-btn, #next-round-btn {
                 min-width: 135px;
@@ -886,16 +898,17 @@
             .questions-controls {
                 flex-direction: column;
                 align-items: center;
+                bottom: 58px;
             }
             .question-header {
                 flex-direction: column;
                 gap: 10px;
-                margin-top: 20px;
+                margin-top: 10px;
             }
             .answers-header {
                 flex-direction: column;
                 gap: 10px;
-                margin-top: 20px;
+                margin-top: 10px;
             }
             .question-left, .question-right, .answers-left, .points-right {
                 align-items: center;
@@ -904,8 +917,8 @@
                 font-size: 18px;
             }
             .info-text {
-                font-size: 18px;
-                margin: 20px 0;
+                font-size: 16px;
+                margin: 10px 0;
             }
         }
         @media screen and (min-width: 1201px) {
@@ -1010,7 +1023,6 @@
                 justify-content: center;
                 gap: 10px;
                 margin-top: 10px;
-                margin-bottom: 10px;
             }
         }
     </style>
