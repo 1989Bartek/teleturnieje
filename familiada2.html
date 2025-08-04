@@ -618,7 +618,8 @@
             max-width: 1000px;
         }
         .questions-section.rounds-selection .questions-controls {
-            position: static;
+            position: absolute;
+            bottom: 104px;
             margin: 0 auto;
             flex-direction: column;
             align-items: center;
@@ -1254,7 +1255,7 @@
         const gameBoardQuestion = document.querySelector('.game-board-question');
         const gameBoardAnswers = document.querySelector('.game-board-answers');
         const customQuestionsBtn = document.getElementById('custom-questions-btn');
-        const questionsBackBtn = document.querySelectorAll('#questions-back-btn');
+        const questionsBackBtn = document.querySelector('#questions-back-btn');
         const audioButtons = document.querySelectorAll('.audio');
         const roundsButtons = document.querySelectorAll('#questions-view .rounds');
         const roundsText = document.querySelector('.rounds-text');
@@ -1326,26 +1327,24 @@
             roundsButtons.forEach(btn => btn.classList.remove('active'));
             window.scrollTo(0, 0);
         });
-        questionsBackBtn.forEach(button => {
-            button.addEventListener('click', () => {
-                if (questionsEditView.style.display === 'none') {
-                    questionsView.style.display = 'none';
-                    settingsView.style.display = 'flex';
-                } else {
-                    roundsText.style.display = 'block';
-                    roundsContainer.style.display = 'grid';
-                    questionsEditView.style.display = 'none';
-                    prevQuestionBtn.style.display = 'none';
-                    nextQuestionBtn.style.display = 'none';
-                    questionIndicator.style.display = 'none';
-                    customQuestions = [];
-                    numRounds = 0;
-                    questionsData = [];
-                    questionsSection.classList.add('rounds-selection');
-                    roundsButtons.forEach(btn => btn.classList.remove('active'));
-                }
-                window.scrollTo(0, 0);
-            });
+        questionsBackBtn.addEventListener('click', () => {
+            if (questionsEditView.style.display === 'none') {
+                questionsView.style.display = 'none';
+                settingsView.style.display = 'flex';
+            } else {
+                roundsText.style.display = 'block';
+                roundsContainer.style.display = 'grid';
+                questionsEditView.style.display = 'none';
+                prevQuestionBtn.style.display = 'none';
+                nextQuestionBtn.style.display = 'none';
+                questionIndicator.style.display = 'none';
+                customQuestions = [];
+                numRounds = 0;
+                questionsData = [];
+                questionsSection.classList.add('rounds-selection');
+                roundsButtons.forEach(btn => btn.classList.remove('active'));
+            }
+            window.scrollTo(0, 0);
         });
         nextBtn.addEventListener('click', () => {
             settingsView.style.display = 'none';
