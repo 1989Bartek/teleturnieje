@@ -124,7 +124,7 @@
         }
         .bottom-logo {
             position: absolute;
-            bottom: 12px;
+            bottom: 52px;
             right: 12px;
             display: flex;
             flex-direction: column;
@@ -397,8 +397,6 @@
             width: 100%;
             max-width: 1000px;
             margin-bottom: 4px;
-            position: absolute;
-            bottom: 104px;
         }
         .nav-wrapper {
             display: flex;
@@ -533,14 +531,14 @@
             flex-direction: column;
             gap: 10px;
             justify-content: flex-start;
-            min-height: calc(8 * (32.4px + 10px));
+            min-height: calc(8 * (32.4px + 10px)); /* Reserve space for 8 fields */
         }
         .points-input-container {
             display: flex;
             flex-direction: column;
             gap: 10px;
             justify-content: flex-start;
-            min-height: calc(8 * (32.4px + 10px));
+            min-height: calc(8 * (32.4px + 10px)); /* Reserve space for 8 fields */
         }
         .question-header {
             display: flex;
@@ -567,6 +565,7 @@
             gap: 20px;
             width: 100%;
             max-width: 800px;
+            margin-top: 10px;
         }
         .answers-left {
             flex: 3;
@@ -625,6 +624,12 @@
             display: none;
             width: 100%;
             max-width: 1200px;
+            flex-direction: column;
+            align-items: center;
+        }
+        .questions-section.rounds-selection .questions-controls {
+            position: static;
+            margin: 20px auto 40px;
             flex-direction: column;
             align-items: center;
         }
@@ -690,8 +695,8 @@
             }
             .bottom-logo {
                 position: static;
-                margin-top: 20px;
-                margin-bottom: 20px;
+                margin-top: 40px;
+                margin-bottom: 40px;
             }
             .aligned-section p {
                 font-size: 18px;
@@ -726,7 +731,6 @@
             .question-nav-container {
                 flex-direction: column;
                 margin-bottom: 10px;
-                position: static;
             }
             #prev-round-btn, #next-round-btn {
                 min-width: 135px;
@@ -885,11 +889,6 @@
             .questions-controls {
                 flex-direction: column;
                 align-items: center;
-                position: static;
-                margin: 10px auto;
-            }
-            .question-nav-container {
-                position: static;
             }
             .question-header {
                 flex-direction: column;
@@ -898,6 +897,7 @@
             .answers-header {
                 flex-direction: column;
                 gap: 10px;
+                margin-top: 10px;
             }
             .question-left, .question-right, .answers-left, .points-right {
                 align-items: center;
@@ -1253,6 +1253,7 @@
         const prevQuestionBtn = document.getElementById('prev-question');
         const nextQuestionBtn = document.getElementById('next-question');
         const questionIndicator = document.getElementById('question-indicator');
+        const questionsSection = document.querySelector('.questions-section');
         let timerInterval = null;
         let customQuestions = [];
         let numRounds = 0;
@@ -1311,6 +1312,7 @@
             prevQuestionBtn.style.display = 'none';
             nextQuestionBtn.style.display = 'none';
             questionIndicator.style.display = 'none';
+            questionsSection.classList.add('rounds-selection');
             window.scrollTo(0, 0);
         });
         questionsBackBtn.addEventListener('click', () => {
@@ -1323,6 +1325,7 @@
             customQuestions = [];
             numRounds = 0;
             questionsData = [];
+            questionsSection.classList.add('rounds-selection');
             window.scrollTo(0, 0);
         });
         nextBtn.addEventListener('click', () => {
@@ -1460,6 +1463,7 @@
                 currentQuestion++;
                 loadCurrentQuestion();
             } else {
+                // Zatwierdź
                 customQuestions = questionsData.map(d => ({
                     question: d.question,
                     answers: d.answers.map((a, i) => ({text: a, points: d.points[i]}))
@@ -1508,6 +1512,7 @@
                     settingBtn.classList.toggle('active', parseInt(settingBtn.textContent) === numRounds);
                 });
                 button.classList.add('active');
+                questionsSection.classList.remove('rounds-selection');
                 loadCurrentQuestion();
             });
         });
