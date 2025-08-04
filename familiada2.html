@@ -448,7 +448,7 @@
         }
         #questions-view .question-input {
             width: 509.6px !important;
-            padding: 10px 10.8px !important;
+            padding: 10.8px !important;
             margin: 0;
             border: 4px solid #fff;
             border-radius: 8px;
@@ -492,8 +492,8 @@
             cursor: not-allowed;
         }
         .counter-display {
-            width: 52px;
-            height: 32.4px;
+            width: 280px;
+            height: 52px;
             border: 4px solid #fff;
             border-radius: 8px;
             background-color: #000;
@@ -603,7 +603,7 @@
         }
         .info-text {
             color: #FFD700;
-            font-size: 16px;
+            font-size: 10px;
             text-align: center;
             margin: 10px 0;
         }
@@ -630,7 +630,7 @@
             font-size: 18px;
             color: white;
         }
-        #questions-edit-view {
+        #questions-view {
             display: none;
             width: 100%;
             max-width: 1200px;
@@ -687,9 +687,9 @@
                 flex-basis: auto;
             }
             .counter-display {
-                width: 52px;
+                width: 135px;
                 height: 31.6px;
-                font-size: 20px;
+                font-size: 16px;
             }
             .bottom-logo {
                 position: static;
@@ -926,7 +926,7 @@
                 font-size: 18px;
             }
             .info-text {
-                font-size: 16px;
+                font-size: 10px;
             }
         }
         @media screen and (min-width: 1201px) {
@@ -1180,6 +1180,56 @@
             <a href="https://www.muzykamikrofonakcja.pl">WWW.MUZYKAMIKROFONAKCJA.PL</a>
         </div>
     </div>
+    <div id="questions-view">
+        <h1>Familiada</h1>
+        <div class="info-text">
+            W odpowiednie pola wpisz pytanie, możliwe odpowiedzi (od 4 do 8) oraz ilość punktów do zdobycia (od 5 do 50).<br>
+            W przypadku różnych wariantów odpowiedzi, zapisz wszystkie w jednym polu, oddzielając je przecinkiem np. Telefon, komórka, smartphone. Kiedy uczestnik poda którekolwiek określenie po przecinku, w grze wyświetli się zawsze pierwsza wpisana propozycja.
+        </div>
+        <div class="question-nav-container">
+            <div class="answer-counter">
+                <button id="prev-rounds-btn" class="counter-btn">◀</button>
+                <div class="counter-display" id="rounds-display">Liczba rund: 3</div>
+                <button id="next-rounds-btn" class="counter-btn">▶</button>
+            </div>
+            <div class="question-box" id="question-number">Pytanie 1/3</div>
+            <div class="answer-counter">
+                <button id="prev-answers-btn" class="counter-btn">◀</button>
+                <div class="counter-display" id="answers-display">Liczba odpowiedzi: 4</div>
+                <button id="next-answers-btn" class="counter-btn">▶</button>
+            </div>
+        </div>
+        <div class="question-form">
+            <input type="text" class="question-input" id="question-input" placeholder="Wpisz pytanie">
+            <div class="answers-header">
+                <div class="answers-left">
+                    <div class="answer-input-container" id="answer-input-container">
+                        <div class="answer-wrapper">
+                            <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
+                            <input type="text" class="points-input" placeholder="5-50 pkt.">
+                            <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
+                            <input type="text" class="points-input" placeholder="5-50 pkt.">
+                        </div>
+                        <div class="answer-wrapper">
+                            <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
+                            <input type="text" class="points-input" placeholder="5-50 pkt.">
+                            <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
+                            <input type="text" class="points-input" placeholder="5-50 pkt.">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="questions-controls">
+                <button id="questions-back-btn">Powrót</button>
+                <button id="prev-question-btn">Wstecz</button>
+                <button id="next-question-btn">Dalej</button>
+            </div>
+        </div>
+        <div class="bottom-logo">
+            <img src="familiada/logo.png" alt="Logo">
+            <a href="https://www.muzykamikrofonakcja.pl">WWW.MUZYKAMIKROFONAKCJA.PL</a>
+        </div>
+    </div>
     <script>
         const fullscreenBtn = document.getElementById('fullscreen-btn');
         const team1Input = document.getElementById('team1-input');
@@ -1193,6 +1243,7 @@
         const settingsView = document.getElementById('settings-view');
         const instructionsView = document.getElementById('instructions-view');
         const gameView = document.getElementById('game-view');
+        const questionsView = document.getElementById('questions-view');
         const team1Name = document.getElementById('team1-name');
         const team2Name = document.getElementById('team2-name');
         const startBtn = document.getElementById('start-btn');
@@ -1202,9 +1253,29 @@
         const gameBoardQuestion = document.querySelector('.game-board-question');
         const gameBoardAnswers = document.querySelector('.game-board-answers');
         const customQuestionsBtn = document.getElementById('custom-questions-btn');
+        const prevRoundsBtn = document.getElementById('prev-rounds-btn');
+        const nextRoundsBtn = document.getElementById('next-rounds-btn');
+        const roundsDisplay = document.getElementById('rounds-display');
+        const prevAnswersBtn = document.getElementById('prev-answers-btn');
+        const nextAnswersBtn = document.getElementById('next-answers-btn');
+        const answersDisplay = document.getElementById('answers-display');
+        const questionNumber = document.getElementById('question-number');
+        const questionInput = document.getElementById('question-input');
+        const answerInputContainer = document.getElementById('answer-input-container');
+        const questionsBackBtn = document.getElementById('questions-back-btn');
+        const prevQuestionBtn = document.getElementById('prev-question-btn');
+        const nextQuestionBtn = document.getElementById('next-question-btn');
         let timerInterval = null;
+        let currentRoundCount = 3;
+        let currentAnswerCount = 4;
+        let currentQuestionIndex = 1;
+        let questionsData = [];
+        let isCustomQuestionsActive = false;
+        let roundsLocked = false;
+
         fullscreenBtn.addEventListener('click', toggleFullscreen);
         gameFullscreenBtn.addEventListener('click', toggleFullscreen);
+
         function toggleFullscreen() {
             if (!document.fullscreenElement) {
                 document.documentElement.requestFullscreen().then(() => {
@@ -1222,35 +1293,44 @@
                 });
             }
         }
+
         team1Input.addEventListener('input', () => {
             const teamName = team1Input.value || 'Drużyna 1';
             team1Btn.textContent = teamName;
             team1Name.textContent = teamName;
         });
+
         team2Input.addEventListener('input', () => {
             const teamName = team2Input.value || 'Drużyna 2';
             team2Btn.textContent = teamName;
             team2Name.textContent = teamName;
         });
+
         instructionsBtn.addEventListener('click', () => {
             settingsView.style.display = 'none';
             instructionsView.style.display = 'flex';
             window.scrollTo(0, 0);
         });
+
         backBtn.addEventListener('click', () => {
             instructionsView.style.display = 'none';
             settingsView.style.display = 'flex';
             window.scrollTo(0, 0);
         });
+
         customQuestionsBtn.addEventListener('click', () => {
             settingsView.style.display = 'none';
+            questionsView.style.display = 'flex';
+            updateQuestionView();
             window.scrollTo(0, 0);
         });
+
         nextBtn.addEventListener('click', () => {
             settingsView.style.display = 'none';
             gameView.style.display = 'flex';
             window.scrollTo(0, 0);
         });
+
         backToSettingsBtn.addEventListener('click', () => {
             gameView.style.display = 'none';
             settingsView.style.display = 'flex';
@@ -1259,17 +1339,20 @@
             clearInterval(timerInterval);
             window.scrollTo(0, 0);
         });
+
         startBtn.addEventListener('click', () => {
             gameBoardQuestion.style.display = 'block';
             gameBoardAnswers.style.display = 'flex';
             startTimer();
         });
+
         submitAnswerBtn.addEventListener('click', submitAnswer);
         answerInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
                 submitAnswer();
             }
         });
+
         function submitAnswer() {
             const answer = answerInput.value.trim();
             if (answer) {
@@ -1277,9 +1360,11 @@
                 answerInput.value = '';
             }
         }
+
         function startTimer() {
             clearInterval(timerInterval);
         }
+
         const toggleActive = (groupClass) => {
             const buttons = document.querySelectorAll(`.${groupClass}`);
             buttons.forEach(button => {
@@ -1290,9 +1375,15 @@
                         buttons.forEach(btn => btn.classList.remove('active'));
                         button.classList.add('active');
                     }
+                    if (groupClass === 'game-variant' && button.id !== 'custom-questions-btn') {
+                        roundsLocked = false;
+                        questionsData = [];
+                        document.querySelectorAll('.rounds').forEach(btn => btn.disabled = false);
+                    }
                 });
             });
         };
+
         toggleActive('game-variant');
         toggleActive('team-start');
         toggleActive('game-end');
@@ -1300,6 +1391,149 @@
         toggleActive('audio');
         toggleActive('question-order');
         toggleActive('display-questions');
+
+        document.querySelectorAll('.rounds').forEach(button => {
+            button.addEventListener('click', () => {
+                if (!roundsLocked) {
+                    currentRoundCount = parseInt(button.textContent);
+                    updateQuestionView();
+                }
+            });
+        });
+
+        prevRoundsBtn.addEventListener('click', () => {
+            if (currentRoundCount > 3) {
+                currentRoundCount -= 2;
+                updateQuestionView();
+            }
+        });
+
+        nextRoundsBtn.addEventListener('click', () => {
+            if (currentRoundCount < 9) {
+                currentRoundCount += 2;
+                updateQuestionView();
+            }
+        });
+
+        prevAnswersBtn.addEventListener('click', () => {
+            if (currentAnswerCount > 4) {
+                currentAnswerCount--;
+                updateAnswerInputs();
+            }
+        });
+
+        nextAnswersBtn.addEventListener('click', () => {
+            if (currentAnswerCount < 8) {
+                currentAnswerCount++;
+                updateAnswerInputs();
+            }
+        });
+
+        questionsBackBtn.addEventListener('click', () => {
+            questionsView.style.display = 'none';
+            settingsView.style.display = 'flex';
+            questionsData = [];
+            currentQuestionIndex = 1;
+            currentRoundCount = 3;
+            currentAnswerCount = 4;
+            updateQuestionView();
+            window.scrollTo(0, 0);
+        });
+
+        prevQuestionBtn.addEventListener('click', () => {
+            if (currentQuestionIndex > 1) {
+                saveCurrentQuestion();
+                currentQuestionIndex--;
+                updateQuestionView();
+            }
+        });
+
+        nextQuestionBtn.addEventListener('click', () => {
+            saveCurrentQuestion();
+            if (currentQuestionIndex < currentRoundCount) {
+                currentQuestionIndex++;
+                updateQuestionView();
+            } else {
+                saveCurrentQuestion();
+                questionsView.style.display = 'none';
+                settingsView.style.display = 'flex';
+                isCustomQuestionsActive = true;
+                roundsLocked = true;
+                customQuestionsBtn.classList.add('active');
+                document.querySelector('.game-variant:not(#custom-questions-btn)').classList.remove('active');
+                document.querySelectorAll('.rounds').forEach(btn => {
+                    btn.disabled = btn.textContent !== currentRoundCount.toString();
+                    if (btn.textContent === currentRoundCount.toString()) {
+                        btn.classList.add('active');
+                    } else {
+                        btn.classList.remove('active');
+                    }
+                });
+                window.scrollTo(0, 0);
+            }
+        });
+
+        function updateQuestionView() {
+            roundsDisplay.textContent = `Liczba rund: ${currentRoundCount}`;
+            questionNumber.textContent = `Pytanie ${currentQuestionIndex}/${currentRoundCount}`;
+            answersDisplay.textContent = `Liczba odpowiedzi: ${currentAnswerCount}`;
+            prevRoundsBtn.classList.toggle('disabled', currentRoundCount === 3);
+            nextRoundsBtn.classList.toggle('disabled', currentRoundCount === 9);
+            prevAnswersBtn.classList.toggle('disabled', currentAnswerCount === 4);
+            nextAnswersBtn.classList.toggle('disabled', currentAnswerCount === 8);
+            prevQuestionBtn.classList.toggle('disabled', currentQuestionIndex === 1);
+            nextQuestionBtn.textContent = currentQuestionIndex === currentRoundCount ? 'Zatwierdź' : 'Dalej';
+            updateAnswerInputs();
+
+            const question = questionsData[currentQuestionIndex - 1] || { question: '', answers: Array(currentAnswerCount).fill(''), points: Array(currentAnswerCount).fill('') };
+            questionInput.value = question.question;
+            const answerInputs = document.querySelectorAll('.answer-input');
+            const pointsInputs = document.querySelectorAll('.points-input');
+            answerInputs.forEach((input, index) => {
+                input.value = question.answers[index] || '';
+            });
+            pointsInputs.forEach((input, index) => {
+                input.value = question.points[index] || '';
+            });
+        }
+
+        function updateAnswerInputs() {
+            answerInputContainer.innerHTML = '';
+            const rows = Math.ceil(currentAnswerCount / 2);
+            for (let i = 0; i < rows; i++) {
+                const answerWrapper = document.createElement('div');
+                answerWrapper.className = 'answer-wrapper';
+                for (let j = 0; j < 2 && (i * 2 + j) < currentAnswerCount; j++) {
+                    const answerInput = document.createElement('input');
+                    answerInput.type = 'text';
+                    answerInput.className = 'answer-input';
+                    answerInput.placeholder = 'Wpisz odpowiedź';
+                    answerWrapper.appendChild(answerInput);
+                    const pointsInput = document.createElement('input');
+                    pointsInput.type = 'text';
+                    pointsInput.className = 'points-input';
+                    pointsInput.placeholder = '5-50 pkt.';
+                    answerWrapper.appendChild(pointsInput);
+                }
+                answerInputContainer.appendChild(answerWrapper);
+            }
+            const question = questionsData[currentQuestionIndex - 1] || { question: '', answers: Array(currentAnswerCount).fill(''), points: Array(currentAnswerCount).fill('') };
+            const answerInputs = document.querySelectorAll('.answer-input');
+            const pointsInputs = document.querySelectorAll('.points-input');
+            answerInputs.forEach((input, index) => {
+                input.value = question.answers[index] || '';
+            });
+            pointsInputs.forEach((input, index) => {
+                input.value = question.points[index] || '';
+            });
+        }
+
+        function saveCurrentQuestion() {
+            const question = questionInput.value;
+            const answers = Array.from(document.querySelectorAll('.answer-input')).map(input => input.value);
+            const points = Array.from(document.querySelectorAll('.points-input')).map(input => input.value);
+            questionsData[currentQuestionIndex - 1] = { question, answers, points };
+        }
     </script>
 </body>
 </html>
