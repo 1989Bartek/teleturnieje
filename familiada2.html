@@ -396,7 +396,7 @@
             gap: 10px;
             width: 100%;
             max-width: 1000px;
-            margin-bottom: 28px;
+            margin-bottom: 4px;
         }
         .nav-wrapper {
             display: flex;
@@ -408,16 +408,16 @@
         }
         .answer-wrapper {
             display: flex;
-            justify-content: flex-start;
+            justify-content: space-between;
             align-items: center;
             gap: 10px;
             margin: 4px 0;
             width: 100%;
-            max-width: 1304px;
+            max-width: 1000px;
         }
         .questions-section {
             width: 100%;
-            max-width: 1304px;
+            max-width: 1200px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -447,7 +447,7 @@
             text-align: right;
         }
         #questions-view .question-input {
-            width: calc(2 * 509.6px + 2 * 127.4px + 3 * 10px) !important;
+            width: 509.6px !important;
             padding: 10.8px !important;
             margin: 0;
             border: 4px solid #fff;
@@ -478,7 +478,7 @@
             width: 52px;
             min-width: 52px;
             max-width: 52px;
-            height: 52px;
+            height: 32.4px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -525,7 +525,7 @@
             min-width: 127.4px !important;
             max-width: 127.4px !important;
             padding: 3.6px 10.8px !important;
-            margin: 0 0 10px 0;
+            margin: 0 0 10px 10px;
             border: 4px solid #fff;
             border-radius: 8px;
             background-color: #fff;
@@ -553,7 +553,7 @@
             justify-content: center;
             gap: 20px;
             width: 100%;
-            max-width: 1304px;
+            max-width: 800px;
             margin-top: 10px;
             align-items: center;
         }
@@ -574,7 +574,7 @@
             justify-content: center;
             gap: 20px;
             width: 100%;
-            max-width: 1304px;
+            max-width: 800px;
             margin-top: 10px;
         }
         .answers-left {
@@ -591,7 +591,7 @@
         }
         .question-form {
             width: 100%;
-            max-width: 1304px;
+            max-width: 800px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -603,9 +603,9 @@
         }
         .info-text {
             color: #FFD700;
-            font-size: 18px;
+            font-size: 10px;
             text-align: center;
-            margin: 10px 0 28px 0;
+            margin: 10px 0;
         }
         .questions-controls {
             display: flex;
@@ -633,7 +633,7 @@
         #questions-view {
             display: none;
             width: 100%;
-            max-width: 1304px;
+            max-width: 1200px;
             flex-direction: column;
             align-items: center;
         }
@@ -679,7 +679,7 @@
                 width: 52px;
                 min-width: 52px;
                 max-width: 52px;
-                height: 48px;
+                height: 31.6px;
                 font-size: 18px;
                 padding: 0;
                 flex-grow: 0;
@@ -688,7 +688,7 @@
             }
             .counter-display {
                 width: 135px;
-                height: 48px;
+                height: 31.6px;
                 font-size: 16px;
             }
             .bottom-logo {
@@ -747,7 +747,7 @@
             }
             .question-nav-container {
                 flex-direction: column;
-                margin-bottom: 28px;
+                margin-bottom: 10px;
             }
             #prev-round-btn, #next-round-btn {
                 min-width: 135px;
@@ -881,7 +881,7 @@
                 text-align: center;
             }
             #questions-view .question-input {
-                width: calc(2 * 364px + 2 * 91px + 3 * 10px) !important;
+                width: 364px !important;
                 height: 31.6px !important;
                 padding: 7.2px 10.8px !important;
             }
@@ -901,7 +901,7 @@
                 max-width: 91px !important;
                 height: 31.6px !important;
                 padding: 3.6px 10.8px !important;
-                margin: 0 0 10px 0;
+                margin: 0 0 10px 10px;
             }
             .questions-controls {
                 flex-direction: column;
@@ -926,8 +926,7 @@
                 font-size: 18px;
             }
             .info-text {
-                font-size: 14px;
-                margin: 10px 0 28px 0;
+                font-size: 10px;
             }
         }
         @media screen and (min-width: 1201px) {
@@ -936,8 +935,8 @@
                 align-items: center;
                 justify-content: center;
                 width: 100%;
-                max-width: 1304px;
-                margin-bottom: 28px;
+                max-width: 1000px;
+                margin-bottom: 4px;
                 gap: 10px;
             }
             .nav-wrapper {
@@ -982,10 +981,10 @@
             }
             .answer-wrapper {
                 display: flex;
-                justify-content: flex-start;
+                justify-content: center;
                 align-items: center;
                 width: 100%;
-                max-width: 1304px;
+                max-width: 1000px;
                 margin: 4px 0;
                 gap: 10px;
             }
@@ -1371,9 +1370,6 @@
             buttons.forEach(button => {
                 button.addEventListener('click', () => {
                     if (button.classList.contains('active')) {
-                        if (groupClass === 'game-variant' && button.id === 'custom-questions-btn' && isCustomQuestionsActive) {
-                            return;
-                        }
                         button.classList.remove('active');
                     } else {
                         buttons.forEach(btn => btn.classList.remove('active'));
@@ -1487,11 +1483,10 @@
             nextAnswersBtn.classList.toggle('disabled', currentAnswerCount === 8);
             prevQuestionBtn.classList.toggle('disabled', currentQuestionIndex === 1);
             nextQuestionBtn.textContent = currentQuestionIndex === currentRoundCount ? 'Zatwierdź' : 'Dalej';
-            const question = questionsData[currentQuestionIndex - 1] || { question: '', answerCount: 4, answers: [], points: [] };
-            currentAnswerCount = question.answerCount || 4;
-            answersDisplay.textContent = `Liczba odpowiedzi: ${currentAnswerCount}`;
             updateAnswerInputs();
-            questionInput.value = question.question || '';
+
+            const question = questionsData[currentQuestionIndex - 1] || { question: '', answers: Array(currentAnswerCount).fill(''), points: Array(currentAnswerCount).fill('') };
+            questionInput.value = question.question;
             const answerInputs = document.querySelectorAll('.answer-input');
             const pointsInputs = document.querySelectorAll('.points-input');
             answerInputs.forEach((input, index) => {
@@ -1522,13 +1517,22 @@
                 }
                 answerInputContainer.appendChild(answerWrapper);
             }
+            const question = questionsData[currentQuestionIndex - 1] || { question: '', answers: Array(currentAnswerCount).fill(''), points: Array(currentAnswerCount).fill('') };
+            const answerInputs = document.querySelectorAll('.answer-input');
+            const pointsInputs = document.querySelectorAll('.points-input');
+            answerInputs.forEach((input, index) => {
+                input.value = question.answers[index] || '';
+            });
+            pointsInputs.forEach((input, index) => {
+                input.value = question.points[index] || '';
+            });
         }
 
         function saveCurrentQuestion() {
             const question = questionInput.value;
             const answers = Array.from(document.querySelectorAll('.answer-input')).map(input => input.value);
             const points = Array.from(document.querySelectorAll('.points-input')).map(input => input.value);
-            questionsData[currentQuestionIndex - 1] = { question, answers, points, answerCount: currentAnswerCount };
+            questionsData[currentQuestionIndex - 1] = { question, answers, points };
         }
     </script>
 </body>
