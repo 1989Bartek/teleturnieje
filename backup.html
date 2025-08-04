@@ -395,7 +395,7 @@
             align-items: center;
             gap: 10px;
             width: 100%;
-            max-width: 1000px;
+            max-width: 1068px;
             margin-bottom: 4px;
         }
         .nav-wrapper {
@@ -421,53 +421,68 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin: 28px 0;
+            margin: -20px 0 0 0;
             padding-left: 10px;
+            position: relative;
+            min-height: 600px;
+        }
+        .questions-section.rounds-selection {
+            justify-content: center;
+            height: calc(100vh - 120px);
+        }
+        .questions-section.rounds-selection .rounds-container {
+            margin-bottom: 0;
         }
         .question-row {
             display: flex;
             align-items: center;
             gap: 10px;
             width: 100%;
-            margin: 1px 0;
+            margin: 0.5px 0;
         }
         .question-label {
-            font-size: 24px;
+            font-size: 18px;
             color: white;
             width: 50px;
             text-align: right;
         }
-        .question-input {
-            width: 560px;
-            padding: 12px 36px;
-            margin: 0;
+        #questions-view .question-input {
+            width: 1068px !important;
+            max-width: 1068px !important;
+            padding: 10.8px !important;
+            margin: 0 auto 20px;
             border: 4px solid #fff;
             border-radius: 8px;
             background-color: #fff;
             color: #000;
             font-size: 16px;
-            height: 52px;
+            height: 64.8px !important;
             box-sizing: border-box;
+            white-space: normal;
+            overflow-wrap: break-word;
+            line-height: 1.5;
+            resize: none;
         }
         .answer-counter {
             display: flex;
             align-items: center;
             gap: 0;
+            margin-top: 0;
         }
         .counter-btn {
             background-color: #000;
             border: 4px solid #fff;
             color: #FFFF33;
             font-family: 'Courier New', monospace;
-            font-size: 12px;
+            font-size: 24px;
             padding: 0;
             border-radius: 8px;
             box-shadow: 0 0 10px #FFD700;
             cursor: pointer;
             transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
-            width: 26px;
-            min-width: 26px;
-            max-width: 26px;
+            width: 52px;
+            min-width: 52px;
+            max-width: 52px;
             height: 52px;
             display: flex;
             align-items: center;
@@ -482,7 +497,7 @@
             cursor: not-allowed;
         }
         .counter-display {
-            width: 52px;
+            width: 280px;
             height: 52px;
             border: 4px solid #fff;
             border-radius: 8px;
@@ -496,34 +511,135 @@
             box-shadow: 0 0 10px #FFD700;
             box-sizing: border-box;
         }
-        .answer-input {
-            width: 210px;
-            min-width: 210px;
-            max-width: 210px;
-            padding: 12px 36px;
-            margin: 0;
+        #questions-view .answer-input {
+            flex: 2;
+            padding: 3.6px 10.8px !important;
+            margin: 0 0 10px 0;
             border: 4px solid #fff;
             border-radius: 8px;
             background-color: #fff;
             color: #000;
             font-size: 16px;
-            height: 52px;
+            height: 32.4px;
+            box-sizing: border-box;
+        }
+        #questions-view .points-input {
+            flex: 1;
+            width: 75%;
+            padding: 3.6px 10.8px !important;
+            margin: 0 0 10px 10px;
+            border: 4px solid #fff;
+            border-radius: 8px;
+            background-color: #fff;
+            color: #000;
+            font-size: 16px;
+            height: 32.4px;
             box-sizing: border-box;
         }
         .answer-input-container {
             display: flex;
+            flex-direction: column;
             gap: 10px;
-            flex-wrap: nowrap;
+            justify-content: flex-start;
+            min-height: calc(8 * (32.4px + 10px));
         }
-        .question-row.disabled {
-            opacity: 0.5;
-            pointer-events: none;
+        .points-input-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            justify-content: flex-start;
+            min-height: calc(8 * (32.4px + 10px));
+        }
+        .question-header {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            width: 100%;
+            max-width: 800px;
+            margin-top: 10px;
+            align-items: center;
+        }
+        .question-left {
+            flex: 3;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .question-right {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .answers-header {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            width: 100%;
+            max-width: 800px;
+            margin-top: 10px;
+        }
+        .answers-left {
+            flex: 3;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .points-right {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .question-form {
+            width: 100%;
+            max-width: 1068px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .info-text {
+            color: #FFD700;
+            font-size: 20px;
+            text-align: center;
+            margin: 10px 0 20px 0;
         }
         .questions-controls {
             display: flex;
+            flex-direction: column;
             gap: 10px;
-            margin: 20px auto;
+            margin: 10px auto 104px auto;
             justify-content: center;
+            align-items: center;
+            width: 100%;
+            max-width: 1000px;
+        }
+        .nav-row, .bottom-row {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+        .questions-section.rounds-selection .questions-controls {
+            margin: 28px 0;
+        }
+        .rounds-container.questions-rounds {
+            display: grid;
+            grid-template-columns: repeat(2, auto);
+            grid-template-rows: repeat(2, auto);
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .rounds-text {
+            margin-top: 0;
+            font-size: 18px;
+            color: white;
+        }
+        #questions-view {
+            display: none;
+            width: 100%;
+            max-width: 1200px;
+            flex-direction: column;
+            align-items: center;
         }
         @media screen and (max-width: 1200px) {
             h1 {
@@ -534,7 +650,7 @@
                 max-width: 90%;
                 flex-direction: column;
                 align-items: center;
-                gap: 18px;
+                gap: 28px;
                 margin: 28px 0;
                 padding-left: 0;
             }
@@ -564,31 +680,34 @@
                 min-width: 135px;
             }
             .counter-btn {
-                width: 26px;
-                min-width: 26px;
-                max-width: 26px;
-                height: 48px;
-                font-size: 12px;
+                width: 52px;
+                min-width: 52px;
+                max-width: 52px;
+                height: 31.6px;
+                font-size: 18px;
                 padding: 0;
                 flex-grow: 0;
                 flex-shrink: 0;
                 flex-basis: auto;
             }
             .counter-display {
-                width: 52px;
-                height: 48px;
+                width: 135px;
+                height: 31.6px;
                 font-size: 16px;
+            }
+            .bottom-logo {
+                position: static;
+                margin-top: auto;
+                margin-bottom: 24px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
             }
             .bottom-logo img {
                 width: 90px;
             }
             .bottom-logo a {
                 font-size: 9px;
-            }
-            .bottom-logo {
-                position: static;
-                margin-top: 40px;
-                margin-bottom: 40px;
             }
             .aligned-section p {
                 font-size: 18px;
@@ -597,6 +716,16 @@
                 flex-direction: column;
                 align-items: center;
                 gap: 10px;
+                margin: 20px 0 28px 0;
+            }
+            #settings-view .aligned-section {
+                margin: 28px 0;
+            }
+            #settings-view .center {
+                margin-bottom: 28px;
+            }
+            .questions-section.rounds-selection .questions-controls {
+                margin: 28px 0;
             }
             #fullscreen-btn {
                 display: none;
@@ -749,30 +878,68 @@
             .question-row {
                 flex-direction: column;
                 align-items: center;
-                margin: 1px 0;
+                margin: 0.5px 0;
             }
             .question-label {
                 width: 100%;
                 text-align: center;
             }
-            .question-input {
-                width: 280px;
+            #questions-view .question-input {
+                width: 239px !important;
+                max-width: 100% !important;
+                padding: 7.2px 10.8px !important;
+                height: 63.2px !important;
+                margin: 0 auto 20px;
             }
             .answer-counter {
-                margin: 1px 0;
+                margin: 0;
             }
-            .answer-input-container {
-                flex-direction: column;
-                align-items: center;
+            #questions-view .answer-input {
+                flex: 2;
+                height: 31.6px !important;
+                padding: 3.6px 10.8px !important;
             }
-            .answer-input {
-                width: 280px;
-                min-width: 280px;
-                max-width: 280px;
+            #questions-view .points-input {
+                flex: 1;
+                width: 75%;
+                height: 31.6px !important;
+                padding: 3.6px 10.8px !important;
+                margin: 0 0 10px 10px;
             }
             .questions-controls {
                 flex-direction: column;
                 align-items: center;
+                margin: 10px auto 104px auto;
+            }
+            .question-header {
+                flex-direction: column;
+                gap: 10px;
+                margin-top: 10px;
+                align-items: center;
+            }
+            .answers-header {
+                flex-direction: column;
+                gap: 10px;
+                margin-top: 10px;
+            }
+            .question-left, .question-right, .answers-left, .points-right {
+                align-items: center;
+            }
+            .question-form p {
+                font-size: 18px;
+            }
+            .info-text {
+                font-size: 20px;
+            }
+            #questions-fullscreen-btn {
+                display: none;
+            }
+            .answer-grid {
+                max-width: 239px;
+            }
+            .answer-row {
+                flex-direction: column;
+                gap: 20px;
             }
         }
         @media screen and (min-width: 1201px) {
@@ -781,7 +948,7 @@
                 align-items: center;
                 justify-content: center;
                 width: 100%;
-                max-width: 1000px;
+                max-width: 1068px;
                 margin-bottom: 4px;
                 gap: 10px;
             }
@@ -797,7 +964,6 @@
                 box-sizing: border-box;
                 margin: 0;
                 flex: 0 0 280px;
-                order: 2;
             }
             #prev-round-btn {
                 min-width: 280px;
@@ -810,7 +976,6 @@
                 justify-content: center;
                 box-sizing: border-box;
                 flex: 0 0 280px;
-                order: 1;
             }
             #next-round-btn {
                 min-width: 280px;
@@ -823,7 +988,6 @@
                 justify-content: center;
                 box-sizing: border-box;
                 flex: 0 0 280px;
-                order: 3;
             }
             .answer-wrapper {
                 display: flex;
@@ -839,19 +1003,16 @@
                 margin: 0;
                 height: 52px;
                 flex: 0 0 280px;
-                order: 1;
             }
             .input-with-button {
                 flex: 0 0 280px;
                 margin: 0;
-                order: 2;
             }
             #answers-btn {
                 min-width: 280px;
                 margin: 0;
                 height: 52px;
                 flex: 0 0 280px;
-                order: 3;
             }
             .game-controls {
                 margin: 4px 0;
@@ -871,12 +1032,39 @@
                 margin-bottom: 0;
             }
             .rounds-container.questions-rounds {
-                display: flex;
-                flex-direction: row;
+                display: grid;
+                grid-template-columns: repeat(2, auto);
+                grid-template-rows: repeat(2, auto);
                 justify-content: center;
                 gap: 10px;
-                margin-top: 12px;
+                margin-top: 10px;
             }
+            .answer-grid {
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+                width: 100%;
+                max-width: 1068px;
+                margin: 0 auto;
+                align-self: center;
+            }
+            .answer-row {
+                display: flex;
+                gap: 10px;
+                justify-content: space-between;
+                width: 1068px;
+            }
+            .answer-pair {
+                display: flex;
+                gap: 10px;
+                flex: 1;
+            }
+        }
+        #questions-view .question-nav-container {
+            margin-bottom: 20px;
+        }
+        #questions-view .question-input {
+            margin-bottom: 20px;
         }
     </style>
 </head>
@@ -965,161 +1153,6 @@
             <a href="https://www.muzykamikrofonakcja.pl">WWW.MUZYKAMIKROFONAKCJA.PL</a>
         </div>
     </div>
-    <div id="questions-view">
-        <h1>Familiada</h1>
-        <div class="questions-section">
-            <div class="rounds-container questions-rounds">
-                <button class="rounds" data-rounds="3">3</button>
-                <button class="rounds" data-rounds="5">5</button>
-                <button class="rounds" data-rounds="7">7</button>
-                <button class="rounds" data-rounds="9">9</button>
-            </div>
-            <p class="answers-subtext">lorem ipsum</p>
-            <div class="question-row" data-index="1">
-                <span class="question-label">1</span>
-                <input type="text" class="question-input" placeholder="Wpisz pytanie">
-                <div class="answer-counter">
-                    <button class="counter-btn counter-decrement disabled">◀</button>
-                    <span class="counter-display">4</span>
-                    <button class="counter-btn counter-increment">▶</button>
-                </div>
-                <div class="answer-input-container">
-                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
-                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
-                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
-                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
-                </div>
-            </div>
-            <div class="question-row" data-index="2">
-                <span class="question-label">2</span>
-                <input type="text" class="question-input" placeholder="Wpisz pytanie">
-                <div class="answer-counter">
-                    <button class="counter-btn counter-decrement disabled">◀</button>
-                    <span class="counter-display">4</span>
-                    <button class="counter-btn counter-increment">▶</button>
-                </div>
-                <div class="answer-input-container">
-                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
-                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
-                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
-                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
-                </div>
-            </div>
-            <div class="question-row" data-index="3">
-                <span class="question-label">3</span>
-                <input type="text" class="question-input" placeholder="Wpisz pytanie">
-                <div class="answer-counter">
-                    <button class="counter-btn counter-decrement disabled">◀</button>
-                    <span class="counter-display">4</span>
-                    <button class="counter-btn counter-increment">▶</button>
-                </div>
-                <div class="answer-input-container">
-                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
-                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
-                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
-                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
-                </div>
-            </div>
-            <div class="question-row" data-index="4">
-                <span class="question-label">4</span>
-                <input type="text" class="question-input" placeholder="Wpisz pytanie">
-                <div class="answer-counter">
-                    <button class="counter-btn counter-decrement disabled">◀</button>
-                    <span class="counter-display">4</span>
-                    <button class="counter-btn counter-increment">▶</button>
-                </div>
-                <div class="answer-input-container">
-                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
-                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
-                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
-                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
-                </div>
-            </div>
-            <div class="question-row" data-index="5">
-                <span class="question-label">5</span>
-                <input type="text" class="question-input" placeholder="Wpisz pytanie">
-                <div class="answer-counter">
-                    <button class="counter-btn counter-decrement disabled">◀</button>
-                    <span class="counter-display">4</span>
-                    <button class="counter-btn counter-increment">▶</button>
-                </div>
-                <div class="answer-input-container">
-                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
-                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
-                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
-                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
-                </div>
-            </div>
-            <div class="question-row" data-index="6">
-                <span class="question-label">6</span>
-                <input type="text" class="question-input" placeholder="Wpisz pytanie">
-                <div class="answer-counter">
-                    <button class="counter-btn counter-decrement disabled">◀</button>
-                    <span class="counter-display">4</span>
-                    <button class="counter-btn counter-increment">▶</button>
-                </div>
-                <div class="answer-input-container">
-                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
-                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
-                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
-                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
-                </div>
-            </div>
-            <div class="question-row" data-index="7">
-                <span class="question-label">7</span>
-                <input type="text" class="question-input" placeholder="Wpisz pytanie">
-                <div class="answer-counter">
-                    <button class="counter-btn counter-decrement disabled">◀</button>
-                    <span class="counter-display">4</span>
-                    <button class="counter-btn counter-increment">▶</button>
-                </div>
-                <div class="answer-input-container">
-                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
-                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
-                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
-                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
-                </div>
-            </div>
-            <div class="question-row" data-index="8">
-                <span class="question-label">8</span>
-                <input type="text" class="question-input" placeholder="Wpisz pytanie">
-                <div class="answer-counter">
-                    <button class="counter-btn counter-decrement disabled">◀</button>
-                    <span class="counter-display">4</span>
-                    <button class="counter-btn counter-increment">▶</button>
-                </div>
-                <div class="answer-input-container">
-                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
-                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
-                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
-                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
-                </div>
-            </div>
-            <div class="question-row" data-index="9">
-                <span class="question-label">9</span>
-                <input type="text" class="question-input" placeholder="Wpisz pytanie">
-                <div class="answer-counter">
-                    <button class="counter-btn counter-decrement disabled">◀</button>
-                    <span class="counter-display">4</span>
-                    <button class="counter-btn counter-increment">▶</button>
-                </div>
-                <div class="answer-input-container">
-                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
-                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
-                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
-                    <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
-                </div>
-            </div>
-            <div class="questions-controls">
-                <button id="questions-back-btn">Powrót</button>
-                <button id="questions-submit-btn">Zatwierdź</button>
-            </div>
-        </div>
-        <div class="bottom-logo">
-            <img src="familiada/logo.png" alt="Logo">
-            <a href="https://www.muzykamikrofonakcja.pl">WWW.MUZYKAMIKROFONAKCJA.PL</a>
-        </div>
-    </div>
     <div id="game-view">
         <h1>Familiada</h1>
         <div class="round-info">Runda 1</div>
@@ -1133,7 +1166,6 @@
                 <div class="answer-row"><span class="answer-number">5</span><span class="answer-text">....................................</span><span class="answer-points">8</span></div>
                 <div class="answer-row"><span class="answer-number">6</span><span class="answer-text">....................................</span><span class="answer-points">5</span></div>
                 <div class="answer-row"><span class="answer-number">7</span><span class="answer-text">....................................</span><span class="answer-points">3</span></div>
-                <div class="answer-row"><span class="answer-number">8</span><span class="answer-text">....................................</span><span class="answer-points">2</span></div>
                 <div class="sum-row">SUMA<span id="total-points"> 107</span></div>
             </div>
             <div class="marks-container marks-left">
@@ -1181,6 +1213,85 @@
             <a href="https://www.muzykamikrofonakcja.pl">WWW.MUZYKAMIKROFONAKCJA.PL</a>
         </div>
     </div>
+    <div id="questions-view">
+        <h1>Familiada</h1>
+        <div class="info-text">
+            W odpowiednie pola wpisz pytanie, możliwe odpowiedzi (od 4 do 8) oraz ilość punktów do zdobycia (od 5 do 50).<br>
+            W przypadku różnych wariantów odpowiedzi, zapisz wszystkie w jednym polu, oddzielając je przecinkiem np. Telefon, komórka, smartphone. Kiedy uczestnik poda którekolwiek określenie po przecinku, w grze wyświetli się zawsze pierwsza wpisana propozycja.
+        </div>
+        <div class="question-nav-container">
+            <div class="answer-counter">
+                <button id="prev-rounds-btn" class="counter-btn">◀</button>
+                <div class="counter-display" id="rounds-display">Liczba rund: 3</div>
+                <button id="next-rounds-btn" class="counter-btn">▶</button>
+            </div>
+            <div class="question-box" id="question-number">Pytanie 1/3</div>
+            <div class="answer-counter">
+                <button id="prev-answers-btn" class="counter-btn">◀</button>
+                <div class="counter-display" id="answers-display">Liczba odpowiedzi: 4</div>
+                <button id="next-answers-btn" class="counter-btn">▶</button>
+            </div>
+        </div>
+        <div class="question-form">
+            <textarea type="text" class="question-input" id="question-input" placeholder="Wpisz pytanie"></textarea>
+            <div class="answer-grid">
+                <div class="answer-row">
+                    <div class="answer-pair">
+                        <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
+                        <input type="text" class="points-input" placeholder="5-50 pkt.">
+                    </div>
+                    <div class="answer-pair">
+                        <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
+                        <input type="text" class="points-input" placeholder="5-50 pkt.">
+                    </div>
+                </div>
+                <div class="answer-row">
+                    <div class="answer-pair">
+                        <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
+                        <input type="text" class="points-input" placeholder="5-50 pkt.">
+                    </div>
+                    <div class="answer-pair">
+                        <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
+                        <input type="text" class="points-input" placeholder="5-50 pkt.">
+                    </div>
+                </div>
+                <div class="answer-row">
+                    <div class="answer-pair">
+                        <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
+                        <input type="text" class="points-input" placeholder="5-50 pkt.">
+                    </div>
+                    <div class="answer-pair">
+                        <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
+                        <input type="text" class="points-input" placeholder="5-50 pkt.">
+                    </div>
+                </div>
+                <div class="answer-row">
+                    <div class="answer-pair">
+                        <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
+                        <input type="text" class="points-input" placeholder="5-50 pkt.">
+                    </div>
+                    <div class="answer-pair">
+                        <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
+                        <input type="text" class="points-input" placeholder="5-50 pkt.">
+                    </div>
+                </div>
+            </div>
+            <div class="questions-controls">
+                <div class="nav-row">
+                    <button id="prev-question-btn">Wstecz</button>
+                    <button id="next-question-btn">Dalej</button>
+                </div>
+                <div class="bottom-row">
+                    <button id="questions-fullscreen-btn">Pełny ekran</button>
+                    <button id="questions-back-btn">Powrót</button>
+                </div>
+            </div>
+        </div>
+        <div class="bottom-logo">
+            <img src="familiada/logo.png" alt="Logo">
+            <a href="https://www.muzykamikrofonakcja.pl">WWW.MUZYKAMIKROFONAKCJA.PL</a>
+        </div>
+    </div>
     <script>
         const fullscreenBtn = document.getElementById('fullscreen-btn');
         const team1Input = document.getElementById('team1-input');
@@ -1199,23 +1310,39 @@
         const team2Name = document.getElementById('team2-name');
         const startBtn = document.getElementById('start-btn');
         const gameFullscreenBtn = document.getElementById('game-fullscreen-btn');
+        const questionsFullscreenBtn = document.getElementById('questions-fullscreen-btn');
         const submitAnswerBtn = document.getElementById('submit-answer-btn');
         const answerInput = document.getElementById('answer-input');
         const gameBoardQuestion = document.querySelector('.game-board-question');
         const gameBoardAnswers = document.querySelector('.game-board-answers');
         const customQuestionsBtn = document.getElementById('custom-questions-btn');
+        const prevRoundsBtn = document.getElementById('prev-rounds-btn');
+        const nextRoundsBtn = document.getElementById('next-rounds-btn');
+        const roundsDisplay = document.getElementById('rounds-display');
+        const prevAnswersBtn = document.getElementById('prev-answers-btn');
+        const nextAnswersBtn = document.getElementById('next-answers-btn');
+        const answersDisplay = document.getElementById('answers-display');
+        const questionNumber = document.getElementById('question-number');
+        const questionInput = document.getElementById('question-input');
         const questionsBackBtn = document.getElementById('questions-back-btn');
-        const questionsSubmitBtn = document.getElementById('questions-submit-btn');
-        const audioButtons = document.querySelectorAll('.audio');
+        const prevQuestionBtn = document.getElementById('prev-question-btn');
+        const nextQuestionBtn = document.getElementById('next-question-btn');
         let timerInterval = null;
-        let customQuestions = [];
+        let currentRoundCount = 3;
+        let currentAnswerCount = 4;
+        let currentQuestionIndex = 1;
+        let questionsData = [];
+        let isCustomQuestionsActive = false;
+        let roundsLocked = false;
         fullscreenBtn.addEventListener('click', toggleFullscreen);
         gameFullscreenBtn.addEventListener('click', toggleFullscreen);
+        questionsFullscreenBtn.addEventListener('click', toggleFullscreen);
         function toggleFullscreen() {
             if (!document.fullscreenElement) {
                 document.documentElement.requestFullscreen().then(() => {
                     fullscreenBtn.textContent = 'Podstawowy ekran';
                     gameFullscreenBtn.textContent = 'Podstawowy ekran';
+                    questionsFullscreenBtn.textContent = 'Podstawowy ekran';
                 }).catch(err => {
                     console.error(`Error attempting to enable fullscreen: ${err.message}`);
                 });
@@ -1223,6 +1350,7 @@
                 document.exitFullscreen().then(() => {
                     fullscreenBtn.textContent = 'Pełny ekran';
                     gameFullscreenBtn.textContent = 'Pełny ekran';
+                    questionsFullscreenBtn.textContent = 'Pełny ekran';
                 }).catch(err => {
                     console.error(`Error attempting to exit fullscreen: ${err.message}`);
                 });
@@ -1238,11 +1366,6 @@
             team2Btn.textContent = teamName;
             team2Name.textContent = teamName;
         });
-        audioButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const audioText = button.textContent;
-            });
-        });
         instructionsBtn.addEventListener('click', () => {
             settingsView.style.display = 'none';
             instructionsView.style.display = 'flex';
@@ -1256,36 +1379,7 @@
         customQuestionsBtn.addEventListener('click', () => {
             settingsView.style.display = 'none';
             questionsView.style.display = 'flex';
-            window.scrollTo(0, 0);
-        });
-        questionsBackBtn.addEventListener('click', () => {
-            questionsView.style.display = 'none';
-            settingsView.style.display = 'flex';
-            customQuestions = [];
-            document.querySelectorAll('.question-row').forEach(row => {
-                row.classList.remove('disabled');
-                row.querySelector('.question-input').value = '';
-                row.querySelectorAll('.answer-input').forEach(input => input.value = '');
-                const container = row.querySelector('.answer-input-container');
-                while (container.children.length > 4) {
-                    container.removeChild(container.lastChild);
-                }
-                row.querySelector('.counter-display').textContent = '4';
-                updateCounterButtons(row);
-            });
-            window.scrollTo(0, 0);
-        });
-        questionsSubmitBtn.addEventListener('click', () => {
-            customQuestions = [];
-            document.querySelectorAll('.question-row').forEach(row => {
-                if (!row.classList.contains('disabled')) {
-                    const question = row.querySelector('.question-input').value;
-                    const answers = Array.from(row.querySelectorAll('.answer-input')).map(input => input.value);
-                    customQuestions.push({ question, answers });
-                }
-            });
-            questionsView.style.display = 'none';
-            settingsView.style.display = 'flex';
+            updateQuestionView();
             window.scrollTo(0, 0);
         });
         nextBtn.addEventListener('click', () => {
@@ -1322,42 +1416,6 @@
         function startTimer() {
             clearInterval(timerInterval);
         }
-        function updateCounterButtons(row) {
-            const counterDisplay = row.querySelector('.counter-display');
-            const decrementBtn = row.querySelector('.counter-decrement');
-            const incrementBtn = row.querySelector('.counter-increment');
-            const count = parseInt(counterDisplay.textContent);
-            decrementBtn.classList.toggle('disabled', count <= 4);
-            incrementBtn.classList.toggle('disabled', count >= 8);
-        }
-        document.querySelectorAll('.question-row').forEach(row => {
-            const decrementBtn = row.querySelector('.counter-decrement');
-            const incrementBtn = row.querySelector('.counter-increment');
-            const counterDisplay = row.querySelector('.counter-display');
-            const answerContainer = row.querySelector('.answer-input-container');
-            decrementBtn.addEventListener('click', () => {
-                let count = parseInt(counterDisplay.textContent);
-                if (count > 4) {
-                    count--;
-                    counterDisplay.textContent = count;
-                    answerContainer.removeChild(answerContainer.lastChild);
-                    updateCounterButtons(row);
-                }
-            });
-            incrementBtn.addEventListener('click', () => {
-                let count = parseInt(counterDisplay.textContent);
-                if (count < 8) {
-                    count++;
-                    counterDisplay.textContent = count;
-                    const newInput = document.createElement('input');
-                    newInput.type = 'text';
-                    newInput.className = 'answer-input';
-                    newInput.placeholder = 'Wpisz odpowiedź';
-                    answerContainer.appendChild(newInput);
-                    updateCounterButtons(row);
-                }
-            });
-        });
         const toggleActive = (groupClass) => {
             const buttons = document.querySelectorAll(`.${groupClass}`);
             buttons.forEach(button => {
@@ -1367,6 +1425,11 @@
                     } else {
                         buttons.forEach(btn => btn.classList.remove('active'));
                         button.classList.add('active');
+                    }
+                    if (groupClass === 'game-variant' && button.id !== 'custom-questions-btn') {
+                        roundsLocked = false;
+                        questionsData = [];
+                        document.querySelectorAll('.rounds').forEach(btn => btn.disabled = false);
                     }
                 });
             });
@@ -1378,21 +1441,121 @@
         toggleActive('audio');
         toggleActive('question-order');
         toggleActive('display-questions');
-        document.querySelectorAll('#questions-view .rounds').forEach(button => {
+        document.querySelectorAll('.rounds').forEach(button => {
             button.addEventListener('click', () => {
-                const rounds = parseInt(button.dataset.rounds);
-                document.querySelectorAll('.question-row').forEach(row => {
-                    const index = parseInt(row.dataset.index);
-                    row.classList.toggle('disabled', index > rounds);
-                });
-                document.querySelectorAll('#settings-view .rounds').forEach(settingBtn => {
-                    settingBtn.classList.toggle('active', parseInt(settingBtn.textContent) === rounds);
-                });
-                document.querySelectorAll('#questions-view .rounds').forEach(btn => {
-                    btn.classList.toggle('active', parseInt(btn.dataset.rounds) === rounds);
-                });
+                if (!roundsLocked) {
+                    currentRoundCount = parseInt(button.textContent);
+                    updateQuestionView();
+                }
             });
         });
+        prevRoundsBtn.addEventListener('click', () => {
+            if (currentRoundCount > 3) {
+                currentRoundCount -= 2;
+                updateQuestionView();
+            }
+        });
+        nextRoundsBtn.addEventListener('click', () => {
+            if (currentRoundCount < 9) {
+                currentRoundCount += 2;
+                updateQuestionView();
+            }
+        });
+        prevAnswersBtn.addEventListener('click', () => {
+            if (currentAnswerCount > 4) {
+                currentAnswerCount--;
+                updateAnswerInputs();
+                answersDisplay.textContent = `Liczba odpowiedzi: ${currentAnswerCount}`;
+                prevAnswersBtn.classList.toggle('disabled', currentAnswerCount === 4);
+                nextAnswersBtn.classList.toggle('disabled', currentAnswerCount === 8);
+            }
+        });
+        nextAnswersBtn.addEventListener('click', () => {
+            if (currentAnswerCount < 8) {
+                currentAnswerCount++;
+                updateAnswerInputs();
+                answersDisplay.textContent = `Liczba odpowiedzi: ${currentAnswerCount}`;
+                prevAnswersBtn.classList.toggle('disabled', currentAnswerCount === 4);
+                nextAnswersBtn.classList.toggle('disabled', currentAnswerCount === 8);
+            }
+        });
+        questionsBackBtn.addEventListener('click', () => {
+            questionsView.style.display = 'none';
+            settingsView.style.display = 'flex';
+            questionsData = [];
+            currentQuestionIndex = 1;
+            currentRoundCount = 3;
+            currentAnswerCount = 4;
+            updateQuestionView();
+            window.scrollTo(0, 0);
+        });
+        prevQuestionBtn.addEventListener('click', () => {
+            if (currentQuestionIndex > 1) {
+                saveCurrentQuestion();
+                currentQuestionIndex--;
+                currentAnswerCount = (questionsData[currentQuestionIndex - 1]?.answers.length || 4);
+                updateQuestionView();
+            }
+        });
+        nextQuestionBtn.addEventListener('click', () => {
+            saveCurrentQuestion();
+            if (currentQuestionIndex < currentRoundCount) {
+                currentQuestionIndex++;
+                currentAnswerCount = (questionsData[currentQuestionIndex - 1]?.answers.length || 4);
+                updateQuestionView();
+            } else {
+                saveCurrentQuestion();
+                questionsView.style.display = 'none';
+                settingsView.style.display = 'flex';
+                isCustomQuestionsActive = true;
+                roundsLocked = true;
+                customQuestionsBtn.classList.add('active');
+                document.querySelector('.game-variant:not(#custom-questions-btn)').classList.remove('active');
+                document.querySelectorAll('.rounds').forEach(btn => {
+                    btn.disabled = btn.textContent !== currentRoundCount.toString();
+                    if (btn.textContent === currentRoundCount.toString()) {
+                        btn.classList.add('active');
+                    } else {
+                        btn.classList.remove('active');
+                    }
+                });
+                window.scrollTo(0, 0);
+            }
+        });
+        function updateQuestionView() {
+            roundsDisplay.textContent = `Liczba rund: ${currentRoundCount}`;
+            questionNumber.textContent = `Pytanie ${currentQuestionIndex}/${currentRoundCount}`;
+            answersDisplay.textContent = `Liczba odpowiedzi: ${currentAnswerCount}`;
+            prevRoundsBtn.classList.toggle('disabled', currentRoundCount === 3);
+            nextRoundsBtn.classList.toggle('disabled', currentRoundCount === 9);
+            prevAnswersBtn.classList.toggle('disabled', currentAnswerCount === 4);
+            nextAnswersBtn.classList.toggle('disabled', currentAnswerCount === 8);
+            prevQuestionBtn.classList.toggle('disabled', currentQuestionIndex === 1);
+            nextQuestionBtn.textContent = currentQuestionIndex === currentRoundCount ? 'Zatwierdź' : 'Dalej';
+            updateAnswerInputs();
+            const question = questionsData[currentQuestionIndex - 1] || { question: '', answers: [], points: [] };
+            questionInput.value = question.question;
+            const answerInputs = document.querySelectorAll('.answer-input');
+            const pointsInputs = document.querySelectorAll('.points-input');
+            answerInputs.forEach((input, index) => {
+                input.value = (index < question.answers.length) ? question.answers[index] : '';
+            });
+            pointsInputs.forEach((input, index) => {
+                input.value = (index < question.points.length) ? question.points[index] : '';
+            });
+        }
+        function updateAnswerInputs() {
+            const answerPairs = document.querySelectorAll('.answer-pair');
+            answerPairs.forEach((pair, index) => {
+                pair.style.visibility = (index < currentAnswerCount) ? 'visible' : 'hidden';
+            });
+        }
+        function saveCurrentQuestion() {
+            const question = questionInput.value;
+            const answers = Array.from(document.querySelectorAll('.answer-input')).slice(0, currentAnswerCount).map(input => input.value);
+            const points = Array.from(document.querySelectorAll('.points-input')).slice(0, currentAnswerCount).map(input => input.value);
+            questionsData[currentQuestionIndex - 1] = { question, answers, points };
+        }
     </script>
 </body>
 </html>
