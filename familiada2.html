@@ -610,10 +610,8 @@
         .questions-controls {
             display: flex;
             gap: 10px;
-            margin: 0 auto;
+            margin: 10px auto 104px auto;
             justify-content: center;
-            position: absolute;
-            bottom: 104px;
             width: 100%;
             max-width: 1000px;
         }
@@ -705,6 +703,7 @@
             }
             .bottom-logo {
                 bottom: 24px;
+                right: 12px;
             }
             .aligned-section p {
                 font-size: 18px;
@@ -897,6 +896,7 @@
             .questions-controls {
                 flex-direction: column;
                 align-items: center;
+                margin: 10px auto 104px auto;
             }
             .question-header {
                 flex-direction: column;
@@ -1158,13 +1158,13 @@
                             </div>
                         </div>
                     </div>
+                    <div class="questions-controls">
+                        <div class="question-box" id="question-indicator">Pytanie 1/3</div>
+                        <button id="questions-back-btn">Powrót</button>
+                        <button id="prev-question" disabled>Wstecz</button>
+                        <button id="next-question">Dalej</button>
+                    </div>
                 </div>
-            </div>
-            <div class="questions-controls">
-                <div class="question-box" id="question-indicator">Pytanie 1/3</div>
-                <button id="questions-back-btn">Powrót</button>
-                <button id="prev-question" disabled>Wstecz</button>
-                <button id="next-question">Dalej</button>
             </div>
         </div>
         <div class="bottom-logo">
@@ -1345,6 +1345,17 @@
         roundsBackBtn.addEventListener('click', () => {
             questionsView.style.display = 'none';
             settingsView.style.display = 'flex';
+            roundsText.style.display = 'block';
+            roundsContainer.style.display = 'grid';
+            questionsEditView.style.display = 'none';
+            prevQuestionBtn.style.display = 'none';
+            nextQuestionBtn.style.display = 'none';
+            questionIndicator.style.display = 'none';
+            customQuestions = [];
+            numRounds = 0;
+            questionsData = [];
+            questionsSection.classList.add('rounds-selection');
+            roundsButtons.forEach(btn => btn.classList.remove('active'));
             window.scrollTo(0, 0);
         });
         nextBtn.addEventListener('click', () => {
