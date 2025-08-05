@@ -651,6 +651,16 @@
             flex-direction: column;
             align-items: center;
         }
+        .settings-bottom-buttons {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 4px 0;
+            width: 100%;
+            max-width: 1000px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
         @media screen and (max-width: 1200px) {
             h1 {
                 font-size: 36px;
@@ -689,22 +699,6 @@
             .rounds-container button {
                 min-width: 135px;
             }
-            .counter-btn {
-                width: 52px;
-                min-width: 52px;
-                max-width: 52px;
-                height: 31.6px;
-                font-size: 18px;
-                padding: 0;
-                flex-grow: 0;
-                flex-shrink: 0;
-                flex-basis: auto;
-            }
-            .counter-display {
-                width: 135px;
-                height: 31.6px;
-                font-size: 16px;
-            }
             .bottom-logo {
                 position: static;
                 margin-top: auto;
@@ -740,6 +734,11 @@
             #fullscreen-btn {
                 display: none;
             }
+            .settings-bottom-buttons {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
             .instructions-text {
                 width: 90%;
                 font-size: 14px;
@@ -750,13 +749,8 @@
                 align-items: center;
                 gap: 10px;
             }
-            .settings-bottom-buttons {
-                flex-direction: column;
-                align-items: center;
-                gap: 10px;
-                margin: 4px 0;
-                width: 100%;
-                max-width: 600px;
+            #game-fullscreen-btn {
+                display: none;
             }
             .question-box {
                 width: 280px;
@@ -809,9 +803,6 @@
                 #prev-round-btn span, #next-round-btn span {
                     display: inline;
                 }
-            }
-            #game-fullscreen-btn {
-                display: none;
             }
             .game-board {
                 transform: scale(0.55);
@@ -1035,10 +1026,6 @@
             .game-controls {
                 margin: 4px 0;
             }
-            .settings-bottom-buttons {
-                margin: 4px 0;
-                justify-content: space-between;
-            }
             .center {
                 display: flex;
                 flex-direction: column;
@@ -1093,14 +1080,6 @@
             gap: 10px;
             justify-content: center;
             margin: 28px 0 104px 0;
-        }
-        .settings-bottom-buttons {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            width: 100%;
-            max-width: 1000px;
-            flex-wrap: wrap;
         }
     </style>
 </head>
@@ -1166,7 +1145,7 @@
         </div>
         <div class="settings-bottom-buttons">
             <button id="fullscreen-btn">Pełny ekran</button>
-            <button id="next-btn" style="min-width: 280px;">Dalej</button>
+            <button id="next-btn">Dalej</button>
         </div>
         <div class="bottom-logo">
             <img src="familiada/logo.png" alt="Logo">
