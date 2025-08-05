@@ -36,7 +36,7 @@
         .button-container {
             display: flex;
             justify-content: center;
-            gap: 18px;
+            gap: 10px; /* Zmniejszony gap dla przybliżenia przycisków Instrukcja i Karta pytań PDF */
             margin: 20px 0;
         }
         .section {
@@ -221,17 +221,18 @@
             display: inline-block;
         }
         .answer-number {
-            width: 50px;
+            width: 40px; /* Zmniejszony width dla mniejszej przerwy */
             text-align: right;
         }
         .answer-text {
-            width: 400px;
+            width: 450px; /* Dostosowany width, aby lepiej się mieścił */
             text-align: left;
             overflow: hidden;
             white-space: nowrap;
+            text-overflow: ellipsis; /* Dodane, aby tekst nie wychodził poza */
         }
         .answer-points {
-            width: 50px;
+            width: 40px; /* Zmniejszony width dla mniejszej przerwy */
             text-align: right;
         }
         .sum-row {
@@ -816,13 +817,13 @@
                 font-size: 14px;
             }
             .answer-number {
-                width: 25px;
+                width: 20px; /* Dostosowany dla media query */
             }
             .answer-text {
-                width: 220px;
+                width: 250px; /* Dostosowany dla media query */
             }
             .answer-points {
-                width: 25px;
+                width: 20px; /* Dostosowany dla media query */
             }
             .sum-row {
                 font-size: 14px;
@@ -1066,6 +1067,20 @@
         #questions-view .question-input {
             margin-bottom: 20px;
         }
+        /* Dodatkowy styl dla przycisków w instructions-view, aby obniżyć i wyrównać */
+        .instructions-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin: 28px 0 104px 0; /* Obniżony margin, aby dopasować wysokość do questions-view */
+        }
+        /* Dodatkowy styl dla przycisków w settings-view na dole */
+        .settings-bottom-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin: 28px 0;
+        }
     </style>
 </head>
 <body>
@@ -1073,7 +1088,6 @@
         <h1>Familiada</h1>
         <div class="button-container">
             <button id="instructions-btn">Instrukcja</button>
-            <button id="fullscreen-btn">Pełny ekran</button>
             <button>Karta pytań PDF</button>
         </div>
         <div class="aligned-section">
@@ -1097,7 +1111,7 @@
                 <input type="text" id="team2-input" placeholder="Wpisz nazwę drużyny nr 2" maxlength="15">
             </div>
             <div class="right">
-                <p>Grę rozpocznie:</p>
+                <p>Zaczyna drużyna:</p> <!-- Zmieniony tekst -->
                 <div class="vertical-buttons">
                     <button id="team1-btn" class="team-start">Drużyna 1</button>
                     <button id="team2-btn" class="team-start">Drużyna 2</button>
@@ -1136,7 +1150,10 @@
                 </div>
             </div>
         </div>
-        <button id="next-btn" style="margin: 28px 0; min-width: 280px;">Dalej</button>
+        <div class="settings-bottom-buttons"> <!-- Nowy kontener dla przycisków na dole -->
+            <button id="fullscreen-btn">Pełny ekran</button>
+            <button id="next-btn" style="min-width: 280px;">Dalej</button>
+        </div>
         <div class="bottom-logo">
             <img src="familiada/logo.png" alt="Logo">
             <a href="https://www.muzykamikrofonakcja.pl">WWW.MUZYKAMIKROFONAKCJA.PL</a>
@@ -1147,7 +1164,10 @@
         <div class="instructions-text">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
         </div>
-        <button id="back-btn" style="margin: 28px 0; min-width: 280px;">Powrót</button>
+        <div class="instructions-buttons"> <!-- Nowy kontener dla przycisków w jednej linii, obniżony -->
+            <button id="instructions-fullscreen-btn">Pełny ekran</button> <!-- Nowy przycisk po lewej -->
+            <button id="back-btn" style="min-width: 280px;">Powrót</button>
+        </div>
         <div class="bottom-logo">
             <img src="familiada/logo.png" alt="Logo">
             <a href="https://www.muzykamikrofonakcja.pl">WWW.MUZYKAMIKROFONAKCJA.PL</a>
@@ -1166,6 +1186,7 @@
                 <div class="answer-row"><span class="answer-number">5</span><span class="answer-text">....................................</span><span class="answer-points">8</span></div>
                 <div class="answer-row"><span class="answer-number">6</span><span class="answer-text">....................................</span><span class="answer-points">5</span></div>
                 <div class="answer-row"><span class="answer-number">7</span><span class="answer-text">....................................</span><span class="answer-points">3</span></div>
+                <div class="answer-row"><span class="answer-number">8</span><span class="answer-text">....................................</span><span class="answer-points">2</span></div> <!-- Dodana 8. odpowiedź -->
                 <div class="sum-row">SUMA<span id="total-points"> 107</span></div>
             </div>
             <div class="marks-container marks-left">
@@ -1190,11 +1211,11 @@
             </div>
         </div>
         <div class="question-nav-container">
-            <div class="question-box">Pytanie nr 1</div>
+            <button id="prev-round-btn" class="round-nav"><span>Poprzednia runda</span></button> <!-- Zamienione miejscami z .question-box -->
             <div class="nav-wrapper">
-                <button id="prev-round-btn" class="round-nav"><span>Poprzednia runda</span></button>
                 <button id="next-round-btn" class="round-nav"><span>Następna runda</span></button>
             </div>
+            <div class="question-box">Pytanie nr 1</div> <!-- Zamienione miejscami z prev-round-btn -->
         </div>
         <div class="answer-wrapper">
             <button id="start-btn">Rozpocznij</button>
@@ -1205,8 +1226,8 @@
             <button id="answers-btn">Odpowiedzi</button>
         </div>
         <div class="game-controls">
+            <button id="game-fullscreen-btn">Pełny ekran</button> <!-- Zamienione miejscami z back-to-settings-btn -->
             <button id="back-to-settings-btn">Powrót</button>
-            <button id="game-fullscreen-btn">Pełny ekran</button>
         </div>
         <div class="bottom-logo">
             <img src="familiada/logo.png" alt="Logo">
@@ -1327,6 +1348,7 @@
         const questionsBackBtn = document.getElementById('questions-back-btn');
         const prevQuestionBtn = document.getElementById('prev-question-btn');
         const nextQuestionBtn = document.getElementById('next-question-btn');
+        const instructionsFullscreenBtn = document.getElementById('instructions-fullscreen-btn'); // Nowy przycisk w instructions-view
         let timerInterval = null;
         let currentRoundCount = 3;
         let currentAnswerCount = 4;
@@ -1337,25 +1359,37 @@
         fullscreenBtn.addEventListener('click', toggleFullscreen);
         gameFullscreenBtn.addEventListener('click', toggleFullscreen);
         questionsFullscreenBtn.addEventListener('click', toggleFullscreen);
+        instructionsFullscreenBtn.addEventListener('click', toggleFullscreen); // Dodany listener dla nowego przycisku
         function toggleFullscreen() {
             if (!document.fullscreenElement) {
                 document.documentElement.requestFullscreen().then(() => {
-                    fullscreenBtn.textContent = 'Podstawowy ekran';
-                    gameFullscreenBtn.textContent = 'Podstawowy ekran';
-                    questionsFullscreenBtn.textContent = 'Podstawowy ekran';
+                    updateFullscreenButtonsText('Podstawowy ekran');
                 }).catch(err => {
                     console.error(`Error attempting to enable fullscreen: ${err.message}`);
                 });
             } else {
                 document.exitFullscreen().then(() => {
-                    fullscreenBtn.textContent = 'Pełny ekran';
-                    gameFullscreenBtn.textContent = 'Pełny ekran';
-                    questionsFullscreenBtn.textContent = 'Pełny ekran';
+                    updateFullscreenButtonsText('Pełny ekran');
                 }).catch(err => {
                     console.error(`Error attempting to exit fullscreen: ${err.message}`);
                 });
             }
         }
+        // Nowa funkcja do aktualizacji tekstu wszystkich przycisków fullscreen
+        function updateFullscreenButtonsText(text) {
+            fullscreenBtn.textContent = text;
+            gameFullscreenBtn.textContent = text;
+            questionsFullscreenBtn.textContent = text;
+            instructionsFullscreenBtn.textContent = text;
+        }
+        // Detekcja zmiany fullscreen (w tym ESC)
+        document.addEventListener('fullscreenchange', () => {
+            if (!document.fullscreenElement) {
+                updateFullscreenButtonsText('Pełny ekran');
+            } else {
+                updateFullscreenButtonsText('Podstawowy ekran');
+            }
+        });
         team1Input.addEventListener('input', () => {
             const teamName = team1Input.value || 'Drużyna 1';
             team1Btn.textContent = teamName;
