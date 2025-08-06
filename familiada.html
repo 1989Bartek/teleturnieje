@@ -274,7 +274,7 @@
             text-align: right;
         }
         .answer-text {
-            width: 450px;
+            width: 350px;
             text-align: left;
             overflow: hidden;
             white-space: nowrap;
@@ -341,7 +341,19 @@
             color: #FFD700;
         }
         .round-nav-container {
-            display: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            max-width: 1068px;
+            margin-bottom: 4px;
+        }
+        #game-view .question-nav-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
         }
         .round-nav {
             background-color: #000;
@@ -448,6 +460,12 @@
             max-width: 1068px;
             margin-bottom: 4px;
         }
+        #game-view .question-nav-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
         .nav-wrapper {
             display: contents;
         }
@@ -491,6 +509,9 @@
             width: 50px;
             text-align: right;
         }
+        #questions-view .question-nav-container {
+            margin-top: 20px;
+        }
         #questions-view .question-input {
             width: 1068px !important;
             max-width: 1068px !important;
@@ -507,6 +528,12 @@
             overflow-wrap: break-word;
             line-height: 1.5;
             resize: none;
+        }
+        #questions-view .question-form {
+            margin-top: 20px;
+        }
+        #questions-view .questions-controls {
+            margin: 48px auto 4px auto;
         }
         .answer-counter {
             display: flex;
@@ -691,12 +718,6 @@
             max-width: 1200px;
             flex-direction: column;
             align-items: center;
-        }
-        #questions-view .question-nav-container {
-            margin-bottom: 20px;
-        }
-        #questions-view .question-input {
-            margin-bottom: 20px;
         }
         .settings-bottom-buttons {
             display: flex;
@@ -912,10 +933,8 @@
         </div>
         <div class="question-nav-container">
             <button id="prev-round-btn" class="round-nav"><span>Poprzednia runda</span></button>
-            <div class="nav-wrapper">
-                <button id="next-round-btn" class="round-nav"><span>Następna runda</span></button>
-            </div>
             <div class="question-box">Pytanie nr 1</div>
+            <button id="next-round-btn" class="round-nav"><span>Następna runda</span></button>
         </div>
         <div class="answer-wrapper">
             <button id="start-btn">Rozpocznij</button>
@@ -1071,13 +1090,17 @@
             button.addEventListener('click', () => {
                 if (!document.fullscreenElement) {
                     document.documentElement.requestFullscreen().then(() => {
-                        button.textContent = 'Podstawowy ekran';
+                        document.querySelectorAll('#fullscreen-btn').forEach(btn => {
+                            btn.textContent = 'Podstawowy ekran';
+                        });
                     }).catch(err => {
                         console.error('Error entering fullscreen:', err);
                     });
                 } else {
                     document.exitFullscreen().then(() => {
-                        button.textContent = 'Pełny ekran';
+                        document.querySelectorAll('#fullscreen-btn').forEach(btn => {
+                            btn.textContent = 'Pełny ekran';
+                        });
                     }).catch(err => {
                         console.error('Error exiting fullscreen:', err);
                     });
