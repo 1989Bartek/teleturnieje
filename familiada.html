@@ -619,7 +619,7 @@
             display: flex;
             flex-direction: column;
             gap: 10px;
-            margin: 90px auto 4px auto;
+            margin: 95px auto 4px auto;
             justify-content: center;
             align-items: center;
             width: 100%;
@@ -668,7 +668,7 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            margin: 80px 0 4px 0;
+            margin: 82px 0 4px 0;
             width: 100%;
             max-width: 1000px;
             justify-content: center;
@@ -830,7 +830,7 @@
             <button id="back-to-settings-btn">Powrót</button>
         </div>
         <div class="bottom-logo">
-            <img src="familiada/logo.png" alt="Logo">
+            <img src="familiada/znak.png" alt="Logo">
             <a href="https://www.muzykamikrofonakcja.pl">WWW.MUZYKAMIKROFONAKCJA.PL</a>
         </div>
     </div>
@@ -1185,8 +1185,8 @@
         }
         function saveCurrentQuestion() {
             const question = questionInput.value;
-            const answers = Array.from(document.querySelectorAll('.answer-input')).slice(0, currentAnswerCount).map( input => input.value);
-            const points = Array.from(document.querySelectorAll('.points-input')).slice(0, currentAnswerCount).map( input => input.value);
+            const answers = Array.from(document.querySelectorAll('.answer-input')).slice(0, currentAnswerCount).map(input => input.value);
+            const points = Array.from(document.querySelectorAll('.points-input')).slice(0, currentAnswerCount).map(input => input.value);
             questionsData[currentQuestionIndex - 1] = { question, answers, points };
         }
     </script>
