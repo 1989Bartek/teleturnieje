@@ -160,13 +160,13 @@
             font-size: 24px;
             text-align: center;
         }
-        #settings-view, #instructions-view, #game-view, #questions-view {
+        #settings-view, #instructions-view, #game-view, #questions-view, #ready-questions-view, #ready-final-view, #custom-final-view {
             width: 100%;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
-        #instructions-view, #game-view, #questions-view {
+        #instructions-view, #game-view, #questions-view, #ready-questions-view, #ready-final-view, #custom-final-view {
             display: none;
         }
         .instructions-text {
@@ -188,9 +188,11 @@
         .instructions-text .arrow-buttons {
             position: absolute;
             bottom: 20px;
-            right: 20px;
+            width: 100%;
             display: flex;
-            gap: 10px;
+            justify-content: space-between;
+            padding: 0 20px;
+            box-sizing: border-box;
         }
         .instructions-text .arrow-button {
             background-color: #000;
@@ -202,7 +204,7 @@
             border-radius: 8px;
             box-shadow: 0 0 10px #FFD700;
             cursor: pointer;
-            width: 52px;
+            width: 13px;
             height: 52px;
             display: flex;
             align-items: center;
@@ -727,7 +729,7 @@
             <div class="left">
                 <p>Wariant gry:</p>
                 <div class="vertical-buttons">
-                    <button class="game-variant">Gotowe pytania</button>
+                    <button class="game-variant" id="ready-questions-btn">Gotowe pytania</button>
                     <button class="game-variant" id="custom-questions-btn">Własne pytania</button>
                 </div>
             </div>
@@ -741,8 +743,8 @@
             <div class="new-right">
                 <p>Wariant finału:</p>
                 <div class="vertical-buttons">
-                    <button class="final-variant">Gotowy finał</button>
-                    <button class="final-variant">Własny finał</button>
+                    <button class="final-variant" id="ready-final-btn">Gotowy finał</button>
+                    <button class="final-variant" id="custom-final-btn">Własny finał</button>
                 </div>
             </div>
             <div class="new-col">
@@ -776,10 +778,6 @@
                 </div>
             </div>
         </div>
-        <div class="settings-bottom-buttons">
-            <button id="fullscreen-btn">Pełny ekran</button>
-            <button id="next-btn" style="min-width: 280px;">Dalej</button>
-        </div>
         <div class="bottom-logo">
             <img src="familiada/logo.png" alt="Logo">
             <a href="https://www.muzykamikrofonakcja.pl">WWW.MUZYKAMIKROFONAKCJA.PL</a>
@@ -790,6 +788,7 @@
         <div id="instructions-page-1" class="instructions-text">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur? At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.
             <div class="arrow-buttons">
+                <span></span>
                 <button id="next-page-1" class="arrow-button">▶</button>
             </div>
         </div>
@@ -804,12 +803,30 @@
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur? At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.
             <div class="arrow-buttons">
                 <button id="prev-page-3" class="arrow-button">◀</button>
+                <span></span>
             </div>
         </div>
-        <div class="settings-bottom-buttons">
-            <button id="instructions-fullscreen-btn">Pełny ekran</button>
-            <button id="back-btn" style="min-width: 280px;">Powrót</button>
+        <div class="bottom-logo">
+            <img src="familiada/logo.png" alt="Logo">
+            <a href="https://www.muzykamikrofonakcja.pl">WWW.MUZYKAMIKROFONAKCJA.PL</a>
         </div>
+    </div>
+    <div id="ready-questions-view">
+        <h1>Familiada</h1>
+        <div class="bottom-logo">
+            <img src="familiada/logo.png" alt="Logo">
+            <a href="https://www.muzykamikrofonakcja.pl">WWW.MUZYKAMIKROFONAKCJA.PL</a>
+        </div>
+    </div>
+    <div id="ready-final-view">
+        <h1>Familiada</h1>
+        <div class="bottom-logo">
+            <img src="familiada/logo.png" alt="Logo">
+            <a href="https://www.muzykamikrofonakcja.pl">WWW.MUZYKAMIKROFONAKCJA.PL</a>
+        </div>
+    </div>
+    <div id="custom-final-view">
+        <h1>Familiada</h1>
         <div class="bottom-logo">
             <img src="familiada/logo.png" alt="Logo">
             <a href="https://www.muzykamikrofonakcja.pl">WWW.MUZYKAMIKROFONAKCJA.PL</a>
@@ -868,8 +885,6 @@
             <button id="answers-btn">Odpowiedzi</button>
         </div>
         <div class="game-controls">
-            <button id="game-fullscreen-btn">Pełny ekran</button>
-            <button id="back-to-settings-btn">Powrót</button>
         </div>
         <div class="bottom-logo">
             <img src="familiada/logo.png" alt="Logo">
@@ -945,8 +960,6 @@
                     <button id="next-question-btn">Dalej</button>
                 </div>
                 <div class="bottom-row">
-                    <button id="questions-fullscreen-btn">Pełny ekran</button>
-                    <button id="questions-back-btn">Powrót</button>
                 </div>
             </div>
         </div>
@@ -956,29 +969,29 @@
         </div>
     </div>
     <script>
-        const fullscreenBtn = document.getElementById('fullscreen-btn');
         const team1Input = document.getElementById('team1-input');
         const team2Input = document.getElementById('team2-input');
         const team1Btn = document.getElementById('team1-btn');
         const team2Btn = document.getElementById('team2-btn');
         const instructionsBtn = document.getElementById('instructions-btn');
-        const backBtn = document.getElementById('back-btn');
-        const nextBtn = document.getElementById('next-btn');
-        const backToSettingsBtn = document.getElementById('back-to-settings-btn');
         const settingsView = document.getElementById('settings-view');
         const instructionsView = document.getElementById('instructions-view');
         const gameView = document.getElementById('game-view');
         const questionsView = document.getElementById('questions-view');
+        const readyQuestionsView = document.getElementById('ready-questions-view');
+        const readyFinalView = document.getElementById('ready-final-view');
+        const customFinalView = document.getElementById('custom-final-view');
         const team1Name = document.getElementById('team1-name');
         const team2Name = document.getElementById('team2-name');
         const startBtn = document.getElementById('start-btn');
-        const gameFullscreenBtn = document.getElementById('game-fullscreen-btn');
-        const questionsFullscreenBtn = document.getElementById('questions-fullscreen-btn');
         const submitAnswerBtn = document.getElementById('submit-answer-btn');
         const answerInput = document.getElementById('answer-input');
         const gameBoardQuestion = document.querySelector('.game-board-question');
         const gameBoardAnswers = document.querySelector('.game-board-answers');
         const customQuestionsBtn = document.getElementById('custom-questions-btn');
+        const readyQuestionsBtn = document.getElementById('ready-questions-btn');
+        const readyFinalBtn = document.getElementById('ready-final-btn');
+        const customFinalBtn = document.getElementById('custom-final-btn');
         const prevRoundsBtn = document.getElementById('prev-rounds-btn');
         const nextRoundsBtn = document.getElementById('next-rounds-btn');
         const roundsDisplay = document.getElementById('rounds-display');
@@ -987,10 +1000,8 @@
         const answersDisplay = document.getElementById('answers-display');
         const questionNumber = document.getElementById('question-number');
         const questionInput = document.getElementById('question-input');
-        const questionsBackBtn = document.getElementById('questions-back-btn');
         const prevQuestionBtn = document.getElementById('prev-question-btn');
         const nextQuestionBtn = document.getElementById('next-question-btn');
-        const instructionsFullscreenBtn = document.getElementById('instructions-fullscreen-btn');
         const nextPage1 = document.getElementById('next-page-1');
         const prevPage2 = document.getElementById('prev-page-2');
         const nextPage2 = document.getElementById('next-page-2');
@@ -1005,38 +1016,6 @@
         let questionsData = [];
         let isCustomQuestionsActive = false;
         let roundsLocked = false;
-        fullscreenBtn.addEventListener('click', toggleFullscreen);
-        gameFullscreenBtn.addEventListener('click', toggleFullscreen);
-        questionsFullscreenBtn.addEventListener('click', toggleFullscreen);
-        instructionsFullscreenBtn.addEventListener('click', toggleFullscreen);
-        function toggleFullscreen() {
-            if (!document.fullscreenElement) {
-                document.documentElement.requestFullscreen().then(() => {
-                    updateFullscreenButtonsText('Podstawowy ekran');
-                }).catch(err => {
-                    console.error(`Error attempting to enable fullscreen: ${err.message}`);
-                });
-            } else {
-                document.exitFullscreen().then(() => {
-                    updateFullscreenButtonsText('Pełny ekran');
-                }).catch(err => {
-                    console.error(`Error attempting to exit fullscreen: ${err.message}`);
-                });
-            }
-        }
-        function updateFullscreenButtonsText(text) {
-            fullscreenBtn.textContent = text;
-            gameFullscreenBtn.textContent = text;
-            questionsFullscreenBtn.textContent = text;
-            instructionsFullscreenBtn.textContent = text;
-        }
-        document.addEventListener('fullscreenchange', () => {
-            if (!document.fullscreenElement) {
-                updateFullscreenButtonsText('Pełny ekran');
-            } else {
-                updateFullscreenButtonsText('Podstawowy ekran');
-            }
-        });
         team1Input.addEventListener('input', () => {
             const teamName = team1Input.value || 'Drużyna 1';
             team1Btn.textContent = teamName;
@@ -1055,55 +1034,25 @@
             instructionsPage3.style.display = 'none';
             window.scrollTo(0, 0);
         });
-        backBtn.addEventListener('click', () => {
-            instructionsView.style.display = 'none';
-            settingsView.style.display = 'flex';
-            instructionsPage1.style.display = 'block';
-            instructionsPage2.style.display = 'none';
-            instructionsPage3.style.display = 'none';
+        readyQuestionsBtn.addEventListener('click', () => {
+            settingsView.style.display = 'none';
+            readyQuestionsView.style.display = 'flex';
             window.scrollTo(0, 0);
         });
-        nextPage1.addEventListener('click', () => {
-            instructionsPage1.style.display = 'none';
-            instructionsPage2.style.display = 'block';
-            instructionsPage3.style.display = 'none';
+        readyFinalBtn.addEventListener('click', () => {
+            settingsView.style.display = 'none';
+            readyFinalView.style.display = 'flex';
             window.scrollTo(0, 0);
         });
-        prevPage2.addEventListener('click', () => {
-            instructionsPage1.style.display = 'block';
-            instructionsPage2.style.display = 'none';
-            instructionsPage3.style.display = 'none';
-            window.scrollTo(0, 0);
-        });
-        nextPage2.addEventListener('click', () => {
-            instructionsPage1.style.display = 'none';
-            instructionsPage2.style.display = 'none';
-            instructionsPage3.style.display = 'block';
-            window.scrollTo(0, 0);
-        });
-        prevPage3.addEventListener('click', () => {
-            instructionsPage1.style.display = 'none';
-            instructionsPage2.style.display = 'block';
-            instructionsPage3.style.display = 'none';
+        customFinalBtn.addEventListener('click', () => {
+            settingsView.style.display = 'none';
+            customFinalView.style.display = 'flex';
             window.scrollTo(0, 0);
         });
         customQuestionsBtn.addEventListener('click', () => {
             settingsView.style.display = 'none';
             questionsView.style.display = 'flex';
             updateQuestionView();
-            window.scrollTo(0, 0);
-        });
-        nextBtn.addEventListener('click', () => {
-            settingsView.style.display = 'none';
-            gameView.style.display = 'flex';
-            window.scrollTo(0, 0);
-        });
-        backToSettingsBtn.addEventListener('click', () => {
-            gameView.style.display = 'none';
-            settingsView.style.display = 'flex';
-            gameBoardQuestion.style.display = 'none';
-            gameBoardAnswers.style.display = 'none';
-            clearInterval(timerInterval);
             window.scrollTo(0, 0);
         });
         startBtn.addEventListener('click', () => {
@@ -1191,16 +1140,6 @@
                 nextAnswersBtn.classList.toggle('disabled', currentAnswerCount === 8);
             }
         });
-        questionsBackBtn.addEventListener('click', () => {
-            questionsView.style.display = 'none';
-            settingsView.style.display = 'flex';
-            questionsData = [];
-            currentQuestionIndex = 1;
-            currentRoundCount = 3;
-            currentAnswerCount = 4;
-            updateQuestionView();
-            window.scrollTo(0, 0);
-        });
         prevQuestionBtn.addEventListener('click', () => {
             if (currentQuestionIndex > 1) {
                 saveCurrentQuestion();
@@ -1233,6 +1172,30 @@
                 });
                 window.scrollTo(0, 0);
             }
+        });
+        nextPage1.addEventListener('click', () => {
+            instructionsPage1.style.display = 'none';
+            instructionsPage2.style.display = 'block';
+            instructionsPage3.style.display = 'none';
+            window.scrollTo(0, 0);
+        });
+        prevPage2.addEventListener('click', () => {
+            instructionsPage1.style.display = 'block';
+            instructionsPage2.style.display = 'none';
+            instructionsPage3.style.display = 'none';
+            window.scrollTo(0, 0);
+        });
+        nextPage2.addEventListener('click', () => {
+            instructionsPage1.style.display = 'none';
+            instructionsPage2.style.display = 'none';
+            instructionsPage3.style.display = 'block';
+            window.scrollTo(0, 0);
+        });
+        prevPage3.addEventListener('click', () => {
+            instructionsPage1.style.display = 'none';
+            instructionsPage2.style.display = 'block';
+            instructionsPage3.style.display = 'none';
+            window.scrollTo(0, 0);
         });
         function updateQuestionView() {
             roundsDisplay.textContent = `Liczba rund: ${currentRoundCount}`;
