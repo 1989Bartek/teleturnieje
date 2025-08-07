@@ -763,19 +763,20 @@
             max-width: 1200px;
         }
         #ready-questions-view .question-frame {
-            width: calc((87.75px * 5) + (10px * 4) - 40px - 8px);
+            width: calc((87.75px * 5) + (10px * 4));
             max-width: none;
             margin: 0;
             padding: 20px;
             background-color: #fff;
             border: 4px solid #fff;
             border-radius: 8px;
-            min-height: 300px;
-            height: 300px;
+            min-height: 234px;
+            height: 234px;
             position: relative;
             overflow-wrap: break-word;
             color: #000;
             align-self: flex-start;
+            margin-left: calc((1000px - ((87.75px * 10) + (10px * 9))) / 2);
         }
         #ready-questions-view .questions-top {
             display: flex;
@@ -799,6 +800,33 @@
             gap: 10px;
             margin-top: 10px;
             justify-content: start;
+        }
+        #ready-questions-view .clear-button-container {
+            display: flex;
+            justify-content: flex-start;
+            margin-top: 10px;
+        }
+        #ready-questions-view .clear-button-container button {
+            background-color: #000;
+            border: 4px solid #fff;
+            color: #FFFF33;
+            font-family: 'Courier New', monospace;
+            font-size: 20px;
+            padding: 12px 36px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px #FFD700;
+            cursor: pointer;
+            min-width: 280px;
+            height: 52px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
+        }
+        #ready-questions-view .clear-button-container button:hover {
+            background-color: #111;
+            border-color: #FFEA00;
+            box-shadow: 0 0 20px #FFEA00;
         }
         #ready-questions-view .question-grid {
             display: grid;
@@ -1003,6 +1031,9 @@
             <div class="selected-questions">
                 <p>Wybierz min. 3 pytania:</p>
                 <div class="selected-grid"></div>
+                <div class="clear-button-container">
+                    <button id="clear-btn">Wyczyść</button>
+                </div>
             </div>
         </div>
         <div class="question-grid">
@@ -1541,6 +1572,7 @@
         const questionFrame = document.querySelector('#ready-questions-view .question-frame');
         const selectedGrid = document.querySelector('.selected-grid');
         const readyBackBtn = document.querySelector('#ready-questions-view #back-btn');
+        const clearBtn = document.getElementById('clear-btn');
         let selectedQuestions = [];
         const questions = new Array(51);
         questions[1] = {
@@ -1633,6 +1665,15 @@
                 readyBackBtn.textContent = 'Powrót';
             }
         }
+        clearBtn.addEventListener('click', () => {
+            selectedQuestions = [];
+            questionGrid.querySelectorAll('button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            updateSelectedGrid();
+            questionFrame.innerHTML = '';
+            updateBackButton();
+        });
     </script>
 </body>
 </html>
