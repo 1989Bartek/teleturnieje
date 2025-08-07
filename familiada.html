@@ -763,8 +763,9 @@
             max-width: 1200px;
         }
         #ready-questions-view .question-frame {
-            width: 468px; /* Adjusted to fit between buttons 1-5, 11-15, etc. */
-            margin: 20px 0;
+            width: calc((87.75px * 5) + (10px * 4) - 40px - 8px);
+            max-width: none;
+            margin: 0;
             padding: 20px;
             background-color: #fff;
             border: 4px solid #fff;
@@ -772,38 +773,30 @@
             min-height: 166.67px;
             position: relative;
             overflow-wrap: break-word;
-            box-sizing: border-box;
             color: #000;
-            font-family: 'Courier New', monospace;
-            font-size: 14px; /* Adjusted font size to fit content */
-            line-height: 1.4;
-            text-align: left;
+        }
+        #ready-questions-view .questions-top {
             display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
+            align-items: flex-start;
+            gap: 10px;
+            width: 90%;
+            max-width: 1000px;
+            margin: 20px auto;
+            justify-content: center;
         }
-        #ready-questions-view .question-frame .question-text {
-            font-size: 16px; /* Larger font for question */
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-        #ready-questions-view .question-frame .answer-text {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        #ready-questions-view .question-frame .answer-number {
-            flex: 0 0 30px;
-            text-align: right;
-            margin-right: 10px;
-        }
-        #ready-questions-view .question-frame .answer-content {
-            flex: 1;
+        #ready-questions-view .selected-questions p {
+            margin: 0;
+            font-size: 20px;
+            color: white;
             text-align: left;
         }
-        #ready-questions-view .question-frame .answer-points {
-            flex: 0 0 60px;
-            text-align: right;
+        #ready-questions-view .selected-grid {
+            display: grid;
+            grid-template-columns: repeat(5, auto);
+            grid-template-rows: repeat(2, auto);
+            gap: 10px;
+            margin-top: 10px;
+            justify-content: start;
         }
         #ready-questions-view .question-grid {
             display: grid;
@@ -825,7 +818,7 @@
             border-radius: 4px;
             box-shadow: 0 0 5px #FFD700;
             cursor: pointer;
-            width: 87.75px;
+            width: auto;
             min-width: 87.75px;
             height: 52px;
             display: flex;
@@ -833,37 +826,7 @@
             justify-content: center;
             box-sizing: border-box;
         }
-        #ready-questions-view .question-grid button:hover {
-            background-color: #111;
-            border-color: #FFEA00;
-            box-shadow: 0 0 10px #FFEA00;
-        }
-        #ready-questions-view .question-grid button.selected {
-            background-color: #002266;
-            border-color: #FFEA00;
-            box-shadow: 0 0 10px #FFEA00;
-        }
-        #ready-questions-view .selected-questions-container {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            margin-left: 498px; /* Aligns to the right of the question frame */
-            margin-top: 20px;
-        }
-        #ready-questions-view .selected-questions-text {
-            color: white;
-            font-size: 18px;
-            margin-bottom: 10px;
-            align-self: flex-start;
-        }
-        #ready-questions-view .selected-questions-grid {
-            display: grid;
-            grid-template-columns: repeat(5, 87.75px);
-            grid-template-rows: repeat(2, 52px);
-            gap: 10px;
-            justify-content: flex-start;
-        }
-        #ready-questions-view .selected-questions-grid button {
+        #ready-questions-view .selected-grid button {
             background-color: #000;
             border: 1px solid #fff;
             color: #FFFF33;
@@ -873,7 +836,7 @@
             border-radius: 4px;
             box-shadow: 0 0 5px #FFD700;
             cursor: pointer;
-            width: 87.75px;
+            width: auto;
             min-width: 87.75px;
             height: 52px;
             display: flex;
@@ -881,7 +844,8 @@
             justify-content: center;
             box-sizing: border-box;
         }
-        #ready-questions-view .selected-questions-grid button:hover {
+        #ready-questions-view .question-grid button:hover,
+        #ready-questions-view .selected-grid button:hover {
             background-color: #111;
             border-color: #FFEA00;
             box-shadow: 0 0 10px #FFEA00;
@@ -1025,10 +989,12 @@
     </div>
     <div id="ready-questions-view">
         <h1>Familiada</h1>
-        <div class="question-frame"></div>
-        <div class="selected-questions-container">
-            <div class="selected-questions-text">Wybierz min. 3 pytania:</div>
-            <div class="selected-questions-grid"></div>
+        <div class="questions-top">
+            <div class="question-frame"></div>
+            <div class="selected-questions">
+                <p>Wybierz min. 3 pytania:</p>
+                <div class="selected-grid"></div>
+            </div>
         </div>
         <div class="question-grid">
             <button>1</button>
@@ -1561,67 +1527,103 @@
             const points = Array.from(document.querySelectorAll('.points-input')).slice(0, currentAnswerCount).map(input => input.value);
             questionsData[currentQuestionIndex - 1] = { question, answers, points };
         }
-        // Ready Questions View Functionality
+        // Ready questions view logic
+        const questionGrid = document.querySelector('.question-grid');
         const questionFrame = document.querySelector('#ready-questions-view .question-frame');
-        const selectedQuestionsGrid = document.querySelector('#ready-questions-view .selected-questions-grid');
-        const backBtn = document.querySelector('#ready-questions-view #back-btn');
+        const selectedGrid = document.querySelector('.selected-grid');
+        const readyBackBtn = document.querySelector('#ready-questions-view #back-btn');
         let selectedQuestions = [];
-        const questionData = {
-            '1': {
-                question: 'Czego się boimy?',
-                answers: [
-                    { number: 1, text: 'Pająków', points: '35 pkt.' },
-                    { number: 2, text: 'Ciemności', points: '28 pkt.' },
-                    { number: 3, text: 'Węży', points: '24 pkt.' },
-                    { number: 4, text: 'Małych pomieszczeń', points: '21 pkt.' },
-                    { number: 5, text: 'Wysokości', points: '16 pkt.' },
-                    { number: 6, text: 'Myszy', points: '11 pkt.' },
-                    { number: 7, text: 'Klaunów', points: '6 pkt.' },
-                    { number: 8, text: '', points: '' }
-                ]
-            }
-            // Add more questions for buttons 2-50 as needed
+        const questions = new Array(51);
+        questions[1] = {
+            question: "Czego się boimy?",
+            answers: ["Pająków", "Ciemności", "Węży", "Małych pomieszczeń", "Wysokości", "Myszy", "Klaunów"],
+            points: [35, 28, 24, 21, 16, 11, 6]
         };
-        function displayQuestion(questionNumber) {
-            const data = questionData[questionNumber] || { question: '', answers: [] };
-            questionFrame.innerHTML = `
-                <div class="question-text">${data.question}</div>
-                ${data.answers.map(answer => `
-                    <div class="answer-text" style="${answer.text ? '' : 'visibility: hidden; height: 20px;'}">
-                        <span class="answer-number">${answer.number}</span>
-                        <span class="answer-content">${answer.text}</span>
-                        <span class="answer-points">${answer.points}</span>
-                    </div>
-                `).join('')}
-            `;
+        for (let i = 2; i <= 50; i++) {
+            questions[i] = {
+                question: `Pytanie ${i}?`,
+                answers: ["Odpowiedź 1", "Odpowiedź 2", "Odpowiedź 3", "Odpowiedź 4", "Odpowiedź 5", "Odpowiedź 6", "Odpowiedź 7", "Odpowiedź 8"],
+                points: [30, 25, 20, 15, 10, 8, 5, 3]
+            };
         }
-        function updateSelectedQuestionsGrid() {
-            selectedQuestionsGrid.innerHTML = '';
-            selectedQuestions.forEach(number => {
-                const button = document.createElement('button');
-                button.textContent = number;
-                button.dataset.number = number;
-                button.addEventListener('click', () => {
-                    displayQuestion(number);
-                });
-                selectedQuestionsGrid.appendChild(button);
-            });
-            backBtn.textContent = selectedQuestions.length >= 3 ? 'Zatwierdź' : 'Powrót';
-        }
-        document.querySelectorAll('#ready-questions-view .question-grid button').forEach(button => {
-            button.addEventListener('click', () => {
-                const number = button.textContent;
-                if (selectedQuestions.includes(number)) {
-                    selectedQuestions = selectedQuestions.filter(n => n !== number);
-                    button.classList.remove('selected');
-                } else if (selectedQuestions.length < 10) {
-                    selectedQuestions.push(number);
-                    button.classList.add('selected');
+        function displayQuestion(num) {
+            const q = questions[num];
+            if (!q) return;
+            questionFrame.innerHTML = '';
+            const qDiv = document.createElement('div');
+            qDiv.style.fontSize = '24px';
+            qDiv.style.fontWeight = 'bold';
+            qDiv.style.marginBottom = '10px';
+            qDiv.textContent = q.question;
+            questionFrame.appendChild(qDiv);
+            const maxAnswers = 8;
+            for (let i = 0; i < maxAnswers; i++) {
+                const ans = (i < q.answers.length) ? q.answers[i] : '';
+                const pts = (i < q.points.length) ? q.points[i] : '';
+                if (ans || pts) {
+                    const line = document.createElement('div');
+                    line.style.display = 'flex';
+                    line.style.alignItems = 'center';
+                    line.style.fontSize = '18px';
+                    const numSpan = document.createElement('span');
+                    numSpan.style.width = '30px';
+                    numSpan.textContent = `${i + 1} `;
+                    const ansSpan = document.createElement('span');
+                    ansSpan.style.flex = '1';
+                    ansSpan.textContent = ans;
+                    const ptsSpan = document.createElement('span');
+                    ptsSpan.style.width = '80px';
+                    ptsSpan.style.textAlign = 'right';
+                    ptsSpan.textContent = pts ? `${pts} pkt.` : '';
+                    line.appendChild(numSpan);
+                    line.appendChild(ansSpan);
+                    line.appendChild(ptsSpan);
+                    questionFrame.appendChild(line);
                 }
-                updateSelectedQuestionsGrid();
-                displayQuestion(number);
+            }
+        }
+        questionGrid.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const num = parseInt(btn.textContent);
+                const index = selectedQuestions.indexOf(num);
+                if (index === -1) {
+                    if (selectedQuestions.length < 10) {
+                        selectedQuestions.push(num);
+                        btn.classList.add('active');
+                        updateSelectedGrid();
+                        displayQuestion(num);
+                    }
+                } else {
+                    selectedQuestions.splice(index, 1);
+                    btn.classList.remove('active');
+                    updateSelectedGrid();
+                    if (selectedQuestions.length > 0) {
+                        displayQuestion(selectedQuestions[selectedQuestions.length - 1]);
+                    } else {
+                        questionFrame.innerHTML = '';
+                    }
+                }
+                updateBackButton();
             });
         });
+        function updateSelectedGrid() {
+            selectedGrid.innerHTML = '';
+            selectedQuestions.forEach(num => {
+                const clone = document.createElement('button');
+                clone.textContent = num;
+                clone.addEventListener('click', () => {
+                    displayQuestion(num);
+                });
+                selectedGrid.appendChild(clone);
+            });
+        }
+        function updateBackButton() {
+            if (selectedQuestions.length >= 3) {
+                readyBackBtn.textContent = 'Zatwierdź';
+            } else {
+                readyBackBtn.textContent = 'Powrót';
+            }
+        }
     </script>
 </body>
 </html>
