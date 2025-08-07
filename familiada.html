@@ -245,8 +245,8 @@
             text-align: left;
             width: 100%;
             max-width: 600px;
-            align-self: center;
-            margin-left: 50px;
+            align-self: flex-start; /* Wyrównanie do lewej krawędzi */
+            margin-left: 20px; /* Mniejszy margines dla wyrównania z liczbami porządkowymi */
             display: none;
         }
         .game-board-answers {
@@ -255,7 +255,8 @@
             display: flex;
             flex-direction: column;
             gap: 10px;
-            align-self: center;
+            align-self: flex-start; /* Wyrównanie do lewej krawędzi */
+            margin-left: 20px; /* Taki sam margines jak w .game-board-question */
             display: none;
         }
         .answer-row {
@@ -266,10 +267,10 @@
             color: #FFFF33;
             font-size: 24px;
             width: 100%;
-            gap: 10px;
+            gap: 5px; /* Zmniejszony odstęp między kolumnami */
         }
         #game-view .answer-row {
-            gap: 10px;
+            gap: 5px;
         }
         .answer-number {
             flex: 0 0 10%;
@@ -282,12 +283,12 @@
             overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;
-            max-width: 70%;
+            max-width: 75%; /* Zwiększono, aby punkty były bliżej kropek */
         }
         .answer-points {
-            flex: 0 0 15%;
+            flex: 0 0 10%; /* Zmniejszono szerokość, aby punkty były bliżej kropek */
             text-align: right;
-            min-width: 40px;
+            min-width: 30px; /* Zmniejszona minimalna szerokość */
         }
         .sum-row {
             font-family: 'Courier New', monospace;
@@ -296,7 +297,8 @@
             text-align: right;
             margin-top: 10px;
             width: 100%;
-            max-width: 650px;
+            max-width: 600px; /* Dopasowano do szerokości .game-board-answers */
+            margin-left: 20px; /* Wyrównanie z .game-board-answers */
         }
         .marks-container {
             position: absolute;
@@ -810,19 +812,26 @@
             .game-board-answers {
                 max-width: 100%;
                 padding: 0 10px;
+                margin-left: 10px; /* Mniejszy margines dla mniejszych ekranów */
+            }
+            .game-board-question {
+                margin-left: 10px; /* Dopasowanie do .game-board-answers */
+            }
+            .sum-row {
+                margin-left: 10px; /* Dopasowanie do .game-board-answers */
             }
             .answer-row {
                 font-size: 18px;
-                gap: 5px;
+                gap: 3px; /* Jeszcze mniejszy odstęp dla mniejszych ekranów */
             }
             .answer-number {
                 min-width: 25px;
             }
             .answer-text {
-                max-width: 65%;
+                max-width: 70%; /* Nieco mniejsza szerokość dla lepszego dopasowania */
             }
             .answer-points {
-                min-width: 35px;
+                min-width: 25px;
             }
         }
     </style>
