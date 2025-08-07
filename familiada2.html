@@ -778,13 +778,16 @@
             align-self: flex-start;
             display: flex;
             flex-direction: column;
+            justify-content: center;
             text-align: left;
         }
+        #ready-questions-view .question-frame.active {
+            border: 4px solid #FFEA00;
+            box-shadow: 0 0 20px #FFEA00;
+        }
         #ready-questions-view .question-frame .default-text {
-            font-size: 20px;
+            font-size: 24px;
             text-align: center;
-            align-self: center;
-            width: 100%;
         }
         #ready-questions-view .questions-top {
             display: flex;
@@ -808,7 +811,7 @@
             grid-template-rows: repeat(2, auto);
             gap: 10px;
             margin-top: 10px;
-            justify-content: flex-start;
+            justify-content: center;
             width: calc((87.75px * 5) + (10px * 4));
         }
         #ready-questions-view .clear-button-container {
@@ -819,8 +822,8 @@
             gap: 10px;
             flex-direction: column;
             align-items: center;
-            position: absolute;
-            top: calc(234px - 52px - 10px - 52px);
+            position: relative;
+            top: 62px;
         }
         #ready-questions-view .action-buttons {
             display: flex;
@@ -1642,6 +1645,7 @@
             const btn = questionGrid.querySelector(`button:nth-child(${num})`);
             if (currentQuestionNum === num) {
                 questionFrame.innerHTML = '<div class="default-text">Pytania w grze będą pojawiać się w takiej kolejności, w jakiej zostały wybrane po prawej stronie, o ile w ustawieniach gry nie została zaznaczona opcja losowego wyświetlania.</div>';
+                questionFrame.classList.remove('active');
                 btn.style.borderColor = '#fff';
                 btn.style.boxShadow = '0 0 5px #FFD700';
                 currentQuestionNum = null;
@@ -1650,6 +1654,7 @@
             const q = questions[num];
             if (!q) return;
             questionFrame.innerHTML = '';
+            questionFrame.classList.add('active');
             btn.style.borderColor = '#FFEA00';
             btn.style.boxShadow = '0 0 20px #FFEA00';
             currentQuestionNum = num;
@@ -1658,10 +1663,6 @@
             qDiv.style.fontWeight = 'bold';
             qDiv.style.marginBottom = '10px';
             qDiv.style.textAlign = 'left';
-            qDiv.style.position = 'absolute';
-            qDiv.style.top = '20px';
-            qDiv.style.left = '20px';
-            qDiv.style.right = '20px';
             qDiv.textContent = q.question;
             questionFrame.appendChild(qDiv);
             const maxAnswers = 8;
@@ -1675,7 +1676,6 @@
                     line.style.alignItems = 'center';
                     line.style.fontSize = '18px';
                     line.style.marginBottom = '3px';
-                    line.style.marginTop = i === 0 ? '50px' : '0';
                     const numSpan = document.createElement('span');
                     numSpan.style.width = '30px';
                     numSpan.style.textAlign = 'left';
@@ -1699,8 +1699,7 @@
             totalDiv.style.fontSize = '18px';
             totalDiv.style.marginTop = '5px';
             totalDiv.style.textAlign = 'right';
-            totalDiv.style.fontWeight = 'bold';
-            totalDiv.textContent = `Suma: ${totalPoints} pkt.`;
+            totalDiv.textContent = `Razem: ${totalPoints} pkt.`;
             questionFrame.appendChild(totalDiv);
         }
         questionGrid.querySelectorAll('button').forEach(btn => {
@@ -1732,6 +1731,7 @@
                         updateSelectedGrid();
                         if (currentQuestionNum === num) {
                             questionFrame.innerHTML = '<div class="default-text">Pytania w grze będą pojawiać się w takiej kolejności, w jakiej zostały wybrane po prawej stronie, o ile w ustawieniach gry nie została zaznaczona opcja losowego wyświetlania.</div>';
+                            questionFrame.classList.remove('active');
                             currentQuestionNum = null;
                         }
                         updateConfirmButton();
@@ -1754,12 +1754,13 @@
             });
             updateSelectedGrid();
             questionFrame.innerHTML = '<div class="default-text">Pytania w grze będą pojawiać się w takiej kolejności, w jakiej zostały wybrane po prawej stronie, o ile w ustawieniach gry nie została zaznaczona opcja losowego wyświetlania.</div>';
+            questionFrame.classList.remove('active');
             currentQuestionNum = null;
             updateConfirmButton();
         });
         confirmBtn.addEventListener('click', () => {
             if (selectedQuestions.length >= 3) {
-                questionsData = selectedQuestions
+                questionsData = selectedQuestions.map(num => questions[num]);
                 settingsView.style.display = 'flex';
                 readyQuestionsView.style.display = 'none';
                 readyQuestionsBtn.classList.add('active');
