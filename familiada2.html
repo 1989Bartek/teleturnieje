@@ -786,7 +786,7 @@
             box-shadow: 0 0 20px #FFEA00;
         }
         #ready-questions-view .question-frame .default-text {
-            font-size: 18px;
+            font-size: 24px;
             text-align: center;
         }
         #ready-questions-view .questions-top {
@@ -817,11 +817,13 @@
         #ready-questions-view .clear-button-container {
             display: flex;
             justify-content: center;
-            margin-top: calc(234px - 52px - 52px - 20px);
+            margin-top: 10px;
             width: calc((87.75px * 5) + (10px * 4));
             gap: 10px;
             flex-direction: column;
             align-items: center;
+            position: relative;
+            top: 62px;
         }
         #ready-questions-view .action-buttons {
             display: flex;
@@ -911,18 +913,18 @@
             justify-content: center;
             box-sizing: border-box;
         }
+        #ready-questions-view .question-grid button:hover,
+        #ready-questions-view .selected-grid button:hover {
+            background-color: #111;
+            border-color: #FFEA00;
+            box-shadow: 0 0 10px #FFEA00;
+        }
         #ready-questions-view .question-grid button.active,
         #ready-questions-view .selected-grid button.active {
             background-color: #002266;
             color: #FFFF33;
             border-color: #FFEA00;
             box-shadow: 0 0 20px #FFEA00;
-        }
-        #ready-questions-view .question-grid button:hover:not(.active),
-        #ready-questions-view .selected-grid button:hover:not(.active) {
-            background-color: #111;
-            border-color: #FFEA00;
-            box-shadow: 0 0 10px #FFEA00;
         }
         /* Responsywność dla mniejszych ekranów */
         @media (max-width: 768px) {
@@ -1636,8 +1638,7 @@
             };
         }
         function displayQuestion(num) {
-            const allButtons = questionGrid.querySelectorAll('button');
-            allButtons.forEach(btn => {
+            questionGrid.querySelectorAll('button').forEach(btn => {
                 btn.style.borderColor = '#fff';
                 btn.style.boxShadow = '0 0 5px #FFD700';
             });
@@ -1645,22 +1646,18 @@
             if (currentQuestionNum === num) {
                 questionFrame.innerHTML = '<div class="default-text">Pytania w grze będą pojawiać się w takiej kolejności, w jakiej zostały wybrane po prawej stronie, o ile w ustawieniach gry nie została zaznaczona opcja losowego wyświetlania.</div>';
                 questionFrame.classList.remove('active');
+                btn.style.borderColor = '#fff';
+                btn.style.boxShadow = '0 0 5px #FFD700';
                 currentQuestionNum = null;
-                if (btn) {
-                    btn.style.borderColor = '#fff';
-                    btn.style.boxShadow = '0 0 5px #FFD700';
-                }
                 return;
             }
             const q = questions[num];
             if (!q) return;
             questionFrame.innerHTML = '';
-            questionFrame.classList.remove('active');
+            questionFrame.classList.add('active');
+            btn.style.borderColor = '#FFEA00';
+            btn.style.boxShadow = '0 0 20px #FFEA00';
             currentQuestionNum = num;
-            if (btn) {
-                btn.style.borderColor = '#FFEA00';
-                btn.style.boxShadow = '0 0 10px #FFEA00';
-            }
             const qDiv = document.createElement('div');
             qDiv.style.fontSize = '20px';
             qDiv.style.fontWeight = 'bold';
@@ -1681,12 +1678,11 @@
                     line.style.marginBottom = '3px';
                     const numSpan = document.createElement('span');
                     numSpan.style.width = '30px';
-                    numSpan.style.textAlign = 'right';
-                    numSpan.textContent = `${i + 1} `;
+                    numSpan.style.textAlign = 'left';
+                    numSpan.textContent = `${i + 1}.`;
                     const ansSpan = document.createElement('span');
                     ansSpan.style.flex = '1';
                     ansSpan.style.textAlign = 'left';
-                    ansSpan.style.marginLeft = '5px';
                     ansSpan.textContent = ans;
                     const ptsSpan = document.createElement('span');
                     ptsSpan.style.width = '80px';
@@ -1730,8 +1726,8 @@
                     const index = selectedQuestions.indexOf(num);
                     if (index !== -1) {
                         selectedQuestions.splice(index, 1);
-                        const btn = questionGrid.querySelector(`button:nth-child(${num})
-                                                if (btn) btn.classList.remove('active');
+                        const btn = questionGrid.querySelector(`button:nth-child(${num})`);
+                        if (btn) btn.classList.remove('active');
                         updateSelectedGrid();
                         if (currentQuestionNum === num) {
                             questionFrame.innerHTML = '<div class="default-text">Pytania w grze będą pojawiać się w takiej kolejności, w jakiej zostały wybrane po prawej stronie, o ile w ustawieniach gry nie została zaznaczona opcja losowego wyświetlania.</div>';
@@ -1755,8 +1751,6 @@
             selectedQuestions = [];
             questionGrid.querySelectorAll('button').forEach(btn => {
                 btn.classList.remove('active');
-                btn.style.borderColor = '#fff';
-                btn.style.boxShadow = '0 0 5px #FFD700';
             });
             updateSelectedGrid();
             questionFrame.innerHTML = '<div class="default-text">Pytania w grze będą pojawiać się w takiej kolejności, w jakiej zostały wybrane po prawej stronie, o ile w ustawieniach gry nie została zaznaczona opcja losowego wyświetlania.</div>';
