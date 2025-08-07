@@ -781,10 +781,6 @@
             justify-content: center;
             text-align: left;
         }
-        #ready-questions-view .question-frame.active {
-            border: 4px solid #FFEA00;
-            box-shadow: 0 0 20px #FFEA00;
-        }
         #ready-questions-view .question-frame .default-text {
             font-size: 24px;
             text-align: center;
@@ -1645,7 +1641,6 @@
             const btn = questionGrid.querySelector(`button:nth-child(${num})`);
             if (currentQuestionNum === num) {
                 questionFrame.innerHTML = '<div class="default-text">Pytania w grze będą pojawiać się w takiej kolejności, w jakiej zostały wybrane po prawej stronie, o ile w ustawieniach gry nie została zaznaczona opcja losowego wyświetlania.</div>';
-                questionFrame.classList.remove('active');
                 btn.style.borderColor = '#fff';
                 btn.style.boxShadow = '0 0 5px #FFD700';
                 currentQuestionNum = null;
@@ -1654,7 +1649,6 @@
             const q = questions[num];
             if (!q) return;
             questionFrame.innerHTML = '';
-            questionFrame.classList.add('active');
             btn.style.borderColor = '#FFEA00';
             btn.style.boxShadow = '0 0 20px #FFEA00';
             currentQuestionNum = num;
@@ -1731,7 +1725,6 @@
                         updateSelectedGrid();
                         if (currentQuestionNum === num) {
                             questionFrame.innerHTML = '<div class="default-text">Pytania w grze będą pojawiać się w takiej kolejności, w jakiej zostały wybrane po prawej stronie, o ile w ustawieniach gry nie została zaznaczona opcja losowego wyświetlania.</div>';
-                            questionFrame.classList.remove('active');
                             currentQuestionNum = null;
                         }
                         updateConfirmButton();
@@ -1754,7 +1747,6 @@
             });
             updateSelectedGrid();
             questionFrame.innerHTML = '<div class="default-text">Pytania w grze będą pojawiać się w takiej kolejności, w jakiej zostały wybrane po prawej stronie, o ile w ustawieniach gry nie została zaznaczona opcja losowego wyświetlania.</div>';
-            questionFrame.classList.remove('active');
             currentQuestionNum = null;
             updateConfirmButton();
         });
