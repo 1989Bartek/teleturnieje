@@ -807,6 +807,7 @@
             justify-content: center;
             margin-top: 10px;
             width: calc((87.75px * 5) + (10px * 4));
+            gap: 10px;
         }
         #ready-questions-view .clear-button-container button {
             background-color: #000;
@@ -818,7 +819,7 @@
             border-radius: 8px;
             box-shadow: 0 0 10px #FFD700;
             cursor: pointer;
-            min-width: 280px;
+            min-width: calc(((87.75px * 5) + (10px * 4) - 10px) / 2);
             height: 52px;
             display: flex;
             align-items: center;
@@ -836,7 +837,7 @@
             grid-template-rows: repeat(5, auto);
             gap: 10px;
             justify-content: center;
-            margin: 20px 0;
+            margin: 10px 0;
             width: 90%;
             max-width: 1000px;
         }
@@ -1034,6 +1035,7 @@
                 <p>Wybierz min. 3 pytania:</p>
                 <div class="selected-grid"></div>
                 <div class="clear-button-container">
+                    <button id="add-btn">Dodaj</button>
                     <button id="clear-btn">Wyczyść</button>
                 </div>
             </div>
@@ -1575,7 +1577,9 @@
         const selectedGrid = document.querySelector('.selected-grid');
         const readyBackBtn = document.querySelector('#ready-questions-view #back-btn');
         const clearBtn = document.getElementById('clear-btn');
+        const addBtn = document.getElementById('add-btn');
         let selectedQuestions = [];
+        let currentQuestionNum = null;
         const questions = new Array(51);
         questions[1] = {
             question: "Czego się boimy?",
@@ -1628,26 +1632,18 @@
         questionGrid.querySelectorAll('button').forEach(btn => {
             btn.addEventListener('click', () => {
                 const num = parseInt(btn.textContent);
-                const index = selectedQuestions.indexOf(num);
-                if (index === -1) {
-                    if (selectedQuestions.length < 10) {
-                        selectedQuestions.push(num);
-                        btn.classList.add('active');
-                        updateSelectedGrid();
-                        displayQuestion(num);
-                    }
-                } else {
-                    selectedQuestions.splice(index, 1);
-                    btn.classList.remove('active');
-                    updateSelectedGrid();
-                    if (selectedQuestions.length > 0) {
-                        displayQuestion(selectedQuestions[selectedQuestions.length - 1]);
-                    } else {
-                        questionFrame.innerHTML = '';
-                    }
-                }
-                updateBackButton();
+                currentQuestionNum = num;
+                displayQuestion(num);
             });
+        });
+        addBtn.addEventListener('click', () => {
+            if (currentQuestionNum && !selectedQuestions.includes(currentQuestionNum) && selectedQuestions.length < 10) {
+                selectedQuestions.push(currentQuestionNum);
+                const btn = questionGrid.querySelector(`button:nth-child(${currentQuestionNum})`);
+                if (btn) btn.classList.add('active');
+                updateSelectedGrid();
+                updateBackButton();
+            }
         });
         function updateSelectedGrid() {
             selectedGrid.innerHTML = '';
@@ -1655,7 +1651,19 @@
                 const clone = document.createElement('button');
                 clone.textContent = num;
                 clone.addEventListener('click', () => {
-                    displayQuestion(num);
+                    const index = selectedQuestions.indexOf(num);
+                    if (index !== -1) {
+                        selectedQuestions.splice(index, 1);
+                        const btn = questionGrid.querySelector(`button:nth-child(${num})`);
+                        if (btn) btn.classList.remove('active');
+                        updateSelectedGrid();
+                        if (selectedQuestions.length > 0) {
+                            displayQuestion(selectedQuestions[selectedQuestions.length - 1]);
+                        } else {
+                            questionFrame.innerHTML = '';
+                        }
+                        updateBackButton();
+                    }
                 });
                 selectedGrid.appendChild(clone);
             });
@@ -1674,6 +1682,7 @@
             });
             updateSelectedGrid();
             questionFrame.innerHTML = '';
+            currentQuestionNum = null;
             updateBackButton();
         });
     </script>
