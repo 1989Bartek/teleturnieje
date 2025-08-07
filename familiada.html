@@ -245,8 +245,8 @@
             text-align: left;
             width: 100%;
             max-width: 600px;
-            align-self: flex-start;
-            margin-left: 70px;
+            align-self: center;
+            margin-left: 50px;
             display: none;
         }
         .game-board-answers {
@@ -255,8 +255,7 @@
             display: flex;
             flex-direction: column;
             gap: 10px;
-            align-self: flex-start;
-            margin-left: 70px;
+            align-self: center;
             display: none;
         }
         .answer-row {
@@ -267,28 +266,26 @@
             color: #FFFF33;
             font-size: 24px;
             width: 100%;
-            gap: 5px;
+            gap: 10px;
         }
         #game-view .answer-row {
-            gap: 5px;
-        }
-        .answer-left {
-            display: flex;
-            align-items: center;
             gap: 10px;
         }
         .answer-number {
+            flex: 0 0 10%;
             text-align: right;
             min-width: 30px;
         }
         .answer-text {
+            flex: 1;
+            text-align: left;
             overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;
-            max-width: 400px;
-            text-align: left;
+            max-width: 70%;
         }
         .answer-points {
+            flex: 0 0 15%;
             text-align: right;
             min-width: 40px;
         }
@@ -299,7 +296,7 @@
             text-align: right;
             margin-top: 10px;
             width: 100%;
-            max-width: 600px;
+            max-width: 650px;
         }
         .marks-container {
             position: absolute;
@@ -818,9 +815,6 @@
                 font-size: 18px;
                 gap: 5px;
             }
-            .answer-left {
-                gap: 5px;
-            }
             .answer-number {
                 min-width: 25px;
             }
@@ -829,10 +823,6 @@
             }
             .answer-points {
                 min-width: 35px;
-            }
-            .game-board-question {
-                margin-left: 50px;
-                font-size: 24px;
             }
         }
     </style>
@@ -1036,38 +1026,14 @@
         <div class="game-board">
             <div class="game-board-question">Czego się boimy?</div>
             <div class="game-board-answers">
-                <div class="answer-row">
-                    <div class="answer-left"><span class="answer-number">1</span><span class="answer-text">....................................</span></div>
-                    <span class="answer-points">38</span>
-                </div>
-                <div class="answer-row">
-                    <div class="answer-left"><span class="answer-number">2</span><span class="answer-text">....................................</span></div>
-                    <span class="answer-points">26</span>
-                </div>
-                <div class="answer-row">
-                    <div class="answer-left"><span class="answer-number">3</span><span class="answer-text">....................................</span></div>
-                    <span class="answer-points">15</span>
-                </div>
-                <div class="answer-row">
-                    <div class="answer-left"><span class="answer-number">4</span><span class="answer-text">....................................</span></div>
-                    <span class="answer-points">10</span>
-                </div>
-                <div class="answer-row">
-                    <div class="answer-left"><span class="answer-number">5</span><span class="answer-text">....................................</span></div>
-                    <span class="answer-points">8</span>
-                </div>
-                <div class="answer-row">
-                    <div class="answer-left"><span class="answer-number">6</span><span class="answer-text">....................................</span></div>
-                    <span class="answer-points">5</span>
-                </div>
-                <div class="answer-row">
-                    <div class="answer-left"><span class="answer-number">7</span><span class="answer-text">....................................</span></div>
-                    <span class="answer-points">3</span>
-                </div>
-                <div class="answer-row">
-                    <div class="answer-left"><span class="answer-number">8</span><span class="answer-text">....................................</span></div>
-                    <span class="answer-points">2</span>
-                </div>
+                <div class="answer-row"><span class="answer-number">1</span><span class="answer-text">....................................</span><span class="answer-points">38</span></div>
+                <div class="answer-row"><span class="answer-number">2</span><span class="answer-text">....................................</span><span class="answer-points">26</span></div>
+                <div class="answer-row"><span class="answer-number">3</span><span class="answer-text">....................................</span><span class="answer-points">15</span></div>
+                <div class="answer-row"><span class="answer-number">4</span><span class="answer-text">....................................</span><span class="answer-points">10</span></div>
+                <div class="answer-row"><span class="answer-number">5</span><span class="answer-text">....................................</span><span class="answer-points">8</span></div>
+                <div class="answer-row"><span class="answer-number">6</span><span class="answer-text">....................................</span><span class="answer-points">5</span></div>
+                <div class="answer-row"><span class="answer-number">7</span><span class="answer-text">....................................</span><span class="answer-points">3</span></div>
+                <div class="answer-row"><span class="answer-number">8</span><span class="answer-text">....................................</span><span class="answer-points">2</span></div>
                 <div class="sum-row">SUMA<span id="total-points"> 107</span></div>
             </div>
             <div class="marks-container marks-left">
