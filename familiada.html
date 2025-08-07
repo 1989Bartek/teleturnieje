@@ -75,6 +75,7 @@
         }
         #settings-view input[type="text"] {
             max-width: none;
+            width: 280px;
         }
         .vertical-buttons {
             display: flex;
@@ -838,51 +839,58 @@
         </div>
         <div class="aligned-section">
             <div class="left">
-                <p>Wariant gry:</p>
+                <p>Wariant Rund:</p>
                 <div class="vertical-buttons">
                     <button class="game-variant" id="ready-questions-btn">Gotowe pytania</button>
                     <button class="game-variant" id="custom-questions-btn">Własne pytania</button>
                 </div>
             </div>
-            <div class="center">
-                <p>Zakończenie gry:</p>
-                <div class="vertical-buttons">
-                    <button class="game-end">Z Finałem</button>
-                    <button class="game-end">Bez Finału</button>
-                </div>
-            </div>
             <div class="new-right">
-                <p>Wariant finału:</p>
+                <p>Wariant Finału:</p>
                 <div class="vertical-buttons">
                     <button class="final-variant" id="ready-final-btn">Gotowy finał</button>
                     <button class="final-variant" id="custom-final-btn">Własny finał</button>
                 </div>
             </div>
             <div class="new-col">
-                <p>Kolejność pytań:</p>
+                <p>Wariant Rozgrywki:</p>
                 <div class="vertical-buttons">
-                    <button class="question-order">Chronologicznie</button>
-                    <button class="question-order">Losowo</button>
+                    <button class="gameplay-variant">Klasyczna</button>
+                    <button class="gameplay-variant">Dodatkowe Opcje</button>
                 </div>
             </div>
-        </div>
-        <div class="aligned-section">
-            <div class="new-left">
-                <p>Pytania na ekranie:</p>
-                <div class="vertical-buttons">
-                    <button class="display-questions">Wyświetlaj</button>
-                    <button class="display-questions">Nie wyświetlaj</button>
-                </div>
-            </div>
-            <div class="center" style="width: 570px;">
+            <div class="center">
                 <p>Drużyny:</p>
                 <div style="display: flex; flex-direction: column; gap: 10px; width: 100%; align-items: center; margin-top: 12px;">
                     <input type="text" id="team1-input" placeholder="Wpisz nazwę drużyny nr 1" maxlength="15" style="margin: 0;">
                     <input type="text" id="team2-input" placeholder="Wpisz nazwę drużyny nr 2" maxlength="15" style="margin: 0;">
                 </div>
             </div>
+        </div>
+        <div class="aligned-section">
+            <div class="new-left">
+                <p>Zakończenie Gry:</p>
+                <div class="vertical-buttons">
+                    <button class="game-end">Z Finałem</button>
+                    <button class="game-end">Bez Finału</button>
+                </div>
+            </div>
+            <div class="new-right">
+                <p>Pytania na Ekranie:</p>
+                <div class="vertical-buttons">
+                    <button class="display-questions">Wyświetlaj</button>
+                    <button class="display-questions">Nie wyświetlaj</button>
+                </div>
+            </div>
+            <div class="new-col">
+                <p>Kolejność Pytań:</p>
+                <div class="vertical-buttons">
+                    <button class="question-order">Chronologicznie</button>
+                    <button class="question-order">Losowo</button>
+                </div>
+            </div>
             <div class="right">
-                <p>Oprawa audio:</p>
+                <p>Oprawa Audio:</p>
                 <div class="audio-container">
                     <button class="audio">Włącz</button>
                     <button class="audio">Wyłącz</button>
@@ -1340,6 +1348,7 @@
         toggleActive('question-order');
         toggleActive('display-questions');
         toggleActive('final-variant');
+        toggleActive('gameplay-variant');
         document.querySelectorAll('.rounds').forEach(button => {
             button.addEventListener('click', () => {
                 if (!roundsLocked) {
