@@ -776,6 +776,14 @@
             overflow-wrap: break-word;
             color: #000;
             align-self: flex-start;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+        }
+        #ready-questions-view .question-frame.active {
+            border: 4px solid #FFEA00;
+            box-shadow: 0 0 20px #FFEA00;
         }
         #ready-questions-view .questions-top {
             display: flex;
@@ -808,8 +816,20 @@
             margin-top: 10px;
             width: calc((87.75px * 5) + (10px * 4));
             gap: 10px;
+            flex-direction: column;
+            align-items: center;
         }
-        #ready-questions-view .clear-button-container button {
+        #ready-questions-view .action-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            width: calc((87.75px * 5) + (10px * 4));
+        }
+        #ready-questions-view .confirm-button-container {
+            margin-top: 10px;
+        }
+        #ready-questions-view .action-buttons button,
+        #ready-questions-view .confirm-button-container button {
             background-color: #000;
             border: 4px solid #fff;
             color: #FFFF33;
@@ -819,17 +839,27 @@
             border-radius: 8px;
             box-shadow: 0 0 10px #FFD700;
             cursor: pointer;
-            min-width: calc(((87.75px * 5) + (10px * 4) - 10px) / 2);
             height: 52px;
             display: flex;
             align-items: center;
             justify-content: center;
             box-sizing: border-box;
         }
-        #ready-questions-view .clear-button-container button:hover {
+        #ready-questions-view .action-buttons button {
+            min-width: calc(((87.75px * 5) + (10px * 4) - 10px) / 2);
+        }
+        #ready-questions-view .confirm-button-container button {
+            min-width: calc((87.75px * 5) + (10px * 4));
+        }
+        #ready-questions-view .action-buttons button:hover,
+        #ready-questions-view .confirm-button-container button:hover:not(.disabled) {
             background-color: #111;
             border-color: #FFEA00;
             box-shadow: 0 0 20px #FFEA00;
+        }
+        #ready-questions-view .confirm-button-container button.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
         }
         #ready-questions-view .question-grid {
             display: grid;
@@ -1030,13 +1060,20 @@
     <div id="ready-questions-view">
         <h1>Familiada</h1>
         <div class="questions-top">
-            <div class="question-frame"></div>
+            <div class="question-frame">
+                <div class="default-text">Pytania w grze będą pojawiać się w takiej kolejności, w jakiej zostały wybrane po prawej stronie, o ile w ustawieniach gry nie została zaznaczona opcja losowego wyświetlania.</div>
+            </div>
             <div class="selected-questions">
                 <p>Wybierz min. 3 pytania:</p>
                 <div class="selected-grid"></div>
                 <div class="clear-button-container">
-                    <button id="add-btn">Dodaj</button>
-                    <button id="clear-btn">Wyczyść</button>
+                    <div class="action-buttons">
+                        <button id="add-btn">Dodaj</button>
+                        <button id="clear-btn">Wyczyść</button>
+                    </div>
+                    <div class="confirm-button-container">
+                        <button id="confirm-btn" class="disabled">Zatwierdź</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1578,6 +1615,7 @@
         const readyBackBtn = document.querySelector('#ready-questions-view #back-btn');
         const clearBtn = document.getElementById('clear-btn');
         const addBtn = document.getElementById('add-btn');
+        const confirmBtn = document.getElementById('confirm-btn');
         let selectedQuestions = [];
         let currentQuestionNum = null;
         const questions = new Array(51);
@@ -1594,9 +1632,17 @@
             };
         }
         function displayQuestion(num) {
+            if (currentQuestionNum === num) {
+                questionFrame.innerHTML = '<div class="default-text">Pytania w grze będą pojawiać się w takiej kolejności, w jakiej zostały wybrane po prawej stronie, o ile w ustawieniach gry nie została zaznaczona opcja losowego wyświetlania.</div>';
+                questionFrame.classList.remove('active');
+                currentQuestionNum = null;
+                return;
+            }
             const q = questions[num];
             if (!q) return;
             questionFrame.innerHTML = '';
+            questionFrame.classList.add('active');
+            currentQuestionNum = num;
             const qDiv = document.createElement('div');
             qDiv.style.fontSize = '24px';
             qDiv.style.fontWeight = 'bold';
@@ -1604,6 +1650,7 @@
             qDiv.textContent = q.question;
             questionFrame.appendChild(qDiv);
             const maxAnswers = 8;
+            let totalPoints = 0;
             for (let i = 0; i < maxAnswers; i++) {
                 const ans = (i < q.answers.length) ? q.answers[i] : '';
                 const pts = (i < q.points.length) ? q.points[i] : '';
@@ -1612,6 +1659,7 @@
                     line.style.display = 'flex';
                     line.style.alignItems = 'center';
                     line.style.fontSize = '18px';
+                    line.style.marginBottom = '3px';
                     const numSpan = document.createElement('span');
                     numSpan.style.width = '30px';
                     numSpan.textContent = `${i + 1} `;
@@ -1626,13 +1674,19 @@
                     line.appendChild(ansSpan);
                     line.appendChild(ptsSpan);
                     questionFrame.appendChild(line);
+                    if (pts) totalPoints += parseInt(pts);
                 }
             }
+            const totalDiv = document.createElement('div');
+            totalDiv.style.fontSize = '18px';
+            totalDiv.style.marginTop = '5px';
+            totalDiv.style.textAlign = 'right';
+            totalDiv.textContent = `Razem: ${totalPoints} pkt.`;
+            questionFrame.appendChild(totalDiv);
         }
         questionGrid.querySelectorAll('button').forEach(btn => {
             btn.addEventListener('click', () => {
                 const num = parseInt(btn.textContent);
-                currentQuestionNum = num;
                 displayQuestion(num);
             });
         });
@@ -1642,7 +1696,7 @@
                 const btn = questionGrid.querySelector(`button:nth-child(${currentQuestionNum})`);
                 if (btn) btn.classList.add('active');
                 updateSelectedGrid();
-                updateBackButton();
+                updateConfirmButton();
             }
         });
         function updateSelectedGrid() {
@@ -1657,22 +1711,22 @@
                         const btn = questionGrid.querySelector(`button:nth-child(${num})`);
                         if (btn) btn.classList.remove('active');
                         updateSelectedGrid();
-                        if (selectedQuestions.length > 0) {
-                            displayQuestion(selectedQuestions[selectedQuestions.length - 1]);
-                        } else {
-                            questionFrame.innerHTML = '';
+                        if (currentQuestionNum === num) {
+                            questionFrame.innerHTML = '<div class="default-text">Pytania w grze będą pojawiać się w takiej kolejności, w jakiej zostały wybrane po prawej stronie, o ile w ustawieniach gry nie została zaznaczona opcja losowego wyświetlania.</div>';
+                            questionFrame.classList.remove('active');
+                            currentQuestionNum = null;
                         }
-                        updateBackButton();
+                        updateConfirmButton();
                     }
                 });
                 selectedGrid.appendChild(clone);
             });
         }
-        function updateBackButton() {
+        function updateConfirmButton() {
             if (selectedQuestions.length >= 3) {
-                readyBackBtn.textContent = 'Zatwierdź';
+                confirmBtn.classList.remove('disabled');
             } else {
-                readyBackBtn.textContent = 'Powrót';
+                confirmBtn.classList.add('disabled');
             }
         }
         clearBtn.addEventListener('click', () => {
@@ -1681,9 +1735,29 @@
                 btn.classList.remove('active');
             });
             updateSelectedGrid();
-            questionFrame.innerHTML = '';
+            questionFrame.innerHTML = '<div class="default-text">Pytania w grze będą pojawiać się w takiej kolejności, w jakiej zostały wybrane po prawej stronie, o ile w ustawieniach gry nie została zaznaczona opcja losowego wyświetlania.</div>';
+            questionFrame.classList.remove('active');
             currentQuestionNum = null;
-            updateBackButton();
+            updateConfirmButton();
+        });
+        confirmBtn.addEventListener('click', () => {
+            if (selectedQuestions.length >= 3) {
+                questionsData = selectedQuestions.map(num => questions[num]);
+                settingsView.style.display = 'flex';
+                readyQuestionsView.style.display = 'none';
+                readyQuestionsBtn.classList.add('active');
+                customQuestionsBtn.classList.remove('active');
+                roundsLocked = true;
+                document.querySelectorAll('.rounds').forEach(btn => {
+                    btn.disabled = btn.textContent !== selectedQuestions.length.toString();
+                    if (btn.textContent === selectedQuestions.length.toString()) {
+                        btn.classList.add('active');
+                    } else {
+                        btn.classList.remove('active');
+                    }
+                });
+                window.scrollTo(0, 0);
+            }
         });
     </script>
 </body>
