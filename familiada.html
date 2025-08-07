@@ -260,32 +260,34 @@
         }
         .answer-row {
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
             font-family: 'Courier New', monospace;
             color: #FFFF33;
             font-size: 24px;
+            width: 100%;
+            gap: 10px;
         }
         #game-view .answer-row {
-            gap: 0;
-        }
-        .answer-row span {
-            display: inline-block;
+            gap: 10px;
         }
         .answer-number {
-            width: 40px;
+            flex: 0 0 10%;
             text-align: right;
+            min-width: 30px;
         }
         .answer-text {
-            width: 330px;
+            flex: 1;
             text-align: left;
             overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;
+            max-width: 70%;
         }
         .answer-points {
-            width: 40px;
+            flex: 0 0 15%;
             text-align: right;
+            min-width: 40px;
         }
         .sum-row {
             font-family: 'Courier New', monospace;
@@ -803,6 +805,26 @@
             border-color: #FFEA00;
             box-shadow: 0 0 10px #FFEA00;
         }
+        /* Responsywność dla mniejszych ekranów */
+        @media (max-width: 768px) {
+            .game-board-answers {
+                max-width: 100%;
+                padding: 0 10px;
+            }
+            .answer-row {
+                font-size: 18px;
+                gap: 5px;
+            }
+            .answer-number {
+                min-width: 25px;
+            }
+            .answer-text {
+                max-width: 65%;
+            }
+            .answer-points {
+                min-width: 35px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1188,7 +1210,6 @@
         let questionsData = [];
         let isCustomQuestionsActive = false;
         let roundsLocked = false;
-
         // Fullscreen button functionality
         document.querySelectorAll('#fullscreen-btn').forEach(button => {
             button.addEventListener('click', () => {
@@ -1211,7 +1232,6 @@
                 }
             });
         });
-
         // ESC key handling for exiting fullscreen
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && document.fullscreenElement) {
@@ -1224,14 +1244,12 @@
                 });
             }
         });
-
         // Navigation for "Dalej" button in settings-view
         document.querySelector('#settings-view #next-btn').addEventListener('click', () => {
             settingsView.style.display = 'none';
             gameView.style.display = 'flex';
             window.scrollTo(0, 0);
         });
-
         // Navigation for "Powrót" buttons in all other views
         document.querySelectorAll('#instructions-view #back-btn, #ready-questions-view #back-btn, #ready-final-view #back-btn, #custom-final-view #back-btn, #game-view #back-btn, #questions-view #back-btn').forEach(button => {
             button.addEventListener('click', () => {
@@ -1245,7 +1263,6 @@
                 window.scrollTo(0, 0);
             });
         });
-
         team1Input.addEventListener('input', () => {
             const teamName = team1Input.value || 'Drużyna 1';
             team1Btn.textContent = teamName;
