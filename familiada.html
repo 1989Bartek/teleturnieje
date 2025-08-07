@@ -251,7 +251,7 @@
         }
         .game-board-answers {
             width: 100%;
-            max-width: 600px;
+            max-width: 650px;
             display: flex;
             flex-direction: column;
             gap: 10px;
@@ -260,16 +260,16 @@
         }
         .answer-row {
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-start;
             align-items: center;
             font-family: 'Courier New', monospace;
             color: #FFFF33;
             font-size: 24px;
             width: 100%;
-            gap: 5px; /* Zmniejszono gap z 10px na 5px */
+            gap: 3px;
         }
         #game-view .answer-row {
-            gap: 5px; /* Zmniejszono gap z 10px na 5px */
+            gap: 3px;
         }
         .answer-number {
             flex: 0 0 10%;
@@ -282,12 +282,13 @@
             overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;
-            max-width: 60%; /* Zmniejszono z 70% na 60% */
+            max-width: 50%;
         }
         .answer-points {
-            flex: 0 0 20%; /* Zwiększono z 15% na 20% */
+            flex: 0 0 15%;
             text-align: right;
-            min-width: 40px;
+            min-width: 30px;
+            margin-left: 5px;
         }
         .sum-row {
             font-family: 'Courier New', monospace;
@@ -813,16 +814,17 @@
             }
             .answer-row {
                 font-size: 18px;
-                gap: 3px; /* Zmniejszono gap z 5px na 3px dla mniejszych ekranów */
+                gap: 2px;
             }
             .answer-number {
                 min-width: 25px;
             }
             .answer-text {
-                max-width: 55%; /* Zmniejszono z 65% na 55% */
+                max-width: 45%;
             }
             .answer-points {
-                min-width: 35px;
+                min-width: 25px;
+                margin-left: 3px;
             }
         }
     </style>
@@ -1024,18 +1026,7 @@
         <h1>Familiada</h1>
         <div class="round-info">Runda 1</div>
         <div class="game-board">
-            <div class="game-board-question">Czego się boimy?</div>
-            <div class="game-board-answers">
-                <div class="answer-row"><span class="answer-number">1</span><span class="answer-text">....................................</span><span class="answer-points">38</span></div>
-                <div class="answer-row"><span class="answer-number">2</span><span class="answer-text">....................................</span><span class="answer-points">26</span></div>
-                <div class="answer-row"><span class="answer-number">3</span><span class="answer-text">....................................</span><span class="answer-points">15</span></div>
-                <div class="answer-row"><span class="answer-number">4</span><span class="answer-text">....................................</span><span class="answer-points">10</span></div>
-                <div class="answer-row"><span class="answer-number">5</span><span class="answer-text">....................................</span><span class="answer-points">8</span></div>
-                <div class="answer-row"><span class="answer-number">6</span><span class="answer-text">....................................</span><span class="answer-points">5</span></div>
-                <div class="answer-row"><span class="answer-number">7</span><span class="answer-text">....................................</span><span class="answer-points">3</span></div>
-                <div class="answer-row"><span class="answer-number">8</span><span class="answer-text">....................................</span><span class="answer-points">2</span></div>
-                <div class="sum-row">SUMA<span id="total-points"> 107</span></div>
-            </div>
+            <div class="game-board-answers"></div>
             <div class="marks-container marks-left">
                 <img src="familiada/znak.png" alt="Znak">
                 <img src="familiada/znak.png" alt="Znak">
