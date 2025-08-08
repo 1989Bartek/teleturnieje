@@ -54,13 +54,9 @@
             align-items: center;
             text-align: center;
         }
-        .left {
-            align-items: center;
-        }
-        #settings-view .aligned-section > div {
-            flex: 0 0 auto;
-            width: 280px;
-        }
+        .left { align-items: center; }
+        #settings-view .aligned-section > div { flex: 0 0 auto; width: 280px; }
+
         input[type="text"] {
             width: 100%;
             padding: 12px 36px;
@@ -73,29 +69,19 @@
             height: 52px;
             box-sizing: border-box;
         }
-        #settings-view input[type="text"] {
-            max-width: none;
-            width: 280px;
-        }
-        .vertical-buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-top: 12px;
-        }
+        #settings-view input[type="text"] { max-width: none; width: 280px; }
+
+        .vertical-buttons { display: flex; flex-direction: column; gap: 10px; margin-top: 12px; }
+
         .rounds-container, .audio-container {
             display: grid;
             grid-template-columns: repeat(2, auto);
             gap: 10px;
             margin-top: 12px;
         }
-        .rounds-container {
-            justify-content: center;
-        }
-        .audio-container {
-            grid-template-columns: 1fr;
-            justify-content: center;
-        }
+        .rounds-container { justify-content: center; }
+        .audio-container { grid-template-columns: 1fr; justify-content: center; }
+
         button {
             background-color: #000;
             border: 4px solid #fff;
@@ -116,20 +102,10 @@
             align-items: center;
             justify-content: center;
         }
-        .rounds-container button {
-            min-width: 135px;
-        }
-        button.active {
-            background-color: #002266;
-            color: #FFFF33;
-            border-color: #FFEA00;
-            box-shadow: 0 0 20px #FFEA00;
-        }
-        button:hover:not(.active) {
-            background-color: #111;
-            border-color: #FFEA00;
-            box-shadow: 0 0 20px #FFEA00;
-        }
+        .rounds-container button { min-width: 135px; }
+        button.active { background-color: #002266; color: #FFFF33; border-color: #FFEA00; box-shadow: 0 0 20px #FFEA00; }
+        button:hover:not(.active) { background-color: #111; border-color: #FFEA00; box-shadow: 0 0 20px #FFEA00; }
+
         .bottom-logo {
             position: absolute;
             bottom: 24px;
@@ -137,16 +113,11 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            z-index: 2;
         }
-        .bottom-logo img {
-            width: 140px;
-            margin-bottom: 6px;
-        }
-        .bottom-logo a {
-            color: white;
-            text-decoration: none;
-            font-size: 13px;
-        }
+        .bottom-logo img { width: 140px; margin-bottom: 6px; }
+        .bottom-logo a { color: white; text-decoration: none; font-size: 13px; }
+
         .aligned-section {
             display: flex;
             justify-content: center;
@@ -156,11 +127,8 @@
             align-items: flex-start;
             gap: 10px;
         }
-        .aligned-section p {
-            margin-top: 0;
-            font-size: 24px;
-            text-align: center;
-        }
+        .aligned-section p { margin-top: 0; font-size: 24px; text-align: center; }
+
         /* Widoki na tej stronie */
         #settings-view, #instructions-view, #game-view {
             width: 100%;
@@ -168,9 +136,8 @@
             flex-direction: column;
             align-items: center;
         }
-        #instructions-view, #game-view {
-            display: none;
-        }
+        #instructions-view, #game-view { display: none; }
+
         .instructions-text {
             width: 90%;
             max-width: 1000px;
@@ -190,40 +157,17 @@
             flex-direction: column;
             justify-content: space-between;
         }
-        .instructions-text .content {
-            flex-grow: 1;
-            margin-bottom: 10px;
-        }
+        .instructions-text .content { flex-grow: 1; margin-bottom: 10px; }
         .instructions-text .arrow-buttons {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 10px;
-            padding: 0 20px;
-            box-sizing: border-box;
+            display: flex; justify-content: space-between; margin-top: 10px; padding: 0 20px; box-sizing: border-box;
         }
         .instructions-text .arrow-button {
-            background-color: #000;
-            border: 1px solid #fff;
-            color: #FFFF33;
-            font-family: 'Courier New', monospace;
-            font-size: 24px;
-            padding: 0;
-            border-radius: 4px;
-            box-shadow: 0 0 5px #FFD700;
-            cursor: pointer;
-            width: auto;
-            min-width: 87.75px;
-            height: 52px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-sizing: border-box;
+            background-color: #000; border: 1px solid #fff; color: #FFFF33; font-family: 'Courier New', monospace;
+            font-size: 24px; padding: 0; border-radius: 4px; box-shadow: 0 0 5px #FFD700; cursor: pointer;
+            width: auto; min-width: 87.75px; height: 52px; display: flex; align-items: center; justify-content: center; box-sizing: border-box;
         }
-        .instructions-text .arrow-button:hover {
-            background-color: #111;
-            border-color: #FFEA00;
-            box-shadow: 0 0 10px #FFEA00;
-        }
+        .instructions-text .arrow-button:hover { background-color: #111; border-color: #FFEA00; box-shadow: 0 0 10px #FFEA00; }
+
         .game-board {
             background-color: #000;
             border: 4px solid #fff;
@@ -261,251 +205,105 @@
             display: none;
         }
         .answer-row {
-            display: flex;
-            justify-content: flex-start;
-            align-items: center;
-            font-family: 'Courier New', monospace;
-            color: #FFFF33;
-            font-size: 24px;
-            width: 100%;
-            gap: 3px;
+            display: flex; justify-content: flex-start; align-items: center;
+            font-family: 'Courier New', monospace; color: #FFFF33; font-size: 24px; width: 100%; gap: 3px;
         }
-        #game-view .answer-row {
-            gap: 3px;
-        }
-        .answer-number {
-            flex: 0 0 10%;
-            text-align: right;
-            min-width: 30px;
-        }
-        .answer-text {
-            flex: 1;
-            text-align: left;
-            overflow: hidden;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-            max-width: 50%;
-        }
-        .answer-points {
-            flex: 0 0 15%;
-            text-align: right;
-            min-width: 30px;
-            margin-left: 5px;
-        }
+        #game-view .answer-row { gap: 3px; }
+        .answer-number { flex: 0 0 10%; text-align: right; min-width: 30px; }
+        .answer-text { flex: 1; text-align: left; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; max-width: 50%; }
+        .answer-points { flex: 0 0 15%; text-align: right; min-width: 30px; margin-left: 5px; }
+
         .sum-row {
-            font-family: 'Courier New', monospace;
-            color: #FFFF33;
-            font-size: 24px;
-            text-align: right;
-            margin-top: 10px;
-            width: 100%;
-            max-width: 650px;
+            font-family: 'Courier New', monospace; color: #FFFF33; font-size: 24px;
+            text-align: right; margin-top: 10px; width: 100%; max-width: 650px;
         }
+
         .marks-container {
-            position: absolute;
-            top: 20px;
-            bottom: 20px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+            position: absolute; top: 20px; bottom: 20px; display: flex; flex-direction: column; justify-content: space-between;
         }
-        .marks-left {
-            left: 20px;
-        }
-        .marks-right {
-            right: 20px;
-        }
-        .marks-container img {
-            width: 50px;
-            height: 80px;
-            object-fit: contain;
-        }
+        .marks-left { left: 20px; }
+        .marks-right { right: 20px; }
+        .marks-container img { width: 50px; height: 80px; object-fit: contain; }
+
         .team-scores {
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
-            max-width: 1400px;
-            position: absolute;
-            top: 145px;
+            display: flex; justify-content: space-between; width: 100%; max-width: 1400px;
+            position: absolute; top: 145px;
         }
-        .team-score {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-        }
-        .team-score p {
-            font-size: 28px;
-            margin: 0;
-        }
-        .team-score span {
-            font-size: 42px;
-            font-weight: bold;
-            color: #FFFF33;
-        }
-        .round-info {
-            font-size: 24px;
-            margin: 5px 0;
-            color: #FFD700;
-        }
+        .team-score { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+        .team-score p { font-size: 28px; margin: 0; }
+        .team-score span { font-size: 42px; font-weight: bold; color: #FFFF33; }
+
+        .round-info { font-size: 24px; margin: 5px 0; color: #FFD700; }
+
         .round-nav-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-            width: 100%;
-            max-width: 1068px;
-            margin-bottom: 4px;
+            display: flex; justify-content: center; align-items: center; gap: 10px; width: 100%; max-width: 1068px; margin-bottom: 4px;
         }
-        #game-view .question-nav-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-        }
+        #game-view .question-nav-container { display: flex; justify-content: center; align-items: center; gap: 10px; }
+
         .round-nav {
-            background-color: #000;
-            border: 4px solid #fff;
-            color: #FFFF33;
-            font-family: 'Courier New', monospace;
-            font-size: 20px;
-            padding: 12px 36px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px #FFD700;
-            cursor: pointer;
-            text-align: center;
-            min-width: 280px;
-            line-height: 1;
-            height: 52px;
-            box-sizing: border-box;
+            background-color: #000; border: 4px solid #fff; color: #FFFF33; font-family: 'Courier New', monospace;
+            font-size: 20px; padding: 12px 36px; border-radius: 8px; box-shadow: 0 0 10px #FFD700; cursor: pointer;
+            text-align: center; min-width: 280px; line-height: 1; height: 52px; box-sizing: border-box;
         }
-        .round-nav:hover {
-            background-color: #111;
-            border-color: #FFEA00;
-            box-shadow: 0 0 20px #FFEA00;
-        }
-        #prev-round-btn {
-            min-width: 280px;
-            padding: 12px 36px;
-            margin-left: 4px;
-        }
-        #next-round-btn {
-            min-width: 280px;
-            padding: 12px 36px;
-            margin-right: 4px;
-        }
+        .round-nav:hover { background-color: #111; border-color: #FFEA00; box-shadow: 0 0 20px #FFEA00; }
+        #prev-round-btn { min-width: 280px; padding: 12px 36px; margin-left: 4px; }
+        #next-round-btn { min-width: 280px; padding: 12px 36px; margin-right: 4px; }
+
         .question-number {
-            font-size: 16px;
-            margin: 0 0 10px 0;
-            align-self: flex-start;
-            max-width: 1000px;
-            width: 90%;
+            font-size: 16px; margin: 0 0 10px 0; align-self: flex-start; max-width: 1000px; width: 90%;
         }
+
         .game-controls {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin: 4px 0;
-            width: 100%;
-            max-width: 1000px;
-            justify-content: center;
-            flex-wrap: wrap;
+            display: flex; align-items: center; gap: 10px; margin: 4px 0; width: 100%; max-width: 1000px; justify-content: center; flex-wrap: wrap;
         }
-        .game-controls input[type="text"] {
-            min-width: 280px;
-        }
-        .game-controls button {
-            min-width: 280px;
-        }
-        .game-controls .round-nav {
-            min-width: 280px;
-        }
-        .game-controls:last-of-type {
-            justify-content: space-between;
-        }
+        .game-controls input[type="text"] { min-width: 280px; }
+        .game-controls button { min-width: 280px; }
+        .game-controls .round-nav { min-width: 280px; }
+        .game-controls:last-of-type { justify-content: space-between; }
+
         .question-box {
-            border: 4px solid #fff;
-            color: #FFFF33;
-            font-family: 'Courier New', monospace;
-            font-size: 20px;
-            padding: 12px 36px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px #FFD700;
-            min-width: 280px;
-            text-align: center;
-            background-color: transparent;
-            height: 52px;
-            box-sizing: border-box;
+            border: 4px solid #fff; color: #FFFF33; font-family: 'Courier New', monospace; font-size: 20px;
+            padding: 12px 36px; border-radius: 8px; box-shadow: 0 0 10px #FFD700; min-width: 280px; text-align: center;
+            background-color: transparent; height: 52px; box-sizing: border-box;
         }
-        .input-with-button {
-            position: relative;
-            display: flex;
-            align-items: center;
-            width: 280px;
-        }
-        .input-with-button input[type="text"] {
-            width: 100%;
-            padding-right: 54px;
-        }
+
+        .input-with-button { position: relative; display: flex; align-items: center; width: 280px; }
+        .input-with-button input[type="text"] { width: 100%; padding-right: 54px; }
         .input-with-button button {
-            position: absolute;
-            right: 4px;
-            min-width: unset;
-            width: 43.2px;
-            padding: 7.2px;
-            font-size: 14.4px;
-            line-height: 1;
-            height: 36px;
-            box-sizing: border-box;
-            border-color: #FFEA00;
+            position: absolute; right: 4px; min-width: unset; width: 43.2px; padding: 7.2px; font-size: 14.4px;
+            line-height: 1; height: 36px; box-sizing: border-box; border-color: #FFEA00;
         }
-        .question-nav-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-            width: 100%;
-            max-width: 1068px;
-            margin-bottom: 4px;
-        }
-        #game-view .question-nav-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-        }
-        .nav-wrapper {
-            display: contents;
-        }
+
+        .question-nav-container { display: flex; justify-content: center; align-items: center; gap: 10px; width: 100%; max-width: 1068px; margin-bottom: 4px; }
+        #game-view .question-nav-container { display: flex; justify-content: center; align-items: center; gap: 10px; }
+        .nav-wrapper { display: contents; }
+
         .answer-wrapper {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-            max-width: 1000px;
-            margin: 4px 0;
-            gap: 10px;
+            display: flex; justify-content: center; align-items: center; width: 100%; max-width: 1000px; margin: 4px 0; gap: 10px;
         }
+
+        /* <<< STAŁA POZYCJA PASKA PRZYCISKÓW NA DOLE WSZYSTKICH WIDOKÓW >>> */
+        .bottom-buttons {
+            position: fixed;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 24px;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            width: 100%;
+            max-width: 1200px;
+            z-index: 5;
+            pointer-events: auto;
+        }
+
         /* Responsywność dla mniejszych ekranów */
         @media (max-width: 768px) {
-            .game-board-answers {
-                max-width: 100%;
-                padding: 0 10px;
-            }
-            .answer-row {
-                font-size: 18px;
-                gap: 2px;
-            }
-            .answer-number {
-                min-width: 25px;
-            }
-            .answer-text {
-                max-width: 45%;
-            }
-            .answer-points {
-                min-width: 25px;
-                margin-left: 3px;
-            }
+            .game-board-answers { max-width: 100%; padding: 0 10px; }
+            .answer-row { font-size: 18px; gap: 2px; }
+            .answer-number { min-width: 25px; }
+            .answer-text { max-width: 45%; }
+            .answer-points { min-width: 25px; margin-left: 3px; }
         }
     </style>
 </head>
@@ -587,7 +385,7 @@
         </div>
     </div>
 
-    <!-- INSTRUCTIONS -->
+    <!-- INSTRUKCJA -->
     <div id="instructions-view">
         <h1>Familiada</h1>
         <div id="instructions-page-1" class="instructions-text">
@@ -627,14 +425,13 @@
         </div>
     </div>
 
-    <!-- GAME -->
+    <!-- GRA -->
     <div id="game-view">
         <h1>Familiada</h1>
         <div class="round-info">Runda 1</div>
         <div class="game-board">
             <div class="game-board-question">Tutaj pojawi się treść pytania</div>
             <div class="game-board-answers">
-                <!-- Miejsce na odpowiedzi (w przyszłości generowane/ujawniane) -->
                 <div class="answer-row">
                     <div class="answer-number">1.</div>
                     <div class="answer-text">Przykładowa odpowiedź</div>
@@ -675,9 +472,7 @@
             </div>
             <button id="answers-btn">Odpowiedzi</button>
         </div>
-        <div class="game-controls">
-            <!-- przyszłe kontrolki gry -->
-        </div>
+        <div class="game-controls"></div>
         <div class="bottom-logo">
             <img src="familiada/logo.png" alt="Logo">
             <a href="https://www.muzykamikrofonakcja.pl">WWW.MUZYKAMIKROFONAKCJA.PL</a>
@@ -724,54 +519,46 @@
 
         let timerInterval = null;
 
-        // Fullscreen – obsługa wspólna dla wszystkich widoków
+        // Fullscreen
         document.querySelectorAll('#fullscreen-btn').forEach(button => {
             button.addEventListener('click', () => {
                 if (!document.fullscreenElement) {
                     document.documentElement.requestFullscreen().then(() => {
-                        document.querySelectorAll('#fullscreen-btn').forEach(btn => {
-                            btn.textContent = 'Podstawowy ekran';
-                        });
+                        document.querySelectorAll('#fullscreen-btn').forEach(btn => { btn.textContent = 'Podstawowy ekran'; });
                     }).catch(err => console.error('Error entering fullscreen:', err));
                 } else {
                     document.exitFullscreen().then(() => {
-                        document.querySelectorAll('#fullscreen-btn').forEach(btn => {
-                            btn.textContent = 'Pełny ekran';
-                        });
+                        document.querySelectorAll('#fullscreen-btn').forEach(btn => { btn.textContent = 'Pełny ekran'; });
                     }).catch(err => console.error('Error exiting fullscreen:', err));
                 }
             });
         });
-        // ESC wychodzi z pełnego ekranu i aktualizuje napisy przycisków
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && document.fullscreenElement) {
                 document.exitFullscreen().then(() => {
-                    document.querySelectorAll('#fullscreen-btn').forEach(button => {
-                        button.textContent = 'Pełny ekran';
-                    });
+                    document.querySelectorAll('#fullscreen-btn').forEach(button => { button.textContent = 'Pełny ekran'; });
                 }).catch(err => console.error('Error exiting fullscreen:', err));
             }
         });
 
-        // Przejście: Ustawienia -> Gra
+        // Ustawienia -> Gra
         document.querySelector('#settings-view #next-btn').addEventListener('click', () => {
             settingsView.style.display = 'none';
             gameView.style.display = 'flex';
             window.scrollTo(0, 0);
         });
 
-        // Przejście: Ustawienia -> Instrukcja
+        // Ustawienia -> Instrukcja
         instructionsBtn.addEventListener('click', () => {
             settingsView.style.display = 'none';
             instructionsView.style.display = 'flex';
-            // strona 1 instrukcji
             instructionsPage1.style.display = 'flex';
             instructionsPage2.style.display = 'none';
             instructionsPage3.style.display = 'none';
             window.scrollTo(0, 0);
         });
 
-        // Nawigacja instrukcji (strony ◀/▶)
+        // Paginacja instrukcji
         nextPage1.addEventListener('click', () => {
             instructionsPage1.style.display = 'none';
             instructionsPage2.style.display = 'flex';
@@ -797,7 +584,7 @@
             window.scrollTo(0, 0);
         });
 
-        // Przyciski "Powrót" (z instrukcji i z gry) wracają do ustawień na tej samej stronie
+        // Powrót do ustawień (z instrukcji i gry)
         document.querySelectorAll('#instructions-view #back-btn, #game-view #back-btn').forEach(button => {
             button.addEventListener('click', () => {
                 settingsView.style.display = 'flex';
@@ -807,43 +594,26 @@
             });
         });
 
-        // Zmiana nazw drużyn – aktualizacja tylko w tabelach wyników
-        team1Input.addEventListener('input', () => {
-            team1Name.textContent = team1Input.value || 'Drużyna 1';
-        });
-        team2Input.addEventListener('input', () => {
-            team2Name.textContent = team2Input.value || 'Drużyna 2';
-        });
+        // Nazwy drużyn
+        team1Input.addEventListener('input', () => { team1Name.textContent = team1Input.value || 'Drużyna 1'; });
+        team2Input.addEventListener('input', () => { team2Name.textContent = team2Input.value || 'Drużyna 2'; });
 
-        // Nawigacje do osobnych podstron
-        readyQuestionsBtn.addEventListener('click', () => {
-            window.location.href = '/familiada-gotowe-pytania.html';
-        });
-        customQuestionsBtn.addEventListener('click', () => {
-            window.location.href = '/familiada-wlasne-pytania.html';
-        });
-        readyFinalBtn.addEventListener('click', () => {
-            window.location.href = '/familiada-gotowy-final.html';
-        });
-        customFinalBtn.addEventListener('click', () => {
-            window.location.href = '/familiada-wlasny-final.html';
-        });
-        extraOptionsBtn.addEventListener('click', () => {
-            window.location.href = '/familiada-dodatkowe-opcje.html';
-        });
+        // Podstrony
+        readyQuestionsBtn.addEventListener('click', () => { window.location.href = '/familiada-gotowe-pytania.html'; });
+        customQuestionsBtn.addEventListener('click', () => { window.location.href = '/familiada-wlasne-pytania.html'; });
+        readyFinalBtn.addEventListener('click', () => { window.location.href = '/familiada-gotowy-final.html'; });
+        customFinalBtn.addEventListener('click', () => { window.location.href = '/familiada-wlasny-final.html'; });
+        extraOptionsBtn.addEventListener('click', () => { window.location.href = '/familiada-dodatkowe-opcje.html'; });
 
-        // Start rozgrywki – pokazanie pytania i odpowiedzi (placeholder)
-        function startTimer() {
-            clearInterval(timerInterval);
-            // w przyszłości: logika odliczania
-        }
-        startBtn.addEventListener('click', () => {
+        // Start rozgrywki – placeholder
+        function startTimer() { clearInterval(timerInterval); }
+        document.getElementById('start-btn').addEventListener('click', () => {
             gameBoardQuestion.style.display = 'block';
             gameBoardAnswers.style.display = 'flex';
             startTimer();
         });
 
-        // Wysyłanie odpowiedzi (placeholder)
+        // Odpowiedź – placeholder
         function submitAnswer() {
             const answer = answerInput.value.trim();
             if (answer) {
@@ -852,11 +622,9 @@
             }
         }
         submitAnswerBtn.addEventListener('click', submitAnswer);
-        answerInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') submitAnswer();
-        });
+        answerInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') submitAnswer(); });
 
-        // Prosty toggler klas Active dla grup – działa jeśli elementy są obecne
+        // Toggler "active"
         const toggleActive = (groupClass) => {
             const buttons = document.querySelectorAll(`.${groupClass}`);
             buttons.forEach(button => {
@@ -878,10 +646,8 @@
         toggleActive('final-variant');
         toggleActive('gameplay-variant');
 
-        // (przycisk PDF – placeholder do podlinkowania)
+        // PDF (placeholder)
         document.getElementById('questions-pdf-btn').addEventListener('click', () => {
-            // jeśli będziesz miał gotowy plik PDF, wstaw tu adres:
-            // window.open('/sciezka/do/karta-pytan.pdf', '_blank');
             alert('Karta pytań PDF – podlinkuj docelowy plik, gdy będzie gotowy.');
         });
     </script>
