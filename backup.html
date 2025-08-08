@@ -1,864 +1,1031 @@
+Super — łączę obie strony w **jeden pełny plik** `familiada.html`.
+W tym pliku dodałem nowy widok **`#custom-questions-view`** (to sklejona zawartość `/familiada-wlasne-pytania.html`). Wszystkie nawigacje po innych plikach zostały zastąpione **przełączaniem widoków w obrębie tej jednej strony**:
+
+* **„Własne pytania”** → przełącza do `#custom-questions-view`.
+* **„Gotowe pytania / finały / dodatkowe opcje”** – na razie tylko **aktywują przyciski** (bez przeładowania), żeby nie zrywać UX, ale **nie prowadzą** do zewnętrznych plików (bo łączymy tylko te dwie strony).
+* Wszystkie przyciski **„Pełny ekran”** mają **ten sam ID** (`#fullscreen-btn`) w wielu widokach — obsługa jest wspólna przez `querySelectorAll(...)`, więc każdy działa.
+* „Powrót” w każdym widoku przenosi do **ekranu startowego** (`#settings-view`).
+* Zapis własnych pytań trafia do `localStorage` **`customQuestions`**, a po zatwierdzeniu wracasz do ekranu startowego; w trybie gry **„Własne pytania”** pojawią się na tablicy.
+
+Poniżej pełny, nieskracany kod:
+
+```html
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Familiada</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
-  <style>
-    /* ====== BAZA / WSPÓLNE ====== */
-    html, body { margin: 0; padding: 0; scroll-behavior: auto; }
-    body {
-      background: linear-gradient(to right, #d40000, #000033, #0033cc);
-      font-family: Arial, sans-serif; color: #fff;
-      display: flex; flex-direction: column; align-items: center;
-      position: relative; box-sizing: border-box; min-height: 100vh;
-    }
-    h1 {
-      font-family:'Playfair Display',serif; font-size:72px;
-      margin:28px 0 18px 0;
-      background: linear-gradient(to right,#FFD700,#FFEA00,#FFD700);
-      -webkit-background-clip:text; -webkit-text-fill-color:transparent;
-      text-shadow:0 0 10px #FFD700; text-transform:uppercase; letter-spacing:2px;
-    }
-    .button-container{display:flex;justify-content:center;gap:10px;margin:20px 0;}
-    .aligned-section{
-      display:flex;justify-content:center;width:100%;max-width:1200px;margin:28px 0;
-      align-items:flex-start;gap:10px;
-    }
-    .aligned-section p{margin-top:0;font-size:24px;text-align:center;}
-    .left,.center,.right,.new-col,.new-left,.new-right{
-      display:flex;flex-direction:column;align-items:center;text-align:center;
-    }
-    .left{align-items:center;}
-    #settings-view .aligned-section>div{flex:0 0 auto;width:280px;}
-    input[type="text"]{
-      width:100%;padding:12px 36px;margin:12px 0;border:4px solid #fff;border-radius:8px;
-      background:#fff;color:#000;font-size:16px;height:52px;box-sizing:border-box;
-    }
-    #settings-view input[type="text"]{max-width:none;width:280px;}
-    .vertical-buttons{display:flex;flex-direction:column;gap:10px;margin-top:12px;}
-    .rounds-container,.audio-container{display:grid;grid-template-columns:repeat(2,auto);gap:10px;margin-top:12px;}
-    .rounds-container{justify-content:center;}
-    .audio-container{grid-template-columns:1fr;justify-content:center;}
-    button{
-      background:#000;border:4px solid #fff;color:#FFFF33;font-family:'Courier New',monospace;
-      font-size:20px;padding:12px 36px;border-radius:8px;box-shadow:0 0 10px #FFD700;cursor:pointer;
-      transition:background-color .3s,border-color .3s,box-shadow .3s;min-width:280px;text-align:center;
-      text-transform:capitalize;height:52px;box-sizing:border-box;display:flex;align-items:center;justify-content:center;
-    }
-    .rounds-container button{min-width:135px;}
-    button.active{background:#002266;color:#FFFF33;border-color:#FFEA00;box-shadow:0 0 20px #FFEA00;}
-    button:hover:not(.active){background:#111;border-color:#FFEA00;box-shadow:0 0 20px #FFEA00;}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Familiada</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        /* ====== BAZA (wspólna) ====== */
+        html, body {
+            margin: 0;
+            padding: 0;
+            scroll-behavior: auto;
+        }
+        body {
+            background: linear-gradient(to right, #d40000, #000033, #0033cc);
+            font-family: Arial, sans-serif;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            box-sizing: border-box;
+            min-height: 100vh;
+        }
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 72px;
+            margin: 28px 0 18px 0;
+            background: linear-gradient(to right, #FFD700, #FFEA00, #FFD700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 10px #FFD700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        .section {
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            margin: 28px 0;
+            align-items: flex-start;
+        }
+        .left, .center, .right, .new-col, .new-left, .new-right {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        .left { align-items: center; }
+        #settings-view .aligned-section > div { flex: 0 0 auto; width: 280px; }
 
-    .question-box{
-      border:4px solid #fff;color:#FFFF33;font-family:'Courier New',monospace;font-size:20px;
-      padding:12px 36px;border-radius:8px;box-shadow:0 0 10px #FFD700;min-width:280px;text-align:center;
-      background:transparent;height:52px;box-sizing:border-box;
-    }
-    .bottom-logo{
-      position:absolute;bottom:24px;right:12px;display:flex;flex-direction:column;align-items:center;z-index:2;
-    }
-    .bottom-logo img{width:140px;margin-bottom:6px;}
-    .bottom-logo a{color:#fff;text-decoration:none;font-size:13px;}
-    .bottom-buttons{
-      display:flex;gap:10px;justify-content:center;width:100%;max-width:1200px;margin-top:auto;margin-bottom:24px;
-    }
+        input[type="text"] {
+            width: 100%;
+            padding: 12px 36px;
+            margin: 12px 0;
+            border: 4px solid #fff;
+            border-radius: 8px;
+            background-color: #fff;
+            color: #000;
+            font-size: 16px;
+            height: 52px;
+            box-sizing: border-box;
+        }
+        #settings-view input[type="text"] { max-width: none; width: 280px; }
 
-    /* ====== WIDOKI / KONTEJNERY ====== */
-    #settings-view,#instructions-view,#game-view,#ready-questions-view,
-    #custom-questions-view,#ready-final-view,#custom-final-view,#extra-options-view{
-      width:100%;display:none;flex-direction:column;align-items:center;min-height:100vh;position:relative;
-    }
-    #settings-view{display:flex;} /* startowo */
+        .vertical-buttons { display: flex; flex-direction: column; gap: 10px; margin-top: 12px; }
 
-    /* ====== INSTRUKCJE ====== */
-    .instructions-text{
-      width:90%;max-width:1000px;margin:20px 0;padding:20px;background:#fff;border:4px solid #fff;border-radius:8px;
-      font-size:18px;line-height:1.6;text-align:justify;color:#000;min-height:500px;position:relative;overflow-wrap:break-word;
-      display:flex;flex-direction:column;justify-content:space-between;
-    }
-    .instructions-text .content{flex-grow:1;margin-bottom:10px;}
-    .instructions-text .arrow-buttons{
-      display:flex;justify-content:space-between;margin-top:10px;padding:0 20px;box-sizing:border-box;
-    }
-    .instructions-text .arrow-button{
-      background:#000;border:1px solid #fff;color:#FFFF33;font-family:'Courier New',monospace;font-size:24px;
-      padding:0;border-radius:4px;box-shadow:0 0 5px #FFD700;cursor:pointer;width:auto;min-width:87.75px;height:52px;
-      display:flex;align-items:center;justify-content:center;box-sizing:border-box;
-    }
-    .instructions-text .arrow-button:hover{background:#111;border-color:#FFEA00;box-shadow:0 0 10px #FFEA00;}
+        .rounds-container, .audio-container {
+            display: grid;
+            grid-template-columns: repeat(2, auto);
+            gap: 10px;
+            margin-top: 12px;
+        }
+        .rounds-container { justify-content: center; }
+        .audio-container { grid-template-columns: 1fr; justify-content: center; }
 
-    /* ====== PLANSZA GRY ====== */
-    .game-board{
-      background:#000;border:4px solid #fff;border-radius:8px;box-shadow:0 0 10px #FFD700;width:90%;max-width:1000px;
-      padding:20px;margin:5px 0;display:flex;flex-direction:column;align-items:flex-start;position:relative;min-height:400px;
-    }
-    .game-board-question{
-      font-family:'Courier New',monospace;color:#FFFF33;font-size:28px;margin-bottom:20px;text-align:left;width:100%;
-      max-width:600px;align-self:center;margin-left:50px;display:none;
-    }
-    .game-board-answers{
-      width:100%;max-width:650px;display:none;flex-direction:column;gap:10px;align-self:center;
-    }
-    .answer-row{
-      display:flex;justify-content:flex-start;align-items:center;font-family:'Courier New',monospace;color:#FFFF33;
-      font-size:24px;width:100%;gap:3px;
-    }
-    #game-view .answer-row{gap:3px;}
-    .answer-number{flex:0 0 10%;text-align:right;min-width:30px;}
-    .answer-text{flex:1;text-align:left;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;max-width:50%;}
-    .answer-points{flex:0 0 15%;text-align:right;min-width:30px;margin-left:5px;}
-    .sum-row{
-      font-family:'Courier New',monospace;color:#FFFF33;font-size:24px;text-align:right;margin-top:10px;width:100%;max-width:650px;
-    }
-    .marks-container{position:absolute;top:20px;bottom:20px;display:flex;flex-direction:column;justify-content:space-between;}
-    .marks-left{left:20px;} .marks-right{right:20px;}
-    .marks-container img{width:50px;height:80px;object-fit:contain;}
-    .team-scores{
-      display:flex;justify-content:space-between;width:100%;max-width:1400px;position:absolute;top:145px;
-    }
-    .team-score{display:flex;flex-direction:column;align-items:center;gap:10px;}
-    .team-score p{font-size:28px;margin:0;} .team-score span{font-size:42px;font-weight:bold;color:#FFFF33;}
-    .round-info{font-size:24px;margin:5px 0;color:#FFD700;}
+        button {
+            background-color: #000;
+            border: 4px solid #fff;
+            color: #FFFF33;
+            font-family: 'Courier New', monospace;
+            font-size: 20px;
+            padding: 12px 36px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px #FFD700;
+            cursor: pointer;
+            transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
+            min-width: 280px;
+            text-align: center;
+            text-transform: capitalize;
+            height: 52px;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .rounds-container button { min-width: 135px; }
+        button.active { background-color: #002266; color: #FFFF33; border-color: #FFEA00; box-shadow: 0 0 20px #FFEA00; }
+        button:hover:not(.active):not(.disabled) { background-color: #111; border-color: #FFEA00; box-shadow: 0 0 20px #FFEA00; }
+        button.disabled { opacity: 0.5; cursor: not-allowed; }
 
-    .round-nav-container{display:flex;justify-content:center;align-items:center;gap:10px;width:100%;max-width:1068px;margin-bottom:4px;}
-    #game-view .question-nav-container{display:flex;justify-content:center;align-items:center;gap:10px;}
-    .round-nav{
-      background:#000;border:4px solid #fff;color:#FFFF33;font-family:'Courier New',monospace;font-size:20px;padding:12px 36px;
-      border-radius:8px;box-shadow:0 0 10px #FFD700;cursor:pointer;text-align:center;min-width:280px;line-height:1;height:52px;box-sizing:border-box;
-    }
-    .round-nav:hover{background:#111;border-color:#FFEA00;box-shadow:0 0 20px #FFEA00;}
-    #prev-round-btn{min-width:280px;padding:12px 36px;margin-left:4px;}
-    #next-round-btn{min-width:280px;padding:12px 36px;margin-right:4px;}
-    .question-number{font-size:16px;margin:0 0 10px 0;align-self:flex-start;max-width:1000px;width:90%;}
-    .game-controls{
-      display:flex;align-items:center;gap:10px;margin:4px 0;width:100%;max-width:1000px;justify-content:center;flex-wrap:wrap;
-    }
-    .game-controls input[type="text"]{min-width:280px;}
-    .game-controls button{min-width:280px;}
-    .game-controls .round-nav{min-width:280px;}
-    .game-controls:last-of-type{justify-content:space-between;}
+        .bottom-logo {
+            position: absolute;
+            bottom: 24px;
+            right: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 2;
+        }
+        .bottom-logo img { width: 140px; margin-bottom: 6px; }
+        .bottom-logo a { color: white; text-decoration: none; font-size: 13px; }
 
-    .input-with-button{position:relative;display:flex;align-items:center;width:280px;}
-    .input-with-button input[type="text"]{width:100%;padding-right:54px;}
-    .input-with-button button{
-      position:absolute;right:4px;min-width:unset;width:43.2px;padding:7.2px;font-size:14.4px;line-height:1;height:36px;
-      box-sizing:border-box;border-color:#FFEA00;
-    }
-    .answer-wrapper{
-      display:flex;justify-content:center;align-items:center;width:100%;max-width:1000px;margin:4px 0;gap:10px;
-    }
+        .aligned-section {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            max-width: 1200px;
+            margin: 28px 0;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        .aligned-section p { margin-top: 0; font-size: 24px; text-align: center; }
 
-    /* ====== EDYTOR GOTOWYCH PYTAŃ (dawne /familiada-gotowe-pytania.html) ====== */
-    .info-text{
-      width:90%;max-width:1000px;margin:20px 0;padding:20px;background:#fff;border:4px solid #fff;border-radius:8px;
-      font-size:18px;line-height:1.6;text-align:justify;color:#000;min-height:100px;position:relative;overflow-wrap:break-word;
-      display:flex;flex-direction:column;justify-content:space-between;
-    }
-    .questions-section{
-      width:100%;max-width:1200px;display:flex;flex-direction:column;align-items:center;margin:-20px 0 0 0;
-      padding-left:10px;position:relative;min-height:600px;
-    }
-    .rq-nav{display:flex;justify-content:center;align-items:center;gap:10px;width:100%;max-width:1068px;margin-bottom:4px;}
-    .answer-counter{display:flex;align-items:center;gap:0;margin-top:0;}
-    .counter-btn{
-      background:#000;border:4px solid #fff;color:#FFFF33;font-family:'Courier New',monospace;font-size:24px;padding:0;border-radius:8px;
-      box-shadow:0 0 10px #FFD700;cursor:pointer;transition:background-color .3s,border-color .3s,box-shadow .3s;width:52px;min-width:52px;
-      max-width:52px;height:52px;display:flex;align-items:center;justify-content:center;box-sizing:border-box;flex-grow:0;flex-shrink:0;flex-basis:auto;
-    }
-    .counter-btn.disabled{opacity:.5;cursor:not-allowed;}
-    .counter-display{
-      width:280px;height:52px;border:4px solid #fff;border-radius:8px;background:#000;color:#FFFF33;font-family:'Courier New',monospace;
-      font-size:20px;display:flex;align-items:center;justify-content:center;box-shadow:0 0 10px #FFD700;box-sizing:border-box;
-    }
-    .question-form{width:100%;max-width:1068px;display:flex;flex-direction:column;align-items:center;}
-    .question-input{
-      width:1068px;max-width:1068px;padding:10.8px;margin:10px auto 20px;border:4px solid #fff;border-radius:8px;background:#fff;color:#000;
-      font-size:16px;height:64.8px;box-sizing:border-box;white-space:normal;overflow-wrap:break-word;line-height:1.5;resize: none;
-    }
-    .answer-grid{display:flex;flex-direction:column;gap:20px;width:100%;max-width:1068px;margin:0 auto;align-self:center;}
-    .answer-row{display:flex;gap:10px;justify-content:space-between;width:1068px;}
-    .answer-pair{display:flex;gap:10px;flex:1;}
-    .answer-input{
-      flex:2;padding:3.6px 10.8px;margin:0 0 10px 0;border:4px solid #fff;border-radius:8px;background:#fff;color:#000;font-size:16px;height:32.4px;box-sizing:border-box;
-    }
-    .points-input{
-      flex:1;width:75%;padding:3.6px 10.8px;margin:0 0 10px 10px;border:4px solid #fff;border-radius:8px;background:#fff;color:#000;font-size:16px;height:32.4px;box-sizing:border-box;
-    }
-    .questions-controls{
-      display:flex;flex-direction:row;gap:10px;margin:10px auto 20px auto;justify-content:space-between;align-items:center;width:100%;max-width:1068px;
-    }
-    .nav-row,.bottom-row{display:flex;gap:10px;justify-content:center;}
-    .nav-btn{flex:1;max-width:529px;}
-    .error-message{color:red;font-size:18px;text-align:center;margin-top:10px;width:100%;max-width:1068px;}
+        #settings-view, #instructions-view, #game-view, #custom-questions-view {
+            width: 100%;
+            display: none; /* domyślnie ukryjemy, pokażemy aktywny */
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+        #settings-view { display: flex; }
 
-    /* ====== PLACEHOLDER WIDOKI ====== */
-    .placeholder{
-      width:90%;max-width:1000px;margin:20px 0;padding:20px;background:#fff;border:4px solid #fff;border-radius:8px;color:#000;
-      font-size:18px;line-height:1.6;text-align:center;
-    }
+        /* ====== INSTRUKCJA ====== */
+        .instructions-text {
+            width: 90%;
+            max-width: 1000px;
+            margin: 20px 0;
+            padding: 20px;
+            background-color: #fff;
+            border: 4px solid #fff;
+            border-radius: 8px;
+            font-size: 18px;
+            line-height: 1.6;
+            text-align: justify;
+            color: #000;
+            min-height: 500px;
+            position: relative;
+            overflow-wrap: break-word;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .instructions-text .content { flex-grow: 1; margin-bottom: 10px; }
+        .instructions-text .arrow-buttons {
+            display: flex; justify-content: space-between; margin-top: 10px; padding: 0 20px; box-sizing: border-box;
+        }
+        .instructions-text .arrow-button {
+            background-color: #000; border: 1px solid #fff; color: #FFFF33; font-family: 'Courier New', monospace;
+            font-size: 24px; padding: 0; border-radius: 4px; box-shadow: 0 0 5px #FFD700; cursor: pointer;
+            width: auto; min-width: 87.75px; height: 52px; display: flex; align-items: center; justify-content: center; box-sizing: border-box;
+        }
+        .instructions-text .arrow-button:hover { background-color: #111; border-color: #FFEA00; box-shadow: 0 0 10px #FFEA00; }
 
-    /* ====== RESPONSYWNOŚĆ ====== */
-    @media (max-width:768px){
-      .game-board-answers{max-width:100%;padding:0 10px;}
-      .answer-row{font-size:18px;gap:2px;}
-      .answer-number{min-width:25px;}
-      .answer-text{max-width:45%;}
-      .answer-points{min-width:25px;margin-left:3px;}
+        /* ====== PLANSZA GRY ====== */
+        .game-board {
+            background-color: #000;
+            border: 4px solid #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px #FFD700;
+            width: 90%;
+            max-width: 1000px;
+            padding: 20px;
+            margin: 5px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            position: relative;
+            min-height: 400px;
+        }
+        .game-board-question {
+            font-family: 'Courier New', monospace;
+            color: #FFFF33;
+            font-size: 28px;
+            margin-bottom: 20px;
+            text-align: left;
+            width: 100%;
+            max-width: 600px;
+            align-self: center;
+            margin-left: 50px;
+            display: none;
+        }
+        .game-board-answers {
+            width: 100%;
+            max-width: 650px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-self: center;
+            display: none;
+        }
+        .answer-row {
+            display: flex; justify-content: flex-start; align-items: center;
+            font-family: 'Courier New', monospace; color: #FFFF33; font-size: 24px; width: 100%; gap: 3px;
+        }
+        #game-view .answer-row { gap: 3px; }
+        .answer-number { flex: 0 0 10%; text-align: right; min-width: 30px; }
+        .answer-text { flex: 1; text-align: left; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; max-width: 50%; }
+        .answer-points { flex: 0 0 15%; text-align: right; min-width: 30px; margin-left: 5px; }
+        .sum-row {
+            font-family: 'Courier New', monospace; color: #FFFF33; font-size: 24px;
+            text-align: right; margin-top: 10px; width: 100%; max-width: 650px;
+        }
+        .marks-container {
+            position: absolute; top: 20px; bottom: 20px; display: flex; flex-direction: column; justify-content: space-between;
+        }
+        .marks-left { left: 20px; }
+        .marks-right { right: 20px; }
+        .marks-container img { width: 50px; height: 80px; object-fit: contain; }
 
-      .question-input{width:calc(100% - 32px);max-width:none;}
-      .answer-row{width:100%;}
-      .questions-controls{flex-direction:column;}
-      .nav-btn{width:calc(100% - 32px);max-width:none;}
-    }
-  </style>
+        .team-scores {
+            display: flex; justify-content: space-between; width: 100%; max-width: 1400px;
+            position: absolute; top: 145px;
+        }
+        .team-score { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+        .team-score p { font-size: 28px; margin: 0; }
+        .team-score span { font-size: 42px; font-weight: bold; color: #FFFF33; }
+
+        .round-info { font-size: 24px; margin: 5px 0; color: #FFD700; }
+
+        .round-nav-container {
+            display: flex; justify-content: center; align-items: center; gap: 10px; width: 100%; max-width: 1068px; margin-bottom: 4px;
+        }
+        #game-view .question-nav-container { display: flex; justify-content: center; align-items: center; gap: 10px; }
+
+        .round-nav {
+            background-color: #000; border: 4px solid #fff; color: #FFFF33; font-family: 'Courier New', monospace;
+            font-size: 20px; padding: 12px 36px; border-radius: 8px; box-shadow: 0 0 10px #FFD700; cursor: pointer;
+            text-align: center; min-width: 280px; line-height: 1; height: 52px; box-sizing: border-box;
+        }
+        .round-nav:hover { background-color: #111; border-color: #FFEA00; box-shadow: 0 0 20px #FFEA00; }
+        #prev-round-btn { min-width: 280px; padding: 12px 36px; margin-left: 4px; }
+        #next-round-btn { min-width: 280px; padding: 12px 36px; margin-right: 4px; }
+
+        .question-number {
+            font-size: 16px; margin: 0 0 10px 0; align-self: flex-start; max-width: 1000px; width: 90%;
+        }
+        .game-controls {
+            display: flex; align-items: center; gap: 10px; margin: 4px 0; width: 100%; max-width: 1000px; justify-content: center; flex-wrap: wrap;
+        }
+        .game-controls input[type="text"] { min-width: 280px; }
+        .game-controls button { min-width: 280px; }
+        .game-controls .round-nav { min-width: 280px; }
+        .game-controls:last-of-type { justify-content: space-between; }
+
+        .question-box {
+            border: 4px solid #fff; color: #FFFF33; font-family: 'Courier New', monospace; font-size: 20px;
+            padding: 12px 36px; border-radius: 8px; box-shadow: 0 0 10px #FFD700; min-width: 280px; text-align: center;
+            background-color: transparent; height: 52px; box-sizing: border-box;
+        }
+        .input-with-button { position: relative; display: flex; align-items: center; width: 280px; }
+        .input-with-button input[type="text"] { width: 100%; padding-right: 54px; }
+        .input-with-button button {
+            position: absolute; right: 4px; min-width: unset; width: 43.2px; padding: 7.2px; font-size: 14.4px;
+            line-height: 1; height: 36px; box-sizing: border-box; border-color: #FFEA00;
+        }
+
+        .question-nav-container { display: flex; justify-content: center; align-items: center; gap: 10px; width: 100%; max-width: 1068px; margin-bottom: 4px; }
+        #game-view .question-nav-container { display: flex; justify-content: center; align-items: center; gap: 10px; }
+        .nav-wrapper { display: contents; }
+        .answer-wrapper {
+            display: flex; justify-content: center; align-items: center; width: 100%; max-width: 1000px; margin: 4px 0; gap: 10px;
+        }
+
+        .bottom-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            width: 100%;
+            max-width: 1200px;
+            margin-top: auto;
+            margin-bottom: 24px;
+        }
+
+        /* ====== WŁASNE PYTANIA – style skopiowane i zintegrowane ====== */
+        .info-text {
+            width: 90%;
+            max-width: 1000px;
+            margin: 20px 0;
+            padding: 20px;
+            background-color: #fff;
+            border: 4px solid #fff;
+            border-radius: 8px;
+            font-size: 18px;
+            line-height: 1.6;
+            text-align: justify;
+            color: #000;
+            min-height: 100px;
+            position: relative;
+            overflow-wrap: break-word;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .questions-section { width: 100%; max-width: 1200px; display: flex; flex-direction: column; align-items: center; margin: -20px 0 0 0; padding-left: 10px; position: relative; min-height: 600px; }
+        .answer-counter { display: flex; align-items: center; gap: 0; margin-top: 0; }
+        .counter-btn { background-color: #000; border: 4px solid #fff; color: #FFFF33; font-family: 'Courier New', monospace; font-size: 24px; padding: 0; border-radius: 8px; box-shadow: 0 0 10px #FFD700; cursor: pointer; transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s; width: 52px; min-width: 52px; max-width: 52px; height: 52px; display: flex; align-items: center; justify-content: center; box-sizing: border-box; flex-grow: 0; flex-shrink: 0; flex-basis: auto; }
+        .counter-btn.disabled { opacity: 0.5; cursor: not-allowed; }
+        .counter-display { width: 280px; height: 52px; border: 4px solid #fff; border-radius: 8px; background-color: #000; color: #FFFF33; font-family: 'Courier New', monospace; font-size: 20px; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 10px #FFD700; box-sizing: border-box; }
+        .question-form { width: 100%; max-width: 1068px; display: flex; flex-direction: column; align-items: center; }
+        .question-input { width: 1068px; max-width: 1068px; padding: 10.8px; margin: 10px auto 20px; border: 4px solid #fff; border-radius: 8px; background-color: #fff; color: #000; font-size: 16px; height: 64.8px; box-sizing: border-box; white-space: normal; overflow-wrap: break-word; line-height: 1.5; resize: none; }
+        .answer-grid { display: flex; flex-direction: column; gap: 20px; width: 100%; max-width: 1068px; margin: 0 auto; align-self: center; }
+        .answer-row.qbuilder { display: flex; gap: 10px; justify-content: space-between; width: 1068px; }
+        .answer-pair { display: flex; gap: 10px; flex: 1; }
+        .answer-input { flex: 2; padding: 3.6px 10.8px; margin: 0 0 10px 0; border: 4px solid #fff; border-radius: 8px; background-color: #fff; color: #000; font-size: 16px; height: 32.4px; box-sizing: border-box; }
+        .points-input { flex: 1; width: 75%; padding: 3.6px 10.8px; margin: 0 0 10px 10px; border: 4px solid #fff; border-radius: 8px; background-color: #fff; color: #000; font-size: 16px; height: 32.4px; box-sizing: border-box; }
+        .questions-controls { display: flex; flex-direction: row; gap: 10px; margin: 10px auto 20px auto; justify-content: space-between; align-items: center; width: 100%; max-width: 1068px; }
+        .nav-row, .bottom-row { display: flex; gap: 10px; justify-content: center; }
+        .nav-btn { flex: 1; max-width: 529px; }
+        .error-message { color: red; font-size: 18px; text-align: center; margin-top: 10px; width: 100%; max-width: 1068px; }
+        @media (max-width: 768px) {
+            .game-board-answers { max-width: 100%; padding: 0 10px; }
+            .answer-row { font-size: 18px; gap: 2px; }
+            .answer-number { min-width: 25px; }
+            .answer-text { max-width: 45%; }
+            .answer-points { min-width: 25px; margin-left: 3px; }
+
+            .question-input { width: calc(100% - 32px); max-width: none; }
+            .answer-row.qbuilder { width: 100%; }
+            .questions-controls { flex-direction: column; }
+            .nav-btn { width: calc(100% - 32px); max-width: none; }
+        }
+    </style>
 </head>
 <body>
+    <!-- ====== USTAWIENIA ====== -->
+    <div id="settings-view">
+        <h1>Familiada</h1>
 
-  <!-- ====== USTAWIENIA ====== -->
-  <div id="settings-view">
-    <h1>Familiada</h1>
-
-    <div class="button-container">
-      <button id="instructions-btn">Instrukcja</button>
-      <button id="questions-pdf-btn">Karta pytań PDF</button>
-    </div>
-
-    <div class="aligned-section">
-      <div class="left">
-        <p>Wariant Rund:</p>
-        <div class="vertical-buttons">
-          <button class="game-variant" id="ready-questions-btn">Gotowe pytania</button>
-          <button class="game-variant" id="custom-questions-btn">Własne pytania</button>
+        <div class="button-container">
+            <button id="instructions-btn">Instrukcja</button>
+            <button id="questions-pdf-btn">Karta pytań PDF</button>
         </div>
-      </div>
 
-      <div class="new-right">
-        <p>Wariant Finału:</p>
-        <div class="vertical-buttons">
-          <button class="final-variant" id="ready-final-btn">Gotowy finał</button>
-          <button class="final-variant" id="custom-final-btn">Własny finał</button>
+        <div class="aligned-section">
+            <div class="left">
+                <p>Wariant Rund:</p>
+                <div class="vertical-buttons">
+                    <button class="game-variant" id="ready-questions-btn">Gotowe pytania</button>
+                    <button class="game-variant" id="custom-questions-btn">Własne pytania</button>
+                </div>
+            </div>
+
+            <div class="new-right">
+                <p>Wariant Finału:</p>
+                <div class="vertical-buttons">
+                    <button class="final-variant" id="ready-final-btn">Gotowy finał</button>
+                    <button class="final-variant" id="custom-final-btn">Własny finał</button>
+                </div>
+            </div>
+
+            <div class="new-col">
+                <p>Wariant Rozgrywki:</p>
+                <div class="vertical-buttons">
+                    <button class="gameplay-variant" id="classic-mode-btn">Klasyczna</button>
+                    <button class="gameplay-variant" id="extra-options-btn">Dodatkowe Opcje</button>
+                </div>
+            </div>
+
+            <div class="center">
+                <p>Drużyny:</p>
+                <div style="display: flex; flex-direction: column; gap: 10px; width: 100%; align-items: center; margin-top: 12px;">
+                    <input type="text" id="team1-input" placeholder="Wpisz nazwę drużyny nr 1" maxlength="15" style="margin: 0;">
+                    <input type="text" id="team2-input" placeholder="Wpisz nazwę drużyny nr 2" maxlength="15" style="margin: 0;">
+                </div>
+            </div>
         </div>
-      </div>
 
-      <div class="new-col">
-        <p>Wariant Rozgrywki:</p>
-        <div class="vertical-buttons">
-          <button class="gameplay-variant" id="classic-mode-btn">Klasyczna</button>
-          <button class="gameplay-variant" id="extra-options-btn">Dodatkowe Opcje</button>
+        <div class="aligned-section">
+            <div class="new-left">
+                <p>Zakończenie Gry:</p>
+                <div class="vertical-buttons">
+                    <button class="game-end">Z Finałem</button>
+                    <button class="game-end">Bez Finału</button>
+                </div>
+            </div>
+
+            <div class="new-right">
+                <p>Pytania na Ekranie:</p>
+                <div class="vertical-buttons">
+                    <button class="display-questions">Wyświetlaj</button>
+                    <button class="display-questions">Nie wyświetlaj</button>
+                </div>
+            </div>
+
+            <div class="new-col">
+                <p>Kolejność Pytań:</p>
+                <div class="vertical-buttons">
+                    <button class="question-order">Chronologicznie</button>
+                    <button class="question-order">Losowo</button>
+                </div>
+            </div>
+
+            <div class="right">
+                <p>Oprawa Audio:</p>
+                <div class="audio-container">
+                    <button class="audio">Włącz</button>
+                    <button class="audio">Wyłącz</button>
+                </div>
+            </div>
         </div>
-      </div>
 
-      <div class="center">
-        <p>Drużyny:</p>
-        <div style="display:flex;flex-direction:column;gap:10px;width:100%;align-items:center;margin-top:12px;">
-          <input type="text" id="team1-input" placeholder="Wpisz nazwę drużyny nr 1" maxlength="15" style="margin:0;">
-          <input type="text" id="team2-input" placeholder="Wpisz nazwę drużyny nr 2" maxlength="15" style="margin:0;">
+        <div class="bottom-logo">
+            <img src="familiada/logo.png" alt="Logo">
+            <a href="https://www.muzykamikrofonakcja.pl">WWW.MUZYKAMIKROFONAKCJA.PL</a>
         </div>
-      </div>
-    </div>
 
-    <div class="aligned-section">
-      <div class="new-left">
-        <p>Zakończenie Gry:</p>
-        <div class="vertical-buttons">
-          <button class="game-end">Z Finałem</button>
-          <button class="game-end">Bez Finału</button>
+        <div class="bottom-buttons">
+            <button id="fullscreen-btn">Pełny ekran</button>
+            <button id="next-btn">Dalej</button>
         </div>
-      </div>
+    </div>
 
-      <div class="new-right">
-        <p>Pytania na Ekranie:</p>
-        <div class="vertical-buttons">
-          <button class="display-questions">Wyświetlaj</button>
-          <button class="display-questions">Nie wyświetlaj</button>
+    <!-- ====== INSTRUKCJE ====== -->
+    <div id="instructions-view">
+        <h1>Familiada</h1>
+
+        <div id="instructions-page-1" class="instructions-text">
+            <div class="content">lorem ipsum</div>
+            <div class="arrow-buttons">
+                <span></span>
+                <button id="next-page-1" class="arrow-button">▶</button>
+            </div>
         </div>
-      </div>
 
-      <div class="new-col">
-        <p>Kolejność Pytań:</p>
-        <div class="vertical-buttons">
-          <button class="question-order">Chronologicznie</button>
-          <button class="question-order">Losowo</button>
+        <div id="instructions-page-2" class="instructions-text" style="display: none;">
+            <div class="content">lorem ipsum</div>
+            <div class="arrow-buttons">
+                <button id="prev-page-2" class="arrow-button">◀</button>
+                <button id="next-page-2" class="arrow-button">▶</button>
+            </div>
         </div>
-      </div>
 
-      <div class="right">
-        <p>Oprawa Audio:</p>
-        <div class="audio-container">
-          <button class="audio">Włącz</button>
-          <button class="audio">Wyłącz</button>
+        <div id="instructions-page-3" class="instructions-text" style="display: none;">
+            <div class="content">lorem ipsum</div>
+            <div class="arrow-buttons">
+                <button id="prev-page-3" class="arrow-button">◀</button>
+                <span></span>
+            </div>
         </div>
-      </div>
-    </div>
 
-    <div class="bottom-logo">
-      <img src="familiada/logo.png" alt="Logo">
-      <a href="https://www.muzykamikrofonakcja.pl">WWW.MUZYKAMIKROFONAKCJA.PL</a>
-    </div>
-
-    <div class="bottom-buttons">
-      <button id="fullscreen-btn">Pełny ekran</button>
-      <button id="next-btn">Dalej</button>
-    </div>
-  </div>
-
-  <!-- ====== INSTRUKCJE ====== -->
-  <div id="instructions-view">
-    <h1>Familiada</h1>
-
-    <div id="instructions-page-1" class="instructions-text">
-      <div class="content">lorem ipsum</div>
-      <div class="arrow-buttons">
-        <span></span>
-        <button id="next-page-1" class="arrow-button">▶</button>
-      </div>
-    </div>
-
-    <div id="instructions-page-2" class="instructions-text" style="display:none;">
-      <div class="content">lorem ipsum</div>
-      <div class="arrow-buttons">
-        <button id="prev-page-2" class="arrow-button">◀</button>
-        <button id="next-page-2" class="arrow-button">▶</button>
-      </div>
-    </div>
-
-    <div id="instructions-page-3" class="instructions-text" style="display:none;">
-      <div class="content">lorem ipsum</div>
-      <div class="arrow-buttons">
-        <button id="prev-page-3" class="arrow-button">◀</button>
-        <span></span>
-      </div>
-    </div>
-
-    <div class="bottom-logo">
-      <img src="familiada/logo.png" alt="Logo">
-      <a href="https://www.muzykamikrofonakcja.pl">WWW.MUZYKAMIKROFONAKCJA.PL</a>
-    </div>
-
-    <div class="bottom-buttons">
-      <button id="fullscreen-btn">Pełny ekran</button>
-      <button class="go-back-btn">Powrót</button>
-    </div>
-  </div>
-
-  <!-- ====== GRA ====== -->
-  <div id="game-view">
-    <h1>Familiada</h1>
-    <div class="round-info" id="round-info">Runda 1</div>
-
-    <div class="game-board">
-      <div class="game-board-question">Tutaj pojawi się treść pytania</div>
-      <div class="game-board-answers">
-        <!-- Wypełniane dynamicznie -->
-      </div>
-
-      <div class="marks-container marks-left">
-        <img src="familiada/znak.png" alt="Znak">
-        <img src="familiada/znak.png" alt="Znak">
-        <img src="familiada/znak.png" alt="Znak">
-      </div>
-      <div class="marks-container marks-right">
-        <img src="familiada/znak.png" alt="Znak">
-        <img src="familiada/znak.png" alt="Znak">
-        <img src="familiada/znak.png" alt="Znak">
-      </div>
-    </div>
-
-    <div class="team-scores">
-      <div class="team-score">
-        <p id="team1-name">Drużyna 1</p><span id="team1-score">0</span>
-      </div>
-      <div class="team-score">
-        <p id="team2-name">Drużyna 2</p><span id="team2-score">0</span>
-      </div>
-    </div>
-
-    <div class="question-nav-container">
-      <button id="prev-round-btn" class="round-nav"><span>Poprzednia runda</span></button>
-      <div class="question-box" id="game-question-number">Pytanie nr 1</div>
-      <button id="next-round-btn" class="round-nav"><span>Następna runda</span></button>
-    </div>
-
-    <div class="answer-wrapper">
-      <button id="start-btn">Rozpocznij</button>
-      <div class="input-with-button">
-        <input type="text" id="answer-input" placeholder="Wpisz odpowiedź">
-        <button id="submit-answer-btn">OK</button>
-      </div>
-      <button id="answers-btn">Odpowiedzi</button>
-    </div>
-
-    <div class="game-controls"></div>
-
-    <div class="bottom-logo">
-      <img src="familiada/logo.png" alt="Logo">
-      <a href="https://www.muzykamikrofonakcja.pl">WWW.MUZYKAMIKROFONAKCJA.PL</a>
-    </div>
-
-    <div class="bottom-buttons">
-      <button id="fullscreen-btn">Pełny ekran</button>
-      <button class="go-back-btn">Powrót</button>
-    </div>
-  </div>
-
-  <!-- ====== EDYTOR GOTOWYCH PYTAŃ (MERGE) ====== -->
-  <div id="ready-questions-view">
-    <h1>Familiada</h1>
-
-    <div class="info-text">
-      W odpowiednie pola wpisz pytanie, możliwe odpowiedzi (od 4 do 8) oraz ilość punktów do zdobycia (od 5 do 50).<br>
-      W przypadku różnych wariantów odpowiedzi, zapisz wszystkie w jednym polu, oddzielając je przecinkiem np. Telefon, komórka, smartphone. Kiedy uczestnik poda którekolwiek określenie po przecinku, w grze wyświetli się zawsze pierwsza wpisana propozycja.
-    </div>
-
-    <div class="rq-nav">
-      <div class="answer-counter">
-        <button id="rq-prev-rounds-btn" class="counter-btn">◀</button>
-        <div class="counter-display" id="rq-rounds-display">Liczba rund: 3</div>
-        <button id="rq-next-rounds-btn" class="counter-btn">▶</button>
-      </div>
-
-      <div class="question-box" id="rq-question-number">Pytanie 1/3</div>
-
-      <div class="answer-counter">
-        <button id="rq-prev-answers-btn" class="counter-btn">◀</button>
-        <div class="counter-display" id="rq-answers-display">Liczba odpowiedzi: 4</div>
-        <button id="rq-next-answers-btn" class="counter-btn">▶</button>
-      </div>
-    </div>
-
-    <div class="question-form">
-      <div class="questions-controls">
-        <button id="rq-prev-question-btn" class="nav-btn disabled">Poprzednie pytanie</button>
-        <button id="rq-next-question-btn" class="nav-btn">Następne pytanie</button>
-      </div>
-
-      <textarea class="question-input" id="rq-question-input" placeholder="Wpisz pytanie"></textarea>
-
-      <div class="answer-grid" id="rq-answer-grid">
-        <!-- 8 par pól (2 w wierszu x 4 wiersze) -->
-        <div class="answer-row">
-          <div class="answer-pair">
-            <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
-            <input type="text" class="points-input" placeholder="5-50 pkt.">
-          </div>
-          <div class="answer-pair">
-            <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
-            <input type="text" class="points-input" placeholder="5-50 pkt.">
-          </div>
+        <div class="bottom-logo">
+            <img src="familiada/logo.png" alt="Logo">
+            <a href="https://www.muzykamikrofonakcja.pl">WWW.MUZYKAMIKROFONAKCJA.PL</a>
         </div>
-        <div class="answer-row">
-          <div class="answer-pair">
-            <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
-            <input type="text" class="points-input" placeholder="5-50 pkt.">
-          </div>
-          <div class="answer-pair">
-            <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
-            <input type="text" class="points-input" placeholder="5-50 pkt.">
-          </div>
+
+        <div class="bottom-buttons">
+            <button id="fullscreen-btn">Pełny ekran</button>
+            <button id="back-btn">Powrót</button>
         </div>
-        <div class="answer-row">
-          <div class="answer-pair">
-            <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
-            <input type="text" class="points-input" placeholder="5-50 pkt.">
-          </div>
-          <div class="answer-pair">
-            <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
-            <input type="text" class="points-input" placeholder="5-50 pkt.">
-          </div>
+    </div>
+
+    <!-- ====== GRA ====== -->
+    <div id="game-view">
+        <h1>Familiada</h1>
+
+        <div class="round-info">Runda 1</div>
+
+        <div class="game-board">
+            <div class="game-board-question">Tutaj pojawi się treść pytania</div>
+
+            <div class="game-board-answers">
+                <div class="answer-row">
+                    <div class="answer-number">1.</div>
+                    <div class="answer-text">Przykładowa odpowiedź</div>
+                    <div class="answer-points">30</div>
+                </div>
+            </div>
+
+            <div class="marks-container marks-left">
+                <img src="familiada/znak.png" alt="Znak">
+                <img src="familiada/znak.png" alt="Znak">
+                <img src="familiada/znak.png" alt="Znak">
+            </div>
+            <div class="marks-container marks-right">
+                <img src="familiada/znak.png" alt="Znak">
+                <img src="familiada/znak.png" alt="Znak">
+                <img src="familiada/znak.png" alt="Znak">
+            </div>
         </div>
-        <div class="answer-row">
-          <div class="answer-pair">
-            <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
-            <input type="text" class="points-input" placeholder="5-50 pkt.">
-          </div>
-          <div class="answer-pair">
-            <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
-            <input type="text" class="points-input" placeholder="5-50 pkt.">
-          </div>
+
+        <div class="team-scores">
+            <div class="team-score">
+                <p id="team1-name">Drużyna 1</p>
+                <span id="team1-score">0</span>
+            </div>
+            <div class="team-score">
+                <p id="team2-name">Drużyna 2</p>
+                <span id="team2-score">0</span>
+            </div>
         </div>
-      </div>
 
-      <div id="rq-error-message" class="error-message"></div>
-      <div class="bottom-row"></div>
+        <div class="question-nav-container">
+            <button id="prev-round-btn" class="round-nav"><span>Poprzednia runda</span></button>
+            <div class="question-box">Pytanie nr 1</div>
+            <button id="next-round-btn" class="round-nav"><span>Następna runda</span></button>
+        </div>
+
+        <div class="answer-wrapper">
+            <button id="start-btn">Rozpocznij</button>
+            <div class="input-with-button">
+                <input type="text" id="answer-input" placeholder="Wpisz odpowiedź">
+                <button id="submit-answer-btn">OK</button>
+            </div>
+            <button id="answers-btn">Odpowiedzi</button>
+        </div>
+
+        <div class="game-controls"></div>
+
+        <div class="bottom-logo">
+            <img src="familiada/logo.png" alt="Logo">
+            <a href="https://www.muzykamikrofonakcja.pl">WWW.MUZYKAMIKROFONAKCJA.PL</a>
+        </div>
+
+        <div class="bottom-buttons">
+            <button id="fullscreen-btn">Pełny ekran</button>
+            <button id="back-btn">Powrót</button>
+        </div>
     </div>
 
-    <div class="bottom-logo">
-      <img src="familiada/logo.png" alt="Logo">
-      <a href="https://www.muzykamikrofonakcja.pl">WWW.MUZYKAMIKROFONAKCJA.PL</a>
+    <!-- ====== WŁASNE PYTANIA (z drugiej strony) ====== -->
+    <div id="custom-questions-view">
+        <h1>Familiada</h1>
+
+        <div class="info-text">
+            W odpowiednie pola wpisz pytanie, możliwe odpowiedzi (od 4 do 8) oraz ilość punktów do zdobycia (od 5 do 50).<br>
+            W przypadku różnych wariantów odpowiedzi, zapisz wszystkie w jednym polu, oddzielając je przecinkiem np. Telefon, komórka, smartphone. Kiedy uczestnik poda którekolwiek określenie po przecinku, w grze wyświetli się zawsze pierwsza wpisana propozycja.
+        </div>
+
+        <div class="question-nav-container">
+            <div class="answer-counter">
+                <button id="prev-rounds-btn" class="counter-btn">◀</button>
+                <div class="counter-display" id="rounds-display">Liczba rund: 3</div>
+                <button id="next-rounds-btn" class="counter-btn">▶</button>
+            </div>
+            <div class="question-box" id="question-number">Pytanie 1/3</div>
+            <div class="answer-counter">
+                <button id="prev-answers-btn" class="counter-btn">◀</button>
+                <div class="counter-display" id="answers-display">Liczba odpowiedzi: 4</div>
+                <button id="next-answers-btn" class="counter-btn">▶</button>
+            </div>
+        </div>
+
+        <div class="question-form">
+            <div class="questions-controls">
+                <button id="prev-question-btn" class="nav-btn disabled">Poprzednie pytanie</button>
+                <button id="next-question-btn" class="nav-btn">Następne pytanie</button>
+            </div>
+
+            <textarea class="question-input" id="question-input" placeholder="Wpisz pytanie"></textarea>
+
+            <div class="answer-grid">
+                <div class="answer-row qbuilder">
+                    <div class="answer-pair">
+                        <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
+                        <input type="text" class="points-input" placeholder="5-50 pkt.">
+                    </div>
+                    <div class="answer-pair">
+                        <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
+                        <input type="text" class="points-input" placeholder="5-50 pkt.">
+                    </div>
+                </div>
+                <div class="answer-row qbuilder">
+                    <div class="answer-pair">
+                        <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
+                        <input type="text" class="points-input" placeholder="5-50 pkt.">
+                    </div>
+                    <div class="answer-pair">
+                        <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
+                        <input type="text" class="points-input" placeholder="5-50 pkt.">
+                    </div>
+                </div>
+                <div class="answer-row qbuilder">
+                    <div class="answer-pair">
+                        <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
+                        <input type="text" class="points-input" placeholder="5-50 pkt.">
+                    </div>
+                    <div class="answer-pair">
+                        <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
+                        <input type="text" class="points-input" placeholder="5-50 pkt.">
+                    </div>
+                </div>
+                <div class="answer-row qbuilder">
+                    <div class="answer-pair">
+                        <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
+                        <input type="text" class="points-input" placeholder="5-50 pkt.">
+                    </div>
+                    <div class="answer-pair">
+                        <input type="text" class="answer-input" placeholder="Wpisz odpowiedź">
+                        <input type="text" class="points-input" placeholder="5-50 pkt.">
+                    </div>
+                </div>
+            </div>
+
+            <div id="error-message" class="error-message"></div>
+            <div class="bottom-row"></div>
+        </div>
+
+        <div class="bottom-logo">
+            <img src="familiada/logo.png" alt="Logo">
+            <a href="https://www.muzykamikrofonakcja.pl">WWW.MUZYKAMIKROFONAKCJA.PL</a>
+        </div>
+
+        <div class="bottom-buttons">
+            <button id="fullscreen-btn">Pełny ekran</button>
+            <button id="back-btn">Powrót</button>
+        </div>
     </div>
 
-    <div class="bottom-buttons">
-      <button id="fullscreen-btn">Pełny ekran</button>
-      <button class="go-back-btn">Powrót</button>
-    </div>
-  </div>
-
-  <!-- ====== PLACEHOLDERS (linki działają w-jednej-stronie) ====== -->
-  <div id="custom-questions-view">
-    <h1>Familiada</h1>
-    <div class="placeholder">Widok „Własne pytania” – wypełnij w przyszłości. Styl zachowany.</div>
-    <div class="bottom-logo">
-      <img src="familiada/logo.png" alt="Logo">
-      <a href="https://www.muzykamikrofonakcja.pl">WWW.MUZYKAMIKROFONAKCJA.PL</a>
-    </div>
-    <div class="bottom-buttons">
-      <button id="fullscreen-btn">Pełny ekran</button>
-      <button class="go-back-btn">Powrót</button>
-    </div>
-  </div>
-
-  <div id="ready-final-view">
-    <h1>Familiada</h1>
-    <div class="placeholder">Widok „Gotowy finał” – wypełnij w przyszłości. Styl zachowany.</div>
-    <div class="bottom-logo">
-      <img src="familiada/logo.png" alt="Logo">
-      <a href="https://www.muzykamikrofonakcja.pl">WWW.MUZYKAMIKROFONAKCJA.PL</a>
-    </div>
-    <div class="bottom-buttons">
-      <button id="fullscreen-btn">Pełny ekran</button>
-      <button class="go-back-btn">Powrót</button>
-    </div>
-  </div>
-
-  <div id="custom-final-view">
-    <h1>Familiada</h1>
-    <div class="placeholder">Widok „Własny finał” – wypełnij w przyszłości. Styl zachowany.</div>
-    <div class="bottom-logo">
-      <img src="familiada/logo.png" alt="Logo">
-      <a href="https://www.muzykamikrofonakcja.pl">WWW.MUZYKAMIKROFONAKCJA.PL</a>
-    </div>
-    <div class="bottom-buttons">
-      <button id="fullscreen-btn">Pełny ekran</button>
-      <button class="go-back-btn">Powrót</button>
-    </div>
-  </div>
-
-  <div id="extra-options-view">
-    <h1>Familiada</h1>
-    <div class="placeholder">Widok „Dodatkowe opcje” – wypełnij w przyszłości. Styl zachowany.</div>
-    <div class="bottom-logo">
-      <img src="familiada/logo.png" alt="Logo">
-      <a href="https://www.muzykamikrofonakcja.pl">WWW.MUZYKAMIKROFONAKCJA.PL</a>
-    </div>
-    <div class="bottom-buttons">
-      <button id="fullscreen-btn">Pełny ekran</button>
-      <button class="go-back-btn">Powrót</button>
-    </div>
-  </div>
-
-  <script>
-    /* ====== SELEKTORY / STAN ====== */
-    const settingsView = document.getElementById('settings-view');
-    const instructionsView = document.getElementById('instructions-view');
-    const gameView = document.getElementById('game-view');
-    const readyQuestionsView = document.getElementById('ready-questions-view');
-    const customQuestionsView = document.getElementById('custom-questions-view');
-    const readyFinalView = document.getElementById('ready-final-view');
-    const customFinalView = document.getElementById('custom-final-view');
-    const extraOptionsView = document.getElementById('extra-options-view');
-
-    const team1Input = document.getElementById('team1-input');
-    const team2Input = document.getElementById('team2-input');
-    const team1Name = document.getElementById('team1-name');
-    const team2Name = document.getElementById('team2-name');
-
-    const gameBoardQuestion = document.querySelector('.game-board-question');
-    const gameBoardAnswers  = document.querySelector('.game-board-answers');
-    const roundInfoEl = document.getElementById('round-info');
-    const gameQuestionNumber = document.getElementById('game-question-number');
-
-    const fullscreenBtns = document.querySelectorAll('#fullscreen-btn');
-
-    let timerInterval = null;
-    let currentRound = 1;
-    let questions = []; // [{question:'', answers:[...], points:[...]}]
-
-    /* ====== POMOCNICZE ====== */
-    function showView(viewEl){
-      // ukryj wszystkie
-      [settingsView,instructionsView,gameView,readyQuestionsView,
-       customQuestionsView,readyFinalView,customFinalView,extraOptionsView]
-       .forEach(v => v.style.display = 'none');
-      // pokaż
-      viewEl.style.display = 'flex';
-      window.scrollTo(0,0);
-    }
-
-    function loadCustomQuestions(){
-      const stored = localStorage.getItem('customQuestions');
-      if(stored){
-        try{ questions = JSON.parse(stored) || []; }catch(e){ questions = []; }
-      }
-    }
-
-    function displayQuestion(roundIndex){
-      if(questions[roundIndex-1]){
-        gameBoardQuestion.textContent = questions[roundIndex-1].question || '';
-        gameBoardAnswers.innerHTML = '';
-        (questions[roundIndex-1].answers || []).forEach((ans,i)=>{
-          const row = document.createElement('div');
-          row.className = 'answer-row';
-          const safeAns = (ans || '').split(',')[0].trim();
-          const pts = (questions[roundIndex-1].points || [])[i] || '';
-          row.innerHTML = `
-            <div class="answer-number">${i+1}.</div>
-            <div class="answer-text">${safeAns}</div>
-            <div class="answer-points">${pts}</div>
-          `;
-          gameBoardAnswers.appendChild(row);
-        });
-        roundInfoEl.textContent = `Runda ${roundIndex}`;
-        gameQuestionNumber.textContent = `Pytanie nr ${roundIndex}`;
-      }
-    }
-
-    function toggleFullscreen(){
-      if(!document.fullscreenElement){
-        document.documentElement.requestFullscreen().then(()=>{
-          fullscreenBtns.forEach(b=>b.textContent='Podstawowy ekran');
-          localStorage.setItem('fullscreen','true');
-        }).catch(err=>console.error('Error entering fullscreen:',err));
-      }else{
-        document.exitFullscreen().then(()=>{
-          fullscreenBtns.forEach(b=>b.textContent='Pełny ekran');
-          localStorage.setItem('fullscreen','false');
-        }).catch(err=>console.error('Error exiting fullscreen:',err));
-      }
-    }
-
-    function initFullscreenStateOnLoad(){
-      const isFullscreen = localStorage.getItem('fullscreen')==='true';
-      fullscreenBtns.forEach(b=>b.textContent = isFullscreen ? 'Podstawowy ekran' : 'Pełny ekran');
-      if(isFullscreen && !document.fullscreenElement){
-        document.documentElement.requestFullscreen().catch(err=>console.error('Error restoring fullscreen:',err));
-      }
-    }
-
-    function startTimer(){ clearInterval(timerInterval); /* docelowo: implementacja zegara */ }
-
-    function submitAnswer(){
-      const answerInput = document.getElementById('answer-input');
-      const answer = answerInput.value.trim();
-      if(answer){
-        console.log('Submitted answer:',answer);
-        answerInput.value='';
-      }
-    }
-
-    /* ====== USTAWIENIA: interakcje ====== */
-    document.getElementById('instructions-btn').addEventListener('click',()=>showView(instructionsView));
-    document.querySelector('#settings-view #next-btn').addEventListener('click',()=>{
-      showView(gameView);
-      if(document.getElementById('custom-questions-btn').classList.contains('active') || questions.length){
-        displayQuestion(currentRound);
-      }
-    });
-
-    document.getElementById('questions-pdf-btn').addEventListener('click',()=>{
-      alert('Karta pytań PDF – podlinkuj docelowy plik, gdy będzie gotowy.');
-    });
-
-    // Zmiana nazw drużyn live
-    team1Input.addEventListener('input',()=>{ team1Name.textContent = team1Input.value || 'Drużyna 1'; });
-    team2Input.addEventListener('input',()=>{ team2Name.textContent = team2Input.value || 'Drużyna 2'; });
-
-    // "Linki" w jedną stronę – przełączanie widoków:
-    document.getElementById('ready-questions-btn').addEventListener('click',()=>showView(readyQuestionsView));
-    document.getElementById('custom-questions-btn').addEventListener('click',()=>showView(customQuestionsView));
-    document.getElementById('ready-final-btn').addEventListener('click',()=>showView(readyFinalView));
-    document.getElementById('custom-final-btn').addEventListener('click',()=>showView(customFinalView));
-    document.getElementById('extra-options-btn').addEventListener('click',()=>showView(extraOptionsView));
-
-    // Wspólny „Powrót” (z dowolnego widoku do ustawień)
-    document.querySelectorAll('.go-back-btn').forEach(btn=>{
-      btn.addEventListener('click',()=>showView(settingsView));
-    });
-
-    // Instrukcje – paginacja
-    const instructionsPage1 = document.getElementById('instructions-page-1');
-    const instructionsPage2 = document.getElementById('instructions-page-2');
-    const instructionsPage3 = document.getElementById('instructions-page-3');
-    document.getElementById('next-page-1').addEventListener('click',()=>{
-      instructionsPage1.style.display='none'; instructionsPage2.style.display='flex'; instructionsPage3.style.display='none';
-      window.scrollTo(0,0);
-    });
-    document.getElementById('prev-page-2').addEventListener('click',()=>{
-      instructionsPage1.style.display='flex'; instructionsPage2.style.display='none'; instructionsPage3.style.display='none';
-      window.scrollTo(0,0);
-    });
-    document.getElementById('next-page-2').addEventListener('click',()=>{
-      instructionsPage1.style.display='none'; instructionsPage2.style.display='none'; instructionsPage3.style.display='flex';
-      window.scrollTo(0,0);
-    });
-    document.getElementById('prev-page-3').addEventListener('click',()=>{
-      instructionsPage1.style.display='none'; instructionsPage2.style.display='flex'; instructionsPage3.style.display='none';
-      window.scrollTo(0,0);
-    });
-
-    // Gra – sterowanie podstawowe
-    document.getElementById('start-btn').addEventListener('click',()=>{
-      gameBoardQuestion.style.display='block';
-      gameBoardAnswers.style.display='flex';
-      startTimer();
-    });
-    document.getElementById('submit-answer-btn').addEventListener('click',submitAnswer);
-    document.getElementById('answer-input').addEventListener('keypress',(e)=>{ if(e.key==='Enter') submitAnswer(); });
-
-    // Toggle aktywności dla grup przycisków
-    const toggleActive=(groupClass)=>{
-      const buttons=document.querySelectorAll(`.${groupClass}`);
-      buttons.forEach(btn=>{
-        btn.addEventListener('click',()=>{
-          if(btn.classList.contains('active')){ btn.classList.remove('active'); }
-          else{ buttons.forEach(b=>b.classList.remove('active')); btn.classList.add('active'); }
-        });
-      });
-    };
-    toggleActive('game-variant');
-    toggleActive('game-end');
-    toggleActive('audio');
-    toggleActive('question-order');
-    toggleActive('display-questions');
-    toggleActive('final-variant');
-    toggleActive('gameplay-variant');
-
-    // Fullscreen – wspólne przyciski
-    fullscreenBtns.forEach(b=>b.addEventListener('click',toggleFullscreen));
-    document.addEventListener('keydown',(e)=>{
-      if(e.key==='Escape' && document.fullscreenElement){
-        document.exitFullscreen().then(()=>{
-          fullscreenBtns.forEach(b=>b.textContent='Pełny ekran');
-          localStorage.setItem('fullscreen','false');
-        }).catch(err=>console.error('Error exiting fullscreen:',err));
-      }
-    });
-
-    // ====== LOGIKA EDYTORA GOTOWYCH PYTAŃ (scalona) ======
-    const rqPrevRoundsBtn   = document.getElementById('rq-prev-rounds-btn');
-    const rqNextRoundsBtn   = document.getElementById('rq-next-rounds-btn');
-    const rqRoundsDisplay   = document.getElementById('rq-rounds-display');
-    const rqPrevAnswersBtn  = document.getElementById('rq-prev-answers-btn');
-    const rqNextAnswersBtn  = document.getElementById('rq-next-answers-btn');
-    const rqAnswersDisplay  = document.getElementById('rq-answers-display');
-    const rqQuestionNumber  = document.getElementById('rq-question-number');
-    const rqQuestionInput   = document.getElementById('rq-question-input');
-    const rqPrevQuestionBtn = document.getElementById('rq-prev-question-btn');
-    const rqNextQuestionBtn = document.getElementById('rq-next-question-btn');
-    const rqErrorMessage    = document.getElementById('rq-error-message');
-
-    let rqRoundCount = 3;       // 3..10
-    let rqAnswerCount = 4;      // 4..8
-    let rqIndex = 1;            // 1..rqRoundCount
-    let rqData = [];            // analogiczne do questions
-
-    function rqUpdateAnswerInputs(){
-      const pairs = readyQuestionsView.querySelectorAll('.answer-pair');
-      pairs.forEach((pair,idx)=>{
-        pair.style.visibility = (idx < rqAnswerCount) ? 'visible' : 'hidden';
-      });
-    }
-
-    function rqUpdateView(){
-      rqRoundsDisplay.textContent = `Liczba rund: ${rqRoundCount}`;
-      rqQuestionNumber.textContent = `Pytanie ${rqIndex}/${rqRoundCount}`;
-      rqAnswersDisplay.textContent = `Liczba odpowiedzi: ${rqAnswerCount}`;
-
-      rqPrevRoundsBtn.classList.toggle('disabled', rqRoundCount===3);
-      rqNextRoundsBtn.classList.toggle('disabled', rqRoundCount===10);
-      rqPrevAnswersBtn.classList.toggle('disabled', rqAnswerCount===4);
-      rqNextAnswersBtn.classList.toggle('disabled', rqAnswerCount===8);
-      rqPrevQuestionBtn.classList.toggle('disabled', rqIndex===1);
-      rqNextQuestionBtn.textContent = (rqIndex===rqRoundCount) ? 'Zatwierdź' : 'Następne pytanie';
-
-      rqUpdateAnswerInputs();
-      const q = rqData[rqIndex-1] || {question:'',answers:[],points:[]};
-      rqQuestionInput.value = q.question || '';
-
-      const answerInputs = readyQuestionsView.querySelectorAll('.answer-input');
-      const pointsInputs = readyQuestionsView.querySelectorAll('.points-input');
-      answerInputs.forEach((inp,i)=>{ inp.value = (q.answers && q.answers[i]) ? q.answers[i] : ''; });
-      pointsInputs.forEach((inp,i)=>{ inp.value = (q.points && q.points[i]) ? q.points[i] : ''; });
-    }
-
-    function rqSaveCurrent(){
-      const allAns = Array.from(readyQuestionsView.querySelectorAll('.answer-input')).slice(0,rqAnswerCount).map(i=>i.value);
-      const allPts = Array.from(readyQuestionsView.querySelectorAll('.points-input')).slice(0,rqAnswerCount).map(i=>i.value);
-      rqData[rqIndex-1] = {question: rqQuestionInput.value, answers: allAns, points: allPts};
-    }
-
-    function rqValidateAll(){
-      rqErrorMessage.textContent = '';
-      if(rqRoundCount<3){ rqErrorMessage.textContent='Wypełnij wszystkie pola.'; return false; }
-
-      for(let i=0;i<rqRoundCount;i++){
-        const q = rqData[i];
-        if(!q || !q.question || !q.question.trim()){ rqErrorMessage.textContent='Wypełnij wszystkie pola.'; return false; }
-        if((q.answers||[]).length<4 || (q.points||[]).length<4){ rqErrorMessage.textContent='Wypełnij wszystkie pola.'; return false; }
-        for(let j=0;j<q.answers.length;j++){
-          const a = (q.answers[j]||'').trim();
-          const p = (q.points[j]||'').trim();
-          if(!a || !p){ rqErrorMessage.textContent='Wypełnij wszystkie pola.'; return false; }
-          const pts = parseInt(p,10);
-          if(isNaN(pts) || pts<5 || pts>50){ rqErrorMessage.textContent='Wpisz punkty w przedziale 5-50 pkt.'; return false; }
+    <script>
+        /* ====== POMOCNICZE PRZEŁĄCZANIE WIDOKÓW ====== */
+        const views = {
+            settings: document.getElementById('settings-view'),
+            instructions: document.getElementById('instructions-view'),
+            game: document.getElementById('game-view'),
+            custom: document.getElementById('custom-questions-view'),
+        };
+        function showView(name) {
+            Object.values(views).forEach(v => v.style.display = 'none');
+            views[name].style.display = 'flex';
+            window.scrollTo(0, 0);
         }
-      }
-      return true;
-    }
 
-    rqPrevRoundsBtn.addEventListener('click',()=>{ if(rqRoundCount>3){ rqRoundCount--; if(rqIndex>rqRoundCount) rqIndex=rqRoundCount; rqUpdateView(); } });
-    rqNextRoundsBtn.addEventListener('click',()=>{ if(rqRoundCount<10){ rqRoundCount++; rqUpdateView(); } });
+        /* ====== ELEMENTY Z EKRANU STARTOWEGO ====== */
+        const team1Input = document.getElementById('team1-input');
+        const team2Input = document.getElementById('team2-input');
+        const instructionsBtn = document.getElementById('instructions-btn');
 
-    rqPrevAnswersBtn.addEventListener('click',()=>{ if(rqAnswerCount>4){ rqAnswerCount--; rqUpdateView(); } });
-    rqNextAnswersBtn.addEventListener('click',()=>{ if(rqAnswerCount<8){ rqAnswerCount++; rqUpdateView(); } });
+        const readyQuestionsBtn = document.getElementById('ready-questions-btn');
+        const customQuestionsBtn = document.getElementById('custom-questions-btn');
 
-    rqPrevQuestionBtn.addEventListener('click',()=>{
-      if(rqIndex>1){
-        rqSaveCurrent();
-        rqIndex--;
-        const q = rqData[rqIndex-1];
-        rqAnswerCount = (q && q.answers && q.answers.length) ? q.answers.length : 4;
-        rqUpdateView();
-      }
-    });
+        const readyFinalBtn = document.getElementById('ready-final-btn');
+        const customFinalBtn = document.getElementById('custom-final-btn');
+        const extraOptionsBtn = document.getElementById('extra-options-btn');
 
-    rqNextQuestionBtn.addEventListener('click',()=>{
-      rqSaveCurrent();
-      if(rqIndex<rqRoundCount){
-        rqIndex++;
-        const q = rqData[rqIndex-1];
-        rqAnswerCount = (q && q.answers && q.answers.length) ? q.answers.length : 4;
-        rqUpdateView();
-      }else{
-        // Ostatnie pytanie -> walidacja i zapis + przejście do Gry
-        if(rqValidateAll()){
-          // Przytnij do liczby rund
-          const payload = rqData.slice(0,rqRoundCount);
-          localStorage.setItem('customQuestions', JSON.stringify(payload));
-          // Zasil główny stan pytań i przejdź do gry
-          questions = payload;
-          currentRound = 1;
-          showView(gameView);
-          displayQuestion(currentRound);
-          // Upewnij się, że plansza jest widoczna (jak po "Rozpocznij")
-          gameBoardQuestion.style.display='block';
-          gameBoardAnswers.style.display='flex';
+        const settingsView = views.settings;
+        const instructionsView = views.instructions;
+        const gameView = views.game;
+
+        const team1Name = document.getElementById('team1-name');
+        const team2Name = document.getElementById('team2-name');
+
+        const startBtn = document.getElementById('start-btn');
+        const submitAnswerBtn = document.getElementById('submit-answer-btn');
+        const answerInput = document.getElementById('answer-input');
+        const gameBoardQuestion = document.querySelector('.game-board-question');
+        const gameBoardAnswers = document.querySelector('.game-board-answers');
+
+        const nextPage1 = document.getElementById('next-page-1');
+        const prevPage2 = document.getElementById('prev-page-2');
+        const nextPage2 = document.getElementById('next-page-2');
+        const prevPage3 = document.getElementById('prev-page-3');
+        const instructionsPage1 = document.getElementById('instructions-page-1');
+        const instructionsPage2 = document.getElementById('instructions-page-2');
+        const instructionsPage3 = document.getElementById('instructions-page-3');
+
+        const fullscreenBtns = document.querySelectorAll('#fullscreen-btn');
+
+        let timerInterval = null;
+        let currentRound = 1;
+        let questions = [];
+
+        function loadCustomQuestions() {
+            const storedQuestions = localStorage.getItem('customQuestions');
+            if (storedQuestions) {
+                try {
+                    questions = JSON.parse(storedQuestions);
+                } catch(e) {
+                    console.error('Błędny JSON customQuestions', e);
+                    questions = [];
+                }
+            } else {
+                questions = [];
+            }
         }
-      }
-    });
 
-    // ====== START / LOAD ======
-    window.addEventListener('load',()=>{
-      initFullscreenStateOnLoad();
-      loadCustomQuestions();
-      // Jeżeli były już pytania, uaktualnij widok gry (pozostajemy w Settings do czasu "Dalej")
-      if(questions.length){
-        // nic nie pokazujemy od razu, tylko gotowość do załadowania przy starcie gry
-      }
-      rqUpdateView();
-    });
+        function displayQuestion(roundIndex) {
+            if (questions[roundIndex - 1]) {
+                const q = questions[roundIndex - 1];
+                gameBoardQuestion.textContent = q.question;
+                gameBoardAnswers.innerHTML = '';
+                q.answers.forEach((answer, i) => {
+                    const row = document.createElement('div');
+                    row.className = 'answer-row';
+                    const safeAnswer = (answer || '').split(',')[0].trim();
+                    const pts = (q.points && q.points[i] != null) ? q.points[i] : '';
+                    row.innerHTML = `
+                        <div class="answer-number">${i + 1}.</div>
+                        <div class="answer-text">${safeAnswer}</div>
+                        <div class="answer-points">${pts}</div>
+                    `;
+                    gameBoardAnswers.appendChild(row);
+                });
+            }
+        }
 
-  </script>
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().then(() => {
+                    fullscreenBtns.forEach(btn => btn.textContent = 'Podstawowy ekran');
+                    localStorage.setItem('fullscreen', 'true');
+                }).catch(err => console.error('Error entering fullscreen:', err));
+            } else {
+                document.exitFullscreen().then(() => {
+                    fullscreenBtns.forEach(btn => btn.textContent = 'Pełny ekran');
+                    localStorage.setItem('fullscreen', 'false');
+                }).catch(err => console.error('Error exiting fullscreen:', err));
+            }
+        }
+        fullscreenBtns.forEach(button => button.addEventListener('click', toggleFullscreen));
+
+        window.addEventListener('load', () => {
+            const isFullscreen = localStorage.getItem('fullscreen') === 'true';
+            fullscreenBtns.forEach(btn => btn.textContent = isFullscreen ? 'Podstawowy ekran' : 'Pełny ekran');
+            if (isFullscreen && !document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(err => console.error('Error restoring fullscreen:', err));
+            }
+            loadCustomQuestions();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && document.fullscreenElement) {
+                document.exitFullscreen().then(() => {
+                    fullscreenBtns.forEach(btn => btn.textContent = 'Pełny ekran');
+                    localStorage.setItem('fullscreen', 'false');
+                }).catch(err => console.error('Error exiting fullscreen:', err));
+            }
+        });
+
+        /* ====== USTAWIENIA → GRA ====== */
+        document.querySelector('#settings-view #next-btn').addEventListener('click', () => {
+            showView('game');
+            if (customQuestionsBtn.classList.contains('active')) {
+                displayQuestion(currentRound);
+            }
+        });
+
+        /* ====== INSTRUKCJE ====== */
+        instructionsBtn.addEventListener('click', () => {
+            instructionsPage1.style.display = 'flex';
+            instructionsPage2.style.display = 'none';
+            instructionsPage3.style.display = 'none';
+            showView('instructions');
+        });
+        nextPage1.addEventListener('click', () => {
+            instructionsPage1.style.display = 'none';
+            instructionsPage2.style.display = 'flex';
+            instructionsPage3.style.display = 'none';
+            window.scrollTo(0, 0);
+        });
+        prevPage2.addEventListener('click', () => {
+            instructionsPage1.style.display = 'flex';
+            instructionsPage2.style.display = 'none';
+            instructionsPage3.style.display = 'none';
+            window.scrollTo(0, 0);
+        });
+        nextPage2.addEventListener('click', () => {
+            instructionsPage1.style.display = 'none';
+            instructionsPage2.style.display = 'none';
+            instructionsPage3.style.display = 'flex';
+            window.scrollTo(0, 0);
+        });
+        prevPage3.addEventListener('click', () => {
+            instructionsPage1.style.display = 'none';
+            instructionsPage2.style.display = 'flex';
+            instructionsPage3.style.display = 'none';
+            window.scrollTo(0, 0);
+        });
+
+        /* ====== WSPÓLNE "Powrót" do ekranu startowego ====== */
+        document.querySelectorAll('#instructions-view #back-btn, #game-view #back-btn, #custom-questions-view #back-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                showView('settings');
+            });
+        });
+
+        /* ====== Nazwy drużyn (live update) ====== */
+        team1Input.addEventListener('input', () => { team1Name.textContent = team1Input.value || 'Drużyna 1'; });
+        team2Input.addEventListener('input', () => { team2Name.textContent = team2Input.value || 'Drużyna 2'; });
+
+        /* ====== ZAMIANA LINKÓW NA PRZEŁĄCZANIE WIDOKÓW ====== */
+        // Gotowe pytania – zostaw jako wybór wariantu (bez przejścia)
+        readyQuestionsBtn.addEventListener('click', () => {
+            // tylko tryb aktywny; brak nawigacji poza stronę
+        });
+        // Własne pytania – otwieramy edytor
+        customQuestionsBtn.addEventListener('click', () => {
+            showView('custom');
+        });
+        // Finały / Dodatkowe – tylko aktywacja przycisków (bez nawigacji poza stronę)
+        readyFinalBtn.addEventListener('click', () => {});
+        customFinalBtn.addEventListener('click', () => {});
+        extraOptionsBtn.addEventListener('click', () => {});
+
+        /* ====== Sterowanie grą (start, odpowiedzi) ====== */
+        function startTimer() { clearInterval(timerInterval); /* tu pod timer w przyszłości */ }
+        document.getElementById('start-btn').addEventListener('click', () => {
+            gameBoardQuestion.style.display = 'block';
+            gameBoardAnswers.style.display = 'flex';
+            startTimer();
+        });
+        function submitAnswer() {
+            const answer = answerInput.value.trim();
+            if (answer) {
+                console.log('Submitted answer:', answer);
+                answerInput.value = '';
+            }
+        }
+        submitAnswerBtn.addEventListener('click', submitAnswer);
+        answerInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') submitAnswer(); });
+
+        /* ====== Toggling active dla grup ====== */
+        const toggleActive = (groupClass) => {
+            const buttons = document.querySelectorAll(`.${groupClass}`);
+            buttons.forEach(button => {
+                button.addEventListener('click', () => {
+                    if (button.classList.contains('active')) {
+                        button.classList.remove('active');
+                    } else {
+                        buttons.forEach(btn => btn.classList.remove('active'));
+                        button.classList.add('active');
+                    }
+                });
+            });
+        };
+        toggleActive('game-variant');
+        toggleActive('game-end');
+        toggleActive('audio');
+        toggleActive('question-order');
+        toggleActive('display-questions');
+        toggleActive('final-variant');
+        toggleActive('gameplay-variant');
+
+        /* ====== Karta pytań PDF (placeholder) ====== */
+        document.getElementById('questions-pdf-btn').addEventListener('click', () => {
+            alert('Karta pytań PDF – podlinkuj docelowy plik, gdy będzie gotowy.');
+        });
+
+        /* ====== LOGIKA: edytor własnych pytań (dawne /familiada-wlasne-pytania.html) ====== */
+        // Elementy z widoku custom:
+        const prevRoundsBtn = document.getElementById('prev-rounds-btn');
+        const nextRoundsBtn = document.getElementById('next-rounds-btn');
+        const roundsDisplay = document.getElementById('rounds-display');
+
+        const prevAnswersBtn = document.getElementById('prev-answers-btn');
+        const nextAnswersBtn = document.getElementById('next-answers-btn');
+        const answersDisplay = document.getElementById('answers-display');
+
+        const questionNumber = document.getElementById('question-number');
+        const questionInput = document.getElementById('question-input');
+
+        const prevQuestionBtn = document.getElementById('prev-question-btn');
+        const nextQuestionBtn = document.getElementById('next-question-btn');
+
+        const errorMessage = document.getElementById('error-message');
+
+        let currentRoundCount = 3;
+        let currentAnswerCount = 4;
+        let currentQuestionIndex = 1;
+        let questionsData = [];
+
+        function updateAnswerInputs() {
+            const answerPairs = document.querySelectorAll('#custom-questions-view .answer-pair');
+            answerPairs.forEach((pair, index) => {
+                pair.style.visibility = (index < currentAnswerCount) ? 'visible' : 'hidden';
+            });
+        }
+        function updateQuestionView() {
+            roundsDisplay.textContent = `Liczba rund: ${currentRoundCount}`;
+            questionNumber.textContent = `Pytanie ${currentQuestionIndex}/${currentRoundCount}`;
+            answersDisplay.textContent = `Liczba odpowiedzi: ${currentAnswerCount}`;
+
+            prevRoundsBtn.classList.toggle('disabled', currentRoundCount === 3);
+            nextRoundsBtn.classList.toggle('disabled', currentRoundCount === 10);
+            prevAnswersBtn.classList.toggle('disabled', currentAnswerCount === 4);
+            nextAnswersBtn.classList.toggle('disabled', currentAnswerCount === 8);
+            prevQuestionBtn.classList.toggle('disabled', currentQuestionIndex === 1);
+            nextQuestionBtn.textContent = currentQuestionIndex === currentRoundCount ? 'Zatwierdź' : 'Następne pytanie';
+
+            updateAnswerInputs();
+
+            const q = questionsData[currentQuestionIndex - 1] || { question: '', answers: [], points: [] };
+            questionInput.value = q.question;
+
+            const answerInputs = document.querySelectorAll('#custom-questions-view .answer-input');
+            const pointsInputs = document.querySelectorAll('#custom-questions-view .points-input');
+
+            answerInputs.forEach((input, i) => { input.value = (i < q.answers.length) ? q.answers[i] : ''; });
+            pointsInputs.forEach((input, i) => { input.value = (i < q.points.length) ? q.points[i] : ''; });
+        }
+        function saveCurrentQuestion() {
+            const answerInputs = Array.from(document.querySelectorAll('#custom-questions-view .answer-input'));
+            const pointsInputs = Array.from(document.querySelectorAll('#custom-questions-view .points-input'));
+
+            const answers = answerInputs.slice(0, currentAnswerCount).map(i => i.value);
+            const points = pointsInputs.slice(0, currentAnswerCount).map(i => i.value);
+
+            questionsData[currentQuestionIndex - 1] = { question: questionInput.value, answers, points };
+        }
+        function validateAllQuestions() {
+            errorMessage.textContent = '';
+            if (currentRoundCount < 3) {
+                errorMessage.textContent = 'Wypełnij wszystkie pola.';
+                return false;
+            }
+            for (let i = 0; i < currentRoundCount; i++) {
+                const q = questionsData[i];
+                if (!q || !q.question || !q.question.trim()) {
+                    errorMessage.textContent = 'Wypełnij wszystkie pola.';
+                    return false;
+                }
+                if (!q.answers || !q.points || q.answers.length < 4 || q.points.length < 4) {
+                    errorMessage.textContent = 'Wypełnij wszystkie pola.';
+                    return false;
+                }
+                for (let j = 0; j < q.answers.length; j++) {
+                    const ans = (q.answers[j] || '').trim();
+                    const ptsStr = (q.points[j] || '').trim();
+                    if (!ans || !ptsStr) {
+                        errorMessage.textContent = 'Wypełnij wszystkie pola.';
+                        return false;
+                    }
+                    const pts = parseInt(ptsStr, 10);
+                    if (isNaN(pts) || pts < 5 || pts > 50) {
+                        errorMessage.textContent = 'Wpisz punkty w przedziale 5-50 pkt.';
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
+        // Handlery z widoku custom
+        if (prevRoundsBtn && nextRoundsBtn) {
+            prevRoundsBtn.addEventListener('click', () => {
+                if (currentRoundCount > 3) {
+                    currentRoundCount--;
+                    if (currentQuestionIndex > currentRoundCount) currentQuestionIndex = currentRoundCount;
+                    updateQuestionView();
+                }
+            });
+            nextRoundsBtn.addEventListener('click', () => {
+                if (currentRoundCount < 10) {
+                    currentRoundCount++;
+                    updateQuestionView();
+                }
+            });
+        }
+        if (prevAnswersBtn && nextAnswersBtn) {
+            prevAnswersBtn.addEventListener('click', () => {
+                if (currentAnswerCount > 4) {
+                    currentAnswerCount--;
+                    updateQuestionView();
+                }
+            });
+            nextAnswersBtn.addEventListener('click', () => {
+                if (currentAnswerCount < 8) {
+                    currentAnswerCount++;
+                    updateQuestionView();
+                }
+            });
+        }
+        if (prevQuestionBtn && nextQuestionBtn) {
+            prevQuestionBtn.addEventListener('click', () => {
+                if (currentQuestionIndex > 1) {
+                    saveCurrentQuestion();
+                    currentQuestionIndex--;
+                    const q = questionsData[currentQuestionIndex - 1];
+                    currentAnswerCount = (q && q.answers && q.answers.length) ? q.answers.length : 4;
+                    updateQuestionView();
+                }
+            });
+            nextQuestionBtn.addEventListener('click', () => {
+                saveCurrentQuestion();
+                if (currentQuestionIndex < currentRoundCount) {
+                    currentQuestionIndex++;
+                    const q = questionsData[currentQuestionIndex - 1];
+                    currentAnswerCount = (q && q.answers && q.answers.length) ? q.answers.length : 4;
+                    updateQuestionView();
+                } else {
+                    if (validateAllQuestions()) {
+                        localStorage.setItem('customQuestions', JSON.stringify(questionsData.slice(0, currentRoundCount)));
+                        // Po zapisaniu wracamy do ekranu startowego (jeden plik)
+                        alert('Zapisano własne pytania. Możesz rozpocząć grę w trybie „Własne pytania”.');
+                        // podbij aktywny tryb „Własne pytania”
+                        customQuestionsBtn.classList.add('active');
+                        readyQuestionsBtn.classList.remove('active');
+                        showView('settings');
+                        loadCustomQuestions();
+                    }
+                }
+            });
+        }
+
+        // Inicjalizacja widoku edytora przy pierwszym wejściu
+        updateQuestionView();
+    </script>
 </body>
 </html>
+```
