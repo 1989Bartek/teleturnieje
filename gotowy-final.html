@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Familiada - Gotowy Finał</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            scroll-behavior: auto;
+        }
+        body {
+            background: linear-gradient(to right, #d40000, #000033, #0033cc);
+            font-family: Arial, sans-serif;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            box-sizing: border-box;
+            min-height: 100vh;
+        }
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 72px;
+            margin: 28px 0 18px 0;
+            background: linear-gradient(to right, #FFD700, #FFEA00, #FFD700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 10px #FFD700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .bottom-logo {
+            position: absolute;
+            bottom: 24px;
+            right: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .bottom-logo img {
+            width: 140px;
+            margin-bottom: 6px;
+        }
+        .bottom-logo a {
+            color: white;
+            text-decoration: none;
+            font-size: 13px;
+        }
+        .bottom-buttons {
+            position: absolute;
+            bottom: 24px;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            width: 100%;
+            max-width: 1200px;
+        }
+        button {
+            background-color: #000;
+            border: 4px solid #fff;
+            color: #FFFF33;
+            font-family: 'Courier New', monospace;
+            font-size: 20px;
+            padding: 12px 36px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px #FFD700;
+            cursor: pointer;
+            transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
+            min-width: 280px;
+            text-align: center;
+            text-transform: capitalize;
+            height: 52px;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        button:hover:not(.active) {
+            background-color: #111;
+            border-color: #FFEA00;
+            box-shadow: 0 0 20px #FFEA00;
+        }
+        #ready-final-view {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="ready-final-view">
+        <h1>Familiada</h1>
+        <!-- Dodaj tutaj treści dla gotowego finału, jeśli są dostępne w oryginalnym kodzie. Aktualnie jest pusta. -->
+        <div class="bottom-logo">
+            <img src="familiada/logo.png" alt="Logo">
+            <a href="https://www.muzykamikrofonakcja.pl">WWW.MUZYKAMIKROFONAKCJA.PL</a>
+        </div>
+        <div class="bottom-buttons">
+            <button id="fullscreen-btn">Pełny ekran</button>
+            <button id="back-btn">Powrót</button>
+        </div>
+    </div>
+    <script>
+        // Load from localStorage if needed for ready final
+        window.addEventListener('load', () => {
+            // Load any ready final data if exists
+        });
+        // Fullscreen button functionality
+        document.querySelectorAll('#fullscreen-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                if (!document.fullscreenElement) {
+                    document.documentElement.requestFullscreen().then(() => {
+                        document.querySelectorAll('#fullscreen-btn').forEach(btn => {
+                            btn.textContent = 'Podstawowy ekran';
+                        });
+                    }).catch(err => {
+                        console.error('Error entering fullscreen:', err);
+                    });
+                } else {
+                    document.exitFullscreen().then(() => {
+                        document.querySelectorAll('#fullscreen-btn').forEach(btn => {
+                            btn.textContent = 'Pełny ekran';
+                        });
+                    }).catch(err => {
+                        console.error('Error exiting fullscreen:', err);
+                    });
+                }
+            });
+        });
+        // ESC key handling for exiting fullscreen
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && document.fullscreenElement) {
+                document.exitFullscreen().then(() => {
+                    document.querySelectorAll('#fullscreen-btn').forEach(button => {
+                        button.textContent = 'Pełny ekran';
+                    });
+                }).catch(err => {
+                    console.error('Error exiting fullscreen:', err);
+                });
+            }
+        });
+        // Back button
+        document.querySelector('#back-btn').addEventListener('click', () => {
+            // Save any ready final data to localStorage if needed
+            location.href = 'familiada.html';
+        });
+    </script>
+</body>
+</html>
