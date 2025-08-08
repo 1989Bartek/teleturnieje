@@ -30,18 +30,23 @@
             letter-spacing: 2px;
         }
         .info-text {
-            color: #FFD700;
-            font-size: 20px;
-            text-align: center;
-            margin: 10px 0 20px 0;
+            width: 90%;
+            max-width: 1000px;
+            margin: 20px 0;
+            padding: 20px;
+            background-color: #fff;
             border: 4px solid #fff;
             border-radius: 8px;
-            background-color: #000;
-            box-shadow: 0 0 10px #FFD700;
-            padding: 12px 36px;
-            width: 100%;
-            max-width: 1068px;
-            box-sizing: border-box;
+            font-size: 18px;
+            line-height: 1.6;
+            text-align: justify;
+            color: #000;
+            min-height: 100px;
+            position: relative;
+            overflow-wrap: break-word;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
         .questions-section { width: 100%; max-width: 1200px; display: flex; flex-direction: column; align-items: center; margin: -20px 0 0 0; padding-left: 10px; position: relative; min-height: 600px; }
         .question-nav-container { display: flex; justify-content: center; align-items: center; gap: 10px; width: 100%; max-width: 1068px; margin-bottom: 4px; }
@@ -67,6 +72,7 @@
         button { background-color: #000; border: 4px solid #fff; color: #FFFF33; font-family: 'Courier New', monospace; font-size: 20px; padding: 12px 36px; border-radius: 8px; box-shadow: 0 0 10px #FFD700; cursor: pointer; transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s; min-width: 280px; text-align: center; text-transform: capitalize; height: 52px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; }
         button:hover:not(.disabled) { background-color: #111; border-color: #FFEA00; box-shadow: 0 0 20px #FFEA00; }
         button.disabled { opacity: 0.5; cursor: not-allowed; }
+        .error-message { color: red; font-size: 18px; text-align: center; margin-top: 10px; width: 100%; max-width: 1068px; }
         @media (max-width: 768px) {
             .question-input { width: calc(100% - 32px); max-width: none; }
             .answer-row { width: 100%; }
@@ -142,6 +148,7 @@
                 </div>
             </div>
         </div>
+        <div id="error-message" class="error-message"></div>
         <div class="bottom-row"></div>
     </div>
     <div class="bottom-logo">
@@ -163,6 +170,7 @@
         const questionInput = document.getElementById('question-input');
         const prevQuestionBtn = document.getElementById('prev-question-btn');
         const nextQuestionBtn = document.getElementById('next-question-btn');
+        const errorMessage = document.getElementById('error-message');
         let currentRoundCount = 3;
         let currentAnswerCount = 4;
         let currentQuestionIndex = 1;
@@ -196,39 +204,89 @@
             const points = Array.from(document.querySelectorAll('.points-input')).slice(0, currentAnswerCount).map(i => i.value);
             questionsData[currentQuestionIndex - 1] = { question: questionInput.value, answers, points };
         }
+        function validateAllQuestions() {
+            errorMessage.textContent = '';
+            if (currentRoundCount < 3) {
+                errorMessage.textContent = 'Wypełnij wszystkie pola.';
+                return false;
+            }
+            for (let i = 0; i < currentRoundCount; i++) {
+                const q = questionsData[i];
+                if (!q || !q.question.trim()) {
+                    errorMessage.textContent = 'Wypełnij wszystkie pola.';
+                    return false;
+                }
+                if (q.answers.length < 4 || q.points.length < 4) {
+                    errorMessage.textContent = 'Wypełnij wszystkie pola.';
+                    return false;
+                }
+                for (let j = 0; j < q.answers.length; j++) {
+                    if (!q.answers[j].trim() || !q.points[j].trim()) {
+                        errorMessage.textContent = 'Wypełnij wszystkie pola.';
+                        return false;
+                    }
+                    const pts = parseInt(q.points[j], 10);
+                    if (isNaN(pts) || pts < 5 || pts > 50) {
+                        errorMessage.textContent = 'Wpisz punkty w przedziale 5-50 pkt.';
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
         prevRoundsBtn.addEventListener('click', () => { if (currentRoundCount > 3) { currentRoundCount--; if (currentQuestionIndex > currentRoundCount) currentQuestionIndex = currentRoundCount; updateQuestionView(); } });
         nextRoundsBtn.addEventListener('click', () => { if (currentRoundCount < 10) { currentRoundCount++; updateQuestionView(); } });
         prevAnswersBtn.addEventListener('click', () => { if (currentAnswerCount > 4) { currentAnswerCount--; updateQuestionView(); } });
         nextAnswersBtn.addEventListener('click', () => { if (currentAnswerCount < 8) { currentAnswerCount++; updateQuestionView(); } });
-        prevQuestionBtn.addEventListener('click', () => { if (currentQuestionIndex > 1) { saveCurrentQuestion(); currentQuestionIndex--; currentAnswerCount = (questionsData[currentQuestionIndex - 1]?.answers.length || currentAnswerCount); updateQuestionView(); } });
+        prevQuestionBtn.addEventListener('click', () => { if (currentQuestionIndex > 1) { saveCurrentQuestion(); currentQuestionIndex--; const q = questionsData[currentQuestionIndex - 1]; currentAnswerCount = q && q.answers.length ? q.answers.length : 4; updateQuestionView(); } });
         nextQuestionBtn.addEventListener('click', () => {
             saveCurrentQuestion();
             if (currentQuestionIndex < currentRoundCount) {
                 currentQuestionIndex++;
-                currentAnswerCount = (questionsData[currentQuestionIndex - 1]?.answers.length || currentAnswerCount);
+                const q = questionsData[currentQuestionIndex - 1];
+                currentAnswerCount = q && q.answers.length ? q.answers.length : 4;
                 updateQuestionView();
             } else {
-                alert('Zapisano własne pytania. Wróć do głównej strony gry.');
+                if (validateAllQuestions()) {
+                    localStorage.setItem('customQuestions', JSON.stringify(questionsData.slice(0, currentRoundCount)));
+                    window.location.href = 'familiada.html';
+                }
             }
         });
         updateQuestionView();
-        document.querySelectorAll('#fullscreen-btn').forEach(button => {
-            button.addEventListener('click', () => {
-                if (!document.fullscreenElement) {
-                    document.documentElement.requestFullscreen().then(() => {
-                        document.querySelectorAll('#fullscreen-btn').forEach(btn => { btn.textContent = 'Podstawowy ekran'; });
-                    }).catch(() => {});
-                } else {
-                    document.exitFullscreen().then(() => {
-                        document.querySelectorAll('#fullscreen-btn').forEach(btn => { btn.textContent = 'Pełny ekran'; });
-                    }).catch(() => {});
-                }
-            });
+        const fullscreenBtn = document.getElementById('fullscreen-btn');
+        fullscreenBtn.addEventListener('click', () => {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().then(() => {
+                    fullscreenBtn.textContent = 'Podstawowy ekran';
+                    localStorage.setItem('fullscreen', 'true');
+                }).catch(() => {});
+            } else {
+                document.exitFullscreen().then(() => {
+                    fullscreenBtn.textContent = 'Pełny ekran';
+                    localStorage.setItem('fullscreen', 'false');
+                }).catch(() => {});
+            }
+        });
+        document.addEventListener('fullscreenchange', () => {
+            if (document.fullscreenElement) {
+                fullscreenBtn.textContent = 'Podstawowy ekran';
+                localStorage.setItem('fullscreen', 'true');
+            } else {
+                fullscreenBtn.textContent = 'Pełny ekran';
+                localStorage.setItem('fullscreen', 'false');
+            }
+        });
+        window.addEventListener('load', () => {
+            if (localStorage.getItem('fullscreen') === 'true' && !document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(() => {});
+            }
         });
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && document.fullscreenElement) {
                 document.exitFullscreen().then(() => {
-                    document.querySelectorAll('#fullscreen-btn').forEach(b => b.textContent = 'Pełny ekran');
+                    fullscreenBtn.textContent = 'Pełny ekran';
+                    localStorage.setItem('fullscreen', 'false');
                 }).catch(() => {});
             }
         });
