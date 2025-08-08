@@ -29,7 +29,20 @@
             text-transform: uppercase;
             letter-spacing: 2px;
         }
-        .info-text { color: #FFD700; font-size: 20px; text-align: center; margin: 10px 0 20px 0; }
+        .info-text {
+            color: #FFD700;
+            font-size: 20px;
+            text-align: center;
+            margin: 10px 0 20px 0;
+            border: 4px solid #fff;
+            border-radius: 8px;
+            background-color: #000;
+            box-shadow: 0 0 10px #FFD700;
+            padding: 12px 36px;
+            width: 100%;
+            max-width: 1068px;
+            box-sizing: border-box;
+        }
         .questions-section { width: 100%; max-width: 1200px; display: flex; flex-direction: column; align-items: center; margin: -20px 0 0 0; padding-left: 10px; position: relative; min-height: 600px; }
         .question-nav-container { display: flex; justify-content: center; align-items: center; gap: 10px; width: 100%; max-width: 1068px; margin-bottom: 4px; }
         .answer-counter { display: flex; align-items: center; gap: 0; margin-top: 0; }
@@ -44,17 +57,21 @@
         .answer-pair { display: flex; gap: 10px; flex: 1; }
         .answer-input { flex: 2; padding: 3.6px 10.8px; margin: 0 0 10px 0; border: 4px solid #fff; border-radius: 8px; background-color: #fff; color: #000; font-size: 16px; height: 32.4px; box-sizing: border-box; }
         .points-input { flex: 1; width: 75%; padding: 3.6px 10.8px; margin: 0 0 10px 10px; border: 4px solid #fff; border-radius: 8px; background-color: #fff; color: #000; font-size: 16px; height: 32.4px; box-sizing: border-box; }
-        .questions-controls { display: flex; flex-direction: column; gap: 10px; margin: 94px auto 4px auto; justify-content: center; align-items: center; width: 100%; max-width: 1000px; }
+        .questions-controls { display: flex; flex-direction: row; gap: 10px; margin: 10px auto 20px auto; justify-content: space-between; align-items: center; width: 100%; max-width: 1068px; }
         .nav-row, .bottom-row { display: flex; gap: 10px; justify-content: center; }
+        .nav-btn { flex: 1; max-width: 529px; }
         .bottom-logo { position: absolute; bottom: 24px; right: 12px; display: flex; flex-direction: column; align-items: center; }
         .bottom-logo img { width: 140px; margin-bottom: 6px; }
         .bottom-logo a { color: white; text-decoration: none; font-size: 13px; }
         .bottom-buttons { display: flex; gap: 10px; justify-content: center; width: 100%; max-width: 1200px; margin-top: auto; margin-bottom: 24px; }
         button { background-color: #000; border: 4px solid #fff; color: #FFFF33; font-family: 'Courier New', monospace; font-size: 20px; padding: 12px 36px; border-radius: 8px; box-shadow: 0 0 10px #FFD700; cursor: pointer; transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s; min-width: 280px; text-align: center; text-transform: capitalize; height: 52px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; }
-        button:hover:not(.active) { background-color: #111; border-color: #FFEA00; box-shadow: 0 0 20px #FFEA00; }
+        button:hover:not(.disabled) { background-color: #111; border-color: #FFEA00; box-shadow: 0 0 20px #FFEA00; }
+        button.disabled { opacity: 0.5; cursor: not-allowed; }
         @media (max-width: 768px) {
             .question-input { width: calc(100% - 32px); max-width: none; }
             .answer-row { width: 100%; }
+            .questions-controls { flex-direction: column; }
+            .nav-btn { width: calc(100% - 32px); max-width: none; }
         }
     </style>
 </head>
@@ -78,6 +95,10 @@
         </div>
     </div>
     <div class="question-form">
+        <div class="questions-controls">
+            <button id="prev-question-btn" class="nav-btn disabled">Poprzednie pytanie</button>
+            <button id="next-question-btn" class="nav-btn">Następne pytanie</button>
+        </div>
         <textarea class="question-input" id="question-input" placeholder="Wpisz pytanie"></textarea>
         <div class="answer-grid">
             <div class="answer-row">
@@ -121,13 +142,7 @@
                 </div>
             </div>
         </div>
-        <div class="questions-controls">
-            <div class="nav-row">
-                <button id="prev-question-btn">Wstecz</button>
-                <button id="next-question-btn">Dalej</button>
-            </div>
-            <div class="bottom-row"></div>
-        </div>
+        <div class="bottom-row"></div>
     </div>
     <div class="bottom-logo">
         <img src="familiada/logo.png" alt="Logo">
@@ -163,11 +178,11 @@
             questionNumber.textContent = `Pytanie ${currentQuestionIndex}/${currentRoundCount}`;
             answersDisplay.textContent = `Liczba odpowiedzi: ${currentAnswerCount}`;
             prevRoundsBtn.classList.toggle('disabled', currentRoundCount === 3);
-            nextRoundsBtn.classList.toggle('disabled', currentRoundCount === 9);
+            nextRoundsBtn.classList.toggle('disabled', currentRoundCount === 10);
             prevAnswersBtn.classList.toggle('disabled', currentAnswerCount === 4);
             nextAnswersBtn.classList.toggle('disabled', currentAnswerCount === 8);
             prevQuestionBtn.classList.toggle('disabled', currentQuestionIndex === 1);
-            nextQuestionBtn.textContent = currentQuestionIndex === currentRoundCount ? 'Zatwierdź' : 'Dalej';
+            nextQuestionBtn.textContent = currentQuestionIndex === currentRoundCount ? 'Zatwierdź' : 'Następne pytanie';
             updateAnswerInputs();
             const q = questionsData[currentQuestionIndex - 1] || { question: '', answers: [], points: [] };
             questionInput.value = q.question;
@@ -182,7 +197,7 @@
             questionsData[currentQuestionIndex - 1] = { question: questionInput.value, answers, points };
         }
         prevRoundsBtn.addEventListener('click', () => { if (currentRoundCount > 3) { currentRoundCount--; if (currentQuestionIndex > currentRoundCount) currentQuestionIndex = currentRoundCount; updateQuestionView(); } });
-        nextRoundsBtn.addEventListener('click', () => { if (currentRoundCount < 9) { currentRoundCount++; updateQuestionView(); } });
+        nextRoundsBtn.addEventListener('click', () => { if (currentRoundCount < 10) { currentRoundCount++; updateQuestionView(); } });
         prevAnswersBtn.addEventListener('click', () => { if (currentAnswerCount > 4) { currentAnswerCount--; updateQuestionView(); } });
         nextAnswersBtn.addEventListener('click', () => { if (currentAnswerCount < 8) { currentAnswerCount++; updateQuestionView(); } });
         prevQuestionBtn.addEventListener('click', () => { if (currentQuestionIndex > 1) { saveCurrentQuestion(); currentQuestionIndex--; currentAnswerCount = (questionsData[currentQuestionIndex - 1]?.answers.length || currentAnswerCount); updateQuestionView(); } });
