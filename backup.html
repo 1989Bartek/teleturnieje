@@ -1,15 +1,3 @@
-Super — łączę obie strony w **jeden pełny plik** `familiada.html`.
-W tym pliku dodałem nowy widok **`#custom-questions-view`** (to sklejona zawartość `/familiada-wlasne-pytania.html`). Wszystkie nawigacje po innych plikach zostały zastąpione **przełączaniem widoków w obrębie tej jednej strony**:
-
-* **„Własne pytania”** → przełącza do `#custom-questions-view`.
-* **„Gotowe pytania / finały / dodatkowe opcje”** – na razie tylko **aktywują przyciski** (bez przeładowania), żeby nie zrywać UX, ale **nie prowadzą** do zewnętrznych plików (bo łączymy tylko te dwie strony).
-* Wszystkie przyciski **„Pełny ekran”** mają **ten sam ID** (`#fullscreen-btn`) w wielu widokach — obsługa jest wspólna przez `querySelectorAll(...)`, więc każdy działa.
-* „Powrót” w każdym widoku przenosi do **ekranu startowego** (`#settings-view`).
-* Zapis własnych pytań trafia do `localStorage` **`customQuestions`**, a po zatwierdzeniu wracasz do ekranu startowego; w trybie gry **„Własne pytania”** pojawią się na tablicy.
-
-Poniżej pełny, nieskracany kod:
-
-```html
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -1022,10 +1010,7 @@ Poniżej pełny, nieskracany kod:
                 }
             });
         }
-
-        // Inicjalizacja widoku edytora przy pierwszym wejściu
         updateQuestionView();
     </script>
 </body>
 </html>
-```
