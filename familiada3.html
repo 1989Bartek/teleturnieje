@@ -161,6 +161,7 @@
             font-size: 24px;
             text-align: center;
         }
+        /* Widoki na tej stronie */
         #settings-view, #instructions-view, #game-view {
             width: 100%;
             display: flex;
@@ -485,39 +486,6 @@
             margin: 4px 0;
             gap: 10px;
         }
-        .settings-bottom-buttons {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin: 94px auto 4px auto;
-            width: 100%;
-            max-width: 1000px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-        .center {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-            height: 100%;
-        }
-        .center input[type="text"] {
-            margin: 12px 0 0 0;
-        }
-        #team2-input {
-            margin-top: 12px;
-            margin-bottom: 0;
-        }
-        .bottom-buttons {
-            position: absolute;
-            bottom: 24px;
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-            width: 100%;
-            max-width: 1200px;
-        }
         /* Responsywność dla mniejszych ekranów */
         @media (max-width: 768px) {
             .game-board-answers {
@@ -542,11 +510,12 @@
     </style>
 </head>
 <body>
+    <!-- SETTINGS -->
     <div id="settings-view">
         <h1>Familiada</h1>
         <div class="button-container">
             <button id="instructions-btn">Instrukcja</button>
-            <button>Karta pytań PDF</button>
+            <button id="questions-pdf-btn">Karta pytań PDF</button>
         </div>
         <div class="aligned-section">
             <div class="left">
@@ -566,8 +535,8 @@
             <div class="new-col">
                 <p>Wariant Rozgrywki:</p>
                 <div class="vertical-buttons">
-                    <button class="gameplay-variant">Klasyczna</button>
-                    <button class="gameplay-variant" id="additional-options-btn">Dodatkowe Opcje</button>
+                    <button class="gameplay-variant" id="classic-mode-btn">Klasyczna</button>
+                    <button class="gameplay-variant" id="extra-options-btn">Dodatkowe Opcje</button>
                 </div>
             </div>
             <div class="center">
@@ -617,6 +586,8 @@
             <button id="next-btn">Dalej</button>
         </div>
     </div>
+
+    <!-- INSTRUCTIONS -->
     <div id="instructions-view">
         <h1>Familiada</h1>
         <div id="instructions-page-1" class="instructions-text">
@@ -655,12 +626,21 @@
             <button id="back-btn">Powrót</button>
         </div>
     </div>
+
+    <!-- GAME -->
     <div id="game-view">
         <h1>Familiada</h1>
         <div class="round-info">Runda 1</div>
         <div class="game-board">
-            <div class="game-board-question"></div>
-            <div class="game-board-answers"></div>
+            <div class="game-board-question">Tutaj pojawi się treść pytania</div>
+            <div class="game-board-answers">
+                <!-- Miejsce na odpowiedzi (w przyszłości generowane/ujawniane) -->
+                <div class="answer-row">
+                    <div class="answer-number">1.</div>
+                    <div class="answer-text">Przykładowa odpowiedź</div>
+                    <div class="answer-points">30</div>
+                </div>
+            </div>
             <div class="marks-container marks-left">
                 <img src="familiada/znak.png" alt="Znak">
                 <img src="familiada/znak.png" alt="Znak">
@@ -696,6 +676,7 @@
             <button id="answers-btn">Odpowiedzi</button>
         </div>
         <div class="game-controls">
+            <!-- przyszłe kontrolki gry -->
         </div>
         <div class="bottom-logo">
             <img src="familiada/logo.png" alt="Logo">
@@ -706,13 +687,24 @@
             <button id="back-btn">Powrót</button>
         </div>
     </div>
+
     <script>
+        // Elementy z SETTINGS
         const team1Input = document.getElementById('team1-input');
         const team2Input = document.getElementById('team2-input');
         const instructionsBtn = document.getElementById('instructions-btn');
         const settingsView = document.getElementById('settings-view');
         const instructionsView = document.getElementById('instructions-view');
         const gameView = document.getElementById('game-view');
+
+        // Przyciski nawigacji do podstron
+        const readyQuestionsBtn = document.getElementById('ready-questions-btn');
+        const customQuestionsBtn = document.getElementById('custom-questions-btn');
+        const readyFinalBtn = document.getElementById('ready-final-btn');
+        const customFinalBtn = document.getElementById('custom-final-btn');
+        const extraOptionsBtn = document.getElementById('extra-options-btn');
+
+        // Elementy gry
         const team1Name = document.getElementById('team1-name');
         const team2Name = document.getElementById('team2-name');
         const startBtn = document.getElementById('start-btn');
@@ -720,11 +712,8 @@
         const answerInput = document.getElementById('answer-input');
         const gameBoardQuestion = document.querySelector('.game-board-question');
         const gameBoardAnswers = document.querySelector('.game-board-answers');
-        const customQuestionsBtn = document.getElementById('custom-questions-btn');
-        const readyQuestionsBtn = document.getElementById('ready-questions-btn');
-        const readyFinalBtn = document.getElementById('ready-final-btn');
-        const customFinalBtn = document.getElementById('custom-final-btn');
-        const additionalOptionsBtn = document.getElementById('additional-options-btn');
+
+        // Instrukcja – paginacja
         const nextPage1 = document.getElementById('next-page-1');
         const prevPage2 = document.getElementById('prev-page-2');
         const nextPage2 = document.getElementById('next-page-2');
@@ -732,46 +721,10 @@
         const instructionsPage1 = document.getElementById('instructions-page-1');
         const instructionsPage2 = document.getElementById('instructions-page-2');
         const instructionsPage3 = document.getElementById('instructions-page-3');
+
         let timerInterval = null;
-        let isCustomQuestionsActive = false;
-        let roundsLocked = false;
-        // Load saved data from localStorage
-        window.addEventListener('load', () => {
-            // Load team names
-            if (localStorage.getItem('team1')) team1Input.value = localStorage.getItem('team1');
-            if (localStorage.getItem('team2')) team2Input.value = localStorage.getItem('team2');
-            team1Name.textContent = team1Input.value || 'Drużyna 1';
-            team2Name.textContent = team2Input.value || 'Drużyna 2';
-            // Load active buttons for all groups
-            loadActiveButtons('game-variant');
-            loadActiveButtons('final-variant');
-            loadActiveButtons('gameplay-variant');
-            loadActiveButtons('game-end');
-            loadActiveButtons('display-questions');
-            loadActiveButtons('question-order');
-            loadActiveButtons('audio');
-            // Load other states if needed
-            isCustomQuestionsActive = localStorage.getItem('isCustomQuestionsActive') === 'true';
-            roundsLocked = localStorage.getItem('roundsLocked') === 'true';
-            // Load questionsData if exists
-            if (localStorage.getItem('questionsData')) {
-                questionsData = JSON.parse(localStorage.getItem('questionsData'));
-            }
-            // Update UI based on loaded data
-        });
-        // Function to save active button for a group
-        function saveActiveButton(groupClass, buttonId) {
-            localStorage.setItem(`active-${groupClass}`, buttonId);
-        }
-        // Function to load active button for a group
-        function loadActiveButtons(groupClass) {
-            const activeId = localStorage.getItem(`active-${groupClass}`);
-            if (activeId) {
-                const button = document.getElementById(activeId);
-                if (button) button.classList.add('active');
-            }
-        }
-        // Fullscreen button functionality
+
+        // Fullscreen – obsługa wspólna dla wszystkich widoków
         document.querySelectorAll('#fullscreen-btn').forEach(button => {
             button.addEventListener('click', () => {
                 if (!document.fullscreenElement) {
@@ -779,124 +732,46 @@
                         document.querySelectorAll('#fullscreen-btn').forEach(btn => {
                             btn.textContent = 'Podstawowy ekran';
                         });
-                    }).catch(err => {
-                        console.error('Error entering fullscreen:', err);
-                    });
+                    }).catch(err => console.error('Error entering fullscreen:', err));
                 } else {
                     document.exitFullscreen().then(() => {
                         document.querySelectorAll('#fullscreen-btn').forEach(btn => {
                             btn.textContent = 'Pełny ekran';
                         });
-                    }).catch(err => {
-                        console.error('Error exiting fullscreen:', err);
-                    });
+                    }).catch(err => console.error('Error exiting fullscreen:', err));
                 }
             });
         });
-        // ESC key handling for exiting fullscreen
+        // ESC wychodzi z pełnego ekranu i aktualizuje napisy przycisków
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && document.fullscreenElement) {
                 document.exitFullscreen().then(() => {
                     document.querySelectorAll('#fullscreen-btn').forEach(button => {
                         button.textContent = 'Pełny ekran';
                     });
-                }).catch(err => {
-                    console.error('Error exiting fullscreen:', err);
-                });
+                }).catch(err => console.error('Error exiting fullscreen:', err));
             }
         });
-        // Navigation for "Dalej" button in settings-view
+
+        // Przejście: Ustawienia -> Gra
         document.querySelector('#settings-view #next-btn').addEventListener('click', () => {
             settingsView.style.display = 'none';
             gameView.style.display = 'flex';
             window.scrollTo(0, 0);
         });
-        // Navigation for "Powrót" buttons in instructions and game
-        document.querySelectorAll('#instructions-view #back-btn, #game-view #back-btn').forEach(button => {
-            button.addEventListener('click', () => {
-                settingsView.style.display = 'flex';
-                instructionsView.style.display = 'none';
-                gameView.style.display = 'none';
-                window.scrollTo(0, 0);
-            });
-        });
-        team1Input.addEventListener('input', () => {
-            const teamName = team1Input.value || 'Drużyna 1';
-            localStorage.setItem('team1', team1Input.value);
-            team1Name.textContent = teamName;
-        });
-        team2Input.addEventListener('input', () => {
-            const teamName = team2Input.value || 'Drużyna 2';
-            localStorage.setItem('team2', team2Input.value);
-            team2Name.textContent = teamName;
-        });
+
+        // Przejście: Ustawienia -> Instrukcja
         instructionsBtn.addEventListener('click', () => {
             settingsView.style.display = 'none';
             instructionsView.style.display = 'flex';
+            // strona 1 instrukcji
             instructionsPage1.style.display = 'flex';
             instructionsPage2.style.display = 'none';
             instructionsPage3.style.display = 'none';
             window.scrollTo(0, 0);
         });
-        readyQuestionsBtn.addEventListener('click', () => {
-            location.href = 'gotowe-pytania.html';
-        });
-        customQuestionsBtn.addEventListener('click', () => {
-            location.href = 'wlasne-pytania.html';
-        });
-        readyFinalBtn.addEventListener('click', () => {
-            location.href = 'gotowy-final.html';
-        });
-        customFinalBtn.addEventListener('click', () => {
-            location.href = 'wlasny-final.html';
-        });
-        additionalOptionsBtn.addEventListener('click', () => {
-            location.href = 'dodatkowe-opcje.html';
-        });
-        startBtn.addEventListener('click', () => {
-            gameBoardQuestion.style.display = 'block';
-            gameBoardAnswers.style.display = 'flex';
-            startTimer();
-        });
-        submitAnswerBtn.addEventListener('click', submitAnswer);
-        answerInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                submitAnswer();
-            }
-        });
-        function submitAnswer() {
-            const answer = answerInput.value.trim();
-            if (answer) {
-                console.log('Submitted answer:', answer);
-                answerInput.value = '';
-            }
-        }
-        function startTimer() {
-            clearInterval(timerInterval);
-        }
-        const toggleActive = (groupClass) => {
-            const buttons = document.querySelectorAll(`.${groupClass}`);
-            buttons.forEach(button => {
-                button.addEventListener('click', () => {
-                    if (button.classList.contains('active')) {
-                        button.classList.remove('active');
-                        saveActiveButton(groupClass, null);
-                    } else {
-                        buttons.forEach(btn => btn.classList.remove('active'));
-                        button.classList.add('active');
-                        saveActiveButton(groupClass, button.id);
-                    }
-                    // Additional logic if needed
-                });
-            });
-        };
-        toggleActive('game-variant');
-        toggleActive('final-variant');
-        toggleActive('gameplay-variant');
-        toggleActive('game-end');
-        toggleActive('display-questions');
-        toggleActive('question-order');
-        toggleActive('audio');
+
+        // Nawigacja instrukcji (strony ◀/▶)
         nextPage1.addEventListener('click', () => {
             instructionsPage1.style.display = 'none';
             instructionsPage2.style.display = 'flex';
@@ -920,6 +795,94 @@
             instructionsPage2.style.display = 'flex';
             instructionsPage3.style.display = 'none';
             window.scrollTo(0, 0);
+        });
+
+        // Przyciski "Powrót" (z instrukcji i z gry) wracają do ustawień na tej samej stronie
+        document.querySelectorAll('#instructions-view #back-btn, #game-view #back-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                settingsView.style.display = 'flex';
+                instructionsView.style.display = 'none';
+                gameView.style.display = 'none';
+                window.scrollTo(0, 0);
+            });
+        });
+
+        // Zmiana nazw drużyn – aktualizacja tylko w tabelach wyników
+        team1Input.addEventListener('input', () => {
+            team1Name.textContent = team1Input.value || 'Drużyna 1';
+        });
+        team2Input.addEventListener('input', () => {
+            team2Name.textContent = team2Input.value || 'Drużyna 2';
+        });
+
+        // Nawigacje do osobnych podstron
+        readyQuestionsBtn.addEventListener('click', () => {
+            window.location.href = '/familiada-gotowe-pytania.html';
+        });
+        customQuestionsBtn.addEventListener('click', () => {
+            window.location.href = '/familiada-wlasne-pytania.html';
+        });
+        readyFinalBtn.addEventListener('click', () => {
+            window.location.href = '/familiada-gotowy-final.html';
+        });
+        customFinalBtn.addEventListener('click', () => {
+            window.location.href = '/familiada-wlasny-final.html';
+        });
+        extraOptionsBtn.addEventListener('click', () => {
+            window.location.href = '/familiada-dodatkowe-opcje.html';
+        });
+
+        // Start rozgrywki – pokazanie pytania i odpowiedzi (placeholder)
+        function startTimer() {
+            clearInterval(timerInterval);
+            // w przyszłości: logika odliczania
+        }
+        startBtn.addEventListener('click', () => {
+            gameBoardQuestion.style.display = 'block';
+            gameBoardAnswers.style.display = 'flex';
+            startTimer();
+        });
+
+        // Wysyłanie odpowiedzi (placeholder)
+        function submitAnswer() {
+            const answer = answerInput.value.trim();
+            if (answer) {
+                console.log('Submitted answer:', answer);
+                answerInput.value = '';
+            }
+        }
+        submitAnswerBtn.addEventListener('click', submitAnswer);
+        answerInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') submitAnswer();
+        });
+
+        // Prosty toggler klas Active dla grup – działa jeśli elementy są obecne
+        const toggleActive = (groupClass) => {
+            const buttons = document.querySelectorAll(`.${groupClass}`);
+            buttons.forEach(button => {
+                button.addEventListener('click', () => {
+                    if (button.classList.contains('active')) {
+                        button.classList.remove('active');
+                    } else {
+                        buttons.forEach(btn => btn.classList.remove('active'));
+                        button.classList.add('active');
+                    }
+                });
+            });
+        };
+        toggleActive('game-variant');
+        toggleActive('game-end');
+        toggleActive('audio');
+        toggleActive('question-order');
+        toggleActive('display-questions');
+        toggleActive('final-variant');
+        toggleActive('gameplay-variant');
+
+        // (przycisk PDF – placeholder do podlinkowania)
+        document.getElementById('questions-pdf-btn').addEventListener('click', () => {
+            // jeśli będziesz miał gotowy plik PDF, wstaw tu adres:
+            // window.open('/sciezka/do/karta-pytan.pdf', '_blank');
+            alert('Karta pytań PDF – podlinkuj docelowy plik, gdy będzie gotowy.');
         });
     </script>
 </body>
