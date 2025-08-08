@@ -171,16 +171,19 @@
         const prevQuestionBtn = document.getElementById('prev-question-btn');
         const nextQuestionBtn = document.getElementById('next-question-btn');
         const errorMessage = document.getElementById('error-message');
+        const fullscreenBtn = document.getElementById('fullscreen-btn');
         let currentRoundCount = 3;
         let currentAnswerCount = 4;
         let currentQuestionIndex = 1;
         let questionsData = [];
+
         function updateAnswerInputs() {
             const answerPairs = document.querySelectorAll('.answer-pair');
             answerPairs.forEach((pair, index) => {
                 pair.style.visibility = (index < currentAnswerCount) ? 'visible' : 'hidden';
             });
         }
+
         function updateQuestionView() {
             roundsDisplay.textContent = `Liczba rund: ${currentRoundCount}`;
             questionNumber.textContent = `Pytanie ${currentQuestionIndex}/${currentRoundCount}`;
@@ -199,11 +202,13 @@
             answerInputs.forEach((input, i) => { input.value = (i < q.answers.length) ? q.answers[i] : ''; });
             pointsInputs.forEach((input, i) => { input.value = (i < q.points.length) ? q.points[i] : ''; });
         }
+
         function saveCurrentQuestion() {
             const answers = Array.from(document.querySelectorAll('.answer-input')).slice(0, currentAnswerCount).map(i => i.value);
             const points = Array.from(document.querySelectorAll('.points-input')).slice(0, currentAnswerCount).map(i => i.value);
             questionsData[currentQuestionIndex - 1] = { question: questionInput.value, answers, points };
         }
+
         function validateAllQuestions() {
             errorMessage.textContent = '';
             if (currentRoundCount < 3) {
@@ -234,6 +239,21 @@
             }
             return true;
         }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().then(() => {
+                    fullscreenBtn.textContent = 'Podstawowy ekran';
+                    localStorage.setItem('fullscreen', 'true');
+                }).catch(err => console.error('Error entering fullscreen:', err));
+            } else {
+                document.exitFullscreen().then(() => {
+                    fullscreenBtn.textContent = 'Pełny ekran';
+                    localStorage.setItem('fullscreen', 'false');
+                }).catch(err => console.error('Error exiting fullscreen:', err));
+            }
+        }
+
         prevRoundsBtn.addEventListener('click', () => { if (currentRoundCount > 3) { currentRoundCount--; if (currentQuestionIndex > currentRoundCount) currentQuestionIndex = currentRoundCount; updateQuestionView(); } });
         nextRoundsBtn.addEventListener('click', () => { if (currentRoundCount < 10) { currentRoundCount++; updateQuestionView(); } });
         prevAnswersBtn.addEventListener('click', () => { if (currentAnswerCount > 4) { currentAnswerCount--; updateQuestionView(); } });
@@ -253,44 +273,29 @@
                 }
             }
         });
-        updateQuestionView();
-        const fullscreenBtn = document.getElementById('fullscreen-btn');
-        fullscreenBtn.addEventListener('click', () => {
-            if (!document.fullscreenElement) {
-                document.documentElement.requestFullscreen().then(() => {
-                    fullscreenBtn.textContent = 'Podstawowy ekran';
-                    localStorage.setItem('fullscreen', 'true');
-                }).catch(() => {});
-            } else {
-                document.exitFullscreen().then(() => {
-                    fullscreenBtn.textContent = 'Pełny ekran';
-                    localStorage.setItem('fullscreen', 'false');
-                }).catch(() => {});
-            }
-        });
-        document.addEventListener('fullscreenchange', () => {
-            if (document.fullscreenElement) {
-                fullscreenBtn.textContent = 'Podstawowy ekran';
-                localStorage.setItem('fullscreen', 'true');
-            } else {
-                fullscreenBtn.textContent = 'Pełny ekran';
-                localStorage.setItem('fullscreen', 'false');
-            }
-        });
+
+        fullscreenBtn.addEventListener('click', toggleFullscreen);
+
         window.addEventListener('load', () => {
-            if (localStorage.getItem('fullscreen') === 'true' && !document.fullscreenElement) {
-                document.documentElement.requestFullscreen().catch(() => {});
+            const isFullscreen = localStorage.getItem('fullscreen') === 'true';
+            fullscreenBtn.textContent = isFullscreen ? 'Podstawowy ekran' : 'Pełny ekran';
+            if (isFullscreen && !document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(err => console.error('Error restoring fullscreen:', err));
             }
         });
+
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && document.fullscreenElement) {
                 document.exitFullscreen().then(() => {
                     fullscreenBtn.textContent = 'Pełny ekran';
                     localStorage.setItem('fullscreen', 'false');
-                }).catch(() => {});
+                }).catch(err => console.error('Error exiting fullscreen:', err));
             }
         });
+
         document.getElementById('back-btn').addEventListener('click', () => { window.location.href = 'familiada.html'; });
+
+        updateQuestionView();
     </script>
 </body>
 </html>
