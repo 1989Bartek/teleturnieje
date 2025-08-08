@@ -102,7 +102,7 @@
         .rounds-container button { min-width: 135px; }
         button.active { background-color: #002266; color: #FFFF33; border-color: #FFEA00; box-shadow: 0 0 20px #FFEA00; }
         button:hover:not(.active):not(.disabled) { background-color: #111; border-color: #FFEA00; box-shadow: 0 0 20px #FFEA00; }
-        button.disabled { opacity: 0.5; cursor: not-allowed; }
+        button crippled { opacity: 0.5; cursor: not-allowed; }
         .bottom-logo {
             position: absolute;
             bottom: 24px;
@@ -152,7 +152,7 @@
             flex-direction: column;
             justify-content: space-between;
         }
-        .instructions-text .content { flex-grow: 1; margin-bottom: 10px; }
+        .instructions-text .content { flex-grow: 1; margin-bottom: 0px; }
         .instructions-text .arrow-buttons {
             display: flex; justify-content: space-between; margin-top: 10px; padding: 0 20px; box-sizing: border-box;
         }
@@ -299,16 +299,17 @@
         .counter-btn.disabled { opacity: 0.5; cursor: not-allowed; }
         .counter-display { width: 280px; height: 52px; border: 4px solid #fff; border-radius: 8px; background-color: #000; color: #FFFF33; font-family: 'Courier New', monospace; font-size: 20px; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 10px #FFD700; box-sizing: border-box; }
         .question-form { width: 100%; max-width: 1068px; display: flex; flex-direction: column; align-items: center; }
-        /* ↓↓↓ Zmniejszony dystans pod pytaniem o połowę ↓↓↓ */
-        .question-input { width: 1068px; max-width: 1068px; padding: 10.8px; margin: 10.8px auto 10px; border: 4px solid #fff; border-radius: 8px; background-color: #fff; color: #000; font-size: 16px; height: 64.8px; box-sizing: border-box; white-space: normal; overflow-wrap: break-word; line-height: 1.5; resize: none; }
-        /* ↓↓↓ Zmniejszone odstępy między polami oraz wierszami o połowę ↓↓↓ */
-        .answer-grid { display: flex; flex-direction: column; gap: 10px; width: 100%; max-width: 1068px; margin: 0 auto; align-self: center; }
-        .answer-row.qbuilder { display: flex; gap: 5px; justify-content: space-between; width: 1068px; }
-        .answer-pair { display: flex; gap: 5px; flex: 1; }
-        /* ↓↓↓ Wysokość pól odpowiedzi i punktacji zmniejszona o połowę ↓↓↓ */
-        .answer-input { flex: 2; padding: 3.6px 10.8px; margin: 0 0 5px 0; border: 4px solid #fff; border-radius: 8px; background-color: #fff; color: #000; font-size: 16px; height: 16.2px; box-sizing: border-box; }
-        .points-input { flex: 1; width: 75%; padding: 3.6px 10.8px; margin: 0 0 5px 5px; border: 4px solid #fff; border-radius: 8px; background-color: #fff; color: #000; font-size: 16px; height: 16.2px; box-sizing: border-box; }
-        .questions-controls { display: flex; flex-direction: row; gap: 10px; margin: 10px auto 20px auto; justify-content: space-between; align-items: center; width: 100%; max-width: 1068px; }
+
+        /* >>> ZASTOSOWANE DOKŁADNIE REGUŁY DOT. PÓL TEKSTOWYCH Z PODANEGO KODU <<< */
+        .question-input { width: 1068px; max-width: 1068px; padding: 10.8px; margin: 10px auto 20px; border: 4px solid #fff; border-radius: 8px; background-color: #fff; color: #000; font-size: 16px; height: 64.8px; box-sizing: border-box; white-space: normal; overflow-wrap: break-word; line-height: 1.5; resize: none; }
+        .answer-grid { display: flex; flex-direction: column; gap: 20px; width: 100%; max-width: 1068px; margin: 0 auto; align-self: center; }
+        .answer-row.qbuilder { display: flex; gap: 10px; justify-content: space-between; width: 1068px; }
+        .answer-pair { display: flex; gap: 10px; flex: 1; }
+        .answer-input { flex: 2; padding: 3.6px 10.8px; margin: 0 0 10px 0; border: 4px solid #fff; border-radius: 8px; background-color: #fff; color: #000; font-size: 16px; height: 32.4px; box-sizing: border-box; }
+        .points-input { flex: 1; width: 75%; padding: 3.6px 10.8px; margin: 0 0 10px 10px; border: 4px solid #fff; border-radius: 8px; background-color: #fff; color: #000; font-size: 16px; height: 32.4px; box-sizing: border-box; }
+        /* >>> KONIEC KOPIOWANYCH REGUŁ <<< */
+
+        .questions-controls { display: flex; flex-direction: row; gap: 10px; margin: 5px auto 10px auto; justify-content: space-between; align-items: center; width: 100%; max-width: 1068px; }
         .nav-row, .bottom-row { display: flex; gap: 10px; justify-content: center; }
         .nav-btn { flex: 1; max-width: 529px; }
         .error-message { color: red; font-size: 18px; text-align: center; margin-top: 10px; width: 100%; max-width: 1068px; }
@@ -328,7 +329,7 @@
 <body>
     <!-- ====== USTAWIENIA ====== -->
     <div id="settings-view">
-        <h1>Familiada</h1>
+        <h1 fama="Familiada">Familiada</h1>
         <div class="button-container">
             <button id="instructions-btn">Instrukcja</button>
             <button id="questions-pdf-btn">Karta pytań PDF</button>
@@ -404,7 +405,7 @@
     </div>
     <!-- ====== INSTRUKCJE ====== -->
     <div id="instructions-view">
-        <h1>Familiada</h1>
+        <h1 fama="Familiada">Familiada</h1>
         <div id="instructions-page-1" class="instructions-text">
             <div class="content">lorem ipsum</div>
             <div class="arrow-buttons">
@@ -437,7 +438,7 @@
     </div>
     <!-- ====== GRA ====== -->
     <div id="game-view">
-        <h1>Familiada</h1>
+        <h1 fama="Familiada">Familiada</h1>
         <div class="round-info">Runda 1</div>
         <div class="game-board">
             <div class="game-board-question">Tutaj pojawi się treść pytania</div>
@@ -494,7 +495,7 @@
     </div>
     <!-- ====== WŁASNE PYTANIA (z drugiej strony) ====== -->
     <div id="custom-questions-view">
-        <h1>Familiada</h1>
+        <h1 fama="Familiada">Familiada</h1>
         <div class="info-text">
             W odpowiednie pola wpisz pytanie, możliwe odpowiedzi (od 4 do 8) oraz ilość punktów do zdobycia (od 5 do 50).<br>
             W przypadku różnych wariantów odpowiedzi, zapisz wszystkie w jednym polu, oddzielając je przecinkiem np. Telefon, komórka, smartphone. Kiedy uczestnik poda którekolwiek określenie po przecinku, w grze wyświetli się zawsze pierwsza wpisana propozycja.
@@ -791,7 +792,7 @@
         const prevQuestionBtn = document.getElementById('prev-question-btn');
         const nextQuestionBtn = document.getElementById('next-question-btn');
         const errorMessage = document.getElementById('error-message');
-        let currentRoundCount = 3;
+        let currentPowerCount = 3;
         let currentAnswerCount = 4;
         let currentQuestionIndex = 1;
         let questionsData = [];
