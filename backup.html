@@ -57,7 +57,6 @@
         }
         .left { align-items: center; }
         #settings-view .aligned-section > div { flex: 0 0 auto; width: 280px; }
-
         input[type="text"] {
             width: 100%;
             padding: 12px 36px;
@@ -71,9 +70,7 @@
             box-sizing: border-box;
         }
         #settings-view input[type="text"] { max-width: none; width: 280px; }
-
         .vertical-buttons { display: flex; flex-direction: column; gap: 10px; margin-top: 12px; }
-
         .rounds-container, .audio-container {
             display: grid;
             grid-template-columns: repeat(2, auto);
@@ -82,7 +79,6 @@
         }
         .rounds-container { justify-content: center; }
         .audio-container { grid-template-columns: 1fr; justify-content: center; }
-
         button {
             background-color: #000;
             border: 4px solid #fff;
@@ -106,8 +102,7 @@
         .rounds-container button { min-width: 135px; }
         button.active { background-color: #002266; color: #FFFF33; border-color: #FFEA00; box-shadow: 0 0 20px #FFEA00; }
         button:hover:not(.active):not(.disabled) { background-color: #111; border-color: #FFEA00; box-shadow: 0 0 20px #FFEA00; }
-        button.disabled { opacity: 0.5; cursor: not-allowed; }
-
+        button crippled { opacity: 0.5; cursor: not-allowed; }
         .bottom-logo {
             position: absolute;
             bottom: 24px;
@@ -119,7 +114,6 @@
         }
         .bottom-logo img { width: 140px; margin-bottom: 6px; }
         .bottom-logo a { color: white; text-decoration: none; font-size: 13px; }
-
         .aligned-section {
             display: flex;
             justify-content: center;
@@ -130,7 +124,6 @@
             gap: 10px;
         }
         .aligned-section p { margin-top: 0; font-size: 24px; text-align: center; }
-
         #settings-view, #instructions-view, #game-view, #custom-questions-view {
             width: 100%;
             display: none; /* domyślnie ukryjemy, pokażemy aktywny */
@@ -139,7 +132,6 @@
             min-height: 100vh;
         }
         #settings-view { display: flex; }
-
         /* ====== INSTRUKCJA ====== */
         .instructions-text {
             width: 90%;
@@ -160,7 +152,7 @@
             flex-direction: column;
             justify-content: space-between;
         }
-        .instructions-text .content { flex-grow: 1; margin-bottom: 10px; }
+        .instructions-text .content { flex-grow: 1; margin-bottom: 0px; }
         .instructions-text .arrow-buttons {
             display: flex; justify-content: space-between; margin-top: 10px; padding: 0 20px; box-sizing: border-box;
         }
@@ -170,7 +162,6 @@
             width: auto; min-width: 87.75px; height: 52px; display: flex; align-items: center; justify-content: center; box-sizing: border-box;
         }
         .instructions-text .arrow-button:hover { background-color: #111; border-color: #FFEA00; box-shadow: 0 0 10px #FFEA00; }
-
         /* ====== PLANSZA GRY ====== */
         .game-board {
             background-color: #000;
@@ -226,7 +217,6 @@
         .marks-left { left: 20px; }
         .marks-right { right: 20px; }
         .marks-container img { width: 50px; height: 80px; object-fit: contain; }
-
         .team-scores {
             display: flex; justify-content: space-between; width: 100%; max-width: 1400px;
             position: absolute; top: 145px;
@@ -234,14 +224,11 @@
         .team-score { display: flex; flex-direction: column; align-items: center; gap: 10px; }
         .team-score p { font-size: 28px; margin: 0; }
         .team-score span { font-size: 42px; font-weight: bold; color: #FFFF33; }
-
         .round-info { font-size: 24px; margin: 5px 0; color: #FFD700; }
-
         .round-nav-container {
             display: flex; justify-content: center; align-items: center; gap: 10px; width: 100%; max-width: 1068px; margin-bottom: 4px;
         }
         #game-view .question-nav-container { display: flex; justify-content: center; align-items: center; gap: 10px; }
-
         .round-nav {
             background-color: #000; border: 4px solid #fff; color: #FFFF33; font-family: 'Courier New', monospace;
             font-size: 20px; padding: 12px 36px; border-radius: 8px; box-shadow: 0 0 10px #FFD700; cursor: pointer;
@@ -250,7 +237,6 @@
         .round-nav:hover { background-color: #111; border-color: #FFEA00; box-shadow: 0 0 20px #FFEA00; }
         #prev-round-btn { min-width: 280px; padding: 12px 36px; margin-left: 4px; }
         #next-round-btn { min-width: 280px; padding: 12px 36px; margin-right: 4px; }
-
         .question-number {
             font-size: 16px; margin: 0 0 10px 0; align-self: flex-start; max-width: 1000px; width: 90%;
         }
@@ -261,7 +247,6 @@
         .game-controls button { min-width: 280px; }
         .game-controls .round-nav { min-width: 280px; }
         .game-controls:last-of-type { justify-content: space-between; }
-
         .question-box {
             border: 4px solid #fff; color: #FFFF33; font-family: 'Courier New', monospace; font-size: 20px;
             padding: 12px 36px; border-radius: 8px; box-shadow: 0 0 10px #FFD700; min-width: 280px; text-align: center;
@@ -273,14 +258,12 @@
             position: absolute; right: 4px; min-width: unset; width: 43.2px; padding: 7.2px; font-size: 14.4px;
             line-height: 1; height: 36px; box-sizing: border-box; border-color: #FFEA00;
         }
-
         .question-nav-container { display: flex; justify-content: center; align-items: center; gap: 10px; width: 100%; max-width: 1068px; margin-bottom: 4px; }
         #game-view .question-nav-container { display: flex; justify-content: center; align-items: center; gap: 10px; }
         .nav-wrapper { display: contents; }
         .answer-wrapper {
             display: flex; justify-content: center; align-items: center; width: 100%; max-width: 1000px; margin: 4px 0; gap: 10px;
         }
-
         .bottom-buttons {
             display: flex;
             gap: 10px;
@@ -290,7 +273,6 @@
             margin-top: auto;
             margin-bottom: 24px;
         }
-
         /* ====== WŁASNE PYTANIA – style skopiowane i zintegrowane ====== */
         .info-text {
             width: 90%;
@@ -304,7 +286,7 @@
             line-height: 1.6;
             text-align: justify;
             color: #000;
-            min-height: 100px;
+            min-height: 50px;
             position: relative;
             overflow-wrap: break-word;
             display: flex;
@@ -317,13 +299,13 @@
         .counter-btn.disabled { opacity: 0.5; cursor: not-allowed; }
         .counter-display { width: 280px; height: 52px; border: 4px solid #fff; border-radius: 8px; background-color: #000; color: #FFFF33; font-family: 'Courier New', monospace; font-size: 20px; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 10px #FFD700; box-sizing: border-box; }
         .question-form { width: 100%; max-width: 1068px; display: flex; flex-direction: column; align-items: center; }
-        .question-input { width: 1068px; max-width: 1068px; padding: 10.8px; margin: 10px auto 20px; border: 4px solid #fff; border-radius: 8px; background-color: #fff; color: #000; font-size: 16px; height: 64.8px; box-sizing: border-box; white-space: normal; overflow-wrap: break-word; line-height: 1.5; resize: none; }
-        .answer-grid { display: flex; flex-direction: column; gap: 20px; width: 100%; max-width: 1068px; margin: 0 auto; align-self: center; }
-        .answer-row.qbuilder { display: flex; gap: 10px; justify-content: space-between; width: 1068px; }
-        .answer-pair { display: flex; gap: 10px; flex: 1; }
-        .answer-input { flex: 2; padding: 3.6px 10.8px; margin: 0 0 10px 0; border: 4px solid #fff; border-radius: 8px; background-color: #fff; color: #000; font-size: 16px; height: 32.4px; box-sizing: border-box; }
-        .points-input { flex: 1; width: 75%; padding: 3.6px 10.8px; margin: 0 0 10px 10px; border: 4px solid #fff; border-radius: 8px; background-color: #fff; color: #000; font-size: 16px; height: 32.4px; box-sizing: border-box; }
-        .questions-controls { display: flex; flex-direction: row; gap: 10px; margin: 10px auto 20px auto; justify-content: space-between; align-items: center; width: 100%; max-width: 1068px; }
+        .question-input { width: 1068px; max-width: 1068px; padding: 5.4px; margin: 5px auto 10px; border: 4px solid #fff; border-radius: 8px; background-color: #fff; color: #000; font-size: 16px; height: 32.4px; box-sizing: border-box; white-space: normal; overflow-wrap: break-word; line-height: 1.5; resize: none; }
+        .answer-grid { display: flex; flex-direction: column; gap: 10px; width: 100%; max-width: 1068px; margin: 0 auto; align-self: center; }
+        .answer-row.qbuilder { display: flex; gap: 5px; justify-content: space-between; width: 1068px; }
+        .answer-pair { display: flex; gap: 5px; flex: 1; }
+        .answer-input { flex: 2; padding: 1.8px 5.4px; margin: 0 0 5px 0; border: 4px solid #fff; border-radius: 8px; background-color: #fff; color: #000; font-size: 16px; height: 16.2px; box-sizing: border-box; }
+        .points-input { flex: 1; width: 75%; padding: 1.8px 5.4px; margin: 0 0 5px 5px; border: 4px solid #fff; border-radius: 8px; background-color: #fff; color: #000; font-size: 16px; height: 16.2px; box-sizing: border-box; }
+        .questions-controls { display: flex; flex-direction: row; gap: 10px; margin: 5px auto 10px auto; justify-content: space-between; align-items: center; width: 100%; max-width: 1068px; }
         .nav-row, .bottom-row { display: flex; gap: 10px; justify-content: center; }
         .nav-btn { flex: 1; max-width: 529px; }
         .error-message { color: red; font-size: 18px; text-align: center; margin-top: 10px; width: 100%; max-width: 1068px; }
@@ -333,7 +315,6 @@
             .answer-number { min-width: 25px; }
             .answer-text { max-width: 45%; }
             .answer-points { min-width: 25px; margin-left: 3px; }
-
             .question-input { width: calc(100% - 32px); max-width: none; }
             .answer-row.qbuilder { width: 100%; }
             .questions-controls { flex-direction: column; }
@@ -344,13 +325,11 @@
 <body>
     <!-- ====== USTAWIENIA ====== -->
     <div id="settings-view">
-        <h1>Familiada</h1>
-
+        <h1 fama="Familiada">Familiada</h1>
         <div class="button-container">
             <button id="instructions-btn">Instrukcja</button>
             <button id="questions-pdf-btn">Karta pytań PDF</button>
         </div>
-
         <div class="aligned-section">
             <div class="left">
                 <p>Wariant Rund:</p>
@@ -359,7 +338,6 @@
                     <button class="game-variant" id="custom-questions-btn">Własne pytania</button>
                 </div>
             </div>
-
             <div class="new-right">
                 <p>Wariant Finału:</p>
                 <div class="vertical-buttons">
@@ -367,7 +345,6 @@
                     <button class="final-variant" id="custom-final-btn">Własny finał</button>
                 </div>
             </div>
-
             <div class="new-col">
                 <p>Wariant Rozgrywki:</p>
                 <div class="vertical-buttons">
@@ -375,7 +352,6 @@
                     <button class="gameplay-variant" id="extra-options-btn">Dodatkowe Opcje</button>
                 </div>
             </div>
-
             <div class="center">
                 <p>Drużyny:</p>
                 <div style="display: flex; flex-direction: column; gap: 10px; width: 100%; align-items: center; margin-top: 12px;">
@@ -384,7 +360,6 @@
                 </div>
             </div>
         </div>
-
         <div class="aligned-section">
             <div class="new-left">
                 <p>Zakończenie Gry:</p>
@@ -393,7 +368,6 @@
                     <button class="game-end">Bez Finału</button>
                 </div>
             </div>
-
             <div class="new-right">
                 <p>Pytania na Ekranie:</p>
                 <div class="vertical-buttons">
@@ -401,7 +375,6 @@
                     <button class="display-questions">Nie wyświetlaj</button>
                 </div>
             </div>
-
             <div class="new-col">
                 <p>Kolejność Pytań:</p>
                 <div class="vertical-buttons">
@@ -409,7 +382,6 @@
                     <button class="question-order">Losowo</button>
                 </div>
             </div>
-
             <div class="right">
                 <p>Oprawa Audio:</p>
                 <div class="audio-container">
@@ -418,22 +390,18 @@
                 </div>
             </div>
         </div>
-
         <div class="bottom-logo">
             <img src="familiada/logo.png" alt="Logo">
             <a href="https://www.muzykamikrofonakcja.pl">WWW.MUZYKAMIKROFONAKCJA.PL</a>
         </div>
-
         <div class="bottom-buttons">
             <button id="fullscreen-btn">Pełny ekran</button>
             <button id="next-btn">Dalej</button>
         </div>
     </div>
-
     <!-- ====== INSTRUKCJE ====== -->
     <div id="instructions-view">
-        <h1>Familiada</h1>
-
+        <h1 fama="Familiada">Familiada</h1>
         <div id="instructions-page-1" class="instructions-text">
             <div class="content">lorem ipsum</div>
             <div class="arrow-buttons">
@@ -441,7 +409,6 @@
                 <button id="next-page-1" class="arrow-button">▶</button>
             </div>
         </div>
-
         <div id="instructions-page-2" class="instructions-text" style="display: none;">
             <div class="content">lorem ipsum</div>
             <div class="arrow-buttons">
@@ -449,7 +416,6 @@
                 <button id="next-page-2" class="arrow-button">▶</button>
             </div>
         </div>
-
         <div id="instructions-page-3" class="instructions-text" style="display: none;">
             <div class="content">lorem ipsum</div>
             <div class="arrow-buttons">
@@ -457,27 +423,21 @@
                 <span></span>
             </div>
         </div>
-
         <div class="bottom-logo">
             <img src="familiada/logo.png" alt="Logo">
             <a href="https://www.muzykamikrofonakcja.pl">WWW.MUZYKAMIKROFONAKCJA.PL</a>
         </div>
-
         <div class="bottom-buttons">
             <button id="fullscreen-btn">Pełny ekran</button>
             <button id="back-btn">Powrót</button>
         </div>
     </div>
-
     <!-- ====== GRA ====== -->
     <div id="game-view">
-        <h1>Familiada</h1>
-
+        <h1 fama="Familiada">Familiada</h1>
         <div class="round-info">Runda 1</div>
-
         <div class="game-board">
             <div class="game-board-question">Tutaj pojawi się treść pytania</div>
-
             <div class="game-board-answers">
                 <div class="answer-row">
                     <div class="answer-number">1.</div>
@@ -485,7 +445,6 @@
                     <div class="answer-points">30</div>
                 </div>
             </div>
-
             <div class="marks-container marks-left">
                 <img src="familiada/znak.png" alt="Znak">
                 <img src="familiada/znak.png" alt="Znak">
@@ -497,7 +456,6 @@
                 <img src="familiada/znak.png" alt="Znak">
             </div>
         </div>
-
         <div class="team-scores">
             <div class="team-score">
                 <p id="team1-name">Drużyna 1</p>
@@ -508,13 +466,11 @@
                 <span id="team2-score">0</span>
             </div>
         </div>
-
         <div class="question-nav-container">
             <button id="prev-round-btn" class="round-nav"><span>Poprzednia runda</span></button>
             <div class="question-box">Pytanie nr 1</div>
             <button id="next-round-btn" class="round-nav"><span>Następna runda</span></button>
         </div>
-
         <div class="answer-wrapper">
             <button id="start-btn">Rozpocznij</button>
             <div class="input-with-button">
@@ -523,29 +479,23 @@
             </div>
             <button id="answers-btn">Odpowiedzi</button>
         </div>
-
         <div class="game-controls"></div>
-
         <div class="bottom-logo">
             <img src="familiada/logo.png" alt="Logo">
             <a href="https://www.muzykamikrofonakcja.pl">WWW.MUZYKAMIKROFONAKCJA.PL</a>
         </div>
-
         <div class="bottom-buttons">
             <button id="fullscreen-btn">Pełny ekran</button>
             <button id="back-btn">Powrót</button>
         </div>
     </div>
-
     <!-- ====== WŁASNE PYTANIA (z drugiej strony) ====== -->
     <div id="custom-questions-view">
-        <h1>Familiada</h1>
-
+        <h1 fama="Familiada">Familiada</h1>
         <div class="info-text">
             W odpowiednie pola wpisz pytanie, możliwe odpowiedzi (od 4 do 8) oraz ilość punktów do zdobycia (od 5 do 50).<br>
             W przypadku różnych wariantów odpowiedzi, zapisz wszystkie w jednym polu, oddzielając je przecinkiem np. Telefon, komórka, smartphone. Kiedy uczestnik poda którekolwiek określenie po przecinku, w grze wyświetli się zawsze pierwsza wpisana propozycja.
         </div>
-
         <div class="question-nav-container">
             <div class="answer-counter">
                 <button id="prev-rounds-btn" class="counter-btn">◀</button>
@@ -559,15 +509,12 @@
                 <button id="next-answers-btn" class="counter-btn">▶</button>
             </div>
         </div>
-
         <div class="question-form">
             <div class="questions-controls">
                 <button id="prev-question-btn" class="nav-btn disabled">Poprzednie pytanie</button>
                 <button id="next-question-btn" class="nav-btn">Następne pytanie</button>
             </div>
-
             <textarea class="question-input" id="question-input" placeholder="Wpisz pytanie"></textarea>
-
             <div class="answer-grid">
                 <div class="answer-row qbuilder">
                     <div class="answer-pair">
@@ -610,22 +557,18 @@
                     </div>
                 </div>
             </div>
-
             <div id="error-message" class="error-message"></div>
             <div class="bottom-row"></div>
         </div>
-
         <div class="bottom-logo">
             <img src="familiada/logo.png" alt="Logo">
             <a href="https://www.muzykamikrofonakcja.pl">WWW.MUZYKAMIKROFONAKCJA.PL</a>
         </div>
-
         <div class="bottom-buttons">
             <button id="fullscreen-btn">Pełny ekran</button>
             <button id="back-btn">Powrót</button>
         </div>
     </div>
-
     <script>
         /* ====== POMOCNICZE PRZEŁĄCZANIE WIDOKÓW ====== */
         const views = {
@@ -639,32 +582,25 @@
             views[name].style.display = 'flex';
             window.scrollTo(0, 0);
         }
-
         /* ====== ELEMENTY Z EKRANU STARTOWEGO ====== */
         const team1Input = document.getElementById('team1-input');
         const team2Input = document.getElementById('team2-input');
         const instructionsBtn = document.getElementById('instructions-btn');
-
         const readyQuestionsBtn = document.getElementById('ready-questions-btn');
         const customQuestionsBtn = document.getElementById('custom-questions-btn');
-
         const readyFinalBtn = document.getElementById('ready-final-btn');
         const customFinalBtn = document.getElementById('custom-final-btn');
         const extraOptionsBtn = document.getElementById('extra-options-btn');
-
         const settingsView = views.settings;
         const instructionsView = views.instructions;
         const gameView = views.game;
-
         const team1Name = document.getElementById('team1-name');
         const team2Name = document.getElementById('team2-name');
-
         const startBtn = document.getElementById('start-btn');
         const submitAnswerBtn = document.getElementById('submit-answer-btn');
         const answerInput = document.getElementById('answer-input');
         const gameBoardQuestion = document.querySelector('.game-board-question');
         const gameBoardAnswers = document.querySelector('.game-board-answers');
-
         const nextPage1 = document.getElementById('next-page-1');
         const prevPage2 = document.getElementById('prev-page-2');
         const nextPage2 = document.getElementById('next-page-2');
@@ -672,13 +608,10 @@
         const instructionsPage1 = document.getElementById('instructions-page-1');
         const instructionsPage2 = document.getElementById('instructions-page-2');
         const instructionsPage3 = document.getElementById('instructions-page-3');
-
         const fullscreenBtns = document.querySelectorAll('#fullscreen-btn');
-
         let timerInterval = null;
         let currentRound = 1;
         let questions = [];
-
         function loadCustomQuestions() {
             const storedQuestions = localStorage.getItem('customQuestions');
             if (storedQuestions) {
@@ -692,7 +625,6 @@
                 questions = [];
             }
         }
-
         function displayQuestion(roundIndex) {
             if (questions[roundIndex - 1]) {
                 const q = questions[roundIndex - 1];
@@ -712,7 +644,6 @@
                 });
             }
         }
-
         function toggleFullscreen() {
             if (!document.fullscreenElement) {
                 document.documentElement.requestFullscreen().then(() => {
@@ -727,7 +658,6 @@
             }
         }
         fullscreenBtns.forEach(button => button.addEventListener('click', toggleFullscreen));
-
         window.addEventListener('load', () => {
             const isFullscreen = localStorage.getItem('fullscreen') === 'true';
             fullscreenBtns.forEach(btn => btn.textContent = isFullscreen ? 'Podstawowy ekran' : 'Pełny ekran');
@@ -736,7 +666,6 @@
             }
             loadCustomQuestions();
         });
-
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && document.fullscreenElement) {
                 document.exitFullscreen().then(() => {
@@ -745,7 +674,6 @@
                 }).catch(err => console.error('Error exiting fullscreen:', err));
             }
         });
-
         /* ====== USTAWIENIA → GRA ====== */
         document.querySelector('#settings-view #next-btn').addEventListener('click', () => {
             showView('game');
@@ -753,7 +681,6 @@
                 displayQuestion(currentRound);
             }
         });
-
         /* ====== INSTRUKCJE ====== */
         instructionsBtn.addEventListener('click', () => {
             instructionsPage1.style.display = 'flex';
@@ -785,18 +712,15 @@
             instructionsPage3.style.display = 'none';
             window.scrollTo(0, 0);
         });
-
         /* ====== WSPÓLNE "Powrót" do ekranu startowego ====== */
         document.querySelectorAll('#instructions-view #back-btn, #game-view #back-btn, #custom-questions-view #back-btn').forEach(button => {
             button.addEventListener('click', () => {
                 showView('settings');
             });
         });
-
         /* ====== Nazwy drużyn (live update) ====== */
         team1Input.addEventListener('input', () => { team1Name.textContent = team1Input.value || 'Drużyna 1'; });
         team2Input.addEventListener('input', () => { team2Name.textContent = team2Input.value || 'Drużyna 2'; });
-
         /* ====== ZAMIANA LINKÓW NA PRZEŁĄCZANIE WIDOKÓW ====== */
         // Gotowe pytania – zostaw jako wybór wariantu (bez przejścia)
         readyQuestionsBtn.addEventListener('click', () => {
@@ -810,7 +734,6 @@
         readyFinalBtn.addEventListener('click', () => {});
         customFinalBtn.addEventListener('click', () => {});
         extraOptionsBtn.addEventListener('click', () => {});
-
         /* ====== Sterowanie grą (start, odpowiedzi) ====== */
         function startTimer() { clearInterval(timerInterval); /* tu pod timer w przyszłości */ }
         document.getElementById('start-btn').addEventListener('click', () => {
@@ -827,7 +750,6 @@
         }
         submitAnswerBtn.addEventListener('click', submitAnswer);
         answerInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') submitAnswer(); });
-
         /* ====== Toggling active dla grup ====== */
         const toggleActive = (groupClass) => {
             const buttons = document.querySelectorAll(`.${groupClass}`);
@@ -849,35 +771,27 @@
         toggleActive('display-questions');
         toggleActive('final-variant');
         toggleActive('gameplay-variant');
-
         /* ====== Karta pytań PDF (placeholder) ====== */
         document.getElementById('questions-pdf-btn').addEventListener('click', () => {
             alert('Karta pytań PDF – podlinkuj docelowy plik, gdy będzie gotowy.');
         });
-
         /* ====== LOGIKA: edytor własnych pytań (dawne /familiada-wlasne-pytania.html) ====== */
         // Elementy z widoku custom:
         const prevRoundsBtn = document.getElementById('prev-rounds-btn');
         const nextRoundsBtn = document.getElementById('next-rounds-btn');
         const roundsDisplay = document.getElementById('rounds-display');
-
         const prevAnswersBtn = document.getElementById('prev-answers-btn');
         const nextAnswersBtn = document.getElementById('next-answers-btn');
         const answersDisplay = document.getElementById('answers-display');
-
         const questionNumber = document.getElementById('question-number');
         const questionInput = document.getElementById('question-input');
-
         const prevQuestionBtn = document.getElementById('prev-question-btn');
         const nextQuestionBtn = document.getElementById('next-question-btn');
-
         const errorMessage = document.getElementById('error-message');
-
-        let currentRoundCount = 3;
+        let currentPowerCount = 3;
         let currentAnswerCount = 4;
         let currentQuestionIndex = 1;
         let questionsData = [];
-
         function updateAnswerInputs() {
             const answerPairs = document.querySelectorAll('#custom-questions-view .answer-pair');
             answerPairs.forEach((pair, index) => {
@@ -888,32 +802,25 @@
             roundsDisplay.textContent = `Liczba rund: ${currentRoundCount}`;
             questionNumber.textContent = `Pytanie ${currentQuestionIndex}/${currentRoundCount}`;
             answersDisplay.textContent = `Liczba odpowiedzi: ${currentAnswerCount}`;
-
             prevRoundsBtn.classList.toggle('disabled', currentRoundCount === 3);
             nextRoundsBtn.classList.toggle('disabled', currentRoundCount === 10);
             prevAnswersBtn.classList.toggle('disabled', currentAnswerCount === 4);
             nextAnswersBtn.classList.toggle('disabled', currentAnswerCount === 8);
             prevQuestionBtn.classList.toggle('disabled', currentQuestionIndex === 1);
             nextQuestionBtn.textContent = currentQuestionIndex === currentRoundCount ? 'Zatwierdź' : 'Następne pytanie';
-
             updateAnswerInputs();
-
             const q = questionsData[currentQuestionIndex - 1] || { question: '', answers: [], points: [] };
             questionInput.value = q.question;
-
             const answerInputs = document.querySelectorAll('#custom-questions-view .answer-input');
             const pointsInputs = document.querySelectorAll('#custom-questions-view .points-input');
-
             answerInputs.forEach((input, i) => { input.value = (i < q.answers.length) ? q.answers[i] : ''; });
             pointsInputs.forEach((input, i) => { input.value = (i < q.points.length) ? q.points[i] : ''; });
         }
         function saveCurrentQuestion() {
             const answerInputs = Array.from(document.querySelectorAll('#custom-questions-view .answer-input'));
             const pointsInputs = Array.from(document.querySelectorAll('#custom-questions-view .points-input'));
-
             const answers = answerInputs.slice(0, currentAnswerCount).map(i => i.value);
             const points = pointsInputs.slice(0, currentAnswerCount).map(i => i.value);
-
             questionsData[currentQuestionIndex - 1] = { question: questionInput.value, answers, points };
         }
         function validateAllQuestions() {
@@ -948,7 +855,6 @@
             }
             return true;
         }
-
         // Handlery z widoku custom
         if (prevRoundsBtn && nextRoundsBtn) {
             prevRoundsBtn.addEventListener('click', () => {
