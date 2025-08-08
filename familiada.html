@@ -468,15 +468,18 @@
         const instructionsPage1 = document.getElementById('instructions-page-1');
         const instructionsPage2 = document.getElementById('instructions-page-2');
         const instructionsPage3 = document.getElementById('instructions-page-3');
+        const fullscreenBtn = document.querySelectorAll('#fullscreen-btn');
         let timerInterval = null;
         let currentRound = 1;
         let questions = [];
+
         function loadCustomQuestions() {
             const storedQuestions = localStorage.getItem('customQuestions');
             if (storedQuestions) {
                 questions = JSON.parse(storedQuestions);
             }
         }
+
         function displayQuestion(roundIndex) {
             if (questions[roundIndex - 1]) {
                 gameBoardQuestion.textContent = questions[roundIndex - 1].question;
@@ -493,44 +496,43 @@
                 });
             }
         }
-        document.querySelectorAll('#fullscreen-btn').forEach(button => {
-            button.addEventListener('click', () => {
-                if (!document.fullscreenElement) {
-                    document.documentElement.requestFullscreen().then(() => {
-                        document.querySelectorAll('#fullscreen-btn').forEach(btn => { btn.textContent = 'Podstawowy ekran'; });
-                        localStorage.setItem('fullscreen', 'true');
-                    }).catch(err => console.error('Error entering fullscreen:', err));
-                } else {
-                    document.exitFullscreen().then(() => {
-                        document.querySelectorAll('#fullscreen-btn').forEach(btn => { btn.textContent = 'Pełny ekran'; });
-                        localStorage.setItem('fullscreen', 'false');
-                    }).catch(err => console.error('Error exiting fullscreen:', err));
-                }
-            });
-        });
-        document.addEventListener('fullscreenchange', () => {
-            if (document.fullscreenElement) {
-                document.querySelectorAll('#fullscreen-btn').forEach(btn => { btn.textContent = 'Podstawowy ekran'; });
-                localStorage.setItem('fullscreen', 'true');
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().then(() => {
+                    fullscreenBtn.forEach(btn => btn.textContent = 'Podstawowy ekran');
+                    localStorage.setItem('fullscreen', 'true');
+                }).catch(err => console.error('Error entering fullscreen:', err));
             } else {
-                document.querySelectorAll('#fullscreen-btn').forEach(btn => { btn.textContent = 'Pełny ekran'; });
-                localStorage.setItem('fullscreen', 'false');
+                document.exitFullscreen().then(() => {
+                    fullscreenBtn.forEach(btn => btn.textContent = 'Pełny ekran');
+                    localStorage.setItem('fullscreen', 'false');
+                }).catch(err => console.error('Error exiting fullscreen:', err));
             }
+        }
+
+        fullscreenBtn.forEach(button => {
+            button.addEventListener('click', toggleFullscreen);
         });
+
         window.addEventListener('load', () => {
-            if (localStorage.getItem('fullscreen') === 'true' && !document.fullscreenElement) {
-                document.documentElement.requestFullscreen().catch(() => {});
+            const isFullscreen = localStorage.getItem('fullscreen') === 'true';
+            fullscreenBtn.forEach(btn => btn.textContent = isFullscreen ? 'Podstawowy ekran' : 'Pełny ekran');
+            if (isFullscreen && !document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(err => console.error('Error restoring fullscreen:', err));
             }
             loadCustomQuestions();
         });
+
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && document.fullscreenElement) {
                 document.exitFullscreen().then(() => {
-                    document.querySelectorAll('#fullscreen-btn').forEach(btn => { btn.textContent = 'Pełny ekran'; });
+                    fullscreenBtn.forEach(btn => btn.textContent = 'Pełny ekran');
                     localStorage.setItem('fullscreen', 'false');
                 }).catch(err => console.error('Error exiting fullscreen:', err));
             }
         });
+
         document.querySelector('#settings-view #next-btn').addEventListener('click', () => {
             settingsView.style.display = 'none';
             gameView.style.display = 'flex';
@@ -539,6 +541,7 @@
                 displayQuestion(currentRound);
             }
         });
+
         instructionsBtn.addEventListener('click', () => {
             settingsView.style.display = 'none';
             instructionsView.style.display = 'flex';
@@ -547,30 +550,35 @@
             instructionsPage3.style.display = 'none';
             window.scrollTo(0, 0);
         });
+
         nextPage1.addEventListener('click', () => {
             instructionsPage1.style.display = 'none';
             instructionsPage2.style.display = 'flex';
             instructionsPage3.style.display = 'none';
             window.scrollTo(0, 0);
         });
+
         prevPage2.addEventListener('click', () => {
             instructionsPage1.style.display = 'flex';
             instructionsPage2.style.display = 'none';
             instructionsPage3.style.display = 'none';
             window.scrollTo(0, 0);
         });
+
         nextPage2.addEventListener('click', () => {
             instructionsPage1.style.display = 'none';
             instructionsPage2.style.display = 'none';
             instructionsPage3.style.display = 'flex';
             window.scrollTo(0, 0);
         });
+
         prevPage3.addEventListener('click', () => {
             instructionsPage1.style.display = 'none';
             instructionsPage2.style.display = 'flex';
             instructionsPage3.style.display = 'none';
             window.scrollTo(0, 0);
         });
+
         document.querySelectorAll('#instructions-view #back-btn, #game-view #back-btn').forEach(button => {
             button.addEventListener('click', () => {
                 settingsView.style.display = 'flex';
@@ -579,19 +587,24 @@
                 window.scrollTo(0, 0);
             });
         });
+
         team1Input.addEventListener('input', () => { team1Name.textContent = team1Input.value || 'Drużyna 1'; });
         team2Input.addEventListener('input', () => { team2Name.textContent = team2Input.value || 'Drużyna 2'; });
+
         readyQuestionsBtn.addEventListener('click', () => { window.location.href = '/familiada-gotowe-pytania.html'; });
         customQuestionsBtn.addEventListener('click', () => { window.location.href = '/familiada-wlasne-pytania.html'; });
         readyFinalBtn.addEventListener('click', () => { window.location.href = '/familiada-gotowy-final.html'; });
         customFinalBtn.addEventListener('click', () => { window.location.href = '/familiada-wlasny-final.html'; });
         extraOptionsBtn.addEventListener('click', () => { window.location.href = '/familiada-dodatkowe-opcje.html'; });
+
         function startTimer() { clearInterval(timerInterval); }
+
         document.getElementById('start-btn').addEventListener('click', () => {
             gameBoardQuestion.style.display = 'block';
             gameBoardAnswers.style.display = 'flex';
             startTimer();
         });
+
         function submitAnswer() {
             const answer = answerInput.value.trim();
             if (answer) {
@@ -599,8 +612,10 @@
                 answerInput.value = '';
             }
         }
+
         submitAnswerBtn.addEventListener('click', submitAnswer);
         answerInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') submitAnswer(); });
+
         const toggleActive = (groupClass) => {
             const buttons = document.querySelectorAll(`.${groupClass}`);
             buttons.forEach(button => {
@@ -614,6 +629,7 @@
                 });
             });
         };
+
         toggleActive('game-variant');
         toggleActive('game-end');
         toggleActive('audio');
@@ -621,6 +637,7 @@
         toggleActive('display-questions');
         toggleActive('final-variant');
         toggleActive('gameplay-variant');
+
         document.getElementById('questions-pdf-btn').addEventListener('click', () => {
             alert('Karta pytań PDF – podlinkuj docelowy plik, gdy będzie gotowy.');
         });
